@@ -85,3 +85,7 @@ body {
     grid-area: B1;
 }
 
+#frame3{
+    margin-left: 50px;
+    justify-content: center;
+}
