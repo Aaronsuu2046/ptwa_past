@@ -1,0 +1,87 @@
+body {
+    width: 100vw;
+    display: grid;
+    background-color: #fcf2ee;
+    grid-template-rows: 10% 90%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    grid-template-areas: 
+    "L1 H1 H1 H1"
+    "L1 B1 B1 B1"
+    "L1 B1 B1 B1"
+    "L1 B1 B1 B1";
+}
+
+.main-nav{
+    width: 200px;
+    height:500px;
+    background-color: #48807d;
+    margin-top: 50px;
+    margin-left: 80px;
+    font-size: 20px; 
+    grid-area: L1;
+    text-align: center;
+    cursor: pointer;
+}
+.main-nav a {
+    color: wheat;
+    display: block;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-decoration: none;
+    border-top: 1px dashed antiquewhite;
+}
+.main-nav > ul{
+    text-align: center;
+    margin: auto;
+    margin-left: -10px;
+    list-style: none; 
+    display: block;
+}
+.menu-item {
+    margin-right: 10%;
+    margin-left: -10%;
+}
+.sub-menu {
+    display: none;
+    position: relative;
+    width: 150px;
+    background-color: rgb(163, 94, 24);
+    text-align: center;
+    left: 100px;
+    list-style: none; 
+}
+.menu-item:hover .sub-menu{
+    display: block;
+    color: black; 
+    transform: scale(1); 
+}
+
+/* header */
+
+
+.main-header{
+    width: 550px;
+    margin-left: 45%;
+    grid-area: H1;
+}
+
+.main-header .container{
+    display: flex;
+    margin: 2px;
+    height: 50px;
+    max-width: 100%;
+    background-color: #fcf2ee;
+    
+}
+#main-head-nav a{
+    font-size: 20px;
+    margin:0 20px 5px;
+    text-decoration: none;
+    
+}
+
+.body-container{
+    grid-area: B1;
+}
+
