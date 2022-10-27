@@ -1,0 +1,81 @@
+body {
+  width: 550px;
+  height: 800px;
+  display: flex;
+  margin-left: 10%;
+  margin-right: 10%;
+  font-family: '微軟正黑體';
+}
+
+#canvas1{
+    border: 5px solid black;
+    width: 550px;
+    height: 350px;
+    cursor: none;
+    border-radius: 6px;
+    border-color: #003D79;
+}
+.cursor{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 350;
+  right: auto;  
+}    
+.levelBtn{
+  background-color: 	#003D79;
+  color: 		#BEBEBE;
+  width: 82px;
+  height: 55px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 20px;
+  margin-top: 10px;
+  margin-right: 8px;
+  transition: transform .2s;
+  transition: all .3s linear;
+}
+#startBtn{
+  background-color: #003D79;
+  color: 		#BEBEBE;
+  width: 360px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: 600;
+  position: relative;
+  border: none;
+  border-radius: 20px;
+  transition: transform .2s;
+  transition: all .3s linear;
+}
+#resultBtn {
+  background-color: #003D79;
+  color: 	#BEBEBE;
+  width: 180px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: 600;
+  position: relative;
+  border: none;
+  border-radius: 20px;
+  margin-left: 10px;
+  transition: all .3s linear;
+}
+
+.levelBtn:hover {
+  color: #003D79;
+  background-color: #BEBEBE;
+}
+
+#startBtn:hover {
+  color: #003D79;
+  background-color: #BEBEBE;
+}
+
+#resultBtn:hover{
+  color: #003D79;
+  background-color: #BEBEBE;
+}
+
+
