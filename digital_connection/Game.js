@@ -1,9 +1,10 @@
-// game variables
+// game view variables
 CANVAS_WIDTH = 600;
 CANVAS_HEIGHT = 400;
-BG_PATH = "./asset/image/bg001.png";
+IMAGE_PATH = "./asset/image/";
+BG_PATH = IMAGE_PATH + "bg001.png";
 FONT_STYLE = "bold 35px Courier";
-BLACK = "black";
+BLACK = "#000000";
 BLUE = "#48807d";
 
 // game view setting
@@ -22,10 +23,10 @@ let correct = 0;
 let mistake = 0;
 let gameFrame = 0;
 const startBtn = document.getElementById('startBtn')
+let gestures = [];
 
 function startScreen(){
     ctx.fillStyle = BLUE;
-    ctx.drawImage(background, 0,0);
     ctx.fillText('準備好了嗎?', 215, canvas.height/2);
     requestAnimationFrame(startScreen);
 }
@@ -40,9 +41,19 @@ const npc = new Npc();
 
 function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(background, -1, 0);
-    ctx.fillText('將數字連上正確的手勢吧！', 65, 52);
     npc.draw();
+    ctx.fillText('將數字連上正確的手勢吧！', 65, 52);
+    let x = 450;
+    let y = 70;
+    for (let i = 1; i < 6; i++){
+        path = IMAGE_PATH + "ans_" + i + ".jpg";
+        gesture = new Gesture(x, y, path);
+        y += gesture.height + 10;
+        gestures.push(gesture);
+    }
+    gestures.forEach(gesture => {
+        gesture.draw();
+    });
     gameFrame++;
     requestAnimationFrame(animate);
 }
@@ -50,7 +61,7 @@ function animate(){
 function level1 (){
     const startBtn = document.getElementById('startBtn');
     startBtn.addEventListener('click', function(){
-        checkAnswer();
+        // checkAnswer();
         // update game
     });
 }
