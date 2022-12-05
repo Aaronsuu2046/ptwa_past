@@ -11,6 +11,7 @@ let score = 0;
 let gameFrame = 0;
 ctx.font = "bold 35px Courier";
 ctx.fillStyle = 'black';
+const startBtn = document.getElementById('startBtn')
 
 function startScreen(){
     ctx.fillStyle = "#48807d";
@@ -20,44 +21,18 @@ function startScreen(){
 }
 startScreen();
 
-const startBtn = document.getElementById('startBtn')
 startBtn.addEventListener('click', (e) => {
     console.log(e);
     animate();
 })
 
-let fishArray = [];
-for (let i = 0; i < numberOfFishes; i++){
-    fishArray.push(new Fish());
-    console.log(fishArray.length);
-}
-
 const npc = new Npc();
-
-// function getRandom(min, max){
-//     return  Math.floor(Math.random() * max-min) +1;
-// }
-
-
-// class HandleGameTime {
-//     constructor(){
-//         this.gameTime = 0;
-//         this.limitTime = 3000;
-//     }
-//     update(){
-//         this.gameTime
-//     }
-// }
 
 function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(background, -1, 0);
-    ctx.fillText('總共有幾隻蜜蜂呢?', 65, 52);
+    ctx.fillText('將數字連上正確的手勢吧！', 65, 52);
     npc.draw();
-    fishArray.forEach(fish => {
-        fish.update();
-        fish.draw();
-    });
     gameFrame++;
     requestAnimationFrame(animate);
 }
@@ -66,17 +41,7 @@ function level1 (){
     const startBtn = document.getElementById('startBtn');
     startBtn.addEventListener('click', function(){
         checkAnswer();
-        fishArray.splice(0);
-        numberOfFishes = 3;    
-        for (let i = 0; i < numberOfFishes; i++){
-            fishArray.push(new Fish());
-            console.log(fishArray.length);
-        }
-        console.log(fishArray);
-        fishArray.forEach(fish => {
-            fish.update();
-            fish.draw();
-        });
+        // update game
     });
 }
 level1();
@@ -102,22 +67,9 @@ function checkAnswer(){
 function level2 (){
     const nextLevelBtn = document.getElementById('nextLevel');
     nextLevelBtn.addEventListener('click', function(){
-        fishArray.splice(0);
-        numberOfFishes = 5;    
-        for (let i = 0; i < numberOfFishes; i++){
-            fishArray.push(new Fish());
-            console.log(fishArray.length);
-        }
-        console.log(fishArray);
-        fishArray.forEach(fish => {
-            fish.update();
-            fish.draw();
-        
-        });
    
-    nextLevelBtn.removeEventListener('click', nextLevelBtn, true);
+        nextLevelBtn.removeEventListener('click', nextLevelBtn, true);
     });
-    
 }
 level2();
 
