@@ -1,20 +1,30 @@
+// game variables
+CANVAS_WIDTH = 600;
+CANVAS_HEIGHT = 400;
+BG_PATH = "./asset/image/bg001.png";
+FONT_STYLE = "bold 35px Courier";
+BLACK = "black";
+BLUE = "#48807d";
+
+// game view setting
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
-canvas.width = 600;
-canvas.height = 400;
+canvas.width = CANVAS_WIDTH;
+canvas.height = CANVAS_HEIGHT;
 const background = new Image();
-background.src = "./asset/bg001.png"
+background.src = BG_PATH;
+ctx.font = FONT_STYLE;
+ctx.fillStyle = BLACK;
 
-let numberOfFishes = 3;
-
+// game variables
 let score = 0;
+let correct = 0;
+let mistake = 0;
 let gameFrame = 0;
-ctx.font = "bold 35px Courier";
-ctx.fillStyle = 'black';
 const startBtn = document.getElementById('startBtn')
 
 function startScreen(){
-    ctx.fillStyle = "#48807d";
+    ctx.fillStyle = BLUE;
     ctx.drawImage(background, 0,0);
     ctx.fillText('準備好了嗎?', 215, canvas.height/2);
     requestAnimationFrame(startScreen);

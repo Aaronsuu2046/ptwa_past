@@ -1,7 +1,7 @@
 class Fish {
     constructor(){
         this.image = new Image();
-        this.image.src = './asset/bee.png';
+        this.image.src = './asset/image/bee.png';
         this.spriteWidth = 470;
         this.spriteHeight = 375;
         this.width = this.spriteHeight/5;
