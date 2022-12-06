@@ -25,7 +25,8 @@ let gameFrame = 0;
 const startBtn = document.getElementById('startBtn')
 let gestures = [];
 let numbers = [];
-let points = [];
+let topic_points = [];
+let ans_points = [];
 
 function startScreen(){
     ctx.fillStyle = BLUE;
@@ -61,28 +62,26 @@ function draw_view() {
     for (let i = 0; i < 5; i++){
         gestures[i].draw();
         numbers[i].draw();
+        topic_points[i].draw();
+        ans_points[i].draw();
     }
-    points.forEach(point =>{
-        point.draw();
-        }
-    );
 }
 
 function create_ans(i, y){
     path = IMAGE_PATH + "ans_" + i + ".jpg";
     gesture = new Gesture(450, y, path);
     gestures.push(gesture);
-    create_point(i, gesture.x-50, gesture.y+25);
+    create_point(i, gesture.x-50, gesture.y+25, ans_points);
 }
 function create_topic(i, y){
     y += 40;
     number = new Number(i, 50, y, BLACK, 40, true);
     numbers.push(number);
-    create_point(i, number.x+50, number.y-10);
+    create_point(i, number.x+50, number.y-10, topic_points);
 }
-function create_point(ans, x, y){
+function create_point(ans, x, y, group){
     point = new Point(ans, x, y);
-    points.push(point);
+    group.push(point);
 }
 
 function level1 (){
