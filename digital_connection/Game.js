@@ -24,6 +24,7 @@ let mistake = 0;
 let gameFrame = 0;
 const startBtn = document.getElementById('startBtn')
 let gestures = [];
+let numbers = [];
 
 function startScreen(){
     ctx.fillStyle = BLUE;
@@ -39,20 +40,33 @@ startBtn.addEventListener('click', (e) => {
 
 const npc = new Npc();
 
+function create_gesture(i, y){
+    path = IMAGE_PATH + "ans_" + i + ".jpg";
+    gesture = new Gesture(450, y, path);
+    gestures.push(gesture);
+}
+function create_number(i, y){
+    y += 45;
+    number = new Number(i, 50, y, BLACK, 40, true);
+    numbers.push(number);
+}
+
 function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     npc.draw();
     ctx.fillText('將數字連上正確的手勢吧！', 65, 52);
     let x = 450;
-    let y = 70;
+    let y = 80;
     for (let i = 1; i < 6; i++){
-        path = IMAGE_PATH + "ans_" + i + ".jpg";
-        gesture = new Gesture(x, y, path);
-        y += gesture.height + 10;
-        gestures.push(gesture);
+        create_gesture(i, y);
+        create_number(i, y);
+        y += 60;
     }
     gestures.forEach(gesture => {
         gesture.draw();
+    });
+    numbers.forEach(number => {
+        number.draw();
     });
     gameFrame++;
     requestAnimationFrame(animate);
