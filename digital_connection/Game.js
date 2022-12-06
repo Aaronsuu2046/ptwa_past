@@ -25,6 +25,7 @@ let gameFrame = 0;
 const startBtn = document.getElementById('startBtn')
 let gestures = [];
 let numbers = [];
+let points = [];
 
 function startScreen(){
     ctx.fillStyle = BLUE;
@@ -40,17 +41,6 @@ startBtn.addEventListener('click', (e) => {
 
 const npc = new Npc();
 
-function create_gesture(i, y){
-    path = IMAGE_PATH + "ans_" + i + ".jpg";
-    gesture = new Gesture(450, y, path);
-    gestures.push(gesture);
-}
-function create_number(i, y){
-    y += 45;
-    number = new Number(i, 50, y, BLACK, 40, true);
-    numbers.push(number);
-}
-
 function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     npc.draw();
@@ -58,18 +48,41 @@ function animate(){
     let x = 450;
     let y = 80;
     for (let i = 1; i < 6; i++){
-        create_gesture(i, y);
-        create_number(i, y);
+        create_ans(i, y);
+        create_topic(i, y);
         y += 60;
     }
-    gestures.forEach(gesture => {
-        gesture.draw();
-    });
-    numbers.forEach(number => {
-        number.draw();
-    });
+    draw_view();
     gameFrame++;
     requestAnimationFrame(animate);
+}
+
+function draw_view() {
+    for (let i = 0; i < 5; i++){
+        gestures[i].draw();
+        numbers[i].draw();
+    }
+    points.forEach(point =>{
+        point.draw();
+        }
+    );
+}
+
+function create_ans(i, y){
+    path = IMAGE_PATH + "ans_" + i + ".jpg";
+    gesture = new Gesture(450, y, path);
+    gestures.push(gesture);
+    create_point(i, gesture.x-50, gesture.y+25);
+}
+function create_topic(i, y){
+    y += 40;
+    number = new Number(i, 50, y, BLACK, 40, true);
+    numbers.push(number);
+    create_point(i, number.x+50, number.y-10);
+}
+function create_point(ans, x, y){
+    point = new Point(ans, x, y);
+    points.push(point);
 }
 
 function level1 (){
