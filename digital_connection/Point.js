@@ -9,9 +9,9 @@ class Point {
 
     }
     draw(){   
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
-        ctx.fill();
-        ctx.closePath();
+        ctx_bg.beginPath();
+        ctx_bg.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
+        ctx_bg.fill();
+        ctx_bg.closePath();
     }
 }

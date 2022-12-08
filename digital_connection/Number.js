@@ -11,8 +11,8 @@ class Number {
 
     }
     draw(){ 
-        ctx.font = this.font;
-        ctx.fillStyle = this.color;
-        ctx.fillText(this.text, this.x, this.y);      
+        ctx_bg.font = this.font;
+        ctx_bg.fillStyle = this.color;
+        ctx_bg.fillText(this.text, this.x, this.y);      
     }
 }

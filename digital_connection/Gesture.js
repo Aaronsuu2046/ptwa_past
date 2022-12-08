@@ -12,6 +12,6 @@ class Gesture {
 
     }
     draw(){       
-        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+        ctx_bg.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
 }
