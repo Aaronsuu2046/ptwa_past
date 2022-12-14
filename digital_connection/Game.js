@@ -79,15 +79,15 @@ class Game{
         this.mouseDownListener = (e) => {
            this.startPosition = this.getClientOffset(e);
            this.isDrawStart = true;
-           // TODO: Test before clear or save
-           this.clearCanvas();
         }
         
         this.mouseMoveListener = (e) => {
-          if(!this.isDrawStart) return;
-          
-          this.lineCoordinates = this.getClientOffset(e);
-          this.drawLine();
+            if(!this.isDrawStart) return;
+            
+            this.lineCoordinates = this.getClientOffset(e);
+            // TODO: Test before clear or save
+            this.clearCanvas();
+            this.drawLine();
         }
         
         this.mouseupListener = (e) => {
