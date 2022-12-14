@@ -15,4 +15,4 @@ canvas_2.height = CANVAS_HEIGHT;
 
 let digital_connection = new Game()
 
-digital_connection.animate();
+// digital_connection.animate();

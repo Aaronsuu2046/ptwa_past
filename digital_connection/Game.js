@@ -40,6 +40,7 @@ class Game{
             ctx_bg.clearRect(0, 0, canvas.width, canvas.height);
             ctx_bg.fillText('將數字連上正確的手勢吧！', this.npc.x + this.npc.width+this.npc.width/2, this.npc.height);
             this.draw_bg();
+            this.animate();
         })
     }
     
