@@ -29,6 +29,14 @@ body {
     margin-top: 150px;
 }
 
+#canvas3 {
+    position: absolute;
+    z-index: 3;
+    border: 5px solid #b3e6e5;
+    border-radius: 6px;
+    margin-top: 150px;
+}
+
 .chooseBtn {
     z-index: 1;
     margin-left: 1px;

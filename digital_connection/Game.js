@@ -13,8 +13,8 @@ class Game{
         ctx_bg.fillStyle = BLACK;
         // game variables
         this.score = 0;
-        this.correct = 0;
-        this.mistake = 0;
+        this.correct = {start:[], end:[]};
+        this.mistake = {start:[], end:[]};
         this.gestures = [];
         this.numbers = [];
         this.topic_points = [];
@@ -46,7 +46,7 @@ class Game{
     
     animate(){
         this.draw_view();
-        requestAnimationFrame(this.animate);
+        requestAnimationFrame(()=>this.animate());
     }
 
     draw_bg(){
@@ -61,8 +61,8 @@ class Game{
     draw_view(){  
         this.getClientOffset = (e) => {
             let {pageX, pageY} = e.touches ? e.touches[0] : e;
-            let x = pageX - canvas_2.offsetLeft;
-            let y = pageY - canvas_2.offsetTop;
+            let x = pageX - canvas_3.offsetLeft;
+            let y = pageY - canvas_3.offsetTop;
         
             return {
                x,
@@ -71,39 +71,85 @@ class Game{
         }  
         this.drawLine = () => {
            ctx_line.beginPath();
+           
            ctx_line.moveTo(this.startPosition.x, this.startPosition.y);
            ctx_line.lineTo(this.lineCoordinates.x, this.lineCoordinates.y);
            ctx_line.stroke();
         }
         
         this.mouseDownListener = (e) => {
-           this.startPosition = this.getClientOffset(e);
-           this.isDrawStart = true;
+            this.startPosition = this.getClientOffset(e);
+            if (this.collide_with_topic_point(this.startPosition)){
+                this.isDrawStart = true;
+            }
         }
         
         this.mouseMoveListener = (e) => {
             if(!this.isDrawStart) return;
             
             this.lineCoordinates = this.getClientOffset(e);
-            // TODO: Test before clear or save
             this.clearCanvas();
             this.drawLine();
         }
         
         this.mouseupListener = (e) => {
-          this.isDrawStart = false;
+            this.isDrawStart = false;
+            if (this.collide_with_topic_point(this.startPosition) && this.collide_with_ans_point(this.lineCoordinates)){
+              // TODO: Test before clear or save
+                this.draw_correct_line();
+        }
         }
         
         this.clearCanvas = () => {
-           ctx_line.clearRect(0, 0, canvas_2.width, canvas_2.height);
+           ctx_line.clearRect(0, 0, canvas_3.width, canvas_3.height);
         }
-        
-        canvas_2.addEventListener('mousedown', this.mouseDownListener);
-        canvas_2.addEventListener('mousemove', this.mouseMoveListener);
-        canvas_2.addEventListener('mouseup', this.mouseupListener);
-        
+           
+        this.draw_correct_line = () => {
+            ctx_correct_line.beginPath();
+            ctx_correct_line.moveTo(this.startPosition.x, this.startPosition.y);
+            ctx_correct_line.lineTo(this.lineCoordinates.x, this.lineCoordinates.y);
+            ctx_correct_line.stroke();
+        }
+        canvas_3.addEventListener('mousedown', this.mouseDownListener);
+        canvas_3.addEventListener('mousemove', this.mouseMoveListener);
+        canvas_3.addEventListener('mouseup', this.mouseupListener);
     }
     
+
+    collide_with_topic_point(startPosition){
+        for (let i = 0; i < this.topic_points.length; i++) {
+            let point = this.topic_points[i]
+            if (this.collide_with_x(startPosition, point) && this.collide_with_y(startPosition, point)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    collide_with_ans_point(startPosition){
+        for (let i = 0; i < this.ans_points.length; i++) {
+            let point = this.ans_points[i]
+            if (this.collide_with_x(startPosition, point) && this.collide_with_y(startPosition, point)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    collide_with_x(mos_pos, point){
+        if (mos_pos.x >= point.x && mos_pos.x <= point.x + point.radius * 2){
+            return true;
+        }
+        return false;
+    }
+    
+    collide_with_y(mos_pos, point){
+        if (mos_pos.y >= point.y && mos_pos.y <= point.y + point.radius * 2){
+            return true;
+        }
+        return false;
+    }
+
     create_ans(i, y){
         let path = IMAGE_PATH + "ans_" + i + ".jpg";
         let gesture = new Gesture(canvas.width, y, path);
@@ -138,7 +184,6 @@ function checkAnswer(){
     document.querySelectorAll('button').forEach(e => {
         let id = e.getAttribute('id');
         e.addEventListener('click', function() {
-        console.log( id + ' was clicked!');
         if (id === 'Btn3'){
             document.getElementById('correct').play();
             alert('太棒了!!');
