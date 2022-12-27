@@ -24,7 +24,7 @@ body {
 #canvas2 {
     position: absolute;
     z-index: 2;
-    border: 5px solid #b3e6e5;
+    border: 5px solid #008800;
     border-radius: 6px;
     margin-top: 150px;
 }

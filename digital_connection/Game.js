@@ -1,16 +1,10 @@
 // game view variables
 let IMAGE_PATH = "./asset/image/";
-let FONT_STYLE = "bold 35px Courier";
-let BLACK = "#000000";
-let BLUE = "#48807d";
 
 
 
 class Game{
     constructor(){
-        // game view setting
-        ctx_bg.font = FONT_STYLE;
-        ctx_bg.fillStyle = BLACK;
         // game variables
         this.score = 0;
         this.correct = {start:[], end:[]};
@@ -22,6 +16,7 @@ class Game{
         this.startPosition = {x: 0, y: 0};
         this.lineCoordinates = {x: 0, y: 0};
         this.isDrawStart = false;
+        this.isDrawEnd = false;
         // create objects
         this.npc = new Npc();
         let y = 80;
@@ -34,13 +29,14 @@ class Game{
     }
     
     ready(){
+        // view of ready to start
         ctx_bg.fillStyle = BLUE;
+        ctx_bg.font = FONT_STYLE;
         ctx_bg.fillText('準備好了嗎?', canvas.width/3, canvas.height / 2);
         startBtn.addEventListener('click', (e) => {
             ctx_bg.clearRect(0, 0, canvas.width, canvas.height);
             ctx_bg.fillText('將數字連上正確的手勢吧！', this.npc.x + this.npc.width+this.npc.width/2, this.npc.height);
             this.draw_bg();
-            this.animate();
         })
     }
     
@@ -70,17 +66,22 @@ class Game{
             } 
         }  
         this.drawLine = () => {
-           ctx_line.beginPath();
-           
-           ctx_line.moveTo(this.startPosition.x, this.startPosition.y);
-           ctx_line.lineTo(this.lineCoordinates.x, this.lineCoordinates.y);
-           ctx_line.stroke();
+            ctx_line.strokeStyle = BLACK;
+            ctx_line.lineWidth = 3;
+            ctx_line.beginPath();
+            ctx_line.moveTo(this.startPosition.x, this.startPosition.y);
+            ctx_line.lineTo(this.lineCoordinates.x, this.lineCoordinates.y);
+            ctx_line.stroke();
         }
         
         this.mouseDownListener = (e) => {
             this.startPosition = this.getClientOffset(e);
             if (this.collide_with_topic_point(this.startPosition)){
                 this.isDrawStart = true;
+                this.lineCoordinates = null;
+            }
+            else{
+                this.clearCanvas();
             }
         }
         
@@ -94,10 +95,21 @@ class Game{
         
         this.mouseupListener = (e) => {
             this.isDrawStart = false;
-            if (this.collide_with_topic_point(this.startPosition) && this.collide_with_ans_point(this.lineCoordinates)){
-              // TODO: Test before clear or save
+            this.isDrawEnd = true;
+            // TODO: refactor be only for one time
+            if (!this.collide_with_topic_point(this.startPosition) || !this.collide_with_ans_point(this.lineCoordinates)) {
+                return;
+            }
+
+            if (this.collide_with_topic_point(this.startPosition) === this.collide_with_ans_point(this.lineCoordinates)){
+                // TODO: Test before clear or save
                 this.draw_correct_line();
-        }
+                this.isDrawEnd = false;
+                this.clearCanvas();
+            }
+            else if (this.collide_with_topic_point(this.startPosition) !== this.collide_with_ans_point(this.lineCoordinates)) {
+                this.draw_wrong_line();
+            }
         }
         
         this.clearCanvas = () => {
@@ -105,10 +117,22 @@ class Game{
         }
            
         this.draw_correct_line = () => {
+            if (!this.isDrawEnd) return;
+            ctx_correct_line.strokeStyle = GREEN;
+            ctx_correct_line.lineWidth = 5;
             ctx_correct_line.beginPath();
             ctx_correct_line.moveTo(this.startPosition.x, this.startPosition.y);
             ctx_correct_line.lineTo(this.lineCoordinates.x, this.lineCoordinates.y);
             ctx_correct_line.stroke();
+        }
+        this.draw_wrong_line = () => {
+            if (!this.isDrawEnd) return;
+            ctx_line.strokeStyle = 'red';
+            ctx_line.lineWidth = 5;
+            ctx_line.beginPath();
+            ctx_line.moveTo(this.startPosition.x, this.startPosition.y);
+            ctx_line.lineTo(this.lineCoordinates.x, this.lineCoordinates.y);
+            ctx_line.stroke();
         }
         canvas_3.addEventListener('mousedown', this.mouseDownListener);
         canvas_3.addEventListener('mousemove', this.mouseMoveListener);
@@ -120,7 +144,7 @@ class Game{
         for (let i = 0; i < this.topic_points.length; i++) {
             let point = this.topic_points[i]
             if (this.collide_with_x(startPosition, point) && this.collide_with_y(startPosition, point)){
-                return true;
+                return point.ans;
             }
         }
         return false;
@@ -130,7 +154,7 @@ class Game{
         for (let i = 0; i < this.ans_points.length; i++) {
             let point = this.ans_points[i]
             if (this.collide_with_x(startPosition, point) && this.collide_with_y(startPosition, point)){
-                return true;
+                return point.ans;
             }
         }
         return false;
@@ -168,7 +192,6 @@ class Game{
         group.push(point);
     }
 }
-
 
 
 function level1 (){
