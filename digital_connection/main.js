@@ -15,6 +15,7 @@ const canvas_current = document.getElementById('canvas3');
 const ctx_current = canvas_current.getContext('2d');
 ctx_current.fillStyle = BLACK;
 const startBtn = document.getElementById('startBtn')
+const next_level_btn = document.getElementById('nextLevel')
 
 canvas_bg.width = CANVAS_WIDTH;
 canvas_bg.height = CANVAS_HEIGHT;
