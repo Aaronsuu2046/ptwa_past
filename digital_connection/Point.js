@@ -4,6 +4,7 @@ class Point {
         this.y = y;
         this.ans = ans;
         this.radius = 10;
+        this.is_right = false;
     }
     update(){
 

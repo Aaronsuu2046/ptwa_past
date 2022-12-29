@@ -122,8 +122,8 @@ class Game{
                 this.draw_wrong_line();
                 document.getElementById('wrong').play();
             }
-            this.topic_point = 0;
-            this.ans_point = 0;
+            this.startPosition = 0;
+            this.lineCoordinates = 0;
         }
         
         this.clear_current_canvas = () => {
@@ -189,7 +189,8 @@ class Game{
     collide_with_ans_point(startPosition){
         for (let i = 0; i < this.ans_points.length; i++) {
             let point = this.ans_points[i]
-            if (this.collide_with_x(startPosition, point) && this.collide_with_y(startPosition, point)){
+            if (!point.is_right && this.collide_with_x(startPosition, point) && this.collide_with_y(startPosition, point)){
+                point.is_right = true;
                 return point.ans;
             }
         }
