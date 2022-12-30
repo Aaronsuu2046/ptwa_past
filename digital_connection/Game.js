@@ -5,16 +5,20 @@ let IMAGE_PATH = "./asset/image/";
 class Game{
     constructor(){
         // game variables
+        this.sentence = {
+            "good": ["答對了！", "很棒喔！", "你是對的！", "沒錯！"]
+            , "bad": ["好可惜，", "差一點點，", "快對了～", "加油！"]
+        };
         this.score = 0;
         this.correct = [];
         this.topic = {
             "level_1": {
-                "topic": this.reset(Array.from({length: 5}, (_, i) => i+1)),
-                "ans": this.reset(Array.from({length: 5}, (_, i) => i+1))
+                "topic": this.reset(getIntArray(5, 1)),
+                "ans": this.reset(getIntArray(5, 1))
                 },
             "level_2": {
-                "topic": this.reset(Array.from({length: 5}, (_, i) => i+6)),
-                "ans": this.reset(Array.from({length: 5}, (_, i) => i+6))
+                "topic": this.reset(getIntArray(5, 6)),
+                "ans": this.reset(getIntArray(5, 6))
                 }
             };
         this.gestures = [];
@@ -35,9 +39,8 @@ class Game{
     create_game(level) {
         let y = 80;
         for (let i = 0; i < 5; i++) {
-            let is_even = i%2 ? 1:0
             this.create_topic(level.ans[i], y);
-            this.create_ans(is_even, level.topic[i], y);
+            this.create_ans(level.topic[i], y);
             y += 60;
         }
     }
@@ -59,7 +62,7 @@ class Game{
             ctx_bg.fillText('將數字連上正確的手勢吧！', this.npc.x + this.npc.width+this.npc.width/2, this.npc.height);
             ctx_bg.fillStyle = RED;
             ctx_bg.font = SCORE_FONT_STYLE;
-            ctx_bg.fillText(this.score+" %", canvas_bg.width - 80, 55);
+            ctx_bg.fillText(this.score, canvas_bg.width - 80, 55);
             this.draw_bg();
         })
     }
@@ -78,6 +81,7 @@ class Game{
         if (this.score !== 100) {
             return
         }
+        this.clear_canvas("current");
         ctx_current.fillStyle = RED;
         ctx_current.font = H1_FONT_STYLE;
         ctx_current.fillText("恭喜過關！", canvas_current.width/3, canvas_current.height / 2);
@@ -148,14 +152,20 @@ class Game{
                 return;
             }
             if (this.topic_point === this.ans_point){
+                document.getElementById('correct').play();
                 this.draw_correct_line();
                 this.add_score(20);
+                ctx_current.fillStyle = GREEN;
+                ctx_current.font = H1_FONT_STYLE;
+                ctx_current.fillText(getRandomElement(this.sentence.good)+"這是 "+this.ans_point+" ～", canvas_current.width/4, canvas_current.height / 2);
                 this.correct.push(this.ans_point);
-                document.getElementById('correct').play();
             }
             else {
-                this.draw_wrong_line();
                 document.getElementById('wrong').play();
+                this.draw_wrong_line();
+                ctx_current.fillStyle = RED;
+                ctx_current.font = H1_FONT_STYLE;
+                ctx_current.fillText(getRandomElement(this.sentence.bad)+"這是 "+this.ans_point+"～", canvas_current.width/4, canvas_current.height / 2);
             }
             this.startPosition = 0;
             this.lineCoordinates = 0;
@@ -204,7 +214,7 @@ class Game{
         ctx_bg.clearRect(canvas_bg.width - 100, 5, 100, 50);
         ctx_bg.fillStyle = GREEN;
         ctx_bg.font = SCORE_FONT_STYLE;
-        ctx_bg.fillText(this.score+"%", canvas_bg.width - 90, 55);
+        ctx_bg.fillText(this.score, canvas_bg.width - 80, 55);
         this.clear_canvas("current");
     }
 
@@ -229,28 +239,23 @@ class Game{
     }
 
     collide_with_x(mos_pos, point){
-        if (mos_pos.x >= point.x && mos_pos.x <= point.x + point.radius * 2){
+        if (mos_pos.x >= point.x - point.radius && mos_pos.x <= point.x + point.radius){
             return true;
         }
         return false;
     }
     
     collide_with_y(mos_pos, point){
-        if (mos_pos.y >= point.y && mos_pos.y <= point.y + point.radius * 2){
+        if (mos_pos.y >= point.y - point.radius && mos_pos.y <= point.y + point.radius){
             return true;
         }
         return false;
     }
 
-    create_ans(is_even, i, y){
+    create_ans(i, y){
         let path = IMAGE_PATH + "gesture_" + i + ".png";
         let gesture = new Gesture(canvas_bg.width, y, path);
-        if (is_even){
-            gesture.x -= gesture.width + 100
-        }
-        else {
-            gesture.x -= gesture.width + 50
-        }
+        gesture.x -= gesture.width + 50
         this.gestures.push(gesture);
         this.create_point(i, gesture.x-20, gesture.y+gesture.height/2, this.ans_points);
     }
@@ -285,5 +290,11 @@ function level2 (){
 }
 level2();
 
+function getRandomElement(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
 
-
+function getIntArray(len, start) {
+    return Array.from({length: len}, (_, i) => i+start);
+  }
+  
