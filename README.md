@@ -9,15 +9,22 @@
 
 [//]: # (TODO demo gif)
 
+## 點擊連接網址，進入遊戲網站
+
+[連結網址](https://aaronsuu2046.github.io/)
+
 ## 在網址欄輸入網址
 
-[//]: # (TODO write url)
+[//]: # (TODO demo gif)
+
+`https://aaronsuu2046.github.io/`
+
 
 ## 數學遊戲，數一數（Math）
 
 [//]: # (TODO write game information)
 
-## 滑鼠遊戲，操控滑鼠（mouse）
+## 滑鼠遊戲，操控滑鼠（Mouse）
 
 [//]: # (TODO write game information)
 
@@ -28,7 +35,7 @@
 一款讓孩子認識數字、手勢、國字，並且可以將之連結對應起來的遊戲
 
 ### 遊戲畫面
-<img src="https://raw.githubusercontent.com/Jesse-Jumbo/educational_games/main/digital_connection/asset/digital_connection.gif" alt="GitHub" title="Digital Connection View" width="600" height="400"/>
+<img src="https://raw.githubusercontent.com/Jesse-Jumbo/educational_games/main/digital_connection/asset/digital_connection.gif" alt="GitHub" title="Digital Connection View" width="700" height="400"/>
 
 ### 關卡說明
 - 第一關：數字連手勢，認識 1～5
