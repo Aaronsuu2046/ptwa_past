@@ -1,5 +1,7 @@
 // game view variables
-let IMAGE_PATH = "./asset/image/";
+const IMAGE_PATH = "./asset/image/";
+const FIREWORK_PATH = Array.from({length: 8}, (_, i) => IMAGE_PATH+"firework_red"+i+".png");
+const fireworks_image = new Image();
 
 
 class Game{
@@ -30,6 +32,7 @@ class Game{
         this.startPosition = {x: 0, y: 0};
         this.lineCoordinates = {x: 0, y: 0};
         this.isDrawStart = false;
+        this.status = "FAIL";
         // create objects
         this.npc = new Npc();
         this.create_game(this.topic.level_1);
@@ -85,6 +88,13 @@ class Game{
         ctx_current.fillStyle = RED;
         ctx_current.font = H1_FONT_STYLE;
         ctx_current.fillText("恭喜過關！", canvas_current.width/3, canvas_current.height / 2);
+        set_off_fireworks(FIREWORK_PATH, canvas_current.width/3, canvas_current.height / 2, 100, 100);
+        fireworks_image.src = FIREWORK_PATH[0];
+        console.log(fireworks_image.src);
+        ctx_bg.drawImage(fireworks_image, canvas_current.width/3, canvas_current.height / 2, 100, 100);
+        if(this.status !== "GAME_WIN"){
+        }
+        this.status = "GAME_WIN";
         this.score = 0;
     }
 
@@ -198,14 +208,17 @@ class Game{
         }
         else if (canvas === "stay"){
             ctx_stay.clearRect(0, 0, canvas_stay.width, canvas_stay.height);
+            console.log("clear stay");
         }
         else if (canvas === "bg"){
             ctx_bg.clearRect(0, 0, canvas_bg.width, canvas_bg.height);
+            console.log("clear bg");
         }
         else {
             ctx_current.clearRect(0, 0, canvas_current.width, canvas_current.height);
             ctx_stay.clearRect(0, 0, canvas_stay.width, canvas_stay.height);
             ctx_bg.clearRect(0, 0, canvas_bg.width, canvas_bg.height);
+            console.log("clear all");
         }
     }
 
@@ -271,6 +284,17 @@ class Game{
     }
 }
 
+function set_off_fireworks(images_path, x, y, width, height){
+    firework_sound = document.getElementById('firework');
+    firework_sound.currentTime = 1.5;
+    firework_sound.play();
+    setTimeout(function(){ firework_sound.pause(); }, 2000);
+    // for (let i = 0; i < images_path.length; i++) {
+    //     console.log(images_path[i]);
+    // }
+    // fireworks_image.src = images_path[0];
+    // ctx_bg.drawImage(fireworks_image, x, y, width, height);
+}   
 
 function level1 (){
     const startBtn = document.getElementById('startBtn');
