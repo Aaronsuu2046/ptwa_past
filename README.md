@@ -1,6 +1,6 @@
 # Educational Games
 
-![educational_games](https://img.shields.io/github/v/tag/Aaronsuu2046/aaronsuu2046.github.io)
+![educational_games](https://img.shields.io/github/v/tag/PTWA-NPO/PTWA-NPO.github.io.git)
 
 ---
 這是一個用於國小教育的遊戲教案。
@@ -11,13 +11,13 @@
 
 ## 點擊連接網址，進入遊戲網站
 
-[連結網址](https://aaronsuu2046.github.io/)
+[連結網址](https://PTWA-NPO.github.io/)
 
 ## 在網址欄輸入網址
 
 [//]: # (TODO demo gif)
 
-`https://aaronsuu2046.github.io/`
+`https://PTWA-NPO.github.io/`
 
 
 ## 數學遊戲，數一數（Math）
