@@ -59,7 +59,6 @@ window.addEventListener('load', function(){
             player.x = canvas.width - 50 ;
         if (player.y + player.height > canvas.height)
             player.y = canvas.height - 50;
-        
     })
 
     class Enemy {
@@ -96,10 +95,11 @@ window.addEventListener('load', function(){
             const distancce = Math.sqrt(dx * dx + dy * dy);
             if (distancce < player.width/2 + this.width/2 &&
                 distancce < player.height/2.2 + this.height/2.2){
+                    console.log('before counted')
                 if (!this.counted){
                     this.counted = true;
                     score +=1;
-                    
+                    console.log('after counted')
                 }
                 //gameOver = true
             };
@@ -116,13 +116,17 @@ window.addEventListener('load', function(){
     };
 
     function handleEnemies(){
-        if (gameFrame % 300 == 0){
+        if (gameFrame % 100 == 0){
             enemiesArray.push(new Enemy());
             console.log(enemiesArray.length);
         }
         for (let i = 0; i < enemiesArray.length; i++){
             enemiesArray[i].update();
-            enemiesArray[i].draw();
+            if(enemiesArray[i].counted == true) {
+                enemiesArray.splice(i,1)
+            } else {
+                enemiesArray[i].draw();
+            }
         }
         if (enemiesArray.length > 5){
             enemiesArray.splice(0);
