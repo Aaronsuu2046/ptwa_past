@@ -1,11 +1,14 @@
-let CANVAS_WIDTH = 600;
-let CANVAS_HEIGHT = 400;
+let CANVAS_WIDTH = 800;
+let CANVAS_HEIGHT = 600;
 let BLACK = "#000000";
 let BLUE = "#48807d";
 let GREEN = "#008800";
 let RED = "#ff0000";
-let H1_FONT_STYLE = "bold 35px Courier";
-let SCORE_FONT_STYLE = "bold 30px Courier";
+let H1_FONT_STYLE = "bold 40px Courier";
+let HINT_SIZE = 200;
+let HINT_FONT_STYLE = "bold "+HINT_SIZE+"px Courier";
+let SCORE_SIZE = 50;
+let SCORE_FONT_STYLE = "bold "+SCORE_SIZE+"px Courier";
 
 const canvas_bg = document.getElementById('canvas1');
 const ctx_bg = canvas_bg.getContext('2d');

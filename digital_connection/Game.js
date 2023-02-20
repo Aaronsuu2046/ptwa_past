@@ -27,6 +27,7 @@ class Game{
         this.numbers = [];
         this.topic_points = [];
         this.ans_points = [];
+        this.lives = [];
         this.topic_point = 0;
         this.ans_point = 0;
         this.startPosition = {x: 0, y: 0};
@@ -35,16 +36,21 @@ class Game{
         this.status = "FAIL";
         // create objects
         this.npc = new Npc();
-        this.create_game(this.topic.level_1);
         this.ready();
+        this.create_game(this.topic.level_1);
     }
     
     create_game(level) {
+        let x = canvas_bg.width - this.npc.width*4.5;
+        for (let i = 0; i < 3; i++) {
+            this.create_live(x, 10, this.lives);
+            x += this.npc.width/2;
+        }
         let y = 80;
         for (let i = 0; i < 5; i++) {
-            this.create_topic(level.ans[i], y);
+            this.create_topic(level.ans[i], y+40);
             this.create_ans(level.topic[i], y);
-            y += 60;
+            y += canvas_bg.height/6;
         }
     }
 
@@ -109,11 +115,19 @@ class Game{
 
     draw_bg(){
         this.npc.draw();
-        for (let i = 0; i < 5; i++){
+        for (let i = 0; i < this.gestures.length; i++){
             this.gestures[i].draw();
             this.numbers[i].draw();
             this.topic_points[i].draw();
             this.ans_points[i].draw();
+        }
+        for (let i = 0; i < this.lives.length; i++){
+            this.lives[i].draw();
+        }
+    }
+    draw_lives(){
+        for (let i = 0; i < this.lives.length; i++){
+            this.lives[i].draw();
         }
     }
     draw_view(){  
@@ -166,16 +180,21 @@ class Game{
                 this.draw_correct_line();
                 this.add_score(20);
                 ctx_current.fillStyle = GREEN;
-                ctx_current.font = H1_FONT_STYLE;
-                ctx_current.fillText(getRandomElement(this.sentence.good)+"這是 "+this.ans_point+" ～", canvas_current.width/4, canvas_current.height / 2);
+                ctx_current.font = HINT_FONT_STYLE;
+                ctx_current.fillText("Ｏ", canvas_current.width/2-(HINT_SIZE/2), canvas_current.height / 2+(HINT_SIZE/2));
                 this.correct.push(this.ans_point);
             }
             else {
                 document.getElementById('wrong').play();
                 this.draw_wrong_line();
                 ctx_current.fillStyle = RED;
-                ctx_current.font = H1_FONT_STYLE;
-                ctx_current.fillText(getRandomElement(this.sentence.bad)+"這是 "+this.ans_point+"～", canvas_current.width/4, canvas_current.height / 2);
+                ctx_current.font = HINT_FONT_STYLE;
+                ctx_current.fillText("Ｘ", canvas_current.width/2-(HINT_SIZE/2), canvas_current.height / 2+(HINT_SIZE/2));
+                if (this.lives){
+                    this.lives.pop();
+                }
+                this.clear_canvas("bg", canvas_bg.width - this.npc.width*4.5, 10, this.npc.width*2, this.npc.height);
+                this.draw_lives();
             }
             this.startPosition = 0;
             this.lineCoordinates = 0;
@@ -202,22 +221,22 @@ class Game{
         canvas_current.addEventListener('mouseup', this.mouseupListener);
     }
     
-    clear_canvas(canvas) {
+    clear_canvas(canvas, x=0, y=0, width=canvas_current.width, height=canvas_current.height) {
         if (canvas === "current"){
-            ctx_current.clearRect(0, 0, canvas_current.width, canvas_current.height);
+            ctx_current.clearRect(x, y, width, height);
         }
         else if (canvas === "stay"){
-            ctx_stay.clearRect(0, 0, canvas_stay.width, canvas_stay.height);
+            ctx_stay.clearRect(x, y, width, height);
             console.log("clear stay");
         }
         else if (canvas === "bg"){
-            ctx_bg.clearRect(0, 0, canvas_bg.width, canvas_bg.height);
+            ctx_bg.clearRect(x, y, width, height);
             console.log("clear bg");
         }
         else {
-            ctx_current.clearRect(0, 0, canvas_current.width, canvas_current.height);
-            ctx_stay.clearRect(0, 0, canvas_stay.width, canvas_stay.height);
-            ctx_bg.clearRect(0, 0, canvas_bg.width, canvas_bg.height);
+            ctx_current.clearRect(x, y, width, height);
+            ctx_stay.clearRect(x, y, width, height);
+            ctx_bg.clearRect(x, y, width, height);
             console.log("clear all");
         }
     }
@@ -227,7 +246,7 @@ class Game{
         ctx_bg.clearRect(canvas_bg.width - 100, 5, 100, 50);
         ctx_bg.fillStyle = GREEN;
         ctx_bg.font = SCORE_FONT_STYLE;
-        ctx_bg.fillText(this.score, canvas_bg.width - 80, 55);
+        ctx_bg.fillText(this.score, canvas_bg.width - SCORE_SIZE*2, 55);
         this.clear_canvas("current");
     }
 
@@ -274,13 +293,17 @@ class Game{
     }
     create_topic(i, y){
         y += 40;
-        let number = new Number(i, 50, y, BLACK, 40, true);
+        let number = new Number(i, 50, y, BLACK, 100, true);
         this.numbers.push(number);
-        this.create_point(i, number.x+50, number.y-10, this.topic_points);
+        this.create_point(i, number.x+number.size, number.y-number.size/3, this.topic_points);
     }
     create_point(ans, x, y, group){
         let point = new Point(ans, x, y);
         group.push(point);
+    }
+    create_live(x, y, group){
+        let live = new Npc(x, y);
+        group.push(live);
     }
 }
 

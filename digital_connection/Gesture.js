@@ -4,8 +4,8 @@ class Gesture {
         this.image.src = path;
         this.x = x;
         this.y = y;
-        this.width = 50;
-        this.height = 50;
+        this.width = 100;
+        this.height = 100;
         this.used_frame = 0;
     }
     update(){
