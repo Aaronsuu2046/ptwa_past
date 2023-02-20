@@ -1,0 +1,67 @@
+.body{
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-toggler {
+    z-index:1000;
+    border: 10px;
+    color: blueviolet;
+    background-color: #57B9D9;
+    margin-top: 10px;
+}
+.navbar-collapse {
+    z-index: 1000;
+}
+
+.nav-link{
+    background-color: #57b9d985;
+    
+}
+
+.navbar-brand {
+   margin-bottom: 8px;
+}
+
+/* .carousel-inner {
+    padding: 5px;
+} */
+
+.nav2 {
+    display: none;
+}
+
+.nav-link:hover .nav1{
+    display: none;
+    transition-delay: 5s;
+}
+
+.nav-link:hover .nav2{
+    display: block;
+    transition-delay: 5s;
+}
+
+.part{
+    display: block;
+    position: relative;
+    padding-left: 25%;
+    padding-right: 25%;
+    padding-top: 8%;
+    padding-bottom: 2%;
+}
+
+.carousel-inner {
+    display: block;
+    margin: 0px;
+    position: relative;
+    padding-top: 95px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+}
+
+.grade-item {
+    display: block;
+    text-align: center;
+
+}
