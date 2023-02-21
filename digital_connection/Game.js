@@ -65,7 +65,18 @@ class Game{
         ctx_bg.font = H1_FONT_STYLE;
         ctx_bg.fillText('準備好了嗎?', canvas_bg.width/3, canvas_bg.height / 2);
         startBtn.addEventListener('click', (e) => {
-            ctx_bg.fillStyle = BLUE;
+            next_level_btn.addEventListener('click', (e) => {
+                this.clear_canvas();
+                this.create_level_2();
+                if ( $(next_level_btn).hasClass("unclickable") ) {
+                    e.preventDefault();
+                } else {
+            
+                    $(next_level_btn).addClass("unclickable");
+                    //Your code continues here
+                    //Remember to remove the unclickable class when you want it to run again.
+                }
+            });ctx_bg.fillStyle = BLUE;
             ctx_bg.font = H1_FONT_STYLE;
             ctx_bg.clearRect(0, 0, canvas_bg.width, canvas_bg.height);
             ctx_bg.fillText('將數字連上正確的手勢吧！', this.npc.x + this.npc.width+this.npc.width/2, this.npc.height);
@@ -79,10 +90,7 @@ class Game{
     animate(){
         this.draw_view();
         this.get_result();
-        next_level_btn.addEventListener('click', (e) => {
-            this.clear_canvas();
-            this.create_level_2();
-        });
+        
         requestAnimationFrame(()=>this.animate());
     }
 
