@@ -4,6 +4,7 @@ let BLACK = "#000000";
 let BLUE = "#48807d";
 let GREEN = "#008800";
 let RED = "#ff0000";
+let DARKGREY = "#282828"
 let H1_FONT_STYLE = "bold 40px Courier";
 let HINT_SIZE = 200;
 let HINT_FONT_STYLE = "bold "+HINT_SIZE+"px Courier";

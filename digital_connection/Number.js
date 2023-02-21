@@ -1,11 +1,12 @@
 class Number {
-    constructor(text, x, y, color, size=100, is_bold=false){
-        this.text = text;
+    constructor(number, x, y, color, width=100, is_bold=false){
+        this.number = number;
         this.x = x;
         this.y = y;
+        this.size = number>=10 ? 1.5 : 1;
         this.color = color;
-        this.size = size
-        this.style = size + "px Courier";
+        this.width = width
+        this.style = width + "px Courier";
         this.font = is_bold ? "bold "+ this.style : this.style;
     }
     update(){
@@ -14,6 +15,6 @@ class Number {
     draw(){ 
         ctx_bg.font = this.font;
         ctx_bg.fillStyle = this.color;
-        ctx_bg.fillText(this.text, this.x, this.y);      
+        ctx_bg.fillText(this.number, this.x, this.y);      
     }
 }

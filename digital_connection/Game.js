@@ -6,23 +6,28 @@ const fireworks_image = new Image();
 
 class Game{
     constructor(){
-        // game variables
-        this.sentence = {
-            "good": ["答對了！", "很棒喔！", "你是對的！", "沒錯！"]
-            , "bad": ["好可惜，", "差一點點，", "快對了～", "加油！"]
-        };
+        // create objects
+        this.npc = new Npc();
+        
+        this.initialize();
+        this.addEvent();
+    }
+
+    initialize(level=1){
+        this.clear_canvas();
         this.score = 0;
         this.correct = [];
-        this.topic = {
-            "level_1": {
-                "topic": this.reset(getIntArray(5, 1)),
-                "ans": this.reset(getIntArray(5, 1))
-                },
-            "level_2": {
-                "topic": this.reset(getIntArray(5, 6)),
-                "ans": this.reset(getIntArray(5, 6))
-                }
-            };
+        this.topic = [
+            {
+                "topic": this.reset(getIntArray(5, 1))
+                , "ans": this.reset(getIntArray(5, 1))
+            }
+            ,{
+                "topic": this.reset(getIntArray(5, 6))
+                , "ans": this.reset(getIntArray(5, 6))
+                
+            }
+        ];
         this.gestures = [];
         this.numbers = [];
         this.topic_points = [];
@@ -34,13 +39,11 @@ class Game{
         this.lineCoordinates = {x: 0, y: 0};
         this.isDrawStart = false;
         this.status = "FAIL";
-        // create objects
-        this.npc = new Npc();
-        this.ready();
-        this.create_game(this.topic.level_1);
+        this.level = level; //default level
+        this.create_game();
     }
     
-    create_game(level) {
+    create_game() {
         let x = canvas_bg.width - this.npc.width*4.5;
         for (let i = 0; i < 3; i++) {
             this.create_live(x, 10, this.lives);
@@ -48,14 +51,10 @@ class Game{
         }
         let y = 80;
         for (let i = 0; i < 5; i++) {
-            this.create_topic(level.ans[i], y+40);
-            this.create_ans(level.topic[i], y);
+            this.create_topic(this.topic[this.level-1].topic[i], y+40);
+            this.create_gesture(this.topic[this.level-1].ans[i], y);
             y += canvas_bg.height/6;
         }
-    }
-
-    create_level_2(){
-        this.create_game(this.topic.level_2);
         this.ready();
     }
 
@@ -64,29 +63,53 @@ class Game{
         ctx_bg.fillStyle = BLUE;
         ctx_bg.font = H1_FONT_STYLE;
         ctx_bg.fillText('準備好了嗎?', canvas_bg.width/3, canvas_bg.height / 2);
-        startBtn.addEventListener('click', (e) => {
-            next_level_btn.addEventListener('click', (e) => {
-                this.clear_canvas();
-                this.create_level_2();
-                if ( $(next_level_btn).hasClass("unclickable") ) {
-                    e.preventDefault();
-                } else {
-            
-                    $(next_level_btn).addClass("unclickable");
-                    //Your code continues here
-                    //Remember to remove the unclickable class when you want it to run again.
-                }
-            });ctx_bg.fillStyle = BLUE;
-            ctx_bg.font = H1_FONT_STYLE;
-            ctx_bg.clearRect(0, 0, canvas_bg.width, canvas_bg.height);
-            ctx_bg.fillText('將數字連上正確的手勢吧！', this.npc.x + this.npc.width+this.npc.width/2, this.npc.height);
-            ctx_bg.fillStyle = RED;
-            ctx_bg.font = SCORE_FONT_STYLE;
-            ctx_bg.fillText(this.score, canvas_bg.width - 80, 55);
-            this.draw_bg();
-        })
     }
     
+    addEvent(){
+        Btn1.addEventListener('click', (e) => {
+            if (this.level!=1){
+                this.initialize();
+            }
+        });
+        Btn2.addEventListener('click', (e) => {
+            if (this.level!=2){
+                this.initialize(2);
+            }
+        });
+        hint.addEventListener('click', this.show_ans);
+        startBtn.addEventListener('click', this.start_game); 
+        nextLevel.addEventListener('click', this.nextLevel); 
+        restart.addEventListener('click', (e) => {this.initialize(this.level)}); 
+    }
+    nextLevel = (e) => {
+        if (this.level >= 6){
+            this.initialize();
+        }
+        else{
+            this.initialize(this.level+1);
+        }
+    }
+
+    start_game = (e) => {
+        ctx_bg.fillStyle = BLUE;
+        ctx_bg.font = H1_FONT_STYLE;
+        ctx_bg.clearRect(0, 0, canvas_bg.width, canvas_bg.height);
+        ctx_bg.fillText('將數字連上正確的手勢吧！', this.npc.x + this.npc.width+this.npc.width/2, this.npc.height);
+        ctx_bg.fillStyle = RED;
+        ctx_bg.font = SCORE_FONT_STYLE;
+        ctx_bg.fillText(this.score, canvas_bg.width - 80, 55);
+        this.draw_bg();
+    }
+
+    show_ans = (e) => {
+        if (!this.lives.length) {
+            for (let i = 0; i < this.ans_points.length; i++) {
+                this.create_ans(this.ans_points[i].ans, this.ans_points[i].x + 5
+                    , this.ans_points[i].y - 20)
+            }
+        }
+    }
+
     animate(){
         this.draw_view();
         this.get_result();
@@ -129,13 +152,17 @@ class Game{
             this.topic_points[i].draw();
             this.ans_points[i].draw();
         }
-        for (let i = 0; i < this.lives.length; i++){
-            this.lives[i].draw();
-        }
+        this.draw_lives();
     }
     draw_lives(){
         for (let i = 0; i < this.lives.length; i++){
             this.lives[i].draw();
+        }
+        if (!this.lives.length){
+            ctx_bg.fillStyle = RED;
+            ctx_bg.font = 30+"px Courier";
+            ctx_bg.fillText("↑點提示", canvas_bg.width - this.npc.width*4.5, 35);
+            ctx_bg.fillText(" 看答案", canvas_bg.width - this.npc.width*4.5, 65);
         }
     }
     draw_view(){  
@@ -200,8 +227,8 @@ class Game{
                 ctx_current.fillText("Ｘ", canvas_current.width/2-(HINT_SIZE/2), canvas_current.height / 2+(HINT_SIZE/2));
                 if (this.lives){
                     this.lives.pop();
+                    this.clear_canvas("bg", canvas_bg.width - this.npc.width*4.5, 10, this.npc.width*2, this.npc.height);
                 }
-                this.clear_canvas("bg", canvas_bg.width - this.npc.width*4.5, 10, this.npc.width*2, this.npc.height);
                 this.draw_lives();
             }
             this.startPosition = 0;
@@ -292,18 +319,33 @@ class Game{
         return false;
     }
 
-    create_ans(i, y){
-        let path = IMAGE_PATH + "gesture_" + i + ".png";
-        let gesture = new Gesture(canvas_bg.width, y, path);
-        gesture.x -= gesture.width + 50
+    create_gesture(num, y){
+        let path = IMAGE_PATH + "gesture_" + num + ".png";
+        let width = 100;
+        let x = canvas_bg.width- 150
+        if (num>=6){
+            width *= 2;
+            x -= 70;
+        }let gesture = new Gesture(x, y, width, path);
         this.gestures.push(gesture);
-        this.create_point(i, gesture.x-20, gesture.y+gesture.height/2, this.ans_points);
+        this.create_point(num, gesture.x-20, gesture.y+gesture.height/2, this.ans_points);
     }
-    create_topic(i, y){
+    create_topic(num, y){
+        let x = 50;
+        if (num>=10){
+            x /= 2;
+        }
         y += 40;
-        let number = new Number(i, 50, y, BLACK, 100, true);
+        let number = new Number(num, x, y, BLACK, 100, true);
         this.numbers.push(number);
-        this.create_point(i, number.x+number.size, number.y-number.size/3, this.topic_points);
+        this.create_point(num, number.x+number.width*number.size, number.y-number.width/3, this.topic_points);
+    }
+    create_ans(num, x, y){
+        if (num>=10){
+            x -= SCORE_SIZE/2;
+        }
+        let number = new Number(num, x, y, DARKGREY, SCORE_SIZE, true);
+        number.draw();
     }
     create_point(ans, x, y, group){
         let point = new Point(ans, x, y);
@@ -326,24 +368,6 @@ function set_off_fireworks(images_path, x, y, width, height){
     // fireworks_image.src = images_path[0];
     // ctx_bg.drawImage(fireworks_image, x, y, width, height);
 }   
-
-function level1 (){
-    const startBtn = document.getElementById('startBtn');
-    startBtn.addEventListener('click', function(){
-        // checkAnswer();
-        // update game
-    });
-}
-level1();
-
-function level2 (){
-    const nextLevelBtn = document.getElementById('nextLevel');
-    nextLevelBtn.addEventListener('click', function(){
-   
-        nextLevelBtn.removeEventListener('click', nextLevelBtn, true);
-    });
-}
-level2();
 
 function getRandomElement(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
