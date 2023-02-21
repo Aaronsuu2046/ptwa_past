@@ -122,10 +122,10 @@ class Game{
             return
         }
         this.clear_canvas("current");
-        ctx_current.fillStyle = RED;
-        ctx_current.font = H1_FONT_STYLE;
-        ctx_current.fillText("恭喜過關！", canvas_current.width/3, canvas_current.height / 2);
-        set_off_fireworks(FIREWORK_PATH, canvas_current.width/3, canvas_current.height / 2, 100, 100);
+        ctx_stay.fillStyle = RED;
+        ctx_stay.font = H1_FONT_STYLE;
+        ctx_stay.fillText("恭喜過關！", canvas_current.width/3, canvas_current.height / 2);
+        set_off_eworks(FIREWORK_PATH, canvas_current.width/3, canvas_current.height / 2, 100, 100);
         fireworks_image.src = FIREWORK_PATH[0];
         console.log(fireworks_image.src);
         ctx_bg.drawImage(fireworks_image, canvas_current.width/3, canvas_current.height / 2, 100, 100);
@@ -213,7 +213,7 @@ class Game{
             if (this.topic_point === this.ans_point){
                 document.getElementById('correct').play();
                 this.draw_correct_line();
-                this.add_score(20);
+                this.addScore(20);
                 ctx_current.fillStyle = GREEN;
                 ctx_current.font = HINT_FONT_STYLE;
                 ctx_current.fillText("Ｏ", canvas_current.width/2-(HINT_SIZE/2), canvas_current.height / 2+(HINT_SIZE/2));
@@ -276,7 +276,7 @@ class Game{
         }
     }
 
-    add_score(score){
+    addScore(score){
         this.score += score;
         ctx_bg.clearRect(canvas_bg.width - 100, 5, 100, 50);
         ctx_bg.fillStyle = GREEN;
