@@ -19,17 +19,28 @@ class Game{
         this.correct = [];
         this.topic = [
             {
-                "topic": this.reset(getIntArray(5, 1))
-                , "ans": this.reset(getIntArray(5, 1))
+                "topic": this.shuffle(getIntArray(5, 1))
+                , "ans": this.shuffle(getIntArray(5, 1))
             }
-            ,{
-                "topic": this.reset(getIntArray(5, 6))
-                , "ans": this.reset(getIntArray(5, 6))
+            , {
+                "topic": this.shuffle(getIntArray(5, 6))
+                , "ans": this.shuffle(getIntArray(5, 6))
                 
+            }
+            , {
+                "topic": this.shuffle(getIntArray(5, 1))
+                , "ans": this.shuffle(getIntArray(5, 1))
+                , "chinese": this.shuffle(['一', '二', '三', '四', '五'])
+            }
+            , {
+                "topic": this.shuffle(getIntArray(5, 6))
+                , "ans": this.shuffle(getIntArray(5, 6))
+                , "chinese": this.shuffle(['六', '七', '八', '九', '十'])
             }
         ];
         this.gestures = [];
         this.numbers = [];
+        this.chinese = [];
         this.topic_points = [];
         this.ans_points = [];
         this.lives = [];
@@ -53,6 +64,9 @@ class Game{
         for (let i = 0; i < 5; i++) {
             this.create_topic(this.topic[this.level-1].topic[i], y+40);
             this.create_gesture(this.topic[this.level-1].ans[i], y);
+            if (this.level >= 3){
+                this.createChinese(this.topic[this.level-1].chinese[i], y+40);
+            }
             y += canvas_bg.height/6;
         }
         this.ready();
@@ -74,6 +88,16 @@ class Game{
         Btn2.addEventListener('click', (e) => {
             if (this.level!=2){
                 this.initialize(2);
+            }
+        });
+        Btn3.addEventListener('click', (e) => {
+            if (this.level!=3){
+                this.initialize(3);
+            }
+        });
+        Btn4.addEventListener('click', (e) => {
+            if (this.level!=4){
+                this.initialize(4);
             }
         });
         hint.addEventListener('click', this.show_ans);
@@ -103,9 +127,14 @@ class Game{
 
     show_ans = (e) => {
         if (!this.lives.length) {
-            for (let i = 0; i < this.ans_points.length; i++) {
-                this.create_ans(this.ans_points[i].ans, this.ans_points[i].x + 5
-                    , this.ans_points[i].y - 20)
+            for (let i = 0; i < this.gestures.length; i++) {
+                this.create_ans(this.gestures[i].num, this.gestures[i].x - 10
+                    , this.gestures[i].y + 20, 50)
+                if (this.level <3){
+                    continue;
+                }
+                this.create_ans(this.gestures[i].chi, this.gestures[i].x + this.gestures[i].width-10
+                    , this.gestures[i].y + 20, 35)
             }
         }
     }
@@ -135,7 +164,7 @@ class Game{
         this.score = 0;
     }
 
-    reset(array){
+    shuffle(array){
         // Fisher-Yates shuffle algorithm
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -149,6 +178,11 @@ class Game{
         for (let i = 0; i < this.gestures.length; i++){
             this.gestures[i].draw();
             this.numbers[i].draw();
+            if (this.level >= 3){
+                this.chinese[i].draw();
+            }
+        }
+        for (let i = 0; i < this.topic_points.length; i++){
             this.topic_points[i].draw();
             this.ans_points[i].draw();
         }
@@ -213,7 +247,7 @@ class Game{
             if (this.topic_point === this.ans_point){
                 document.getElementById('correct').play();
                 this.draw_correct_line();
-                this.addScore(20);
+                this.addScore(100/this.ans_points.length);
                 ctx_current.fillStyle = GREEN;
                 ctx_current.font = HINT_FONT_STYLE;
                 ctx_current.fillText("Ｏ", canvas_current.width/2-(HINT_SIZE/2), canvas_current.height / 2+(HINT_SIZE/2));
@@ -322,13 +356,17 @@ class Game{
     create_gesture(num, y){
         let path = IMAGE_PATH + "gesture_" + num + ".png";
         let width = 100;
-        let x = canvas_bg.width- 150
+        let x = this.level <3 ? canvas_bg.width - 150 : canvas_bg.width/2-width/2
         if (num>=6){
             width *= 2;
             x -= 70;
-        }let gesture = new Gesture(x, y, width, path);
+        }
+        let gesture = new Gesture(x, y, width, num, path);
         this.gestures.push(gesture);
         this.create_point(num, gesture.x-20, gesture.y+gesture.height/2, this.ans_points);
+        if (this.level >= 3){
+            this.create_point(CHINESE[num-1], gesture.x+gesture.width+20, gesture.y+gesture.height/2, this.topic_points);
+        }
     }
     create_topic(num, y){
         let x = 50;
@@ -340,11 +378,18 @@ class Game{
         this.numbers.push(number);
         this.create_point(num, number.x+number.width*number.size, number.y-number.width/3, this.topic_points);
     }
-    create_ans(num, x, y){
-        if (num>=10){
-            x -= SCORE_SIZE/2;
+    createChinese(chi, y){
+        let x = canvas_bg.width - 150;
+        y += 40;
+        let chi_number = new Number(chi, x, y, BLACK, 80, true);
+        this.chinese.push(chi_number);
+        this.create_point(chi, chi_number.x-20, chi_number.y-chi_number.width/3, this.ans_points);
+    }
+    create_ans(ans, x, y, width){
+        if (ans>=10){
+            x -= width/2;
         }
-        let number = new Number(num, x, y, DARKGREY, SCORE_SIZE, true);
+        let number = new Number(ans, x, y, DARKGREY, width, true);
         number.draw();
     }
     create_point(ans, x, y, group){

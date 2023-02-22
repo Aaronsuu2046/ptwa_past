@@ -28,6 +28,7 @@ canvas_stay.height = CANVAS_HEIGHT;
 canvas_current.width = CANVAS_WIDTH;
 canvas_current.height = CANVAS_HEIGHT;
 
+let CHINESE = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
 
 let digital_connection = new Game()
 

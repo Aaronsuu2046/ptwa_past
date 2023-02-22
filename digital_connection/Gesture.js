@@ -1,5 +1,5 @@
 class Gesture {
-    constructor(x, y, width=100, path){
+    constructor(x, y, width=100, num, path){
         this.image = new Image();
         this.image.src = path;
         this.x = x;
@@ -7,6 +7,8 @@ class Gesture {
         this.width = width;
         this.height = 100;
         this.used_frame = 0;
+        this.num = num;
+        this.chi = CHINESE[num-1];
     }
     update(){
 
