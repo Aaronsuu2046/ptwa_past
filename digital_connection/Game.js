@@ -9,6 +9,7 @@ class Game{
         // create objects
         this.npc = new Npc();
         
+        level_button[0].style.border = `3px solid ${DARKGREY}`;
         this.initialize();
         this.addEvent();
     }
@@ -51,8 +52,6 @@ class Game{
                 , "chinese": shuffle(random_chinese)
             }
         ];
-        console.log(this.topic[2].topic);
-        console.log(this.topic[2].ans);
         this.gestures = [];
         this.numbers = [];
         this.chinese = [];
@@ -95,72 +94,66 @@ class Game{
     }
     
     addEvent(){
-        Btn1.addEventListener('click', (e) => {
-            if (this.level!=1){
-                this.initialize();
-            }
-        });
-        Btn2.addEventListener('click', (e) => {
-            if (this.level!=2){
-                this.initialize(2);
-            }
-        });
-        Btn3.addEventListener('click', (e) => {
-            if (this.level!=3){
-                this.initialize(3);
-            }
-        });
-        Btn4.addEventListener('click', (e) => {
-            if (this.level!=4){
-                this.initialize(4);
-            }
-        });
-        Btn5.addEventListener('click', (e) => {
-            if (this.level!=5){
-                this.initialize(5);
-            }
-        });
-        Btn6.addEventListener('click', (e) => {
-            if (this.level!=6){
-                this.initialize(6);
-            }
-        });
+        level_button.forEach(item => {
+            item.addEventListener('click', (e) => {
+                this.initialize(parseInt(e.target.innerHTML));
+                level_button.forEach(item => {
+                    item.style.border = 'none';
+                })
+                item.style.border = `3px solid ${DARKGREY}`;
+            });
+        })
         hint.addEventListener('click', this.show_ans);
         startBtn.addEventListener('click', this.start_game); 
-        nextLevel.addEventListener('click', this.nextLevel); 
-        restart.addEventListener('click', (e) => {this.initialize(this.level)}); 
+        next_level_btn.addEventListener('click', this.nextLevel); 
+        restart_btn.addEventListener('click', (e) => {
+            revertElementBorder(e, BLACK, 500);
+            this.initialize(this.level)}); 
     }
     nextLevel = (e) => {
+        if (this.score !== 100){
+            return;
+        }
+        level_button[this.level-1].style.backgroundColor = YELLOW;
+        level_button[this.level-1].style.border = 'none';
+        revertElementBorder(e, BLACK, 500);
         if (this.level >= 6){
+            level_button[0].style.border = `3px solid ${DARKGREY}`;
             this.initialize();
         }
         else{
+            level_button[this.level].style.border = `3px solid ${DARKGREY}`;
             this.initialize(this.level+1);
         }
     }
 
     start_game = (e) => {
+        revertElementBorder(e, BLACK, 500);
         ctx_bg.fillStyle = BLUE;
         ctx_bg.font = H1_FONT_STYLE;
         ctx_bg.clearRect(0, 0, canvas_bg.width, canvas_bg.height);
         ctx_bg.fillText('將數字連上正確的手勢吧！', this.npc.x + this.npc.width+this.npc.width/2, this.npc.height);
         ctx_bg.fillStyle = RED;
+        console.log(SCORE_FONT_STYLE);
         ctx_bg.font = SCORE_FONT_STYLE;
+        console.log(SCORE_FONT_STYLE);
         ctx_bg.fillText(this.score, canvas_bg.width - 80, 55);
         this.draw_bg();
     }
 
     show_ans = (e) => {
-        if (!this.lives.length) {
-            for (let i = 0; i < this.gestures.length; i++) {
-                this.create_ans(this.gestures[i].num, this.gestures[i].x - 10
-                    , this.gestures[i].y + 25, 50)
-                if (this.level <= 3){
-                    continue;
-                }
-                this.create_ans(this.gestures[i].chi, this.gestures[i].x + this.gestures[i].width-10
-                    , this.gestures[i].y + 25, 35)
+        if (this.lives.length) {
+            return
+        }
+        revertElementBorder(e, BLACK, 500);
+        for (let i = 0; i < this.gestures.length; i++) {
+            this.create_ans(this.gestures[i].num, this.gestures[i].x - 10
+                , this.gestures[i].y + 25, 50)
+            if (this.level <= 3){
+                continue;
             }
+            this.create_ans(this.gestures[i].chi, this.gestures[i].x + this.gestures[i].width-10
+                , this.gestures[i].y + 25, 35)
         }
     }
 
@@ -179,10 +172,6 @@ class Game{
         ctx_stay.fillStyle = RED;
         ctx_stay.font = H1_FONT_STYLE;
         ctx_stay.fillText("恭喜過關！", canvas_current.width/3, canvas_current.height / 2);
-        set_off_eworks(FIREWORK_PATH, canvas_current.width/3, canvas_current.height / 2, 100, 100);
-        fireworks_image.src = FIREWORK_PATH[0];
-        console.log(fireworks_image.src);
-        ctx_bg.drawImage(fireworks_image, canvas_current.width/3, canvas_current.height / 2, 100, 100);
         if(this.status !== "GAME_WIN"){
         }
         this.status = "GAME_WIN";
@@ -330,7 +319,9 @@ class Game{
         this.score += score;
         ctx_bg.clearRect(canvas_bg.width - 100, 5, 100, 50);
         ctx_bg.fillStyle = GREEN;
+        console.log(SCORE_FONT_STYLE);
         ctx_bg.font = SCORE_FONT_STYLE;
+        console.log(SCORE_FONT_STYLE);
         ctx_bg.fillText(this.score, canvas_bg.width - SCORE_SIZE*2, 55);
         this.clear_canvas("current");
     }
@@ -461,3 +452,9 @@ function shuffle(array){
     return array;
 }
   
+function revertElementBorder(element, color, time){
+    element.target.style.border = `3px solid ${color}`;
+        setTimeout(function() {
+            element.target.style.border = 'initial';
+          }, time);
+}
