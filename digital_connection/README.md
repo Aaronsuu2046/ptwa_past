@@ -1,4 +1,4 @@
-# Educational Games
+# Digital Connection Game
 
 ![educational_games](https://img.shields.io/github/v/tag/Aaronsuu2046/aaronsuu2046.github.io)
 

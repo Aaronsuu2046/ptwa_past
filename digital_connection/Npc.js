@@ -2,11 +2,11 @@ NPC_PATH = "./asset/image/npc.png";
 
 
 class Npc {
-    constructor(){
+    constructor(x=10, y=10){
         this.image = new Image();
         this.image.src = NPC_PATH;
-        this.x = 10;
-        this.y = 10;
+        this.x = x;
+        this.y = y;
         this.frame = 0;
         this.width = 50;
         this.height = 58;

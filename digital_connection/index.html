@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Digital Connection Game</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -15,18 +16,18 @@
             <canvas id="canvas3"></canvas>
         </div>
         <div>            
-            <button id="Btn1" class="chooseBtn">1</button>
-            <button id="Btn2" class="chooseBtn">2</button>
-            <button id="Btn3" class="chooseBtn">3</button>
-            <button id="Btn4" class="chooseBtn">4</button>
-            <button id="Btn5" class="chooseBtn">5</button>
-            <button id="Btn6" class="chooseBtn">6</button>
+            <button class="chooseBtn">1</button>
+            <button class="chooseBtn">2</button>
+            <button class="chooseBtn">3</button>
+            <button class="chooseBtn">4</button>
+            <button class="chooseBtn">5</button>
+            <button class="chooseBtn">6</button>
         </div>
         <div>
             <button id="startBtn" class="stateBtn">遊戲開始</button>
             <button id="nextLevel" class="stateBtn">下一關</button>
-            <button id="restart" class="stateBtn" onclick="window.location.reload()">重新開始</button>
-            
+            <button id="restart" class="stateBtn">重新開始</button>
+            <button id="hint" class="stateBtn">提示</button>
         </div>
         <script src="env.js" type="text/JavaScript"></script>
         <script src="Npc.js" type="text/JavaScript"></script>
@@ -35,7 +36,8 @@
         <script src="Point.js" type="text/JavaScript"></script>
         <script src="Game.js" type="text/JavaScript"></script>
         <script src="main.js" type="text/JavaScript"></script>
-        
+        <!-- <script src="test.js" type="text/JavaScript"></script> -->
+        <!-- <script src="test2.js" type="text/JavaScript"></script> -->
     </div>
     <!--- Sound src-->
     <audio id="correct" src="asset/sound/correct_sound_effect.mp3"></audio>
