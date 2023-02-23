@@ -3,12 +3,12 @@
 }
 
 body {
-    width: 500px;
-    height: 800px;
+    width: 800px;
+    height: 600px;
     display: flex;
-    margin-left: 10%;
+    margin-left: 5%;
     margin-right: 10%;
-    margin-top: -13%;
+    margin-top: 1%;
     align-items: center;
     font-family: '微軟正黑體';
 }
