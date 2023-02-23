@@ -1,10 +1,10 @@
 body {
     width: 100vw;
     display: grid;
-    background-color: #fcf2ee;
+    background-color: #fcfaf9;
     grid-template-rows: 10% 90%;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: 'Microsoft JhengHei';
     grid-template-areas: 
     "L1 H1 H1 H1"
     "L1 B1 B1 B1"
@@ -15,24 +15,26 @@ body {
 .main-nav{
     width: 200px;
     height:500px;
-    background-color: #48807d;
+    background-color: #80b3c6;
     margin-top: 50px;
     margin-left: 80px;
-    font-size: 20px; 
+    font-size: 20px;
+    font-weight: 500; 
     grid-area: L1;
     text-align: center;
     cursor: pointer;
 }
 .main-nav a {
-    color: wheat;
+    color: whitesmoke;
     display: block;
     padding-top: 15px;
     padding-bottom: 15px;
     text-decoration: none;
-    border-top: 1px dashed antiquewhite;
+    /* border-top: 1px dashed antiquewhite; */
 }
 .main-nav > ul{
     text-align: center;
+    font-weight: 500;
     margin: auto;
     margin-left: -10px;
     list-style: none; 
@@ -41,12 +43,13 @@ body {
 .menu-item {
     margin-right: 10%;
     margin-left: -10%;
+    border-top: 1px dashed antiquewhite;
 }
 .sub-menu {
     display: none;
     position: relative;
     width: 150px;
-    background-color: rgb(163, 94, 24);
+    background-color: #7da38c;
     text-align: center;
     left: 100px;
     list-style: none; 
@@ -61,24 +64,30 @@ body {
 
 
 .main-header{
+    font-weight: bold;
     width: 550px;
-    margin-left: 45%;
+    margin-left: 315px;
+    font-size: 22px;
     grid-area: H1;
+    background-color: #b46f4c;
 }
 
 .main-header .container{
-    display: flex;
-    margin: 2px;
-    height: 50px;
+    text-align: center;
     max-width: 100%;
-    background-color: #fcf2ee;
+
     
 }
+
+.main-header ul li{
+    display: inline;
+    text-align: center;
+    margin-left: 1em;
+}
+
 #main-head-nav a{
-    font-size: 20px;
-    margin:0 20px 5px;
+    color: #89c1d5;
     text-decoration: none;
-    
 }
 
 .body-container{
