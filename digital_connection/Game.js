@@ -17,27 +17,42 @@ class Game{
         this.clear_canvas();
         this.score = 0;
         this.correct = [];
+        let topic_random = getRandomUniqueArrayElements(getIntArray(10, 1), 5);
+        let ans_random = shuffle([...topic_random]);
+        let random_chinese = shuffle([CHINESE[topic_random[0]-1], CHINESE[topic_random[1]-1], CHINESE[topic_random[2]-1], CHINESE[topic_random[3]-1], CHINESE[topic_random[4]-1]]);
         this.topic = [
             {
-                "topic": this.shuffle(getIntArray(5, 1))
-                , "ans": this.shuffle(getIntArray(5, 1))
+                "topic": shuffle(getIntArray(5, 1))
+                , "ans": shuffle(getIntArray(5, 1))
             }
             , {
-                "topic": this.shuffle(getIntArray(5, 6))
-                , "ans": this.shuffle(getIntArray(5, 6))
+                "topic": shuffle(getIntArray(5, 6))
+                , "ans": shuffle(getIntArray(5, 6))
                 
             }
             , {
-                "topic": this.shuffle(getIntArray(5, 1))
-                , "ans": this.shuffle(getIntArray(5, 1))
-                , "chinese": this.shuffle(['一', '二', '三', '四', '五'])
+                "topic": topic_random
+                , "ans": ans_random
+                
             }
             , {
-                "topic": this.shuffle(getIntArray(5, 6))
-                , "ans": this.shuffle(getIntArray(5, 6))
-                , "chinese": this.shuffle(['六', '七', '八', '九', '十'])
+                "topic": shuffle(getIntArray(5, 1))
+                , "ans": shuffle(getIntArray(5, 1))
+                , "chinese": shuffle(['一', '二', '三', '四', '五'])
+            }
+            , {
+                "topic": shuffle(getIntArray(5, 6))
+                , "ans": shuffle(getIntArray(5, 6))
+                , "chinese": shuffle(['六', '七', '八', '九', '十'])
+            }
+            , {
+                "topic": topic_random
+                , "ans": ans_random
+                , "chinese": shuffle(random_chinese)
             }
         ];
+        console.log(this.topic[2].topic);
+        console.log(this.topic[2].ans);
         this.gestures = [];
         this.numbers = [];
         this.chinese = [];
@@ -64,7 +79,7 @@ class Game{
         for (let i = 0; i < 5; i++) {
             this.create_topic(this.topic[this.level-1].topic[i], y+40);
             this.create_gesture(this.topic[this.level-1].ans[i], y);
-            if (this.level >= 3){
+            if (this.level > 3){
                 this.createChinese(this.topic[this.level-1].chinese[i], y+40);
             }
             y += canvas_bg.height/6;
@@ -100,6 +115,16 @@ class Game{
                 this.initialize(4);
             }
         });
+        Btn5.addEventListener('click', (e) => {
+            if (this.level!=5){
+                this.initialize(5);
+            }
+        });
+        Btn6.addEventListener('click', (e) => {
+            if (this.level!=6){
+                this.initialize(6);
+            }
+        });
         hint.addEventListener('click', this.show_ans);
         startBtn.addEventListener('click', this.start_game); 
         nextLevel.addEventListener('click', this.nextLevel); 
@@ -129,12 +154,12 @@ class Game{
         if (!this.lives.length) {
             for (let i = 0; i < this.gestures.length; i++) {
                 this.create_ans(this.gestures[i].num, this.gestures[i].x - 10
-                    , this.gestures[i].y + 20, 50)
-                if (this.level <3){
+                    , this.gestures[i].y + 25, 50)
+                if (this.level <= 3){
                     continue;
                 }
                 this.create_ans(this.gestures[i].chi, this.gestures[i].x + this.gestures[i].width-10
-                    , this.gestures[i].y + 20, 35)
+                    , this.gestures[i].y + 25, 35)
             }
         }
     }
@@ -164,21 +189,12 @@ class Game{
         this.score = 0;
     }
 
-    shuffle(array){
-        // Fisher-Yates shuffle algorithm
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-
     draw_bg(){
         this.npc.draw();
         for (let i = 0; i < this.gestures.length; i++){
             this.gestures[i].draw();
             this.numbers[i].draw();
-            if (this.level >= 3){
+            if (this.level > 3){
                 this.chinese[i].draw();
             }
         }
@@ -356,7 +372,7 @@ class Game{
     create_gesture(num, y){
         let path = IMAGE_PATH + "gesture_" + num + ".png";
         let width = 100;
-        let x = this.level <3 ? canvas_bg.width - 150 : canvas_bg.width/2-width/2
+        let x = this.level <= 3 ? canvas_bg.width - 150 : canvas_bg.width/2-width/2
         if (num>=6){
             width *= 2;
             x -= 70;
@@ -364,7 +380,7 @@ class Game{
         let gesture = new Gesture(x, y, width, num, path);
         this.gestures.push(gesture);
         this.create_point(num, gesture.x-20, gesture.y+gesture.height/2, this.ans_points);
-        if (this.level >= 3){
+        if (this.level > 3){
             this.create_point(CHINESE[num-1], gesture.x+gesture.width+20, gesture.y+gesture.height/2, this.topic_points);
         }
     }
@@ -421,4 +437,27 @@ function getRandomElement(arr) {
 function getIntArray(len, start) {
     return Array.from({length: len}, (_, i) => i+start);
   }
+
+function getRandomUniqueArrayElements(arr, length) {
+    const result = [];
+    const inputLength = arr.length;
+    const selectedIndexes = new Set();
+    while (selectedIndexes.size < length) {
+        const randomIndex = Math.floor(Math.random() * inputLength);
+        if (!selectedIndexes.has(randomIndex)) {
+            selectedIndexes.add(randomIndex);
+            result.push(arr[randomIndex]);
+    }
+    }
+    return result;
+}
+  
+function shuffle(array){
+    // Fisher-Yates shuffle algorithm
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
   
