@@ -108,7 +108,7 @@ class Game{
         next_level_btn.addEventListener('click', this.nextLevel); 
         restart_btn.addEventListener('click', (e) => {
             revertElementBorder(e, BLACK, 500);
-            this.initialize(this.level)}); 
+            this.initialize(this.level)});
     }
     nextLevel = (e) => {
         if (this.score !== 100){
@@ -128,15 +128,17 @@ class Game{
     }
 
     start_game = (e) => {
+        if (this.status === 'ALIVE'){
+            return
+        }
+        this.status = 'ALIVE';
         revertElementBorder(e, BLACK, 500);
         ctx_bg.fillStyle = BLUE;
         ctx_bg.font = H1_FONT_STYLE;
         ctx_bg.clearRect(0, 0, canvas_bg.width, canvas_bg.height);
         ctx_bg.fillText('將數字連上正確的手勢吧！', this.npc.x + this.npc.width+this.npc.width/2, this.npc.height);
         ctx_bg.fillStyle = RED;
-        console.log(SCORE_FONT_STYLE);
         ctx_bg.font = SCORE_FONT_STYLE;
-        console.log(SCORE_FONT_STYLE);
         ctx_bg.fillText(this.score, canvas_bg.width - 80, 55);
         this.draw_bg();
     }
@@ -172,10 +174,7 @@ class Game{
         ctx_stay.fillStyle = RED;
         ctx_stay.font = H1_FONT_STYLE;
         ctx_stay.fillText("恭喜過關！", canvas_current.width/3, canvas_current.height / 2);
-        if(this.status !== "GAME_WIN"){
-        }
         this.status = "GAME_WIN";
-        this.score = 0;
     }
 
     draw_bg(){
@@ -319,9 +318,7 @@ class Game{
         this.score += score;
         ctx_bg.clearRect(canvas_bg.width - 100, 5, 100, 50);
         ctx_bg.fillStyle = GREEN;
-        console.log(SCORE_FONT_STYLE);
         ctx_bg.font = SCORE_FONT_STYLE;
-        console.log(SCORE_FONT_STYLE);
         ctx_bg.fillText(this.score, canvas_bg.width - SCORE_SIZE*2, 55);
         this.clear_canvas("current");
     }

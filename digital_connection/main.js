@@ -10,9 +10,9 @@ let YELLOW = "#FFFF00";
 let PURPLE = "#800080";
 let H1_FONT_STYLE = "bold 40px Courier";
 let HINT_SIZE = 200;
-let HINT_FONT_STYLE = `bold ${HINT_SIZE} px Courier`;
+let HINT_FONT_STYLE = `bold ${HINT_SIZE}px Courier`;
 let SCORE_SIZE = 50;
-let SCORE_FONT_STYLE = `bold ${SCORE_SIZE} px Courier`;
+let SCORE_FONT_STYLE = `bold ${SCORE_SIZE}px Courier`;
 
 const canvas_bg = document.getElementById('canvas1');
 const ctx_bg = canvas_bg.getContext('2d');
@@ -25,12 +25,6 @@ ctx_current.fillStyle = BLACK;
 const startBtn = document.getElementById('startBtn');
 const next_level_btn = document.getElementById('nextLevel');
 const restart_btn = document.getElementById('restart');
-const level_1 = document.getElementById('Btn1');
-const level_2 = document.getElementById('Btn2');
-const level_3 = document.getElementById('Btn3');
-const level_4 = document.getElementById('Btn4');
-const level_5 = document.getElementById('Btn5');
-const level_6 = document.getElementById('Btn6');
 const level_button = [...document.querySelectorAll('.chooseBtn')];
 
 canvas_bg.width = CANVAS_WIDTH;
