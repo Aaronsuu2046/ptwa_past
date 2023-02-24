@@ -9,15 +9,12 @@
 
 [//]: # (TODO demo gif)
 
-## 點擊連接網址，進入遊戲網站
+1. 點擊連接網址，進入遊戲網站
+    [連結網址](https://PTWA-NPO.github.io/)
 
-[連結網址](https://PTWA-NPO.github.io/)
-
-## 在網址欄輸入網址
-
+2. 在網址欄輸入網址
+    `https://PTWA-NPO.github.io/`
 [//]: # (TODO demo gif)
-
-`https://PTWA-NPO.github.io/`
 
 
 # 遊戲介紹
@@ -32,12 +29,12 @@
 
 ## Grad1-3 數字連連看，認識 1～10（Digital Connection）
 
-- 專案連結：[digital_connection](https://github.com/Jesse-Jumbo/educational_games/tree/main/digital_connection)
+- 專案連結：[digital_connection](https://github.com/PTWA-NPO/PTWA-NPO.github.io/tree/develop/digital_connection)
 
-- 遊戲路徑：進入[遊戲網站](https://aaronsuu2046.github.io/)後，點擊左方列表中的 Grade1，選擇 digital_connection
+- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的 Grade1，選擇 digital_connection
 
 # Future Work
 
-1. [ ] readme 文件
+1. [ ] New Web View
 2. [ ] 更多遊戲關卡
 4. [ ] 適合三年級生的遊戲
