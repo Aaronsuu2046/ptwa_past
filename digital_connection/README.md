@@ -33,7 +33,7 @@
 一款讓孩子認識數字、手勢、國字，並且可以將之連結對應起來的遊戲
 
 ### 遊戲畫面
-<img src="https://raw.githubusercontent.com/PTWA-NPO/PTWA-NPO.github.io/develop/digital_connection/asset/image/digital_connection.gif" alt="GitHub" title="Digital Connection View" width="800" height="600"/>
+<img src="https://raw.githubusercontent.com/PTWA-NPO/PTWA-NPO.github.io/main/digital_connection/asset/image/digital_connection.gif" alt="GitHub" title="Digital Connection View" width="800" height="600"/>
 
 ### 關卡說明
 - 第一關：數字連手勢，認識 1～5
