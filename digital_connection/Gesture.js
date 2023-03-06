@@ -5,7 +5,7 @@ class Gesture {
         this.x = x;
         this.y = y;
         this.width = width;
-        this.height = 100;
+        this.height = 90;
         this.used_frame = 0;
         this.num = num;
         this.chi = CHINESE[num-1];

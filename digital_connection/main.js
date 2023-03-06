@@ -25,6 +25,7 @@ ctx_current.fillStyle = BLACK;
 const startBtn = document.getElementById('startBtn');
 const next_level_btn = document.getElementById('nextLevel');
 const restart_btn = document.getElementById('restart');
+const hint_btn = document.getElementById('hint');
 const level_button = [...document.querySelectorAll('.chooseBtn')];
 
 canvas_bg.width = CANVAS_WIDTH;

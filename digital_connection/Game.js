@@ -8,6 +8,8 @@ class Game{
     constructor(){
         // create objects
         this.npc = new Npc();
+
+        this.hint_img = document.querySelector('.hint');
         
         level_button[0].style.border = `3px solid ${DARKGREY}`;
         this.initialize();
@@ -16,6 +18,7 @@ class Game{
 
     initialize(level=1){
         this.clear_canvas();
+        this.hint_img.style.backgroundImage = "none";
         this.score = 0;
         this.correct = [];
         let topic_random = getRandomUniqueArrayElements(getIntArray(10, 1), 5);
@@ -90,7 +93,12 @@ class Game{
         // view of ready to start
         ctx_bg.fillStyle = BLUE;
         ctx_bg.font = H1_FONT_STYLE;
-        ctx_bg.fillText('準備好了嗎?', canvas_bg.width/3, canvas_bg.height / 2);
+        ctx_bg.fillText(`遊戲玩法：`, 50, 100);
+        ctx_bg.fillText(`將數字連上對應的手勢`, 80, 190);
+        ctx_bg.fillText(`當錯誤三次後點集提示可獲得對照表`, 80, 240);
+        ctx_bg.fillText(`當過關後可點選下一關`, 80, 290);
+        ctx_bg.fillText(`也可自由點選上方數字鍵切換關卡`, 80, 340);
+        ctx_bg.fillText(`準備好了嗎？點擊遊戲開始！`, canvas_bg.width -550, canvas_bg.height - 100);
     }
     
     addEvent(){
@@ -103,7 +111,7 @@ class Game{
                 item.style.border = `3px solid ${DARKGREY}`;
             });
         })
-        hint.addEventListener('click', this.show_ans);
+        hint_btn.addEventListener('click', this.show_ans);
         startBtn.addEventListener('click', this.start_game); 
         next_level_btn.addEventListener('click', this.nextLevel); 
         restart_btn.addEventListener('click', (e) => {
@@ -148,15 +156,9 @@ class Game{
             return
         }
         revertElementBorder(e, BLACK, 500);
-        for (let i = 0; i < this.gestures.length; i++) {
-            this.create_ans(this.gestures[i].num, this.gestures[i].x - 10
-                , this.gestures[i].y + 25, 50)
-            if (this.level <= 3){
-                continue;
-            }
-            this.create_ans(this.gestures[i].chi, this.gestures[i].x + this.gestures[i].width-10
-                , this.gestures[i].y + 25, 35)
-        }
+        this.hint_img.style.backgroundImage = `url('./asset/image/hint_${this.level}.png')`;
+        console.log(this.level);
+        this.hint_img.classList.toggle('show');
     }
 
     animate(){
@@ -362,17 +364,18 @@ class Game{
 
     create_gesture(num, y){
         let path = IMAGE_PATH + "gesture_" + num + ".png";
-        let width = 100;
-        let x = this.level <= 3 ? canvas_bg.width - 150 : canvas_bg.width/2-width/2
+        let width = 90;
+        let x = this.level <= 3 ? canvas_bg.width - 160 : canvas_bg.width/2-width/2;
+        let distance_point = num >= 6 ? 20 : (this.level !== 3 && this.level !== 6 ? 20 : 65);
         if (num>=6){
+            x -= width/2;
             width *= 2;
-            x -= 70;
         }
         let gesture = new Gesture(x, y, width, num, path);
         this.gestures.push(gesture);
-        this.create_point(num, gesture.x-20, gesture.y+gesture.height/2, this.ans_points);
+        this.create_point(num, gesture.x-distance_point, gesture.y+gesture.height/2, this.ans_points);
         if (this.level > 3){
-            this.create_point(CHINESE[num-1], gesture.x+gesture.width+20, gesture.y+gesture.height/2, this.topic_points);
+            this.create_point(CHINESE[num-1], gesture.x+gesture.width+distance_point, gesture.y+gesture.height/2, this.topic_points);
         }
     }
     create_topic(num, y){
@@ -381,14 +384,14 @@ class Game{
             x /= 2;
         }
         y += 40;
-        let number = new Number(num, x, y, BLACK, 100, true);
+        let number = new Number(num, x, y, BLACK, 90, true);
         this.numbers.push(number);
         this.create_point(num, number.x+number.width*number.size, number.y-number.width/3, this.topic_points);
     }
     createChinese(chi, y){
-        let x = canvas_bg.width - 150;
+        let x = canvas_bg.width - 130;
         y += 40;
-        let chi_number = new Number(chi, x, y, BLACK, 80, true);
+        let chi_number = new Number(chi, x, y, BLACK, 70, true);
         this.chinese.push(chi_number);
         this.create_point(chi, chi_number.x-20, chi_number.y-chi_number.width/3, this.ans_points);
     }
