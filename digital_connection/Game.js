@@ -292,6 +292,9 @@ class Game{
         canvas_current.addEventListener('mousedown', this.mouseDownListener);
         canvas_current.addEventListener('mousemove', this.mouseMoveListener);
         canvas_current.addEventListener('mouseup', this.mouseupListener);
+        canvas_current.addEventListener('touchstart', this.mouseDownListener);
+        canvas_current.addEventListener('touchmove', this.mouseMoveListener);
+        canvas_current.addEventListener('touchend', this.mouseupListener);
     }
     
     clear_canvas(canvas, x=0, y=0, width=canvas_current.width, height=canvas_current.height) {
