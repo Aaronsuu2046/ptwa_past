@@ -1,7 +1,8 @@
 class Point {
-    constructor(ans, x, y){
+    constructor(ans, id, x, y){
         this.x = x;
         this.y = y;
+        this.id = id;
         this.ans = ans;
         this.radius = 10;
     }

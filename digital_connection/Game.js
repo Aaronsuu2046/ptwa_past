@@ -18,6 +18,10 @@ class Game{
         this.clear_canvas();
         hint_img.style.backgroundImage = "none";
         hint_img.style.backgroundColor = "";
+        this.record = {'start': []
+                        , 'end': []
+                        , 'result': []
+                    };
         this.score = 0;
         this.correct = [];
         let topic_random = getRandomUniqueArrayElements(getIntArray(10, 1), 5);
@@ -116,6 +120,34 @@ class Game{
         restart_btn.addEventListener('click', (e) => {
             revertElementBorder(e, BLACK, 500);
             this.initialize(this.level)});
+        
+        downloadBtn.addEventListener('click', () => {
+            // 設定下載檔案名稱
+            const filename = `第 ${this.level} 關遊戲紀錄.txt `;
+            let textContent = `第 ${this.level} 關遊戲紀錄：
+            `;
+            
+            for (let i=0; i<this.record.start.length; i++) {
+                textContent += `\t\n第 ${i+1} 次點擊從${this.record.start[i]} 到${this.record.end[i]}，結果為 ${this.record.result[i]}`
+
+            }
+            // 建立一個 Blob 物件
+            const blob = new Blob([textContent], {type: 'text/plain'});
+  
+            // 建立一個下載連結
+            const url = URL.createObjectURL(blob);
+  
+            // 建立一個 <a> 元素，並設定 href 屬性和 download 屬性
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+  
+            // 模擬點擊 <a> 元素，開始下載檔案
+            a.click();
+  
+            // 釋放 URL 物件
+            URL.revokeObjectURL(url);
+        });
     }
     nextLevel = (e) => {
         if (this.score !== 100){
@@ -155,7 +187,6 @@ class Game{
             return
         }
         revertElementBorder(e, BLACK, 500);
-        console.log(hint_img.style.backgroundImage);
         if (hint_img.style.backgroundImage !== 'none'){
             hint_img.style.backgroundImage = 'none';
                 hint_img.style.backgroundColor = ''
@@ -259,10 +290,12 @@ class Game{
         this.mouseupListener = (e) => {
             this.isDrawStart = false;
             this.ans_point = this.collide_with_ans_point(this.lineCoordinates);
-            if (!this.topic_point || !this.ans_point) {
+            if (!this.topic_point.ans || !this.ans_point.ans) {
                 return;
             }
-            if (this.topic_point === this.ans_point){
+            this.record.start.push(`${this.topic_point.id} ${this.topic_point.ans}`);
+            this.record.end.push(`${this.ans_point.id} ${this.ans_point.ans}`);
+            if (this.topic_point.ans === this.ans_point.ans){
                 document.getElementById('correct').play();
                 this.draw_correct_line();
                 this.addScore(100/this.ans_points.length);
@@ -270,6 +303,7 @@ class Game{
                 ctx_current.font = HINT_FONT_STYLE;
                 ctx_current.fillText("Ｏ", canvas_current.width/2-(HINT_SIZE/2), canvas_current.height / 2+(HINT_SIZE/2));
                 this.correct.push(this.ans_point);
+                this.record.result.push("Ｏ");
             }
             else {
                 document.getElementById('wrong').play();
@@ -277,6 +311,7 @@ class Game{
                 ctx_current.fillStyle = RED;
                 ctx_current.font = HINT_FONT_STYLE;
                 ctx_current.fillText("Ｘ", canvas_current.width/2-(HINT_SIZE/2), canvas_current.height / 2+(HINT_SIZE/2));
+                this.record.result.push("Ｘ");
                 if (this.lives){
                     this.lives.pop();
                     this.clear_canvas("bg", canvas_bg.width - this.npc.width*4.5, 10, this.npc.width*2, this.npc.height);
@@ -344,7 +379,7 @@ class Game{
         for (let i = 0; i < this.topic_points.length; i++) {
             let point = this.topic_points[i]
             if (this.collide_with_x(startPosition, point) && this.collide_with_y(startPosition, point)){
-                return point.ans;
+                return point;
             }
         }
         return 0;
@@ -354,7 +389,7 @@ class Game{
         for (let i = 0; i < this.ans_points.length; i++) {
             let point = this.ans_points[i]
             if (!this.correct.includes(point.ans) && this.collide_with_x(startPosition, point) && this.collide_with_y(startPosition, point)){
-                return point.ans;
+                return point;
             }
         }
         return 0;
@@ -385,9 +420,9 @@ class Game{
         }
         let gesture = new Gesture(x, y, width, num, path);
         this.gestures.push(gesture);
-        this.create_point(num, gesture.x-distance_point, gesture.y+gesture.height/2, this.ans_points);
+        this.create_point(num, "手勢", gesture.x-distance_point, gesture.y+gesture.height/2, this.ans_points);
         if (this.level > 3){
-            this.create_point(CHINESE[num-1], gesture.x+gesture.width+distance_point, gesture.y+gesture.height/2, this.topic_points);
+            this.create_point(CHINESE[num-1], "手勢", gesture.x+gesture.width+distance_point, gesture.y+gesture.height/2, this.topic_points);
         }
     }
     create_topic(num, y){
@@ -398,14 +433,14 @@ class Game{
         y += 40;
         let number = new Number(num, x, y, BLACK, 90, true);
         this.numbers.push(number);
-        this.create_point(num, number.x+number.width*number.size, number.y-number.width/3, this.topic_points);
+        this.create_point(num, "數字", number.x+number.width*number.size, number.y-number.width/3, this.topic_points);
     }
     createChinese(chi, y){
         let x = canvas_bg.width - 130;
         y += 40;
         let chi_number = new Number(chi, x, y, BLACK, 70, true);
         this.chinese.push(chi_number);
-        this.create_point(chi, chi_number.x-20, chi_number.y-chi_number.width/3, this.ans_points);
+        this.create_point(chi, "國字", chi_number.x-20, chi_number.y-chi_number.width/3, this.ans_points);
     }
     create_ans(ans, x, y, width){
         if (ans>=10){
@@ -414,8 +449,8 @@ class Game{
         let number = new Number(ans, x, y, DARKGREY, width, true);
         number.draw();
     }
-    create_point(ans, x, y, group){
-        let point = new Point(ans, x, y);
+    create_point(ans, id, x, y, group){
+        let point = new Point(ans, id, x, y);
         group.push(point);
     }
     create_live(x, y, group){
@@ -433,9 +468,7 @@ function set_off_fireworks(){
     let count = 0;
     while (count < 3000){
         let milliseconds =  Math.floor(Math.random() * (800 - 400 + 1)) + 400;
-        console.log(milliseconds)
         count += milliseconds;
-        console.log(count)
         setTimeout(showFirework, count)
     }
 } 
