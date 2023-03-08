@@ -17,6 +17,7 @@ class Game{
     initialize(level=1){
         this.clear_canvas();
         hint_img.style.backgroundImage = "none";
+        hint_img.style.backgroundColor = "";
         this.score = 0;
         this.correct = [];
         let topic_random = getRandomUniqueArrayElements(getIntArray(10, 1), 5);
@@ -154,10 +155,16 @@ class Game{
             return
         }
         revertElementBorder(e, BLACK, 500);
-        hint_img.style.backgroundImage = `url('./asset/image/hint_${this.level}.png')`;
-        console.log(this.level);
-        hint_img.classList.toggle('show');
-    }
+        console.log(hint_img.style.backgroundImage);
+        if (hint_img.style.backgroundImage !== 'none'){
+            hint_img.style.backgroundImage = 'none';
+                hint_img.style.backgroundColor = ''
+            }
+        else{
+            hint_img.style.backgroundImage = `url('./asset/image/hint_${this.level}.png')`;
+            hint_img.style.backgroundColor = '#ffffff'
+        }
+        }
 
     animate(){
         this.draw_view();
@@ -227,6 +234,10 @@ class Game{
         }
         
         this.mouseDownListener = (e) => {
+            if (hint_img.style.backgroundImage !== 'none'){
+                hint_img.style.backgroundImage = 'none';
+                hint_img.style.backgroundColor = '';
+            }
             this.startPosition = this.getClientOffset(e);
             this.topic_point = this.collide_with_topic_point(this.startPosition);
             if (this.topic_point){

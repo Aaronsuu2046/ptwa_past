@@ -71,12 +71,14 @@ body {
 }
 
 .hint {
-    position: fixed;
-    z-index: 1;
+    position:absolute;
+    z-index: 4;
     background-image: url("./asset/image/hint_1.png");
-    top: 15%;
-    left: 62%;
+    top: 50%;
+    left: 30%;
+    transform: translate(-50%, -50%);
     background-size: contain;
+    background-position: center center;
     width: 350px;
     height: 300px;
     background-repeat: no-repeat;
@@ -87,12 +89,4 @@ body {
     top: 15%;
     width : 800px;
     height: 600px;
-}
-
-.show {
-    display: inline;
-}
-
-.hide {
-    display: none;
 }
