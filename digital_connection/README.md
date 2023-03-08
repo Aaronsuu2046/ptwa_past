@@ -32,6 +32,8 @@
 
 一款讓孩子認識數字、手勢、國字，並且可以將之連結對應起來的遊戲
 
+支援平板與手擊遊玩，但推薦使用電腦遊玩更適合
+
 ### 遊戲畫面
 <img src="https://raw.githubusercontent.com/PTWA-NPO/PTWA-NPO.github.io/main/digital_connection/asset/image/digital_connection.gif" alt="GitHub" title="Digital Connection View" width="800" height="600"/>
 
@@ -47,6 +49,7 @@
 - 將每個數字對應的手勢連起來，即可過關
 - 過關之後才可點擊下一關，或是點擊數字按鈕跳關
 - 錯誤三次之後，可點擊提示按鈕，獲得提示
+- 點擊遊戲紀錄，可下載該關卡的遊玩紀錄
  
 ### Image Source
 - [Fireworks](https://opengameart.org/content/fireworks)
@@ -56,6 +59,5 @@
 
 # Future Work
 
-1. [ ] 過關煙火
-2. [ ] 平板可玩
-3. [ ] 供老師下載遊玩記錄
+1. [ ] 響應式網頁
+2. [ ] 手機也可玩
