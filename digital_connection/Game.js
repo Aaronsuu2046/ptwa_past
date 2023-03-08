@@ -17,7 +17,6 @@ class Game{
     initialize(level=1){
         this.clear_canvas();
         hint_img.style.backgroundImage = "none";
-        fireworkContainer.style.backgroundImage = "none";
         this.score = 0;
         this.correct = [];
         let topic_random = getRandomUniqueArrayElements(getIntArray(10, 1), 5);
@@ -418,34 +417,37 @@ function set_off_fireworks(){
     let firework_sound = document.getElementById('firework');
     firework_sound.currentTime = 1.5;
     firework_sound.play();
+    showFirework();
     setTimeout(()=>{firework_sound.pause()}, 4000);
     let count = 0;
-    const intervalId = setInterval(function() {
-        if (count >= 5 * 4) {
-          clearInterval(intervalId);
-          return;
-        }
-        showFirework();
-        count++;
-      }, 200);
-    setTimeout(removeFirework, 4000);
-    } 
+    while (count < 3000){
+        let milliseconds =  Math.floor(Math.random() * (800 - 400 + 1)) + 400;
+        console.log(milliseconds)
+        count += milliseconds;
+        console.log(count)
+        setTimeout(showFirework, count)
+    }
+} 
 
 function showFirework() {
     for (let i = 0; i < 5; i++) {
+        let width = 100 * (Math.random()*2.5);
         const fireworksElement = document.createElement('img');
         fireworksElement.src = fireworksUrl;
         fireworksElement.style.position = 'absolute';
-        fireworksElement.style.top = Math.floor(Math.random() * 400+100) + 'px';
-        fireworksElement.style.left = Math.floor(Math.random() * 600+50) + 'px';
-        fireworksElement.style.width = '100px';
+        fireworksElement.style.width = `${width}px`;
         fireworksElement.style.height = 'auto';
+        fireworksElement.style.left = Math.floor(Math.random() * (CANVAS_WIDTH-width)) + 'px';
+        fireworksElement.style.top = Math.floor(Math.random() * (CANVAS_HEIGHT-width*1.2)) + 'px';
         fireworkContainer.appendChild(fireworksElement);
     }
+    setTimeout(removeFirework, 1194);
 }  
 
 function removeFirework() {
-    fireworkContainer.innerHTML = '';
+    for (let i = 0; i < 5; i++) {
+        fireworkContainer.removeChild(fireworkContainer.children[0]);
+	}
   }
   
 function getRandomElement(arr) {
