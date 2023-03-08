@@ -9,8 +9,6 @@ class Game{
         // create objects
         this.npc = new Npc();
 
-        this.hint_img = document.querySelector('.hint');
-        
         level_button[0].style.border = `3px solid ${DARKGREY}`;
         this.initialize();
         this.addEvent();
@@ -18,7 +16,8 @@ class Game{
 
     initialize(level=1){
         this.clear_canvas();
-        this.hint_img.style.backgroundImage = "none";
+        hint_img.style.backgroundImage = "none";
+        fireworkContainer.style.backgroundImage = "none";
         this.score = 0;
         this.correct = [];
         let topic_random = getRandomUniqueArrayElements(getIntArray(10, 1), 5);
@@ -136,7 +135,7 @@ class Game{
     }
 
     start_game = (e) => {
-        if (this.status === 'ALIVE'){
+        if (this.status !== 'FAIL'){
             return
         }
         this.status = 'ALIVE';
@@ -156,9 +155,9 @@ class Game{
             return
         }
         revertElementBorder(e, BLACK, 500);
-        this.hint_img.style.backgroundImage = `url('./asset/image/hint_${this.level}.png')`;
+        hint_img.style.backgroundImage = `url('./asset/image/hint_${this.level}.png')`;
         console.log(this.level);
-        this.hint_img.classList.toggle('show');
+        hint_img.classList.toggle('show');
     }
 
     animate(){
@@ -172,10 +171,13 @@ class Game{
         if (this.score !== 100) {
             return
         }
-        this.clear_canvas("current");
-        ctx_stay.fillStyle = RED;
-        ctx_stay.font = H1_FONT_STYLE;
-        ctx_stay.fillText("恭喜過關！", canvas_current.width/3, canvas_current.height / 2);
+        if (this.status != "GAME_WIN"){
+            this.clear_canvas("current");
+            ctx_stay.fillStyle = RED;
+            ctx_stay.font = H1_FONT_STYLE;
+            set_off_fireworks();
+            ctx_stay.fillText("恭喜過關！", canvas_current.width/3, canvas_current.height / 2);
+        }
         this.status = "GAME_WIN";
     }
 
@@ -412,18 +414,40 @@ class Game{
     }
 }
 
-function set_off_fireworks(images_path, x, y, width, height){
-    firework_sound = document.getElementById('firework');
+function set_off_fireworks(){
+    let firework_sound = document.getElementById('firework');
     firework_sound.currentTime = 1.5;
     firework_sound.play();
-    setTimeout(function(){ firework_sound.pause(); }, 2000);
-    // for (let i = 0; i < images_path.length; i++) {
-    //     console.log(images_path[i]);
-    // }
-    // fireworks_image.src = images_path[0];
-    // ctx_bg.drawImage(fireworks_image, x, y, width, height);
-}   
+    setTimeout(()=>{firework_sound.pause()}, 4000);
+    let count = 0;
+    const intervalId = setInterval(function() {
+        if (count >= 5 * 4) {
+          clearInterval(intervalId);
+          return;
+        }
+        showFirework();
+        count++;
+      }, 200);
+    setTimeout(removeFirework, 4000);
+    } 
 
+function showFirework() {
+    for (let i = 0; i < 5; i++) {
+        const fireworksElement = document.createElement('img');
+        fireworksElement.src = fireworksUrl;
+        fireworksElement.style.position = 'absolute';
+        fireworksElement.style.top = Math.floor(Math.random() * 400+100) + 'px';
+        fireworksElement.style.left = Math.floor(Math.random() * 600+50) + 'px';
+        fireworksElement.style.width = '100px';
+        fireworksElement.style.height = 'auto';
+        fireworkContainer.appendChild(fireworksElement);
+    }
+}  
+
+function removeFirework() {
+    fireworkContainer.innerHTML = '';
+  }
+  
 function getRandomElement(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
   }

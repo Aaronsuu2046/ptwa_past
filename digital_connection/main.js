@@ -14,6 +14,8 @@ let HINT_FONT_STYLE = `bold ${HINT_SIZE}px Courier`;
 let SCORE_SIZE = 50;
 let SCORE_FONT_STYLE = `bold ${SCORE_SIZE}px Courier`;
 
+const fireworksUrl = './asset/image/fireworks.gif';
+
 const canvas_bg = document.getElementById('canvas1');
 const ctx_bg = canvas_bg.getContext('2d');
 const canvas_stay = document.getElementById('canvas2');
@@ -27,6 +29,8 @@ const next_level_btn = document.getElementById('nextLevel');
 const restart_btn = document.getElementById('restart');
 const hint_btn = document.getElementById('hint');
 const level_button = [...document.querySelectorAll('.chooseBtn')];
+const hint_img = document.querySelector('.hint');
+const fireworkContainer = document.querySelector('#firework-container');
 
 canvas_bg.width = CANVAS_WIDTH;
 canvas_bg.height = CANVAS_HEIGHT;
