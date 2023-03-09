@@ -116,6 +116,13 @@ class Game{
             });
         })
         hint_btn.addEventListener('click', this.show_ans);
+        closeImageBtn.addEventListener('click', this.closeHint);
+        overlay.addEventListener('click', (e)=>{
+            if (e.target === overlay) {
+                overlay.style.direction = 'none';
+                this.closeHint();
+            }
+        });
         startBtn.addEventListener('click', this.start_game); 
         next_level_btn.addEventListener('click', this.nextLevel); 
         restart_btn.addEventListener('click', (e) => {
@@ -188,15 +195,18 @@ class Game{
             return
         }
         revertElementBorder(e, BLACK, 500);
-        if (hint_img.style.backgroundImage !== 'none'){
-            hint_img.style.backgroundImage = 'none';
-                hint_img.style.backgroundColor = ''
-            }
+        if (overlay.style.display !== 'none'){
+            this.closeHint()
+        }
         else{
-            hint_img.style.backgroundImage = `url('./asset/image/hint_${this.level}.png')`;
-            hint_img.style.backgroundColor = '#ffffff'
+            overlay.style.display = 'block';
+            image.src = `./asset/image/hint_${this.level}.png`;
         }
-        }
+    }
+
+    closeHint = (e) =>{
+        overlay.style.display = 'none';
+    }
 
     animate(){
         this.draw_view();
@@ -464,6 +474,7 @@ function set_off_fireworks(){
     let firework_sound = document.getElementById('firework');
     firework_sound.currentTime = 1.5;
     firework_sound.play();
+    fireworkContainer.style.display = 'block';
     showFirework();
     setTimeout(()=>{firework_sound.pause()}, 4000);
     let count = 0;
@@ -472,6 +483,9 @@ function set_off_fireworks(){
         count += milliseconds;
         setTimeout(showFirework, count)
     }
+    setTimeout(() => {
+        fireworkContainer.style.display = 'none';
+    }, count)
 } 
 
 function showFirework() {

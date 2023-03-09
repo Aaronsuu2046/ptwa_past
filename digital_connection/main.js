@@ -32,6 +32,10 @@ const level_button = [...document.querySelectorAll('.chooseBtn')];
 const hint_img = document.querySelector('.hint');
 const fireworkContainer = document.querySelector('#firework-container');
 const downloadBtn = document.getElementById('downloadBtn');
+const closeImageBtn = document.getElementById('close-image-btn');
+const overlay = document.getElementById('overlay');
+const image = document.getElementById('image');
+const imageContainer = document.getElementById('image-container');
 
 canvas_bg.width = CANVAS_WIDTH;
 canvas_bg.height = CANVAS_HEIGHT;
