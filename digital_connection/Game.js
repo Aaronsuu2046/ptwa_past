@@ -98,9 +98,10 @@ class Game{
         ctx_bg.font = H1_FONT_STYLE;
         ctx_bg.fillText(`遊戲玩法：`, 50, 100);
         ctx_bg.fillText(`將數字連上對應的手勢`, 80, 190);
-        ctx_bg.fillText(`當錯誤三次後點集提示可獲得對照表`, 80, 240);
+        ctx_bg.fillText(`當錯誤三次後點擊提示可獲得對照表`, 80, 240);
         ctx_bg.fillText(`當過關後可點選下一關`, 80, 290);
         ctx_bg.fillText(`也可自由點選上方數字鍵切換關卡`, 80, 340);
+        ctx_bg.fillText(`點擊遊戲紀錄，下載此次的遊玩紀錄`, 80, 390);
         ctx_bg.fillText(`準備好了嗎？點擊遊戲開始！`, canvas_bg.width -550, canvas_bg.height - 100);
     }
     

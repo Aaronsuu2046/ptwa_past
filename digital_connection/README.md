@@ -52,7 +52,7 @@
 - 點擊遊戲紀錄，可下載該關卡的遊玩紀錄
  
 ### Image Source
-- [Fireworks](https://opengameart.org/content/fireworks)
+- [Fireworks](https://media.giphy.com/media/yz76Da5VvYK4w/giphy.gif)
 
 ### Sound Source
 - [Fireworks](https://opengameart.org/content/fireworks-with-applause-happy-people)
