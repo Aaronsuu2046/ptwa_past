@@ -1,0 +1,25 @@
+{
+    "gameName": "My Game"
+    , "description": [""]
+    , "imageSource": ""
+    , "initialize": {
+        "width": 800
+        , "height": 600
+        , "backgroundColor": "#333"
+        , "options": {
+            "start": "startButton"
+            , "next": "nextButton"
+            , "prev": "prevButton"
+            , "hint": "hintButton"
+            , "submit": "submitButton"
+            , "donload": "donloadButton"
+        }
+    }
+    , "level": [
+        {
+            "": ""
+        }
+    ]
+
+}
+  
