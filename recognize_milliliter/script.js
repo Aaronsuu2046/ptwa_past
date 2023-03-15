@@ -39,6 +39,7 @@ water_control.addEventListener('wheel', (e) => {
     water_scale.textContent = `${milliliter} ml`
 });
 
+console.log(act);
 if (milliliter === topic){
     document.getElementById('correct').play();
     console.log('win');

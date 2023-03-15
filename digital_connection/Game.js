@@ -465,7 +465,7 @@ class Game{
         group.push(point);
     }
     create_live(x, y, group){
-        let live = new Npc(x, y);
+        let live = new Npc(x, y, false);
         group.push(live);
     }
 }

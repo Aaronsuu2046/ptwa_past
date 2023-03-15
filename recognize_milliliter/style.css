@@ -14,6 +14,7 @@ body {
 
 .canvas {
     position: relative;
+    display: flex;
     width: 800px;
     height: 600px;
 }
@@ -99,6 +100,11 @@ body {
     background-color: #eee;
     color: #8e8e9c;
     transition: 0.5s;
+}
+
+.optionsBtn {
+    position: absolute;
+    z-index: 9999;
 }
 
 .optionsBtn #lastBtn {

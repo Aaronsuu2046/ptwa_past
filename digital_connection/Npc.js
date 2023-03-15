@@ -1,10 +1,14 @@
 NPC_PATH = "./asset/image/npc.png";
+LIVES_PATH = "./asset/image/lives.svg";
 
 
 class Npc {
-    constructor(x=10, y=10){
+    constructor(x=10, y=10, is_npc=true){
         this.image = new Image();
         this.image.src = NPC_PATH;
+        if (!is_npc){
+            this.image.src = LIVES_PATH;
+        }
         this.x = x;
         this.y = y;
         this.frame = 0;
