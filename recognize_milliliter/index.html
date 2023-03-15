@@ -3,29 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>遊戲名稱</title>
+    <title>認識毫公升</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div>
-        <div>
-            <canvas class="canvas"></canvas>
+    <div class="audio">
+        <audio id="correct" src="assets/sounds/correct_sound_effect.mp3"></audio>
+        <audio id="wrong" src="assets/sounds/wrong_sound_effect.mp3"></audio>
+        <audio id="win" src="assets/sounds/applause_fireworks.mp3" duration="3"></audio>
+    </div>
+    <div class="gameWidonw">
+        <div class="gameBtn levelBtn">            
+            <button class="level1">1</button>
+            <button class="level2">2</button>
+            <button class="level3">3</button>
+            <button class="level4">4</button>
+            <button class="level5">5</button>
         </div>
-        <div>            
-            <button class="levelButton">1</button>
+        <div class="canvas">
+            <canvas class="canvas1"></canvas>
+            <div class="topic"></div>
+            <div class="game_area">
+                <div class="water_scale">5 ml</div>
+                <div class="water_container">
+                    <div class="water">
+                    </div>
+                    <ul class="scales">
+                        <li class="top">10</li>
+                        <li class="mid">5</li>
+                        <li class="bottom">0</li>
+                    </ul>
+                    <div class="line"></div>
+                </div>
+                <div class="water_control">
+                    <div class="updown">⇅</div>
+                </div>
+            </div>
         </div>
-        <div>
-            <button class="optionsButton">功能按鈕</button>
+        <div class="gameBtn optionsBtn">
+            <button id="lastBtn">上一關</button>
+            <button id="startBtn">遊戲開始</button>
+            <button id="nextBtn">下一關</button>
+            <button id="submitBtn">送出</button>
         </div>
     </div>
     <div class="script">
         <script src="script.js" type="text/JavaScript"></script>
-    </div>
-    <div class="audio">
-        <audio id="correct" src="assetss/sounds/correct_sound_effect.mp3"></audio>
-        <audio id="wrong" src="assets/sounds/wrong_sound_effect.mp3"></audio>
-        <audio id="win" src="assets/sounds/applause_fireworks.mp3" duration="3"></audio>
     </div>
 </body>
 </html>
