@@ -92,6 +92,9 @@ function checkAnswer() {
     if (milliliter === answer){
         document.getElementById('correct').play();
     }
+    else {
+        document.getElementById('wrong').play();
+    }
 }
 
 function changeLevel() {
