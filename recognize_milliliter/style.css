@@ -145,14 +145,13 @@ body {
 }
 
 .game_area .water_scale {
-    font-size: 25px;
+    font-size: 30px;
     text-align: right;
     transform: translate(0%, 50%);
     flex: 3;
 }
 
 .game_area .water_scale::after {
-    font-size: 25px;
     content: " ml";
 }
 

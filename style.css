@@ -1,5 +1,4 @@
 body {
-    width: 100vw;
     display: grid;
     background-color: #fcfaf9;
     grid-template-rows: 10% 90%;
