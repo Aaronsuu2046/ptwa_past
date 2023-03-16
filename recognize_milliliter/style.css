@@ -151,6 +151,11 @@ body {
     flex: 3;
 }
 
+.game_area .water_scale::after {
+    font-size: 25px;
+    content: " ml";
+}
+
 .game_area .water_control {
     position: relative;
     flex: 2;
