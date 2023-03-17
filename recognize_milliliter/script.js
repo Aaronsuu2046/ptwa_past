@@ -53,7 +53,7 @@ gameBtn.forEach((item) => {
 });
 
 water_control.addEventListener('wheel', (e) => {
-    if (milliliter>end){
+    if (milliliter>end || gameState !== GAME_ALIVE){
         return
     }
     if (e.deltaY<0 && milliliter<end){
@@ -77,7 +77,7 @@ water_control.addEventListener('touchstart', (e) => {
 
 water_control.addEventListener('touchmove', (e) => {
     if (active) {
-        if (milliliter>end){
+        if (milliliter>end || gameState !== GAME_ALIVE){
             return
         }
         currentTouchY = e.touches[0].clientY;
@@ -125,7 +125,7 @@ function goLevel() {
 }
 
 function startGame() {
-    if (gameState!==GAME_FILE){
+    if (gameState===GAME_ALIVE){
         return
     }
     if (level===0){
@@ -162,6 +162,9 @@ function checkAnswer() {
         document.getElementById('wrong').play();
         document.getElementById('dada').style.display = 'block';
         setTimeout(()=>{document.getElementById('dada').style.display = 'none';}, 2500);
+        $(gameBtn[level-1]).removeClass('bingo');
+        winArr.pop(level);
+        $(gameBtn[level-1]).addClass('active');
     }
 }
 
