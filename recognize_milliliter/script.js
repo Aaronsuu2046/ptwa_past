@@ -1,9 +1,13 @@
 // import * as constVarlue from './constant';
 
+const GAME_FILE = 'FILE'
+const GAME_ALIVE = 'ALIVE'
+const GAME_WIN = 'WIN'
 const LAST_BTN = 'lastBtn'
 const START_BTN = 'startBtn'
 const NEXT_BTN = 'nextBtn'
 const SUBMIT_BTN = 'submitBtn'
+const canvas = document.querySelector(`canvas`);
 const gameBtn = [...document.querySelectorAll(`.gameBtn *`)];
 const water = document.querySelector(`.water`);
 const water_scale = document.querySelector(`.water_scale`);
@@ -11,8 +15,12 @@ const water_control = document.querySelector('.water_control');
 const topic = document.querySelector('.topic');
 const scales = document.querySelector('.scales');
 const gameRule = document.querySelector('.gameRule');
+const firework_sound = document.getElementById('win');
+const fireworkContainer = document.querySelector('#firework-container');
+const fireworksUrl = './assets/images/fireworks.gif';
 let level = 1, milliliter = 5, start = 0, end = 10, tolerance = 1, delay = 40;
 let act = '';
+let gameState = GAME_FILE;
 let answer = getRandomNumber();
 
 
@@ -116,6 +124,10 @@ function goLevel() {
 }
 
 function startGame() {
+    if (gameState!==GAME_FILE){
+        return
+    }
+    gameState = GAME_ALIVE;
     gameRule.style.display = 'none';
     mid = (end-start)/2;
     scales.querySelector('.top').textContent=end;
@@ -130,11 +142,20 @@ function startGame() {
 }
 
 function checkAnswer() {
+    if (gameState !== GAME_ALIVE){
+        return
+    }
     if (milliliter === answer){
+        gameState = GAME_WIN;
         document.getElementById('correct').play();
+        document.getElementById('bingo').style.display = 'block';
+        set_off_fireworks();
+        setTimeout(()=>{document.getElementById('bingo').style.display = 'none';}, 2500);
     }
     else {
+        document.getElementById('wrong').style.display = 'block';
         document.getElementById('wrong').play();
+        setTimeout(()=>{document.getElementById('wrong').style.display = 'none';}, 2500);
     }
 }
 
@@ -168,7 +189,48 @@ function changeLevel() {
 }
 
 function resetGame(){
+    gameState = GAME_FILE;
     gameRule.style.display = 'block'
+}
+
+function set_off_fireworks(){
+    firework_sound.currentTime = 1.5;
+    firework_sound.play();
+    fireworkContainer.style.display = 'block';
+    showFirework();
+    setTimeout(()=>{firework_sound.pause()}, 3000);
+    let count = 0;
+    while (count < 2500){
+        let milliseconds =  Math.floor(Math.random() * (800 - 400 + 1)) + 400;
+        count += milliseconds;
+        setTimeout(showFirework, count)
+    }
+    setTimeout(() => {
+        fireworkContainer.style.display = 'none';
+    }, count)
+} 
+
+function showFirework() {
+    for (let i = 0; i < 5; i++) {
+        let width = 100 * (Math.random()*2.5);
+        const fireworksElement = document.createElement('img');
+        fireworksElement.src = fireworksUrl;
+        fireworksElement.style.position = 'absolute';
+        fireworksElement.style.width = `${width}px`;
+        fireworksElement.style.height = 'auto';
+        fireworksElement.style.left = Math.floor(Math.random() * (fireworkContainer.clientWidth-width)) + 'px';
+        fireworksElement.style.top = Math.floor(Math.random() * (fireworkContainer.clientHeight-width*1.5)) + 'px';
+        console.log(fireworkContainer);
+        console.log(fireworkContainer);
+        fireworkContainer.appendChild(fireworksElement);
+    }
+    setTimeout(removeFirework, 1194);
+}  
+
+function removeFirework() {
+    for (let i = 0; i < 5; i++) {
+        fireworkContainer.removeChild(fireworkContainer.children[0]);
+	}
 }
 
 function getRandomNumber() {

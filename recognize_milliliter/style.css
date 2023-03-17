@@ -240,3 +240,35 @@ body {
     padding: 5px;
 }
 
+/* fireworks */
+
+#firework-container {
+    position: absolute;
+    display: none;
+    z-index: 99;
+    top: 15%;
+    left: 5%;
+    width : 90%;
+    height: 85%;
+}
+
+/* result */
+
+.result #bingo,#wrong {
+    position:absolute;
+    margin: 0;
+    top: -5%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    z-index: 99;
+    display: none;
+    font-size: 500px;
+}
+
+
+.result #bingo {
+    color: green;
+}
+.result #wrong {
+    color: red;
+}
