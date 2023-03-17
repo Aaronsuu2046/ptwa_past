@@ -45,6 +45,34 @@ body {
     box-sizing: border-box;
 }
 
+.canvas .gameRule {
+    position: absolute;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+    border:5px solid #02bbdc;
+    background-color: #eee;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.canvas .gameRule *{
+    font-size: 40px;
+}
+.canvas .gameRule .context{
+    position: relative;
+    transform: translateX(15%);
+}
+
+.canvas .gameRule #start{
+    transform: translateX(5%);
+}
+
+.canvas .gameRule #end{
+    transform: translateX(30%);
+}
+
 .gameBtn {
     width: 800px;
     display: flex;

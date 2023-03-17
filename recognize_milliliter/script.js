@@ -10,6 +10,7 @@ const water_scale = document.querySelector(`.water_scale`);
 const water_control = document.querySelector('.water_control');
 const topic = document.querySelector('.topic');
 const scales = document.querySelector('.scales');
+const gameRule = document.querySelector('.gameRule');
 let level = 1, milliliter = 5, start = 0, end = 10, tolerance = 1, delay = 40;
 let act = '';
 let answer = getRandomNumber();
@@ -101,6 +102,7 @@ function backLevel() {
     else {
         level -= 1;
     }
+    changeLevel();
 }
 
 function goLevel() {
@@ -110,9 +112,12 @@ function goLevel() {
     else {
         level += 1;
     }
+    changeLevel();
 }
 
 function startGame() {
+    gameRule.style.display = 'none';
+    mid = (end-start)/2;
     scales.querySelector('.top').textContent=end;
     scales.querySelector('.mid').textContent=mid;
     scales.querySelector('.bottom').textContent=start;
@@ -163,8 +168,7 @@ function changeLevel() {
 }
 
 function resetGame(){
-    mid = (end-start)/2;
-    startGame();
+    gameRule.style.display = 'block'
 }
 
 function getRandomNumber() {
