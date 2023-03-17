@@ -105,10 +105,16 @@ body {
     width: 50px;
 }
 
-.levelBtn *:hover {
+.levelBtn *:hover,.levelBtn *.active {
     background-color: #02bbdc;
     color: #fff;
     transition: 0.5s;
+}
+
+.bingo {
+    border:2px solid green;
+    background-color: green;
+    color: #fff;
 }
 
 .optionsBtn * {
@@ -254,7 +260,7 @@ body {
 
 /* result */
 
-.result #bingo,#wrong {
+.result #bingo,#dada {
     position:absolute;
     margin: 0;
     top: -5%;
@@ -269,6 +275,6 @@ body {
 .result #bingo {
     color: green;
 }
-.result #wrong {
+.result #dada {
     color: red;
 }

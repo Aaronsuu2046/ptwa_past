@@ -18,10 +18,11 @@ const gameRule = document.querySelector('.gameRule');
 const firework_sound = document.getElementById('win');
 const fireworkContainer = document.querySelector('#firework-container');
 const fireworksUrl = './assets/images/fireworks.gif';
-let level = 1, milliliter = 5, start = 0, end = 10, tolerance = 1, delay = 40;
+let level = 0, milliliter = 5, start = 0, end = 10, tolerance = 1, delay = 40;
 let act = '';
 let gameState = GAME_FILE;
 let answer = getRandomNumber();
+let winArr = [];
 
 
 topic.textContent = answer;
@@ -127,6 +128,10 @@ function startGame() {
     if (gameState!==GAME_FILE){
         return
     }
+    if (level===0){
+        level = 1;
+        $(gameBtn[0]).addClass('active');
+    }
     gameState = GAME_ALIVE;
     gameRule.style.display = 'none';
     mid = (end-start)/2;
@@ -147,15 +152,16 @@ function checkAnswer() {
     }
     if (milliliter === answer){
         gameState = GAME_WIN;
+        winArr.push(level);
         document.getElementById('correct').play();
         document.getElementById('bingo').style.display = 'block';
         set_off_fireworks();
         setTimeout(()=>{document.getElementById('bingo').style.display = 'none';}, 2500);
     }
     else {
-        document.getElementById('wrong').style.display = 'block';
         document.getElementById('wrong').play();
-        setTimeout(()=>{document.getElementById('wrong').style.display = 'none';}, 2500);
+        document.getElementById('dada').style.display = 'block';
+        setTimeout(()=>{document.getElementById('dada').style.display = 'none';}, 2500);
     }
 }
 
@@ -190,6 +196,15 @@ function changeLevel() {
 
 function resetGame(){
     gameState = GAME_FILE;
+    gameBtn.forEach((item, index)=>{
+        $(item).removeClass('active');
+        if ($.inArray(index+1, winArr) !== -1) {
+            $(item).addClass('bingo');
+        }
+        else if (index+1 === level){
+            $(item).addClass('active');
+        }
+    })
     gameRule.style.display = 'block'
 }
 
@@ -220,8 +235,6 @@ function showFirework() {
         fireworksElement.style.height = 'auto';
         fireworksElement.style.left = Math.floor(Math.random() * (fireworkContainer.clientWidth-width)) + 'px';
         fireworksElement.style.top = Math.floor(Math.random() * (fireworkContainer.clientHeight-width*1.5)) + 'px';
-        console.log(fireworkContainer);
-        console.log(fireworkContainer);
         fireworkContainer.appendChild(fireworksElement);
     }
     setTimeout(removeFirework, 1194);
