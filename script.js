@@ -1,31 +1,25 @@
 document.getElementById("game1").onclick = function(){
-    document.getElementById('frame1').style.display = "block";
-    document.getElementById('frame2').style.display = "none";
-    document.getElementById('frame3').style.display = "none";
-    document.getElementById('frame4').style.display = "none";
-    document.getElementById('frame7').style.display = "none";
+    hideFrames(1);
 }
 
 document.getElementById("game2").onclick = function(){
-    document.getElementById('frame2').style.display = "block";
-    document.getElementById('frame1').style.display = "none";
-    document.getElementById('frame3').style.display = "none";
-    document.getElementById('frame4').style.display = "none";
-    document.getElementById('frame7').style.display = "none";
+    hideFrames(2);
 }
 
 document.getElementById("game3").onclick = function(){
-    document.getElementById('frame3').style.display = "block";
-    document.getElementById('frame1').style.display = "none";
-    document.getElementById('frame2').style.display = "none";
-    document.getElementById('frame4').style.display = "none";
-    document.getElementById('frame7').style.display = "none";
+    hideFrames(3);
+
 }
 
 document.getElementById("game7").onclick = function(){
-    document.getElementById('frame7').style.display = "block";
-    document.getElementById('frame1').style.display = "none";
-    document.getElementById('frame2').style.display = "none";
-    document.getElementById('frame3').style.display = "none";
-    document.getElementById('frame4').style.display = "none";
+    hideFrames(7);
 }
+
+function hideFrames(number) {
+    [...document.querySelectorAll('.body-container iframe')].forEach((item) => {
+      item.style.display = "none";
+    });
+    document.getElementById('frame4').style.display = "none";
+    document.getElementById(`frame${number}`).style.display = "block";
+  }
+  
