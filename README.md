@@ -14,7 +14,7 @@
 
 2. 在網址欄輸入網址
     `https://PTWA-NPO.github.io/`
-[//]: # (TODO demo gif)
+    [//]: # (TODO demo gif)
 
 
 # 遊戲介紹
