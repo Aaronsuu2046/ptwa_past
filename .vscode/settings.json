@@ -1,3 +1,5 @@
 {
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "liveServer.settings.root": "",
+    "vsicons.associations.folderDefault.root_folder_light": null
 }

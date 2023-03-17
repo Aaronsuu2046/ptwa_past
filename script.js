@@ -15,11 +15,16 @@ document.getElementById("game7").onclick = function(){
     hideFrames(7);
 }
 
+document.getElementById("game8").onclick = function(){
+    hideFrames(8);
+}
+
 function hideFrames(number) {
     [...document.querySelectorAll('.body-container iframe')].forEach((item) => {
       item.style.display = "none";
     });
     document.getElementById('frame4').style.display = "none";
+    console.log(`frame${number}`);
     document.getElementById(`frame${number}`).style.display = "block";
   }
   

@@ -29,9 +29,21 @@
 
 ## Grad1-3 數字連連看，認識 1～10（Digital Connection）
 
-- 專案連結：[digital_connection](https://github.com/PTWA-NPO/PTWA-NPO.github.io/tree/develop/digital_connection)
+- 專案連結：[digital_connection](https://github.com/PTWA-NPO/PTWA-NPO.github.io/tree/main/digital_connection)
 
-- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的 Grade1，選擇 digital_connection
+- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的 Grade1，選擇**認識 1~10**
+
+## Grad3-1 填入容積，認識毫升（recognize_milliliter）
+
+- 專案連結：[recognize_milliliter](https://github.com/PTWA-NPO/PTWA-NPO.github.io/tree/main/recognize_milliliter)
+
+- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的 Grade3，選擇**認識毫升**
+
+## Grad3-2 毫公升連連看（connection_milliliter）
+
+- 專案連結：[connection_milliliter](https://github.com/PTWA-NPO/PTWA-NPO.github.io/tree/main/connection_milliliter)
+
+- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的 Grade3，選擇**毫公升連連看**
 
 # Future Work
 
