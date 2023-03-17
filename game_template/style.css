@@ -52,6 +52,15 @@ body {
 .canvas .gameRule *{
     font-size: 40px;
 }
+
+.canvas .gameRule #start #version {
+    position: absolute;
+    font-size: 20px; 
+    top: 0%;
+    right: 10%;
+    color: #bbb;
+}
+
 .canvas .gameRule .context{
     position: relative;
     transform: translateX(15%);
