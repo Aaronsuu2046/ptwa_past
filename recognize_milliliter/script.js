@@ -135,9 +135,9 @@ function startGame() {
     gameState = GAME_ALIVE;
     gameRule.style.display = 'none';
     mid = (end-start)/2;
-    scales.querySelector('.top').textContent=end;
-    scales.querySelector('.mid').textContent=mid;
-    scales.querySelector('.bottom').textContent=start;
+    document.querySelector('.top').textContent=end;
+    document.querySelector('.mid').textContent=mid;
+    document.querySelector('.bottom').textContent=start;
     water_scale.textContent = mid;
     milliliter = mid;
     water_scale.style.transform = `translate(0%, ${100-((start+milliliter)/end)*100}%)`;

@@ -184,6 +184,7 @@ body {
     height: 100%;
     bottom: 0%;
     border: solid 2px black;
+    border-top: none;
     flex: 5;
 }
 
@@ -230,27 +231,50 @@ body {
 
 .scales {
     display: flex;
+    position: absolute;
+    z-index: 99;
+    flex-direction: column-reverse;
+    justify-content: space-between;
     height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    top: 0%;
+}
+.scales *{
+    height: 0;
+    width: 15px;
+    border: solid 1px black;
+}
+.scales :first-child {
+    border: none;
+}
+.scales :nth-child(6) {
+    width: 20px
+}
+.scales :last-child {
+    width: 25px;
+}
+.milliliterContainer {
+    display: flex;
+    position: relative;
+    height: 110%;
     flex-direction: column;
     justify-content: space-between;
     margin: 0;
+    top: -5%;
+    left: 10%;
     list-style: none;
 }
 
-.scales *{
+.milliliterContainer *{
     position: absoulte;
     z-index: 999;
     font-size: 30px;
 }
 
-.scales *::after{
+.milliliterContainer *::after{
     content: "ml";
-    font-size: 30px;
-    padding: 5px;
-}
-
-.scales *::before{
-    content: " ";
     font-size: 30px;
     padding: 5px;
 }
