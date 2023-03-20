@@ -164,16 +164,119 @@ body {
 /* container */
 
 .game_area {
-    display: flex;
     position: absolute;
     width: 100%;
-    height: 80%;
+    height: 85%;
     bottom: 0%;
     left: 0%;
     margin-bottom: 20px;
-    justify-content: center;
 }
 
+.game_area .left {
+    position: absolute;
+    display: flex;
+    width: 30%;
+    height: 100%;
+    left: 3%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.game_area .right {
+    position: absolute;
+    height: 100%;
+    width: 20%;
+    right: 0%;
+}
+.game_area .left .milliliter_container {
+    position: relative;
+    height: 20%;
+    margin-bottom: 10%;
+    top: 2%;
+}
+.game_area .right .water_container {
+    height: 19%;
+    margin-bottom: 5%;
+    top: -5%;
+}
+.game_area .left .water_container{
+    margin-left: 10px;
+    height: 100%;
+}
+.game_area .water_container {
+    position: relative;
+    display: inline-block;
+    border: 2px solid #000;
+    border-top: none;
+    width: 100px;
+}
+.game_area .water_container .liters, .game_area .water_container .milliliter{
+    position: absolute;
+    z-index: 99;
+    right: 10%;
+    top: -10%;
+}
+.game_area .water_container .scales{
+    display: flex;
+    position: absolute;
+    z-index: 99;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.game_area .water_container .scales *{
+    height: 0;
+    width: 10px;
+    border: solid 1px black;
+}
+.game_area .water_container .scales :first-child {
+    border: none;
+}
+.game_area .water_container .scales :nth-child(11) {
+    width: 20px
+}
+
+.game_area .water_container .scales :last-child {
+    width: 20px
+}
+.game_area .water_container .scales :nth-child(6) {
+    width: 15px
+}
+
+.game_area .water_container .scales :nth-child(16) {
+    width: 15px
+}
+
+/* water */
+.water {
+    position: absolute;
+    width: 100%;
+    bottom: 0%;
+    background-color: #02bbdc;
+}
+/* dot */
+.milliliterDots,.literDots {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    justify-content: space-between;
+    width: 5%;
+    height: 90%;
+}
+
+.milliliterDots li,.literDots li {
+    width: 100%;
+    height: 5%;
+    font-size: 50px;
+}
+.milliliterDots {
+    left: 35%;
+}
+.literDots {
+    right: 20%;
+}
 
 /* fireworks */
 

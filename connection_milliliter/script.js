@@ -12,6 +12,23 @@ const gameBtn = [...document.querySelectorAll(`.gameBtn *`)];
 const gameRule = document.querySelector('.gameRule');
 const topic = document.querySelector('.topic');
 const levelLimit = document.querySelector('.levelBtn').children.length;
+const leftContainer = document.querySelector('.left');
+const rightContainer = document.querySelector('.right');
+const milliliterContainer = document.querySelector('.milliliter_container');
+const litersContainer = document.querySelector('.right>.water_container');
+let i = 0;
+while (i<4){
+    const clonedMilliliterContainer = milliliterContainer.cloneNode(true);
+    const clonedLitersContainer = litersContainer.cloneNode(true);
+    leftContainer.appendChild(clonedMilliliterContainer);
+    rightContainer.appendChild(clonedLitersContainer);
+    i++;
+}
+const leftWater = [...document.querySelectorAll(`.milliliter_container .water_container .water`)];
+const rightWater = [...document.querySelectorAll(`.right .water_container .water`)];
+const milliliterDots = [...document.querySelectorAll(`.milliliterDots li`)];
+const literDots = [...document.querySelectorAll(`.literDots li`)];
+
 const firework_sound = document.getElementById('win');
 const fireworkContainer = document.querySelector('#firework-container');
 const fireworksUrl = './assets/images/fireworks.gif';
@@ -21,8 +38,8 @@ let gameState = GAME_FILE;
 let winLevelArr = [];
 let topic_explan = {1: `毫升連公升`
                     , 2: `公升連毫升`
-                    , 3: `毫公升連連看`,}
-
+                    , 3: `毫公升連連看`,};
+let liters, milliliters = [];
 
 gameBtn.forEach((item) => {
     item.addEventListener('click', (e) => {
@@ -80,6 +97,28 @@ function startGame() {
     gameState = GAME_ALIVE;
     gameRule.style.display = 'none';
     getTopic();
+    liters = getRandomNumber(0, 2000, 100, 5);
+    milliliters = [];
+    shuffle([...liters]).forEach((item, index) =>{
+        if (item > 1000){
+            milliliters.push(1000);
+            milliliters.push(item-1000);
+        }
+        else{
+            milliliters.push(0);
+            milliliters.push(item);
+        }
+        $(milliliterDots[index]).addClass(`${item}`);
+    })
+
+    rightWater.forEach((water, index)=>{
+        const liter = liters[index];
+        water.style.height = `${((liter)/ 2000)*100}%`;
+        $(literDots[index]).addClass(`${liter}`)
+    })
+    leftWater.forEach((water, inedx)=>{
+        water.style.height = `${((milliliters[inedx])/ 1000)*100}%`;
+    })
 }
 
 function checkAnswer() {
@@ -176,12 +215,30 @@ function removeFirework() {
 	}
 }
 
-function getRandomNumber() {
-    const range = Math.ceil((end - start) / tolerance);
-    let randomIndex;
-    do {
-        randomIndex = Math.floor(Math.random() * (range + 1));
-    } while (start + randomIndex * tolerance === 0)
-    return start + randomIndex * tolerance;
+function getRandomNumber(start, end, tolerance, times=1) {
+    let result = new Set();
+    while(result.size < times) {
+        const range = Math.ceil((end - start) / tolerance);
+        let randomIndex;
+        do {
+            randomIndex = Math.floor(Math.random() * (range + 1));
+        } while (start + randomIndex * tolerance === 0)
+        if (times === 1){
+            return start + randomIndex * tolerance;
+        }
+        const number = start + randomIndex * tolerance;
+        result.add(number)
+    }
+    return [...result]
   }
+
+  function shuffle(originArray){
+    // Fisher-Yates shuffle algorithm
+    let array = [...originArray]
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
   
