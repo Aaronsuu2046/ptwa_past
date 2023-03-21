@@ -7,6 +7,7 @@ const LAST_BTN = 'lastBtn'
 const START_BTN = 'startBtn'
 const NEXT_BTN = 'nextBtn'
 const SUBMIT_BTN = 'submitBtn'
+const HINT_BTN = 'hintBtn'
 const canvas = document.querySelector(`canvas`);
 const gameBtn = [...document.querySelectorAll(`.gameBtn *`)];
 const water = document.querySelector(`.water`);
@@ -18,8 +19,9 @@ const gameRule = document.querySelector('.gameRule');
 const firework_sound = document.getElementById('win');
 const fireworkContainer = document.querySelector('#firework-container');
 const fireworksUrl = './assets/images/fireworks.gif';
-let level = 0, milliliter = 5, start = 0, end = 10, tolerance = 1, delay = 40;
-let act = '';
+let level = 0, milliliter = 0, start = 0, end = 10, tolerance = 1, delay = 40;
+let act = '', hint = `${milliliter} ml`;
+let isHint, isWrong = false;
 let gameState = GAME_FILE;
 let answer = getRandomNumber();
 let winArr = [];
@@ -48,6 +50,17 @@ gameBtn.forEach((item) => {
             else if (act === SUBMIT_BTN){
                 checkAnswer();
             }
+            else if (act === HINT_BTN){
+                if (!isWrong){return}
+                if (isHint){
+                    isHint=false;
+                    water_scale.textContent ='';
+                    return
+                }
+                isHint = true;
+                hint = `${milliliter} ml`;
+                water_scale.textContent = hint;
+            }
         }
     });
 });
@@ -64,7 +77,10 @@ water_control.addEventListener('wheel', (e) => {
     }
     water_scale.style.transform = `translate(0%, ${100-((start+milliliter)/end)*100}%)`;
     water.style.height = `${((start+milliliter)/end)*100}%`;
-    water_scale.textContent = `${milliliter}`;
+    if (isHint){
+        hint = `${milliliter} ml`;
+        water_scale.textContent = hint;
+    }
 });
 
 let active = false;
@@ -96,33 +112,16 @@ water_control.addEventListener('touchmove', (e) => {
 
         water_scale.style.transform = `translate(0%, ${100-((start+milliliter)/end)*100}%)`;
         water.style.height = `${((start+milliliter)/end)*100}%`;
-        water_scale.textContent = `${milliliter}`;
+        if (isHint){
+            hint = `${milliliter} ml`;
+            water_scale.textContent = hint;
         }
+    }
 });
 
 water_control.addEventListener('touchend', () => {
     active = false;
 });
-
-function backLevel() {
-    if (level<=1) {
-        level = 5;
-    }
-    else {
-        level -= 1;
-    }
-    changeLevel();
-}
-
-function goLevel() {
-    if (level>=5) {
-        level = 1;
-    }
-    else {
-        level += 1;
-    }
-    changeLevel();
-}
 
 function startGame() {
     if (gameState===GAME_ALIVE){
@@ -134,12 +133,24 @@ function startGame() {
     }
     gameState = GAME_ALIVE;
     gameRule.style.display = 'none';
+    isHint = false;
+    water_scale.textContent ='';
     mid = (end-start)/2;
     document.querySelector('.top').textContent=end;
     document.querySelector('.mid').textContent=mid;
     document.querySelector('.bottom').textContent=start;
-    water_scale.textContent = mid;
-    milliliter = mid;
+    milliliter = start;
+    const scalesCount = ((end-start)/tolerance+1)-$(scales).children().length;
+    if (scalesCount<0){
+        $(scales).children('li').slice(0, Math.abs(scalesCount)).remove();
+    }
+    else{
+        for (let i = 0; i < scalesCount; i++) {
+            $(scales).append('<li>');
+        }
+    }
+    // $(`.scales :nth-child(${Math.ceil($(scales).children().length / 2)})`).css("width", "25px");
+
     water_scale.style.transform = `translate(0%, ${100-((start+milliliter)/end)*100}%)`;
     water.style.height = `${((start+milliliter)/end)*100}%`;
     answer = getRandomNumber();
@@ -165,7 +176,28 @@ function checkAnswer() {
         $(gameBtn[level-1]).removeClass('bingo');
         winArr.pop(level);
         $(gameBtn[level-1]).addClass('active');
+        isWrong = true;
     }
+}
+
+function backLevel() {
+    if (level<=1) {
+        level = 5;
+    }
+    else {
+        level -= 1;
+    }
+    changeLevel();
+}
+
+function goLevel() {
+    if (level>=5) {
+        level = 1;
+    }
+    else {
+        level += 1;
+    }
+    changeLevel();
 }
 
 function changeLevel() {
@@ -180,7 +212,7 @@ function changeLevel() {
         tolerance = 5;
     }
     else if (level === 3){
-        delay = 10;
+        delay = 13;
         end = 300;
         tolerance = 10;
     }

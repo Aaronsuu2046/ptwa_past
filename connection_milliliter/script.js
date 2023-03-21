@@ -174,6 +174,45 @@ function showHint(){
 
 }
 
+window.onload = function () {
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+  
+    let drawing = false;
+    let startPoint = { x: 0, y: 0 };
+  
+    function onMouseDown(e) {
+      drawing = true;
+      startPoint.x = e.clientX - canvas.getBoundingClientRect().left;
+      startPoint.y = e.clientY - canvas.getBoundingClientRect().top;
+    }
+  
+    function onMouseMove(e) {
+      if (!drawing) return;
+      const x = e.clientX - canvas.getBoundingClientRect().left;
+      const y = e.clientY - canvas.getBoundingClientRect().top;
+      drawLine(startPoint.x, startPoint.y, x, y);
+    }
+  
+    function onMouseUp(e) {
+      drawing = false;
+    }
+  
+    function drawLine(x1, y1, x2, y2) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    }
+  
+    canvas.addEventListener("mousedown", onMouseDown);
+    canvas.addEventListener("mousemove", onMouseMove);
+    canvas.addEventListener("mouseup", onMouseUp);
+    canvas.addEventListener("mouseleave", onMouseUp);
+};
+  
+
 function getTopic(){
     topic.textContent = topic_explan[level];
 }

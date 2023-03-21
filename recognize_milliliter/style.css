@@ -12,6 +12,7 @@ body {
     width: 800px;
 }
 
+/* game view */
 .canvas {
     position: relative;
     display: flex;
@@ -45,6 +46,7 @@ body {
     box-sizing: border-box;
 }
 
+/* game rule */
 .canvas .gameRule {
     position: absolute;
     z-index: 9999;
@@ -82,6 +84,7 @@ body {
     transform: translateX(30%);
 }
 
+/* level */
 .gameBtn {
     width: 800px;
     display: flex;
@@ -126,6 +129,7 @@ body {
     color: #fff;
 }
 
+/* options */
 .optionsBtn * {
     background-color: #02bbdc;
     color: #fff;
@@ -154,12 +158,15 @@ body {
     flex: 2;
 }
 .optionsBtn #startBtn {
-    flex: 5;
+    flex: 4;
 }
 .optionsBtn #nextBtn {
     flex: 2;
 }
 .optionsBtn #submitBtn {
+    flex: 1;
+}
+.optionsBtn #hintBtn {
     flex: 1;
 }
 .shadow {
@@ -197,6 +204,7 @@ body {
 
 .game_area .water_scale::after {
     content: " ml";
+    display: none;
 }
 
 .game_area .water_control {
@@ -249,7 +257,7 @@ body {
 .scales :first-child {
     border: none;
 }
-.scales :nth-child(6) {
+.scales :nth-child(5n+1) {
     width: 20px
 }
 .scales :last-child {
