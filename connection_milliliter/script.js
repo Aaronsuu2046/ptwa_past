@@ -7,7 +7,11 @@ const LAST_BTN = 'lastBtn'
 const START_BTN = 'startBtn'
 const NEXT_BTN = 'nextBtn'
 const HINT_BTN = 'hintBtn'
-const canvas = document.querySelector(`canvas`);
+const myCanvas = document.querySelector(".myCanvas");
+const gameArea = document.querySelector(".game_area");
+const canvas = [...document.querySelectorAll(`canvas`)];
+const svg = document.querySelector(".drawingArea");
+let line = svg.querySelector(".line");
 const gameBtn = [...document.querySelectorAll(`.gameBtn *`)];
 const gameRule = document.querySelector('.gameRule');
 const topic = document.querySelector('.topic');
@@ -28,18 +32,22 @@ const leftWater = [...document.querySelectorAll(`.milliliter_container .water_co
 const rightWater = [...document.querySelectorAll(`.right .water_container .water`)];
 const milliliterDots = [...document.querySelectorAll(`.milliliterDots li`)];
 const literDots = [...document.querySelectorAll(`.literDots li`)];
-
+const allDots = [...milliliterDots, ...literDots];
 const firework_sound = document.getElementById('win');
 const fireworkContainer = document.querySelector('#firework-container');
 const fireworksUrl = './assets/images/fireworks.gif';
 let level = 0;
-let act = '';
+let act = '', start = '', end = '';
 let gameState = GAME_FILE;
 let winLevelArr = [];
-let topic_explan = {1: `毫升連公升`
-                    , 2: `公升連毫升`
-                    , 3: `毫公升連連看`,};
+let topic_explan = {1: `毫公升連連看`};
 let liters, milliliters = [];
+let drawing = false;
+let record = {'start': []
+              , 'end': []
+              , 'result': []
+             };
+
 
 gameBtn.forEach((item) => {
     item.addEventListener('click', (e) => {
@@ -97,6 +105,11 @@ function startGame() {
     gameState = GAME_ALIVE;
     gameRule.style.display = 'none';
     getTopic();
+    record = {'start': []
+              , 'end': []
+              , 'result': []
+             };
+    line = svg.querySelector(".line");
     liters = getRandomNumber(0, 2000, 100, 5);
     milliliters = [];
     shuffle([...liters]).forEach((item, index) =>{
@@ -121,25 +134,68 @@ function startGame() {
     })
 }
 
+function drawView() {
+    const yStart = 75;
+    milliliterDots.forEach((dot)=>{
+         dot.addEventListener("mousedown", (event) => {
+            start = event.target.className;
+            record.start.push(start);
+            const {pageX: offsetX , pageY: offsetY} = event
+            if (line.className.baseVal.includes('wrongLine')){
+                $(line).removeClass('wrongLine');
+            }
+            line.setAttribute("x1", offsetX);
+            line.setAttribute("y1", offsetY-yStart);
+            line.setAttribute("x2", offsetX);
+            line.setAttribute("y2", offsetY-yStart);
+            drawing = true;
+        });
+     })
+    
+     gameArea.addEventListener("mousemove", (event) => {
+      if (!drawing) return;
+      const {pageX: offsetX , pageY: offsetY} = event
+      line.setAttribute("x2", offsetX);
+      line.setAttribute("y2", offsetY-yStart);
+    });
+
+    literDots.forEach((dot)=>{
+        dot.addEventListener("mouseup", (event) => {
+            end = event.target.className;
+            checkAnswer();
+            record.end.push(end);
+            drawing = false;
+        });
+    });
+    // requestAnimationFrame(()=>drawView());
+};
+
 function checkAnswer() {
     if (gameState !== GAME_ALIVE){
         return
     }
-    if (win===true){
-        gameState = GAME_WIN;
-        winLevelArr.push(level);
+    if (start === end){
+        // gameState = GAME_WIN;
+        // winLevelArr.push(level);
         document.getElementById('correct').play();
         document.getElementById('bingo').style.display = 'block';
-        set_off_fireworks();
-        setTimeout(()=>{document.getElementById('bingo').style.display = 'none';}, 2500);
+        record.result.push('Ｏ');
+        $(line).addClass('correctLine');
+        $(line).removeClass('line');
+        line = svg.querySelector(".line");
+        // set_off_fireworks();
+        setTimeout(()=>{document.getElementById('bingo').style.display = 'none';}, 500);
     }
     else {
+        record.result.push('Ｘ');
         document.getElementById('wrong').play();
         document.getElementById('dada').style.display = 'block';
-        setTimeout(()=>{document.getElementById('dada').style.display = 'none';}, 2500);
-        $(gameBtn[level-1]).removeClass('bingo');
-        winLevelArr.pop(level);
-        $(gameBtn[level-1]).addClass('active');}
+        $(line).addClass('wrongLine');
+        setTimeout(()=>{document.getElementById('dada').style.display = 'none';}, 500);
+        // $(gameBtn[level-1]).removeClass('bingo');
+        // winLevelArr.pop(level);
+        // $(gameBtn[level-1]).addClass('active');
+    }
 }
 
 function changeLevel() {
@@ -168,50 +224,21 @@ function resetGame(){
         }
     })
     gameRule.style.display = 'block'
+    $('.literDots li').removeClass();
+    $('.milliliterDots li').removeClass();
+    $('svg line').removeClass();
+    $('svg line').addClass('line');
+    $('svg line').each((index, line)=>{
+        line.setAttribute('x1', '0');
+        line.setAttribute('y1', '0');
+        line.setAttribute('x2', '0');
+        line.setAttribute('y2', '0');
+    })
 }
 
 function showHint(){
 
 }
-
-window.onload = function () {
-    const canvas = document.getElementById("myCanvas");
-    const ctx = canvas.getContext("2d");
-  
-    let drawing = false;
-    let startPoint = { x: 0, y: 0 };
-  
-    function onMouseDown(e) {
-      drawing = true;
-      startPoint.x = e.clientX - canvas.getBoundingClientRect().left;
-      startPoint.y = e.clientY - canvas.getBoundingClientRect().top;
-    }
-  
-    function onMouseMove(e) {
-      if (!drawing) return;
-      const x = e.clientX - canvas.getBoundingClientRect().left;
-      const y = e.clientY - canvas.getBoundingClientRect().top;
-      drawLine(startPoint.x, startPoint.y, x, y);
-    }
-  
-    function onMouseUp(e) {
-      drawing = false;
-    }
-  
-    function drawLine(x1, y1, x2, y2) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.beginPath();
-      ctx.moveTo(x1, y1);
-      ctx.lineTo(x2, y2);
-      ctx.stroke();
-    }
-  
-    canvas.addEventListener("mousedown", onMouseDown);
-    canvas.addEventListener("mousemove", onMouseMove);
-    canvas.addEventListener("mouseup", onMouseUp);
-    canvas.addEventListener("mouseleave", onMouseUp);
-};
-  
 
 function getTopic(){
     topic.textContent = topic_explan[level];
@@ -281,3 +308,5 @@ function getRandomNumber(start, end, tolerance, times=1) {
     return array;
 }
   
+
+drawView();

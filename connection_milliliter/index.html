@@ -13,14 +13,11 @@
         <audio id="wrong" src="assets/sounds/wrong_sound_effect.mp3"></audio>
         <audio id="win" src="assets/sounds/applause_fireworks.mp3" duration="3"></audio>
     </div>
-    <div class="gameWidonw">
+    <div class="gameWindow">
         <div class="gameBtn levelBtn">            
             <button class="level1">1</button>
-            <button class="level2">2</button>
-            <button class="level3">3</button>
         </div>
-        <div class="canvas">
-            <canvas class="canvas1"></canvas>
+        <div class="myCanvas">
             <div class="gameRule">
                 <h1 id="start">遊戲玩法：
                     <span id="version">V0.0.1</span>
@@ -32,6 +29,13 @@
                 </div>
                 <h1 id="end">準備好了嗎？點擊遊戲開始！</h1>
             </div>
+            <svg class="drawingArea">
+                <line class="line" x1="0" y1="0" x2="0" y2="0" />
+                <line class="line" x1="0" y1="0" x2="0" y2="0" />
+                <line class="line" x1="0" y1="0" x2="0" y2="0" />
+                <line class="line" x1="0" y1="0" x2="0" y2="0" />
+                <line class="line" x1="0" y1="0" x2="0" y2="0" />
+            </svg>
             <div class="topic"></div>
             <div class="game_area">
                 <div class="left">
@@ -126,9 +130,10 @@
             <div id="firework-container"></div>
         </div>
         <div class="gameBtn optionsBtn">
-            <button id="lastBtn">上一關</button>
+            <!-- <button id="lastBtn">上一關</button> -->
             <button id="startBtn">遊戲開始</button>
-            <button id="nextBtn">下一關</button>
+            <!-- <button id="nextBtn">下一關</button> -->
+            <button id="recordBtn">紀錄下載</button>
             <button id="hintBtn">提示</button>
         </div>
     </div>

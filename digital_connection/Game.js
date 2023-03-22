@@ -260,7 +260,7 @@ class Game{
             let {pageX, pageY} = e.touches ? e.touches[0] : e;
             let x = pageX - canvas_current.offsetLeft;
             let y = pageY - canvas_current.offsetTop;
-        
+            
             return {
                x,
                y
@@ -296,6 +296,7 @@ class Game{
             this.lineCoordinates = this.getClientOffset(e);
             this.clear_canvas("current");
             this.drawLine();
+            // console.log(this.startPosition.x, this.startPosition.y, this.lineCoordinates.x, this.lineCoordinates.y);
         }
         
         this.mouseupListener = (e) => {
