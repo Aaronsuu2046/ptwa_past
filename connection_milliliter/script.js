@@ -154,10 +154,13 @@ function startGame() {
     for (let i=1; i<11; i++) {
         milliliterHintWater[i-1].style.height = `${i*10}%`;
         milliliterHintWaterContainer[i-1].textContent = i*100;
+        milliliterHintWaterContainer[i-1].style.top = `${80-(i*10)}%`;
         literHintWater[i-1].style.height = `${i*5}%`;
         literHintWaterContainer[i-1].textContent = i*100;
+        literHintWaterContainer[i-1].style.top = `${80-(i*5)}%`;
         literHintWater[literHintWater.length+(i*-1)].style.height = `${(literHintWater.length+((i-1)*-1))*5}%`;
         literHintWaterContainer[literHintWater.length+(i*-1)].textContent = (literHintWater.length+((i-1)*-1))*100;
+        literHintWaterContainer[literHintWater.length+(i*-1)].style.top = `${80-((literHintWater.length+((i-1)*-1))*5)}%`;
     }
 
 }
