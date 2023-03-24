@@ -14,11 +14,10 @@ body {
     display: flex;
     flex-direction: column;
     width: 800px;
-    height: 700px;
+    height: 710px;
 }
 
 .myCanvas {
-    flex: 8;
     position: relative;
     display: flex;
     width: 800px;
@@ -204,7 +203,6 @@ svg {
 
 /* level */
 .levelBtn {
-    flex: 1;
     padding-top: 10px;
     margin: 0;
 }
@@ -246,10 +244,6 @@ svg {
     background-color: #eee;
     color: #8e8e9c;
     transition: 0.5s;
-}
-
-.optionsBtn {
-    flex: 1;
 }
 
 .optionsBtn #startBtn {
