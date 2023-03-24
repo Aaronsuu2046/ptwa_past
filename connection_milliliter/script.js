@@ -171,7 +171,7 @@ function startGame() {
 }
 
 function drawView() {
-    const yStart = 80;
+    const yStart = 65;
     milliliterDots.forEach((dot)=>{
          dot.addEventListener("mousedown", (event) => {
             start = event.target.className;
