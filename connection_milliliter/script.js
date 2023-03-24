@@ -46,6 +46,7 @@ let level = 0, lives = 3;
 let act = '', start = '', end = '';
 let gameState = GAME_FILE;
 let winLevelArr = [];
+let correctAnswer = new Set();
 let topic_explan = {1: `毫公升連連看`};
 let liters, milliliters = [];
 let drawing = false;
@@ -107,6 +108,9 @@ function startGame() {
     if (gameState===GAME_ALIVE){
         return
     }
+    if (gameState===GAME_WIN){
+        resetGame();
+    }
     if (level===0){
         level = 1;
         $(gameBtn[0]).addClass('active');
@@ -119,6 +123,7 @@ function startGame() {
               , 'end': []
               , 'result': []
              };
+    correctAnswer = new Set();
     line = svg.querySelector(".line");
     liters = getRandomNumber(0, 2000, 100, 5);
     milliliters = [];
@@ -207,17 +212,24 @@ function checkAnswer() {
         return
     }
     if (start === end){
-        // gameState = GAME_WIN;
-        // winLevelArr.push(level);
         document.getElementById('correct').play();
         document.getElementById('bingo').style.display = 'block';
         record.result.push('Ｏ');
         $(line).addClass('correctLine');
         $(line).removeClass('line');
         createLine();
+        record.result.forEach((item, index)=>{
+            if (item === 'Ｏ'){
+                correctAnswer.add(record.start[index]);
+            }
+        })
         line = svg.querySelector(".line");
-        // set_off_fireworks();
         setTimeout(()=>{document.getElementById('bingo').style.display = 'none';}, 500);
+        if (correctAnswer.size === 5){
+            set_off_fireworks();
+            winLevelArr.push(level);
+        gameState = GAME_WIN;
+        }
     }
     else {
         record.result.push('Ｘ');
@@ -227,9 +239,9 @@ function checkAnswer() {
         lives -= 1;
         setLives(lives)
         setTimeout(()=>{document.getElementById('dada').style.display = 'none';}, 500);
-        // $(gameBtn[level-1]).removeClass('bingo');
-        // winLevelArr.pop(level);
-        // $(gameBtn[level-1]).addClass('active');
+        $(gameBtn[level-1]).removeClass('bingo');
+        winLevelArr.pop(level);
+        $(gameBtn[level-1]).addClass('active');
     }
 }
 
@@ -269,9 +281,35 @@ function resetGame(){
         line.setAttribute('x2', '0');
         line.setAttribute('y2', '0');
     })
+    lives = 3;
 }
 
 function loadRecord(){
+    // 設定下載檔案名稱
+    const filename = `遊玩紀錄.txt `;
+    let textContent = `遊玩紀錄：
+    `;
+    
+    for (let i=0; i<record.start.length; i++) {
+        textContent += `\t\n第 ${i+1} 次點擊從 ${record.start[i]}ml 到 ${(record.end[i])/1000}L，結果為 ${record.result[i]}`
+
+    }
+    // 建立一個 Blob 物件
+    const blob = new Blob([textContent], {type: 'text/plain'});
+
+    // 建立一個下載連結
+    const url = URL.createObjectURL(blob);
+
+    // 建立一個 <a> 元素，並設定 href 屬性和 download 屬性
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+
+    // 模擬點擊 <a> 元素，開始下載檔案
+    a.click();
+
+    // 釋放 URL 物件
+    URL.revokeObjectURL(url);
 }
 function showHint(){
     if (lives > 0)return
@@ -298,12 +336,13 @@ function createLine(){
     $(svg).append(line);
 }
 function setLives(lives){
-    if (lives === $('.lives').children().length || lives<0) return
-    if (lives < $('.lives').children().length) {
+    const count = lives - $('.lives').children().length;
+    if (count === 0 || lives < 0) return
+    if (count < 0) {
         $('.lives > :last-child').remove();
         return
     }
-    for (let i = 0; i <lives; i++){
+    for (let i = 0; i <count; i++){
         const livesImg = $('<img>')
         .attr('src', './assets/images/lives.svg')
         .attr('alt', 'lives image')
@@ -318,9 +357,9 @@ function set_off_fireworks(){
     firework_sound.play();
     fireworkContainer.style.display = 'block';
     showFirework();
-    setTimeout(()=>{firework_sound.pause()}, 3000);
+    setTimeout(()=>{firework_sound.pause()}, 2500);
     let count = 0;
-    while (count < 2500){
+    while (count < 2300){
         let milliseconds =  Math.floor(Math.random() * (800 - 400 + 1)) + 400;
         count += milliseconds;
         setTimeout(showFirework, count)
