@@ -166,7 +166,7 @@ function startGame() {
 }
 
 function drawView() {
-    const yStart = 75;
+    const yStart = 80;
     milliliterDots.forEach((dot)=>{
          dot.addEventListener("mousedown", (event) => {
             start = event.target.className;
@@ -214,6 +214,7 @@ function checkAnswer() {
         record.result.push('Ｏ');
         $(line).addClass('correctLine');
         $(line).removeClass('line');
+        createLine();
         line = svg.querySelector(".line");
         // set_off_fireworks();
         setTimeout(()=>{document.getElementById('bingo').style.display = 'none';}, 500);
@@ -287,6 +288,15 @@ function getTopic(){
     topic.textContent = topic_explan[level];
 }
 
+function createLine(){
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', '0');
+    line.setAttribute('y1', '0');
+    line.setAttribute('x2', '0');
+    line.setAttribute('y2', '0');
+    $(line).addClass('line');
+    $(svg).append(line);
+}
 function setLives(lives){
     if (lives === $('.lives').children().length || lives<0) return
     if (lives < $('.lives').children().length) {
