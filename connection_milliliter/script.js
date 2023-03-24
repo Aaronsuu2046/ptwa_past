@@ -7,11 +7,17 @@ const LAST_BTN = 'lastBtn'
 const START_BTN = 'startBtn'
 const NEXT_BTN = 'nextBtn'
 const HINT_BTN = 'hintBtn'
+const RECORD_BTN = 'recordBtn'
 const myCanvas = document.querySelector(".myCanvas");
 const gameArea = document.querySelector(".game_area");
 const canvas = [...document.querySelectorAll(`canvas`)];
 const svg = document.querySelector(".drawingArea");
 let line = svg.querySelector(".line");
+const overlay = document.querySelector('.overlay');
+const hint = document.querySelector('.hintContainer');
+const closeHint = document.querySelector('.closeHintBtn');
+const milliliterHint = hint.querySelector('.milliliterHint')
+const literHint = hint.querySelector('.literHint')
 const gameBtn = [...document.querySelectorAll(`.gameBtn *`)];
 const gameRule = document.querySelector('.gameRule');
 const topic = document.querySelector('.topic');
@@ -28,7 +34,7 @@ while (i<4){
     rightContainer.appendChild(clonedLitersContainer);
     i++;
 }
-const leftWater = [...document.querySelectorAll(`.milliliter_container .water_container .water`)];
+const leftWater = [...document.querySelectorAll(`.left .milliliter_container .water_container .water`)];
 const rightWater = [...document.querySelectorAll(`.right .water_container .water`)];
 const milliliterDots = [...document.querySelectorAll(`.milliliterDots li`)];
 const literDots = [...document.querySelectorAll(`.literDots li`)];
@@ -36,7 +42,7 @@ const allDots = [...milliliterDots, ...literDots];
 const firework_sound = document.getElementById('win');
 const fireworkContainer = document.querySelector('#firework-container');
 const fireworksUrl = './assets/images/fireworks.gif';
-let level = 0;
+let level = 0, lives = 3;
 let act = '', start = '', end = '';
 let gameState = GAME_FILE;
 let winLevelArr = [];
@@ -66,6 +72,9 @@ gameBtn.forEach((item) => {
             }
             else if (act === START_BTN){
                 startGame();
+            }
+            else if (act === RECORD_BTN){
+                loadRecord();
             }
             else if (act === HINT_BTN){
                 showHint();
@@ -105,6 +114,7 @@ function startGame() {
     gameState = GAME_ALIVE;
     gameRule.style.display = 'none';
     getTopic();
+    setLives(lives);
     record = {'start': []
               , 'end': []
               , 'result': []
@@ -123,15 +133,33 @@ function startGame() {
         }
         $(milliliterDots[index]).addClass(`${item}`);
     })
+    for (let i=0; i<5; i++) {
+        const liter = liters[i];
+        rightWater[i].style.height = `${((liter)/ 2000)*100}%`;
+        $(literDots[i]).addClass(`${liter}`)
+        leftWater[i].style.height = `${((milliliters[i])/ 1000)*100}%`;
+        leftWater[leftWater.length - (i+1)].style.height = `${((milliliters[leftWater.length - (i+1)])/ 1000)*100}%`;
+        milliliterHint.appendChild(document.querySelectorAll('.milliliter_container .water_container')[i].cloneNode(true));
+        milliliterHint.appendChild(document.querySelectorAll('.milliliter_container .water_container')[i].cloneNode(true));
+        literHint.appendChild(document.querySelectorAll('.right>.water_container')[i].cloneNode(true));
+        literHint.appendChild(document.querySelectorAll('.right>.water_container')[i].cloneNode(true));
+        literHint.appendChild(document.querySelectorAll('.right>.water_container')[i].cloneNode(true));
+        literHint.appendChild(document.querySelectorAll('.right>.water_container')[i].cloneNode(true));
+    }   
 
-    rightWater.forEach((water, index)=>{
-        const liter = liters[index];
-        water.style.height = `${((liter)/ 2000)*100}%`;
-        $(literDots[index]).addClass(`${liter}`)
-    })
-    leftWater.forEach((water, inedx)=>{
-        water.style.height = `${((milliliters[inedx])/ 1000)*100}%`;
-    })
+    const milliliterHintWater = [...document.querySelectorAll(`.milliliterHint .water_container .water`)]
+    const milliliterHintWaterContainer = [...document.querySelectorAll(`.milliliterHint .water_container .milliliter`)]
+    const literHintWater = [...document.querySelectorAll(`.literHint .water_container .water`)]
+    const literHintWaterContainer = [...document.querySelectorAll(`.literHint .water_container .liters`)]
+    for (let i=1; i<11; i++) {
+        milliliterHintWater[i-1].style.height = `${i*10}%`;
+        milliliterHintWaterContainer[i-1].textContent = i*100;
+        literHintWater[i-1].style.height = `${i*5}%`;
+        literHintWaterContainer[i-1].textContent = i*100;
+        literHintWater[literHintWater.length+(i*-1)].style.height = `${(literHintWater.length+((i-1)*-1))*5}%`;
+        literHintWaterContainer[literHintWater.length+(i*-1)].textContent = (literHintWater.length+((i-1)*-1))*100;
+    }
+
 }
 
 function drawView() {
@@ -161,6 +189,7 @@ function drawView() {
 
     literDots.forEach((dot)=>{
         dot.addEventListener("mouseup", (event) => {
+            if (!drawing) return;
             end = event.target.className;
             checkAnswer();
             record.end.push(end);
@@ -191,6 +220,8 @@ function checkAnswer() {
         document.getElementById('wrong').play();
         document.getElementById('dada').style.display = 'block';
         $(line).addClass('wrongLine');
+        lives -= 1;
+        setLives(lives)
         setTimeout(()=>{document.getElementById('dada').style.display = 'none';}, 500);
         // $(gameBtn[level-1]).removeClass('bingo');
         // winLevelArr.pop(level);
@@ -236,12 +267,38 @@ function resetGame(){
     })
 }
 
+function loadRecord(){
+}
 function showHint(){
-
+    if (lives > 0)return
+    if (overlay.style.display === 'block'){
+        overlay.style.display = 'none';
+        
+    }
+    else{
+        overlay.style.display = 'block';
+    }
 }
 
 function getTopic(){
     topic.textContent = topic_explan[level];
+}
+
+function setLives(lives){
+    if (lives === $('.lives').children().length || lives<0) return
+    if (lives < $('.lives').children().length) {
+        $('.lives > :last-child').remove();
+        return
+    }
+    for (let i = 0; i <lives; i++){
+        const livesImg = $('<img>')
+        .attr('src', './assets/images/lives.svg')
+        .attr('alt', 'lives image')
+        .attr('width', '60')
+        .attr('height', 'auto')
+        .css('margin-right', '-30px');
+        $('.lives').append(livesImg);
+    }
 }
 function set_off_fireworks(){
     firework_sound.currentTime = 1.5;
@@ -308,5 +365,5 @@ function getRandomNumber(start, end, tolerance, times=1) {
     return array;
 }
   
-
+closeHint.addEventListener('click', showHint);
 drawView();
