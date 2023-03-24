@@ -144,30 +144,7 @@ function startGame() {
         $(literDots[i]).addClass(`${liter}`)
         leftWater[i].style.height = `${((milliliters[i])/ 1000)*100}%`;
         leftWater[leftWater.length - (i+1)].style.height = `${((milliliters[leftWater.length - (i+1)])/ 1000)*100}%`;
-        milliliterHint.appendChild(document.querySelectorAll('.milliliter_container .water_container')[i].cloneNode(true));
-        milliliterHint.appendChild(document.querySelectorAll('.milliliter_container .water_container')[i].cloneNode(true));
-        literHint.appendChild(document.querySelectorAll('.right>.water_container')[i].cloneNode(true));
-        literHint.appendChild(document.querySelectorAll('.right>.water_container')[i].cloneNode(true));
-        literHint.appendChild(document.querySelectorAll('.right>.water_container')[i].cloneNode(true));
-        literHint.appendChild(document.querySelectorAll('.right>.water_container')[i].cloneNode(true));
-    }   
-
-    const milliliterHintWater = [...document.querySelectorAll(`.milliliterHint .water_container .water`)]
-    const milliliterHintWaterContainer = [...document.querySelectorAll(`.milliliterHint .water_container .milliliter`)]
-    const literHintWater = [...document.querySelectorAll(`.literHint .water_container .water`)]
-    const literHintWaterContainer = [...document.querySelectorAll(`.literHint .water_container .liters`)]
-    for (let i=1; i<11; i++) {
-        milliliterHintWater[i-1].style.height = `${i*10}%`;
-        milliliterHintWaterContainer[i-1].textContent = i*100;
-        milliliterHintWaterContainer[i-1].style.top = `${80-(i*10)}%`;
-        literHintWater[i-1].style.height = `${i*5}%`;
-        literHintWaterContainer[i-1].textContent = i*100;
-        literHintWaterContainer[i-1].style.top = `${80-(i*5)}%`;
-        literHintWater[literHintWater.length+(i*-1)].style.height = `${(literHintWater.length+((i-1)*-1))*5}%`;
-        literHintWaterContainer[literHintWater.length+(i*-1)].textContent = (literHintWater.length+((i-1)*-1))*100;
-        literHintWaterContainer[literHintWater.length+(i*-1)].style.top = `${80-((literHintWater.length+((i-1)*-1))*5)}%`;
     }
-
 }
 
 function drawView() {
@@ -419,3 +396,25 @@ function getRandomNumber(start, end, tolerance, times=1) {
   
 closeHint.addEventListener('click', showHint);
 drawView();
+// hint
+for (let i=0; i<10; i++) {
+    milliliterHint.appendChild(document.querySelectorAll('.milliliter_container .water_container')[0].cloneNode(true));
+    literHint.appendChild(document.querySelectorAll('.right>.water_container')[0].cloneNode(true));
+    literHint.appendChild(document.querySelectorAll('.right>.water_container')[0].cloneNode(true));
+}   
+
+const milliliterHintWater = [...document.querySelectorAll(`.milliliterHint .water_container .water`)]
+const milliliterHintWaterContainer = [...document.querySelectorAll(`.milliliterHint .water_container .milliliter`)]
+const literHintWater = [...document.querySelectorAll(`.literHint .water_container .water`)]
+const literHintWaterContainer = [...document.querySelectorAll(`.literHint .water_container .liters`)]
+for (let i=1; i<11; i++) {
+    milliliterHintWater[i-1].style.height = `${i*10}%`;
+    milliliterHintWaterContainer[i-1].textContent = i*100;
+    milliliterHintWaterContainer[i-1].style.top = `${80-(i*10)}%`;
+    literHintWater[i-1].style.height = `${i*5}%`;
+    literHintWaterContainer[i-1].textContent = i*100;
+    literHintWaterContainer[i-1].style.top = `${80-(i*5)}%`;
+    literHintWater[literHintWater.length+(i*-1)].style.height = `${(literHintWater.length+((i-1)*-1))*5}%`;
+    literHintWaterContainer[literHintWater.length+(i*-1)].textContent = (literHintWater.length+((i-1)*-1))*100;
+    literHintWaterContainer[literHintWater.length+(i*-1)].style.top = `${80-((literHintWater.length+((i-1)*-1))*5)}%`;
+}
