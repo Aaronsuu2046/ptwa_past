@@ -360,27 +360,29 @@ svg {
 }
 /* dot */
 .milliliterDots,.literDots {
+    position: absolute;
     display: flex;
     flex-direction: column;
     position: absolute;
-    z-index: 999;
+    /* z-index: 999; */
     justify-content: space-around;
     width: 5%;
     height: 100%;
 }
 
-.milliliterDots li,.literDots li {
-    z-index: 999;
-    font-size: 50px;
-}
+.milliliterDots .circle, .literDots .circle {
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    border-radius: 50%;
+  }
 .milliliterDots {
     right: 0;
     transform: translateX(30px);
 }
 .literDots {
-    justify-content: space-between;
-    top: -2%;
-    height: 102%;
+    top: -5%;
+    height: 110%;
     transform: translateX(-40px);
 }
 

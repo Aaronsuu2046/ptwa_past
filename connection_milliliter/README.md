@@ -34,9 +34,7 @@
 [//]: # (TODO game play view gif)
 
 ### 關卡說明
-- 第一關：毫升連公升
-- 第二關：公升連毫升
-- 第三關：毫公升連連看
+- 第一關：毫公升連連看
   
 ### 遊戲玩法
 - 點擊左側的題目
@@ -48,9 +46,7 @@
 
 ### Sound Source
 - [Fireworks](https://opengameart.org/content/fireworks-with-applause-happy-people)
-- []()
 
 # Future Work
 
-1. [ ] 
-2. [ ] 
+1. [ ] 修復 touch bug，需要再點擊右側水杯後放開才可繪製出線條

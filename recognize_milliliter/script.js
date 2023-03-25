@@ -66,6 +66,7 @@ gameBtn.forEach((item) => {
 });
 
 water_control.addEventListener('wheel', (e) => {
+    e.preventDefault();
     if (milliliter>end || gameState !== GAME_ALIVE){
         return
     }
@@ -87,11 +88,13 @@ let active = false;
 let lastTouchY, currentTouchY = null;
 
 water_control.addEventListener('touchstart', (e) => {
+    e.preventDefault();
     lastTouchY = e.touches[0].clientY;
     active = true;
 });
 
 water_control.addEventListener('touchmove', (e) => {
+    e.preventDefault();
     if (active) {
         if (milliliter>end || gameState !== GAME_ALIVE){
             return
@@ -290,3 +293,15 @@ function getRandomNumber() {
     return start + randomIndex * tolerance;
   }
   
+  function throttle(func, limit) {
+    let inThrottle;
+    return function () {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), limit);
+        }
+    };
+}

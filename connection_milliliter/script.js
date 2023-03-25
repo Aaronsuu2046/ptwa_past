@@ -36,8 +36,10 @@ while (i<4){
 }
 const leftWater = [...document.querySelectorAll(`.left .milliliter_container .water_container .water`)];
 const rightWater = [...document.querySelectorAll(`.right .water_container .water`)];
-const milliliterDots = [...document.querySelectorAll(`.milliliterDots li`)];
-const literDots = [...document.querySelectorAll(`.literDots li`)];
+const milliliterDotsContener = document.querySelector(`.milliliterDots`);
+const literDotsContener = document.querySelector(`.literDots`);
+const milliliterDots = [...document.querySelectorAll(`.milliliterDots .circle`)];
+const literDots = [...document.querySelectorAll(`.literDots .circle`)];
 const allDots = [...milliliterDots, ...literDots];
 const firework_sound = document.getElementById('win');
 const fireworkContainer = document.querySelector('#firework-container');
@@ -149,39 +151,62 @@ function startGame() {
 
 function drawView() {
     const yStart = 65;
-    milliliterDots.forEach((dot)=>{
-         dot.addEventListener("mousedown", (event) => {
-            start = event.target.className;
-            record.start.push(start);
-            const {pageX: offsetX , pageY: offsetY} = event
-            if (line.className.baseVal.includes('wrongLine')){
-                $(line).removeClass('wrongLine');
-            }
-            line.setAttribute("x1", offsetX);
-            line.setAttribute("y1", offsetY-yStart);
-            line.setAttribute("x2", offsetX);
-            line.setAttribute("y2", offsetY-yStart);
-            drawing = true;
-        });
-     })
+    const mouseDownListener = (event) => {
+        event.preventDefault();
+        start = event.target.className;
+        record.start.push(start);
+        const {pageX, pageY} = event.touches ? event.touches[0] : event;
+        if (line.className.baseVal.includes('wrongLine')){
+            $(line).removeClass('wrongLine');
+        }
+        line.setAttribute("x1", pageX);
+        line.setAttribute("y1", pageY-yStart);
+        line.setAttribute("x2", pageX);
+        line.setAttribute("y2", pageY-yStart);
+        drawing = true;
+    }
     
-     gameArea.addEventListener("mousemove", (event) => {
-      if (!drawing) return;
-      const {pageX: offsetX , pageY: offsetY} = event
-      line.setAttribute("x2", offsetX);
-      line.setAttribute("y2", offsetY-yStart);
-    });
+    const mouseMoveListener = (event) => {
+        event.preventDefault();
+        if (!drawing) return;
+        const {pageX, pageY} = event.touches ? event.touches[0] : event;
+        line.setAttribute("x2", pageX);
+        line.setAttribute("y2", pageY-yStart);
+    }
 
-    literDots.forEach((dot)=>{
-        dot.addEventListener("mouseup", (event) => {
-            if (!drawing) return;
-            end = event.target.className;
-            checkAnswer();
-            record.end.push(end);
-            drawing = false;
-        });
+    const mouseupListener = (event) => {
+        if (!drawing) return;
+        drawing = false;
+        end = event.target.className;
+        
+        checkAnswer();
+        record.end.push(end);
+    }
+    milliliterDotsContener.addEventListener("mousedown", (e) => {
+        if (milliliterDots.includes(e.target)){
+            mouseDownListener(e);
+        }
     });
-    // requestAnimationFrame(()=>drawView());
+    milliliterDotsContener.addEventListener("touchstart", (e) => {
+        if (milliliterDots.includes(e.target)){
+            mouseDownListener(e);
+        }
+    });
+    gameArea.addEventListener("mousemove", mouseMoveListener);
+    gameArea.addEventListener("touchmove", (e) => {
+        mouseMoveListener(e);
+    });
+    literDotsContener.addEventListener("mouseup", (e) => {
+        if (literDots.includes(e.target)){
+            mouseupListener(e);
+        }
+    });
+    literDotsContener.addEventListener("touchend", (e) => {
+        if (literDots.includes(e.target)){
+            mouseupListener(e);
+        }
+        
+    });
 };
 
 function checkAnswer() {
@@ -248,8 +273,8 @@ function resetGame(){
         }
     })
     gameRule.style.display = 'block'
-    $('.literDots li').removeClass();
-    $('.milliliterDots li').removeClass();
+    $('.literDots .circle').removeClass();
+    $('.milliliterDots .circle').removeClass();
     $('svg line').removeClass();
     $('svg line').addClass('line');
     $('svg line').each((index, line)=>{

@@ -14,7 +14,7 @@
 
 2. 在網址欄輸入網址
     `https://PTWA-NPO.github.io/`
-    [//]: # (TODO demo gif)
+[//]: # (TODO demo gif)
 
 
 # 遊戲介紹
@@ -47,6 +47,6 @@
 
 # Future Work
 
-1. [ ] New Web View
+1. [ ] Merge [New Web View](https://aaronsutemp.github.io/)
 2. [ ] 更多遊戲關卡
 4. [ ] 適合三年級生的遊戲
