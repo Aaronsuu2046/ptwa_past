@@ -18,6 +18,9 @@ document.getElementById("game7").onclick = function(){
 document.getElementById("game8").onclick = function(){
     hideFrames(8);
 }
+document.getElementById("game9").onclick = function(){
+    hideFrames(9);
+}
 
 function hideFrames(number) {
     [...document.querySelectorAll('.body-container iframe')].forEach((item) => {
