@@ -364,7 +364,6 @@ svg {
     display: flex;
     flex-direction: column;
     position: absolute;
-    /* z-index: 999; */
     justify-content: space-around;
     width: 5%;
     height: 100%;
@@ -382,7 +381,7 @@ svg {
 }
 .literDots {
     top: -5%;
-    height: 110%;
+    height: 108%;
     transform: translateX(-40px);
 }
 
