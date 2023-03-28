@@ -72,39 +72,6 @@ body {
     height: 100%;
     overflow: hidden;
 }
-.hintContainer .water_container {
-    margin-right: 10px;
-}
-.milliliterHint {
-    flex: 3;
-    margin: 8% 0% 3% 2%;
-}
-.literHint {
-    margin: 8% 2% 2%;
-    flex: 6.6;
-}
-.literHint .water_container  {
-    height: 16%;
-    margin-bottom: 3%;
-}
-.literHint .water_container .liters::after, .milliliterHint .water_container .milliliter::after{
-    content: "ml";
-}
-.dividing{
-    float: left;
-    width: 3px;
-    height: 100%;
-    margin-right: 5%;
-    background-color: #8e8e9c;
-}
-.hintContainer > h1{
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 0;
-    color: #000;
-    cursor: pointer;
-}
 
 .closeHintBtn {
     position: absolute;
@@ -120,31 +87,7 @@ body {
     background-color: #000;
 }
 
-/* line */
-svg {
-    position: absolute;
-    /* z-index: 999; */
-    width: 800px;
-    height: 100%;
-    top: 0%;
-    /* background-color: #eee; */
-    border-radius: 10px;
-    box-sizing: border-box;
-}
-
-.line {
-    stroke: black;
-    stroke-width: 5;
-}
-.correctLine {
-    stroke: green;
-    stroke-width: 5;
-}
-.wrongLine {
-    stroke: red;
-    stroke-width: 5;
-}
-
+/* Rule */
 .myCanvas .gameRule {
     position: absolute;
     z-index: 9999;
@@ -267,122 +210,6 @@ svg {
     bottom: 0%;
     left: 0%;
     margin-bottom: 20px;
-}
-
-.game_area .left {
-    position: absolute;
-    display: flex;
-    width: 30%;
-    height: 100%;
-    left: 3%;
-    top: 3%;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.game_area .right {
-    position: absolute;
-    height: 100%;
-    width: 20%;
-    right: 0%;
-}
-.left .milliliter_container, .milliliterHint .water_container {
-    position: relative;
-    height:16%;
-    margin-bottom: 5%;
-    top: 2%;
-}
-.left .milliliter_container{
-    margin-bottom: 10%;
-}
-.right .water_container {
-    top: -5%;
-    height: 19%;
-    margin-bottom: 5%;
-}
-.left .water_container {
-    margin-left: 10px;
-    height: 100%;
-}
-.water_container {
-    position: relative;
-    display: inline-block;
-    border: 2px solid #000;
-    border-top: none;
-    width: 100px;
-}
-.water_container .liters,.water_container .milliliter{
-    position: absolute;
-    z-index: 99;
-    right: 10%;
-    top: -10%;
-}
-/* scale */
-.water_container .scales{
-    display: flex;
-    position: absolute;
-    z-index: 99;
-    flex-direction: column-reverse;
-    justify-content: space-between;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-.water_container .scales *{
-    height: 0;
-    width: 10px;
-    border: solid 1px black;
-}
-.water_container .scales :first-child {
-    border: none;
-}
-.water_container .scales :nth-child(11) {
-    width: 20px
-}
-
-.water_container .scales :last-child {
-    width: 20px
-}
-.water_container .scales :nth-child(6) {
-    width: 15px
-}
-
-.water_container .scales :nth-child(16) {
-    width: 15px
-}
-
-/* water */
-.water {
-    position: absolute;
-    width: 100%;
-    bottom: 0%;
-    background-color: #02bbdc;
-}
-/* dot */
-.milliliterDots,.literDots {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    justify-content: space-around;
-    width: 5%;
-    height: 100%;
-}
-
-.milliliterDots .circle, .literDots .circle {
-    width: 20px;
-    height: 20px;
-    background-color: black;
-    border-radius: 50%;
-  }
-.milliliterDots {
-    right: 0;
-    transform: translateX(30px);
-}
-.literDots {
-    top: -5%;
-    height: 108%;
-    transform: translateX(-40px);
 }
 
 /* fireworks */
