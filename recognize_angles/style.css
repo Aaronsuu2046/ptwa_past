@@ -1,5 +1,5 @@
 * {
-    /* border: solid 2px black; */
+    border: solid 2px black;
 }
 
 body {
@@ -94,6 +94,7 @@ body {
     width: 100%;
     height: 100%;
     background-color: #eee;
+    display: none;
 }
 
 .myCanvas .gameRule *{
@@ -202,8 +203,8 @@ body {
 }
 
 /* container */
-
 .game_area {
+    display: flex;
     position: absolute;
     width: 100%;
     height: 85%;
@@ -211,7 +212,28 @@ body {
     left: 0%;
     margin-bottom: 20px;
 }
-
+.game_area .question_container {
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+}
+.game_area .question_container .question {
+    flex: 6;
+}
+.game_area .question_container .tool {
+    flex: 4;
+}
+.game_area .angles {
+    flex: 6;
+}
+.game_area .angles > *{
+    display: inline-block;
+    width: 50%;
+    height: 50%;
+    font-size: 50px; 
+    text-align: center;
+    line-height: 250px;
+}
 /* fireworks */
 
 #firework-container {

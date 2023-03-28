@@ -177,6 +177,25 @@ class Game {
     }
 }
 
+const sideA = 100;
+        const sideB = 150;
+        const angles = [30, 60, 90, 120, 150];
+        
+function createPolygon(angle, sideA, sideB, x, y) {
+    const angleRad = (angle * Math.PI) / 180;
+    const x2 = x + sideA;
+    const y2 = y;
+    const x3 = x + sideB * Math.cos(angleRad);
+    const y3 = y + sideB * Math.sin(angleRad);
+
+    const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    polygon.setAttribute('points', `${x},${y} ${x2},${y2} ${x3},${y3}`);
+    polygon.setAttribute('stroke', 'black');
+    polygon.setAttribute('stroke-width', '1');
+    polygon.setAttribute('fill', 'none');
+
+    return polygon;
+}
 
 function set_off_fireworks(){
     firework_sound.currentTime = 1.5;
