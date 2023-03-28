@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>認識毫公升</title>
+    <title>認識直角、鈍角和銳角</title>
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css" />
 </head>
@@ -13,24 +13,39 @@
         <audio id="wrong" src="assets/sounds/wrong_sound_effect.mp3"></audio>
         <audio id="win" src="assets/sounds/applause_fireworks.mp3" duration="3"></audio>
     </div>
-    <div class="gameWidonw">
+    <div class="gameWindow">
         <div class="gameBtn levelBtn">            
-            <button class="level1">1</button>
-            <button class="level2">2</button>
-            <button class="level3">3</button>
+            <button id="1">1</button>
         </div>
-        <div class="canvas">
-            <canvas class="canvas1"></canvas>
+        <div class="myCanvas">
             <div class="gameRule">
                 <h1 id="start">遊戲玩法：
-                    <span id="version">V1</span>
+                    <span id="version">V0.0.1</span>
                 </h1>
-                <h1 class="context">點擊左側的題目</h1>
-                <h1 class="context">連上右側對應的答案</h1>
-                <h1 class="context">全對即可過關</h1>
+                <div class="context">
+                    <h1>根據題目選擇對應的答案</h1>
+                    <h1>正確即可過關</h1>
+                    <h1>可拖拉直角圖形比對答案</h1>
+                </div>
                 <h1 id="end">準備好了嗎？點擊遊戲開始！</h1>
             </div>
-            <div class="topic"></div>
+            <!-- <svg class="drawingArea">
+                <line class="line" x1="0" y1="0" x2="0" y2="0" />
+            </svg> -->
+            <div class="topic">
+            </div>
+            <!-- <div class="lives"></div>
+            <div class="overlay">
+                <div class="hintContainer">
+                    <h1 >提示：</h1>
+                    <span class="closeHintBtn">Ｘ</span>
+                    <div class="milliliterHint">
+                    </div>
+                    <div class="literHint">
+                        <div class="dividing"></div>
+                    </div>
+                </div>
+            </div> -->
             <div class="game_area">
             </div>
             <div class="result">
@@ -40,14 +55,16 @@
             <div id="firework-container"></div>
         </div>
         <div class="gameBtn optionsBtn">
-            <button id="lastBtn">上一關</button>
+            <!-- <button id="lastBtn">上一關</button> -->
             <button id="startBtn">遊戲開始</button>
-            <button id="nextBtn">下一關</button>
-            <button id="hintBtn">提示</button>
+            <!-- <button id="nextBtn">下一關</button> -->
+            <button id="recordBtn">紀錄下載</button>
+            <!-- <button id="hintBtn">提示</button> -->
+            <button id="submitBtn">送出</button>
         </div>
     </div>
     <div class="script">
-        <script src="script.js" type="text/JavaScript"></script>
+        <script src="script.js" type="module"></script>
     </div>
 </body>
 </html>

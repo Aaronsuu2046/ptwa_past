@@ -3,23 +3,33 @@
 }
 
 body {
+    position: relative;
     right: 0;
     font-family: '微軟正黑體';
     margin: 0;
 }
 
 .gameWindow {
+    position: aboslute;
+    display: flex;
+    flex-direction: column;
     width: 800px;
+    height: 710px;
 }
 
-.canvas {
+.myCanvas {
     position: relative;
     display: flex;
     width: 800px;
     height: 600px;
+    background-color: #eee;
+    border:5px solid #02bbdc;
+    background-color: #eee;
+    border-radius: 10px;
+    box-sizing: border-box;
 }
 
-.canvas .topic {
+.myCanvas .topic {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -28,32 +38,136 @@ body {
     color: black;
 }
 
-.canvas .canvas1 {
+.lives{
+    position: absolute;
+    top: 2%;
+    left: 50%;
+    width: 100px;
+    transform: translateX(-25%);
+    right: 0;
+}
+
+/* hint */
+.overlay{
+    position: relative;
+    display: none;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    border:5px solid #02bbdc;
-    background-color: #eee;
+    z-index: 9999;
+}
+
+.hintContainer{
+    display: flex;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 1);
+    border: 5px solid #b3e6e5;
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.hintContainer .water_container {
+    margin-right: 10px;
+}
+.milliliterHint {
+    flex: 3;
+    margin: 8% 0% 3% 2%;
+}
+.literHint {
+    margin: 8% 2% 2%;
+    flex: 6.6;
+}
+.literHint .water_container  {
+    height: 16%;
+    margin-bottom: 3%;
+}
+.literHint .water_container .liters::after, .milliliterHint .water_container .milliliter::after{
+    content: "ml";
+}
+.dividing{
+    float: left;
+    width: 3px;
+    height: 100%;
+    margin-right: 5%;
+    background-color: #8e8e9c;
+}
+.hintContainer > h1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    color: #000;
+    cursor: pointer;
+}
+
+.closeHintBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 30px;
+    color: #000;
+    cursor: pointer;
+}
+
+.closeHintBtn:hover {
+    color: #fff;
+    background-color: #000;
+}
+
+/* line */
+svg {
+    position: absolute;
+    /* z-index: 999; */
+    width: 800px;
+    height: 100%;
+    top: 0%;
+    /* background-color: #eee; */
     border-radius: 10px;
     box-sizing: border-box;
 }
 
-.canvas .gameRule {
+.line {
+    stroke: black;
+    stroke-width: 5;
+}
+.correctLine {
+    stroke: green;
+    stroke-width: 5;
+}
+.wrongLine {
+    stroke: red;
+    stroke-width: 5;
+}
+
+.myCanvas .gameRule {
     position: absolute;
     z-index: 9999;
     width: 100%;
     height: 100%;
     background-color: #eee;
-    border:5px solid #02bbdc;
-    background-color: #eee;
-    border-radius: 10px;
-    box-sizing: border-box;
 }
 
-.canvas .gameRule *{
+.myCanvas .gameRule *{
     font-size: 40px;
 }
 
-.canvas .gameRule #start #version {
+.myCanvas .gameRule .context{
+    position: absolute;
+    top: 20%;
+    left: 15%;
+}
+
+.myCanvas .gameRule #start{
+    transform: translateX(5%);
+}
+
+.myCanvas .gameRule #start #version {
     position: absolute;
     font-size: 20px; 
     top: 0%;
@@ -61,17 +175,10 @@ body {
     color: #bbb;
 }
 
-.canvas .gameRule .context{
-    position: relative;
-    transform: translateX(15%);
-}
-
-.canvas .gameRule #start{
-    transform: translateX(5%);
-}
-
-.canvas .gameRule #end{
-    transform: translateX(30%);
+.myCanvas .gameRule #end{
+    position: absolute;
+    top: 80%;
+    left: 30%;
 }
 
 .gameBtn {
@@ -93,8 +200,8 @@ body {
     transition: 0.5s;
 }
 
+/* level */
 .levelBtn {
-    height: 60;
     padding-top: 10px;
     margin: 0;
 }
@@ -118,6 +225,7 @@ body {
     color: #fff;
 }
 
+/* option */
 .optionsBtn * {
     background-color: #02bbdc;
     color: #fff;
@@ -137,18 +245,10 @@ body {
     transition: 0.5s;
 }
 
-.optionsBtn {
-    position: absolute;
-    z-index: 9999;
-}
-
-.optionsBtn #lastBtn {
-    flex: 2;
-}
 .optionsBtn #startBtn {
-    flex: 5;
+    flex: 7;
 }
-.optionsBtn #nextBtn {
+.optionsBtn #recordBtn {
     flex: 2;
 }
 .optionsBtn #hintBtn {
@@ -161,16 +261,129 @@ body {
 /* container */
 
 .game_area {
-    display: flex;
     position: absolute;
     width: 100%;
-    height: 80%;
+    height: 85%;
     bottom: 0%;
     left: 0%;
     margin-bottom: 20px;
-    justify-content: center;
 }
 
+.game_area .left {
+    position: absolute;
+    display: flex;
+    width: 30%;
+    height: 100%;
+    left: 3%;
+    top: 3%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.game_area .right {
+    position: absolute;
+    height: 100%;
+    width: 20%;
+    right: 0%;
+}
+.left .milliliter_container, .milliliterHint .water_container {
+    position: relative;
+    height:16%;
+    margin-bottom: 5%;
+    top: 2%;
+}
+.left .milliliter_container{
+    margin-bottom: 10%;
+}
+.right .water_container {
+    top: -5%;
+    height: 19%;
+    margin-bottom: 5%;
+}
+.left .water_container {
+    margin-left: 10px;
+    height: 100%;
+}
+.water_container {
+    position: relative;
+    display: inline-block;
+    border: 2px solid #000;
+    border-top: none;
+    width: 100px;
+}
+.water_container .liters,.water_container .milliliter{
+    position: absolute;
+    z-index: 99;
+    right: 10%;
+    top: -10%;
+}
+/* scale */
+.water_container .scales{
+    display: flex;
+    position: absolute;
+    z-index: 99;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.water_container .scales *{
+    height: 0;
+    width: 10px;
+    border: solid 1px black;
+}
+.water_container .scales :first-child {
+    border: none;
+}
+.water_container .scales :nth-child(11) {
+    width: 20px
+}
+
+.water_container .scales :last-child {
+    width: 20px
+}
+.water_container .scales :nth-child(6) {
+    width: 15px
+}
+
+.water_container .scales :nth-child(16) {
+    width: 15px
+}
+
+/* water */
+.water {
+    position: absolute;
+    width: 100%;
+    bottom: 0%;
+    background-color: #02bbdc;
+}
+/* dot */
+.milliliterDots,.literDots {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    justify-content: space-around;
+    width: 5%;
+    height: 100%;
+}
+
+.milliliterDots .circle, .literDots .circle {
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    border-radius: 50%;
+  }
+.milliliterDots {
+    right: 0;
+    transform: translateX(30px);
+}
+.literDots {
+    top: -5%;
+    height: 108%;
+    transform: translateX(-40px);
+}
 
 /* fireworks */
 
