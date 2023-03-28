@@ -41,12 +41,11 @@ class Game {
             return
         }
         if (this.gameState===GAME_WIN){
-            resetGame();
+            this.resetGame();
         }
         if (this.level===0){
             this.level = 1;
             this.levelBtn.children().eq(this.level - 1).addClass('active');
-
         }
         this.changeLevel(level);
         this.gameState = GAME_ALIVE;
