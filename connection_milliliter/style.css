@@ -51,6 +51,7 @@ body {
 .overlay{
     position: relative;
     display: none;
+    /* display: block; */
     top: 0;
     left: 0;
     width: 100%;
@@ -77,10 +78,10 @@ body {
 }
 .milliliterHint {
     flex: 3;
-    margin: 8% 0% 3% 2%;
+    margin: 10% 0% 3% 2%;
 }
 .literHint {
-    margin: 8% 2% 2%;
+    margin: 10% 2% 2%;
     flex: 6.6;
 }
 .literHint .water_container  {
@@ -105,8 +106,22 @@ body {
     color: #000;
     cursor: pointer;
 }
-
-.closeHintBtn {
+.hintContainer h2 {
+    position: absolute;
+    display: inline-block;
+    margin: 0;
+    transform: translateY(-80%);
+    background-color: #02bbdc;
+}
+.hintContainer h2::after {
+    content: 'ml';
+}
+.literHint h2 {
+    transform: translateY(-120%);
+}
+.literHint h2::after {
+    content: 'L';
+}.closeHintBtn {
     position: absolute;
     top: 0;
     right: 0;

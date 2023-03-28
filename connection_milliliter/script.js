@@ -228,9 +228,9 @@ function checkAnswer() {
         line = svg.querySelector(".line");
         setTimeout(()=>{document.getElementById('bingo').style.display = 'none';}, 500);
         if (correctAnswer.size === 5){
+            gameState = GAME_WIN;
             set_off_fireworks();
             winLevelArr.push(level);
-        gameState = GAME_WIN;
         }
     }
     else {
@@ -263,6 +263,8 @@ function changeLevel() {
 
 function resetGame(){
     gameState = GAME_FILE;
+    firework_sound.pause();
+    fireworkContainer.style.display = 'none';
     gameBtn.forEach((item, index)=>{
         $(item).removeClass('active');
         if ($.inArray(index+1, winLevelArr) !== -1) {
@@ -273,10 +275,9 @@ function resetGame(){
         }
     })
     gameRule.style.display = 'block'
-    $('.literDots .circle').removeClass();
-    $('.milliliterDots .circle').removeClass();
-    $('svg line').removeClass();
-    $('svg line').addClass('line');
+    $('.literDots .circle').removeClass().addClass('circle');
+    $('.milliliterDots .circle').removeClass().addClass('circle');
+    $('svg line').removeClass().addClass('line');
     $('svg line').each((index, line)=>{
         line.setAttribute('x1', '0');
         line.setAttribute('y1', '0');
@@ -355,13 +356,16 @@ function setLives(lives){
     }
 }
 function set_off_fireworks(){
+    if (gameState !== GAME_WIN){
+        return
+    }
     firework_sound.currentTime = 1.5;
     firework_sound.play();
     fireworkContainer.style.display = 'block';
     showFirework();
     setTimeout(()=>{firework_sound.pause()}, 2500);
     let count = 0;
-    while (count < 2300){
+    while (count < 2300 && gameState === GAME_WIN){
         let milliseconds =  Math.floor(Math.random() * (800 - 400 + 1)) + 400;
         count += milliseconds;
         setTimeout(showFirework, count)
