@@ -1,5 +1,5 @@
 * {
-    border: solid 2px black;
+    /* border: solid 2px black; */
 }
 
 body {
@@ -94,7 +94,7 @@ body {
     width: 100%;
     height: 100%;
     background-color: #eee;
-    display: none;
+    display: block;
 }
 
 .myCanvas .gameRule *{
@@ -228,11 +228,21 @@ body {
 }
 .game_area .angles > *{
     display: inline-block;
-    width: 50%;
-    height: 50%;
+    border: solid 4px #02bbdc;
+    background-color: #eee;
+    color: #8e8e9c;
+    width: 35%;
+    height: 35%;
+    margin: 40px 30px 20px 20px;
     font-size: 50px; 
     text-align: center;
-    line-height: 250px;
+    line-height: 175px;
+}
+
+.game_area .angles > *:hover{
+    color: black;
+    background-color: #bbb;
+    transform: translate(0px, -10px);
 }
 /* fireworks */
 

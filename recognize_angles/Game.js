@@ -1,4 +1,5 @@
 export {Game}
+import {getRandomNumber} from './function.js'
 
 
 // state
@@ -8,8 +9,8 @@ const GAME_WIN = 'WIN'
 
 
 // set firework
-const firework_sound = document.getElementById('win');
-const fireworkContainer = document.querySelector('#firework-container');
+const firework_sound = $('#win')[0];
+const fireworkContainer = $('#firework-container');
 const fireworksUrl = './assets/images/fireworks.gif';
 
 class Game {
@@ -18,20 +19,22 @@ class Game {
     levelBtn = $('.levelBtn');
     bingoGroph = $('#bingo');
     dadaGroph = $('#dada');
-    correctSound = $('#correct');
-    wrongSound = $('#wrong');
+    correctSound = $('#correct')[0];
+    wrongSound = $('#wrong')[0];
     levelLimit = this.levelBtn.children().length;
     constructor(){
         this.gameState = GAME_FILE;
         this.level = 0;
         this.lives = 3;
         this.record = {'start': []
-                    , 'end': []
-                    , 'result': []
-                    };
+                      , 'end': []
+                      , 'result': []
+                      };
         this.topic_explan = {1: `認識直角、鈍角和銳角`};
         this.winLevelArr = [];
-
+        this.angle = 90;
+        this.tool = createAngle(this.angle, 0, 130, 150);
+        $('.tool').html(this.tool);
     }
     startGame(level) {
         if (this.gameState===GAME_ALIVE){
@@ -54,30 +57,29 @@ class Game {
                     , 'end': []
                     , 'result': []
                     };
+        this.addAngle();
     }
     
-    checkAnswer(topic, answer) {
+    checkAnswer(angle) {
         if (this.gameState !== GAME_ALIVE){
             return
         }
-        if (topic === answer){
+        const answer = this.angle > 90 ? "鈍角" : this.angle === 90 ? "直角" : "銳角"
+        if (answer === angle){
             this.correctSound.play();
             this.bingoGroph.css('display', 'block');
             this.record.result.push('Ｏ');
             setTimeout(()=>{this.bingoGroph.css('display', 'none');}, 500);
             set_off_fireworks();
-            this.winLevelArr.push(level);
+            this.winLevelArr.push(this.level);
             this.gameState = GAME_WIN;
         }
         else {
             this.record.result.push('Ｘ');
             this.wrongSound.play();
             this.dadaGroph.css('display', 'block');
-            this.lives -= 1;
-            setLives(this.lives)
-            setTimeout(()=>{
-            this.dadaGroph.css('display', 'none');}, 500);
-            this.winLevelArr.pop(level);
+            setTimeout(()=>{this.dadaGroph.css('display', 'none');}, 500);
+            this.winLevelArr.pop(this.level);
             this.levelBtn.children().eq(this.level - 1).removeClass('bingo');
             this.levelBtn.children().eq(this.level - 1).addClass('active');
         }
@@ -107,6 +109,8 @@ class Game {
     
     resetGame(){
         this.gameState = GAME_FILE;
+        firework_sound.pause();
+        fireworkContainer.css('display', 'none');
         this.levelBtn.children().each((index, child) => {
             const $child = $(child);
             $child.removeClass('active');
@@ -175,28 +179,31 @@ class Game {
             $('.lives').append(livesImg);
         }
     }
+    addAngle() {
+        this.angle = getRandomNumber(15, 165, 10);
+        const rotationAngle = randomAngle(0, 360);
+        const angleGraphic = createAngle(this.angle, rotationAngle, 150, 150);
+        $('.question').html(angleGraphic);
+    }
 }
 
-const sideA = 100;
-        const sideB = 150;
-        const angles = [30, 60, 90, 120, 150];
-        
-function createPolygon(angle, sideA, sideB, x, y) {
-    const angleRad = (angle * Math.PI) / 180;
-    const x2 = x + sideA;
-    const y2 = y;
-    const x3 = x + sideB * Math.cos(angleRad);
-    const y3 = y + sideB * Math.sin(angleRad);
+function createAngle(angle, rotationAngle, centerX, centerY) {
+    const lineLength = 100;
+    angle *= Math.PI / 180;
+    rotationAngle *= Math.PI / 180;
+    const xA = centerX + lineLength * Math.cos(rotationAngle);
+    const yA = centerY - lineLength * Math.sin(rotationAngle);
+    const xB = centerX + lineLength * Math.cos(rotationAngle + angle);
+    const yB = centerY - lineLength * Math.sin(rotationAngle + angle);
 
-    const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-    polygon.setAttribute('points', `${x},${y} ${x2},${y2} ${x3},${y3}`);
-    polygon.setAttribute('stroke', 'black');
-    polygon.setAttribute('stroke-width', '1');
-    polygon.setAttribute('fill', 'none');
-
-    return polygon;
+    return `
+      <line x1="${centerX}" y1="${centerY}" x2="${xA}" y2="${yA}" stroke="black" stroke-width="2" />
+      <line x1="${centerX}" y1="${centerY}" x2="${xB}" y2="${yB}" stroke="black" stroke-width="2" />
+    `;
 }
-
+function randomAngle(minAngle, maxAngle) {
+    return Math.random() * (maxAngle - minAngle) + minAngle;
+}
 function set_off_fireworks(){
     firework_sound.currentTime = 1.5;
     firework_sound.play();
@@ -217,22 +224,22 @@ function set_off_fireworks(){
 function showFirework() {
     for (let i = 0; i < 5; i++) {
         let width = 100 * (Math.random()*2.5);
-        const fireworksElement = document.createElement('img');
+        const fireworksElement = $('<img>');
         fireworksElement.attr('src', fireworksUrl);
         fireworksElement.css({
             'position': 'absolute',
             'width': `${width}px`,
             'height': 'auto',
-            'left': Math.floor(Math.random() * (fireworkContainer.clientWidth - width)) + 'px',
-            'top': Math.floor(Math.random() * (fireworkContainer.clientHeight - width * 1.5)) + 'px'
+            'left': Math.floor(Math.random() * (fireworkContainer.width() - width)) + 'px',
+            'top': Math.floor(Math.random() * (fireworkContainer.height() - width * 1.5)) + 'px'
         });
-        $(fireworkContainer).append(fireworksElement);
+        fireworkContainer.append(fireworksElement);
     }
     setTimeout(removeFirework, 1194);
 }  
 
 function removeFirework() {
     for (let i = 0; i < 5; i++) {
-        $(fireworkContainer).remove(fireworkContainer.children[0]);
+        fireworkContainer.children().first().remove();
     }
 }
