@@ -18,5 +18,7 @@ optionsArea.addEventListener('click', (e) => {
 
 anglesArea.addEventListener('click', (e) => {
     const angle = e.target.textContent;
-    game.checkAnswer(angle);
+    if (angle.length === 2){
+        game.checkAnswer(angle);
+    }
 })
