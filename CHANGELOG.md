@@ -2,6 +2,13 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+### 2023.03.29
+
+##### [v0.1.0] - Recognize Angles
+**Added**
+- 新增三上認識直角、銳角、鈍角遊戲
+  
+
 ### 2023.03.28
   
 ##### [v0.2.0] - Connection Milliliter

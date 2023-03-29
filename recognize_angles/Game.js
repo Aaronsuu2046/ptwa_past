@@ -180,7 +180,9 @@ class Game {
         this.angle = getRandomNumber(15, 165, 10);
         const rotationAngle = 0;
         const angleGraphic = createAngle(this.angle, rotationAngle, x, y);
+        const fanShape = createFanShape(x, y, 30, 360-this.angle, 0)
         $('.question').html(angleGraphic);
+        $('.question').append(fanShape);
     }
 }
 
@@ -198,6 +200,34 @@ function createAngle(angle, rotationAngle, centerX, centerY) {
       <line x1="${centerX}" y1="${centerY}" x2="${xB}" y2="${yB}" stroke="black" stroke-width="4" />
     `;
 }
+
+function createFanShape(cx, cy, radius, startAngle, endAngle) {
+    startAngle *= Math.PI / 180;
+    endAngle *= Math.PI / 180;
+    const start = {
+        x: cx + Math.cos(startAngle) * radius,
+        y: cy + Math.sin(startAngle) * radius
+    };
+    const end = {
+        x: cx + Math.cos(endAngle) * radius,
+        y: cy + Math.sin(endAngle) * radius
+    };
+
+    const largeArcFlag = endAngle - startAngle <= Math.PI ? 0 : 1;
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("class", "fanShape");
+    path.setAttribute("fill", "lightblue");
+    path.setAttribute("stroke", "black");
+    path.setAttribute("stroke-width", "2");
+    path.setAttribute("d", `
+        M ${cx} ${cy}
+        L ${start.x} ${start.y}
+        A ${radius} ${radius} 0 ${largeArcFlag} 1 ${end.x} ${end.y}
+        Z
+    `);
+    return path
+}
+
 function randomAngle(minAngle, maxAngle) {
     return Math.random() * (maxAngle - minAngle) + minAngle;
 }

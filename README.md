@@ -44,7 +44,7 @@
 - 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的**三年級**，選擇**毫公升連連看**
 
 ## Grad3-3 認識直角鈍角銳角（recognize_angles）
-[![recognize_angles](https://img.shields.io/badge/recognize_angles-v0.0.1-blue.svg)](./recognize_angles)
+[![recognize_angles](https://img.shields.io/badge/recognize_angles-v0.1.0-blue.svg)](./recognize_angles)
 
 - 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的**三年級**，選擇**認識直角鈍角銳角**
 
