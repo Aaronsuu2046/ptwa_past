@@ -6,10 +6,9 @@ const GAME_FILE = 'FILE'
 const GAME_ALIVE = 'ALIVE'
 const GAME_WIN = 'WIN'
 
-
 // set firework
-const firework_sound = document.getElementById('win');
-const fireworkContainer = document.querySelector('#firework-container');
+const firework_sound = $('#win')[0];
+const fireworkContainer = $('#firework-container');
 const fireworksUrl = './assets/images/fireworks.gif';
 
 class Game {
@@ -18,18 +17,18 @@ class Game {
     levelBtn = $('.levelBtn');
     bingoGroph = $('#bingo');
     dadaGroph = $('#dada');
-    correctSound = $('#correct');
-    wrongSound = $('#wrong');
+    correctSound = $('#correct')[0];
+    wrongSound = $('#wrong')[0];
     levelLimit = this.levelBtn.children().length;
     constructor(){
         this.gameState = GAME_FILE;
         this.level = 0;
         this.lives = 3;
-        this.record = {'start': []
-                    , 'end': []
-                    , 'result': []
-                    };
-        this.topic_explan = {1: `認識直角、鈍角和銳角`};
+        this.record = {'q': []
+                      , 'a': []
+                      , 'result': []
+                      };
+        this.topic_explan = {1: `遊戲目標`};
         this.winLevelArr = [];
 
     }
@@ -38,7 +37,7 @@ class Game {
             return
         }
         if (this.gameState===GAME_WIN){
-            resetGame();
+            this.resetGame();
         }
         if (this.level===0){
             this.level = 1;
@@ -49,24 +48,27 @@ class Game {
         this.gameState = GAME_ALIVE;
         this.gameRule.css('display', 'none');
         this.getTopic();
+        this.lives = 3;
         this.setLives(this.lives);
-        this.record = {'start': []
-                    , 'end': []
+        this.record = {'q': []
+                    , 'a': []
                     , 'result': []
                     };
     }
     
-    checkAnswer(topic, answer) {
+    checkAnswer(question, answer) {
         if (this.gameState !== GAME_ALIVE){
             return
         }
-        if (topic === answer){
+        this.record.q.push(question);
+        this.record.a.push(answer);
+        if (question === answer){
             this.correctSound.play();
             this.bingoGroph.css('display', 'block');
             this.record.result.push('Ｏ');
             setTimeout(()=>{this.bingoGroph.css('display', 'none');}, 500);
             set_off_fireworks();
-            this.winLevelArr.push(level);
+            this.winLevelArr.push(this.level);
             this.gameState = GAME_WIN;
         }
         else {
@@ -107,6 +109,8 @@ class Game {
     
     resetGame(){
         this.gameState = GAME_FILE;
+        firework_sound.pause();
+        fireworkContainer.css('display', 'none');
         this.levelBtn.children().each((index, child) => {
             const $child = $(child);
             $child.removeClass('active');
@@ -119,7 +123,6 @@ class Game {
         })
 
         this.gameRule.css('display', 'block');
-        this.lives = 3;
     }
     
     loadRecord(){
@@ -128,8 +131,8 @@ class Game {
         let textContent = `遊玩紀錄：
         `;
         
-        for (let i=0; i<this.record.start.length; i++) {
-            textContent += `\t\n第 ${i+1} 次點擊從 ${this.record.start[i]}ml 到 ${(this.record.end[i])/1000}L，結果為 ${this.record.result[i]}`
+        for (let i=0; i<this.record.q.length; i++) {
+            textContent += `\t\n第 ${i+1} 次回答，Q: ${this.record.q[i]}，A: ${this.record.a[i]}，結果為 ${this.record.result[i]}`
     
         }
         // 建立一個 Blob 物件
@@ -198,22 +201,22 @@ function set_off_fireworks(){
 function showFirework() {
     for (let i = 0; i < 5; i++) {
         let width = 100 * (Math.random()*2.5);
-        const fireworksElement = document.createElement('img');
+        const fireworksElement = $('<img>');
         fireworksElement.attr('src', fireworksUrl);
         fireworksElement.css({
             'position': 'absolute',
             'width': `${width}px`,
             'height': 'auto',
-            'left': Math.floor(Math.random() * (fireworkContainer.clientWidth - width)) + 'px',
-            'top': Math.floor(Math.random() * (fireworkContainer.clientHeight - width * 1.5)) + 'px'
+            'left': Math.floor(Math.random() * (fireworkContainer.width() - width)) + 'px',
+            'top': Math.floor(Math.random() * (fireworkContainer.height() - width * 1.5)) + 'px'
         });
-        $(fireworkContainer).append(fireworksElement);
+        fireworkContainer.append(fireworksElement);
     }
     setTimeout(removeFirework, 1194);
 }  
 
 function removeFirework() {
     for (let i = 0; i < 5; i++) {
-        $(fireworkContainer).remove(fireworkContainer.children[0]);
+        fireworkContainer.children().first().remove();
     }
 }

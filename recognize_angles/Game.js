@@ -228,9 +228,6 @@ function createFanShape(cx, cy, radius, startAngle, endAngle) {
     return path
 }
 
-function randomAngle(minAngle, maxAngle) {
-    return Math.random() * (maxAngle - minAngle) + minAngle;
-}
 function set_off_fireworks(){
     firework_sound.currentTime = 1.5;
     firework_sound.play();

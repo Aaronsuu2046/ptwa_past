@@ -188,15 +188,24 @@ body {
     transition: 0.5s;
 }
 
-.optionsBtn #startBtn {
-    flex: 7;
-}
-.optionsBtn #recordBtn {
+.optionsBtn #lastBtn {
     flex: 2;
 }
-.optionsBtn #hintBtn {
+.optionsBtn #startBtn {
+    flex: 3;
+}
+.optionsBtn #nextBtn {
+    flex: 2;
+}
+/* .optionsBtn #hintBtn {
     flex: 1;
 }
+.optionsBtn #recordBtn {
+    flex: 1;
+}
+.optionsBtn #submitBtn {
+    flex: 1;
+} */
 .shadow {
     box-shadow: 0px 0px 5px rgba(0,0,0,0.7);
 }
