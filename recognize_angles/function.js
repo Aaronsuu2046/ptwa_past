@@ -1,4 +1,4 @@
-export { getRandomNumber, shuffle}
+export { getRandomNumber, shuffle, reorder}
 
 
 function getRandomNumber(start, end, tolerance, times=1) {
@@ -28,3 +28,16 @@ function shuffle(originArray){
     return array;
 }
   
+
+function reorder(parentElement) {
+    // Detach child elements
+    let childElements = parentElement.children().detach();
+
+    // Reorder child elements
+    childElements = childElements.sort(function(a, b) {
+      return Math.random() - 0.5;
+    });
+
+    // Re-append child elements in the new order
+    parentElement.append(childElements);
+}

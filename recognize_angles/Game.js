@@ -1,5 +1,5 @@
 export {Game}
-import {getRandomNumber} from './function.js'
+import {getRandomNumber, reorder} from './function.js'
 
 
 // state
@@ -26,15 +26,13 @@ class Game {
         this.gameState = GAME_FILE;
         this.level = 0;
         this.lives = 3;
-        this.record = {'start': []
-                      , 'end': []
+        this.record = {'Q': []
+                      , 'A': []
                       , 'result': []
                       };
-        this.topic_explan = {1: `認識直角、鈍角和銳角`};
+        this.topic_explan = {1: `選擇直角、鈍角和銳角`};
         this.winLevelArr = [];
         this.angle = 90;
-        this.tool = createAngle(this.angle, 0, 130, 150);
-        $('.tool').html(this.tool);
     }
     startGame(level) {
         if (this.gameState===GAME_ALIVE){
@@ -52,11 +50,8 @@ class Game {
         this.gameRule.css('display', 'none');
         this.getTopic();
         this.setLives(this.lives);
-        this.record = {'start': []
-                    , 'end': []
-                    , 'result': []
-                    };
         this.addAngle();
+        reorder($('.angles'));
     }
     
     checkAnswer(angle) {
@@ -64,6 +59,8 @@ class Game {
             return
         }
         const answer = this.angle > 90 ? "鈍角" : this.angle === 90 ? "直角" : "銳角"
+        this.record.Q.push(this.angle);
+        this.record.A.push(answer);
         if (answer === angle){
             this.correctSound.play();
             this.bingoGroph.css('display', 'block');
@@ -122,7 +119,6 @@ class Game {
         })
 
         this.gameRule.css('display', 'block');
-        this.lives = 3;
     }
     
     loadRecord(){
@@ -131,8 +127,8 @@ class Game {
         let textContent = `遊玩紀錄：
         `;
         
-        for (let i=0; i<this.record.start.length; i++) {
-            textContent += `\t\n第 ${i+1} 次點擊從 ${this.record.start[i]}ml 到 ${(this.record.end[i])/1000}L，結果為 ${this.record.result[i]}`
+        for (let i=0; i<this.record.A.length; i++) {
+            textContent += `\t\n第 ${i+1} 次回答，Q: ${this.record.Q[i]} 度，A: ${this.record.A[i]}，結果為 ${this.record.result[i]}`
     
         }
         // 建立一個 Blob 物件
@@ -179,15 +175,17 @@ class Game {
         }
     }
     addAngle() {
+        const x = $('.question').width()/2;
+        const y = $('.question').height()/2;
         this.angle = getRandomNumber(15, 165, 10);
-        const rotationAngle = randomAngle(0, 360);
-        const angleGraphic = createAngle(this.angle, rotationAngle, 150, 150);
+        const rotationAngle = 0;
+        const angleGraphic = createAngle(this.angle, rotationAngle, x, y);
         $('.question').html(angleGraphic);
     }
 }
 
 function createAngle(angle, rotationAngle, centerX, centerY) {
-    const lineLength = 100;
+    const lineLength = 200;
     angle *= Math.PI / 180;
     rotationAngle *= Math.PI / 180;
     const xA = centerX + lineLength * Math.cos(rotationAngle);
@@ -196,8 +194,8 @@ function createAngle(angle, rotationAngle, centerX, centerY) {
     const yB = centerY - lineLength * Math.sin(rotationAngle + angle);
 
     return `
-      <line x1="${centerX}" y1="${centerY}" x2="${xA}" y2="${yA}" stroke="black" stroke-width="2" />
-      <line x1="${centerX}" y1="${centerY}" x2="${xB}" y2="${yB}" stroke="black" stroke-width="2" />
+      <line x1="${centerX}" y1="${centerY}" x2="${xA}" y2="${yA}" stroke="black" stroke-width="4" />
+      <line x1="${centerX}" y1="${centerY}" x2="${xB}" y2="${yB}" stroke="black" stroke-width="4" />
     `;
 }
 function randomAngle(minAngle, maxAngle) {

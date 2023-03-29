@@ -217,32 +217,37 @@ body {
     display: flex;
     flex-direction: column;
 }
-.game_area .question_container .question {
+.game_area .question {
     flex: 6;
-}
-.game_area .question_container .tool {
-    flex: 4;
+    margin: 30px;
+    margin-right: 0;
+    background-color: #b3e6e5;
+    border-radius: 50px;
 }
 .game_area .angles {
-    flex: 6;
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
 .game_area .angles > *{
-    display: inline-block;
-    border: solid 4px #02bbdc;
     background-color: #eee;
     color: #8e8e9c;
-    width: 35%;
-    height: 35%;
-    margin: 40px 30px 20px 20px;
+    width: 80%;
+    height: 20%;
     font-size: 50px; 
     text-align: center;
-    line-height: 175px;
+    line-height: 100px;
+    border: solid 4px #02bbdc;
+    border-radius: 50px;
 }
 
 .game_area .angles > *:hover{
     color: black;
     background-color: #bbb;
     transform: translate(0px, -10px);
+    transition: 0.3s;
 }
 /* fireworks */
 
