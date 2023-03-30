@@ -1,11 +1,16 @@
 // game view variables
+<<<<<<< HEAD
 const IMAGE_PATH = "./asset/image/";
 const FIREWORK_PATH = Array.from({length: 8}, (_, i) => IMAGE_PATH+"firework_red"+i+".png");
 const fireworks_image = new Image();
+=======
+let IMAGE_PATH = "./asset/image/";
+>>>>>>> new_web_view/main
 
 
 class Game{
     constructor(){
+<<<<<<< HEAD
         // create objects
         this.npc = new Npc();
 
@@ -64,11 +69,35 @@ class Game{
         this.topic_points = [];
         this.ans_points = [];
         this.lives = [];
+=======
+        // game variables
+        this.sentence = {
+            "good": ["答對了！", "很棒喔！", "你是對的！", "沒錯！"]
+            , "bad": ["好可惜，", "差一點點，", "快對了～", "加油！"]
+        };
+        this.score = 0;
+        this.correct = [];
+        this.topic = {
+            "level_1": {
+                "topic": this.reset(getIntArray(5, 1)),
+                "ans": this.reset(getIntArray(5, 1))
+                },
+            "level_2": {
+                "topic": this.reset(getIntArray(5, 6)),
+                "ans": this.reset(getIntArray(5, 6))
+                }
+            };
+        this.gestures = [];
+        this.numbers = [];
+        this.topic_points = [];
+        this.ans_points = [];
+>>>>>>> new_web_view/main
         this.topic_point = 0;
         this.ans_point = 0;
         this.startPosition = {x: 0, y: 0};
         this.lineCoordinates = {x: 0, y: 0};
         this.isDrawStart = false;
+<<<<<<< HEAD
         this.status = "FAIL";
         this.level = level; //default level
         this.create_game();
@@ -89,6 +118,25 @@ class Game{
             }
             y += canvas_bg.height/6;
         }
+=======
+        // create objects
+        this.npc = new Npc();
+        this.create_game(this.topic.level_1);
+        this.ready();
+    }
+    
+    create_game(level) {
+        let y = 80;
+        for (let i = 0; i < 5; i++) {
+            this.create_topic(level.ans[i], y);
+            this.create_ans(level.topic[i], y);
+            y += 60;
+        }
+    }
+
+    create_level_2(){
+        this.create_game(this.topic.level_2);
+>>>>>>> new_web_view/main
         this.ready();
     }
 
@@ -96,6 +144,7 @@ class Game{
         // view of ready to start
         ctx_bg.fillStyle = BLUE;
         ctx_bg.font = H1_FONT_STYLE;
+<<<<<<< HEAD
         ctx_bg.fillText(`遊戲玩法：`, 50, 100);
         ctx_bg.fillText(`將數字連上對應的手勢`, 80, 190);
         ctx_bg.fillText(`當錯誤三次後點擊提示可獲得對照表`, 80, 240);
@@ -212,6 +261,28 @@ class Game{
         this.draw_view();
         this.get_result();
         
+=======
+        ctx_bg.fillText('準備好了嗎?', canvas_bg.width/3, canvas_bg.height / 2);
+        startBtn.addEventListener('click', (e) => {
+            ctx_bg.fillStyle = BLUE;
+            ctx_bg.font = H1_FONT_STYLE;
+            ctx_bg.clearRect(0, 0, canvas_bg.width, canvas_bg.height);
+            ctx_bg.fillText('將數字連上正確的手勢吧！', this.npc.x + this.npc.width+this.npc.width/2, this.npc.height);
+            ctx_bg.fillStyle = RED;
+            ctx_bg.font = SCORE_FONT_STYLE;
+            ctx_bg.fillText(this.score, canvas_bg.width - 80, 55);
+            this.draw_bg();
+        })
+    }
+    
+    animate(){
+        this.draw_view();
+        this.get_result();
+        next_level_btn.addEventListener('click', (e) => {
+            this.clear_canvas();
+            this.create_level_2();
+        });
+>>>>>>> new_web_view/main
         requestAnimationFrame(()=>this.animate());
     }
 
@@ -219,6 +290,7 @@ class Game{
         if (this.score !== 100) {
             return
         }
+<<<<<<< HEAD
         if (this.status != "GAME_WIN"){
             this.clear_canvas("current");
             ctx_stay.fillStyle = RED;
@@ -227,10 +299,27 @@ class Game{
             ctx_stay.fillText("恭喜過關！", canvas_current.width/3, canvas_current.height / 2);
         }
         this.status = "GAME_WIN";
+=======
+        this.clear_canvas("current");
+        ctx_current.fillStyle = RED;
+        ctx_current.font = H1_FONT_STYLE;
+        ctx_current.fillText("恭喜過關！", canvas_current.width/3, canvas_current.height / 2);
+        this.score = 0;
+    }
+
+    reset(array){
+        // Fisher-Yates shuffle algorithm
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+>>>>>>> new_web_view/main
     }
 
     draw_bg(){
         this.npc.draw();
+<<<<<<< HEAD
         for (let i = 0; i < this.gestures.length; i++){
             this.gestures[i].draw();
             this.numbers[i].draw();
@@ -254,13 +343,25 @@ class Game{
             ctx_bg.fillText("↑點提示", canvas_bg.width - this.npc.width*4.5, 35);
             ctx_bg.fillText(" 看答案", canvas_bg.width - this.npc.width*4.5, 65);
         }
+=======
+        for (let i = 0; i < 5; i++){
+            this.gestures[i].draw();
+            this.numbers[i].draw();
+            this.topic_points[i].draw();
+            this.ans_points[i].draw();
+        }
+>>>>>>> new_web_view/main
     }
     draw_view(){  
         this.getClientOffset = (e) => {
             let {pageX, pageY} = e.touches ? e.touches[0] : e;
             let x = pageX - canvas_current.offsetLeft;
             let y = pageY - canvas_current.offsetTop;
+<<<<<<< HEAD
             
+=======
+        
+>>>>>>> new_web_view/main
             return {
                x,
                y
@@ -276,10 +377,13 @@ class Game{
         }
         
         this.mouseDownListener = (e) => {
+<<<<<<< HEAD
             if (hint_img.style.backgroundImage !== 'none'){
                 hint_img.style.backgroundImage = 'none';
                 hint_img.style.backgroundColor = '';
             }
+=======
+>>>>>>> new_web_view/main
             this.startPosition = this.getClientOffset(e);
             this.topic_point = this.collide_with_topic_point(this.startPosition);
             if (this.topic_point){
@@ -296,12 +400,16 @@ class Game{
             this.lineCoordinates = this.getClientOffset(e);
             this.clear_canvas("current");
             this.drawLine();
+<<<<<<< HEAD
             // console.log(this.startPosition.x, this.startPosition.y, this.lineCoordinates.x, this.lineCoordinates.y);
+=======
+>>>>>>> new_web_view/main
         }
         
         this.mouseupListener = (e) => {
             this.isDrawStart = false;
             this.ans_point = this.collide_with_ans_point(this.lineCoordinates);
+<<<<<<< HEAD
             if (!this.topic_point.ans || !this.ans_point.ans) {
                 return;
             }
@@ -316,11 +424,25 @@ class Game{
                 ctx_current.fillText("Ｏ", canvas_current.width/2-(HINT_SIZE/2), canvas_current.height / 2+(HINT_SIZE/2));
                 this.correct.push(this.ans_point);
                 this.record.result.push("Ｏ");
+=======
+            if (!this.topic_point || !this.ans_point) {
+                return;
+            }
+            if (this.topic_point === this.ans_point){
+                document.getElementById('correct').play();
+                this.draw_correct_line();
+                this.add_score(20);
+                ctx_current.fillStyle = GREEN;
+                ctx_current.font = H1_FONT_STYLE;
+                ctx_current.fillText(getRandomElement(this.sentence.good)+"這是 "+this.ans_point+" ～", canvas_current.width/4, canvas_current.height / 2);
+                this.correct.push(this.ans_point);
+>>>>>>> new_web_view/main
             }
             else {
                 document.getElementById('wrong').play();
                 this.draw_wrong_line();
                 ctx_current.fillStyle = RED;
+<<<<<<< HEAD
                 ctx_current.font = HINT_FONT_STYLE;
                 ctx_current.fillText("Ｘ", canvas_current.width/2-(HINT_SIZE/2), canvas_current.height / 2+(HINT_SIZE/2));
                 this.record.result.push("Ｘ");
@@ -329,6 +451,10 @@ class Game{
                     this.clear_canvas("bg", canvas_bg.width - this.npc.width*4.5, 10, this.npc.width*2, this.npc.height);
                 }
                 this.draw_lives();
+=======
+                ctx_current.font = H1_FONT_STYLE;
+                ctx_current.fillText(getRandomElement(this.sentence.bad)+"這是 "+this.ans_point+"～", canvas_current.width/4, canvas_current.height / 2);
+>>>>>>> new_web_view/main
             }
             this.startPosition = 0;
             this.lineCoordinates = 0;
@@ -353,6 +479,7 @@ class Game{
         canvas_current.addEventListener('mousedown', this.mouseDownListener);
         canvas_current.addEventListener('mousemove', this.mouseMoveListener);
         canvas_current.addEventListener('mouseup', this.mouseupListener);
+<<<<<<< HEAD
         canvas_current.addEventListener('touchstart', this.mouseDownListener);
         canvas_current.addEventListener('touchmove', this.mouseMoveListener);
         canvas_current.addEventListener('touchend', this.mouseupListener);
@@ -379,11 +506,37 @@ class Game{
     }
 
     addScore(score){
+=======
+    }
+    
+    clear_canvas(canvas) {
+        if (canvas === "current"){
+            ctx_current.clearRect(0, 0, canvas_current.width, canvas_current.height);
+        }
+        else if (canvas === "stay"){
+            ctx_stay.clearRect(0, 0, canvas_stay.width, canvas_stay.height);
+        }
+        else if (canvas === "bg"){
+            ctx_bg.clearRect(0, 0, canvas_bg.width, canvas_bg.height);
+        }
+        else {
+            ctx_current.clearRect(0, 0, canvas_current.width, canvas_current.height);
+            ctx_stay.clearRect(0, 0, canvas_stay.width, canvas_stay.height);
+            ctx_bg.clearRect(0, 0, canvas_bg.width, canvas_bg.height);
+        }
+    }
+
+    add_score(score){
+>>>>>>> new_web_view/main
         this.score += score;
         ctx_bg.clearRect(canvas_bg.width - 100, 5, 100, 50);
         ctx_bg.fillStyle = GREEN;
         ctx_bg.font = SCORE_FONT_STYLE;
+<<<<<<< HEAD
         ctx_bg.fillText(this.score, canvas_bg.width - SCORE_SIZE*2, 55);
+=======
+        ctx_bg.fillText(this.score, canvas_bg.width - 80, 55);
+>>>>>>> new_web_view/main
         this.clear_canvas("current");
     }
 
@@ -391,7 +544,11 @@ class Game{
         for (let i = 0; i < this.topic_points.length; i++) {
             let point = this.topic_points[i]
             if (this.collide_with_x(startPosition, point) && this.collide_with_y(startPosition, point)){
+<<<<<<< HEAD
                 return point;
+=======
+                return point.ans;
+>>>>>>> new_web_view/main
             }
         }
         return 0;
@@ -401,7 +558,11 @@ class Game{
         for (let i = 0; i < this.ans_points.length; i++) {
             let point = this.ans_points[i]
             if (!this.correct.includes(point.ans) && this.collide_with_x(startPosition, point) && this.collide_with_y(startPosition, point)){
+<<<<<<< HEAD
                 return point;
+=======
+                return point.ans;
+>>>>>>> new_web_view/main
             }
         }
         return 0;
@@ -421,6 +582,7 @@ class Game{
         return false;
     }
 
+<<<<<<< HEAD
     create_gesture(num, y){
         let path = IMAGE_PATH + "gesture_" + num + ".png";
         let width = 90;
@@ -510,6 +672,46 @@ function removeFirework() {
 	}
   }
   
+=======
+    create_ans(i, y){
+        let path = IMAGE_PATH + "gesture_" + i + ".png";
+        let gesture = new Gesture(canvas_bg.width, y, path);
+        gesture.x -= gesture.width + 50
+        this.gestures.push(gesture);
+        this.create_point(i, gesture.x-20, gesture.y+gesture.height/2, this.ans_points);
+    }
+    create_topic(i, y){
+        y += 40;
+        let number = new Number(i, 50, y, BLACK, 40, true);
+        this.numbers.push(number);
+        this.create_point(i, number.x+50, number.y-10, this.topic_points);
+    }
+    create_point(ans, x, y, group){
+        let point = new Point(ans, x, y);
+        group.push(point);
+    }
+}
+
+
+function level1 (){
+    const startBtn = document.getElementById('startBtn');
+    startBtn.addEventListener('click', function(){
+        // checkAnswer();
+        // update game
+    });
+}
+level1();
+
+function level2 (){
+    const nextLevelBtn = document.getElementById('nextLevel');
+    nextLevelBtn.addEventListener('click', function(){
+   
+        nextLevelBtn.removeEventListener('click', nextLevelBtn, true);
+    });
+}
+level2();
+
+>>>>>>> new_web_view/main
 function getRandomElement(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
   }
@@ -517,6 +719,7 @@ function getRandomElement(arr) {
 function getIntArray(len, start) {
     return Array.from({length: len}, (_, i) => i+start);
   }
+<<<<<<< HEAD
 
 function getRandomUniqueArrayElements(arr, length) {
     const result = [];
@@ -547,3 +750,6 @@ function revertElementBorder(element, color, time){
             element.target.style.border = 'initial';
           }, time);
 }
+=======
+  
+>>>>>>> new_web_view/main

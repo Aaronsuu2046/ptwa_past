@@ -4,137 +4,128 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PTWA Games</title>
-    <link rel="stylesheet" href="./style.css"/>
+    <title>PTWA</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
 <body>
-    <header class="main-header">
-        <div class="container">
-            <!-- <a href="#" class="logo">
-                <img src="https://programtheworld.tw/img/main/0623-01.png" width="10%" height="10%" alt="ptwa-logo">
-            </a> -->
-            <nav id="main-head-nav">
-                <ul>
-                    <li>
-                        <a href="https://programtheworld.tw/about/about?pagetarget=us" target="_blank">About Us</a>
-                    </li>
-                    <li>
-                        <a href="https://programtheworld.tw/main.php#contact_us" target="_blank">Contact</a>
-                    </li>
-                    <li>
-                        <a href="https://programtheworld.tw/material/material" target="_blank">Courses</a>
-                    </li>
-                    <li>
-                        <a href="https://www.facebook.com/program.the.world" id="main-head-nav" target="_blank">Facebook</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-
+    <header>
+        <nav class="navbar navbar-expand-md navbar-expand-sm navbar-dark fixed-top" style="background-color: #57B9D9; height: 90px;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="https://programtheworld.tw/main.php" alt="Home">
+                    <img src="asset/nav_bar/logo.png" class="img-fluid" style="max-width: 90%;">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon" ></span>
+                </button>
+                <div class="collapse navbar-collapse sticky-top" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 navbar-nav-scroll">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="https://programtheworld.tw/donate/donate" alt="捐款" target="_blank">
+                                <div class="nav1"><img src="asset/nav_bar/donate.png" class="img-fluid"></div>
+                                <div class="nav2"><img src="asset/nav_bar/donate_hover.png" class="img-fluid"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#grade-title" alt="遊戲">
+                                <img src="asset/nav_bar/sharing.png" class="img-fluid">
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://programtheworld.tw/works/index" alt="耕耘" target="_blank">
+                                <img src="asset/nav_bar/effort.png" class="img-fluid">
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://programtheworld.tw/about/about?pagetarget=us" alt="關於" target="_blank">
+                                <img src="asset/nav_bar/about2.png" class="img-fluid">
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.facebook.com/program.the.world" alt="facebook" target="_blank">
+                                <img src="asset/nav_bar/facebook.png" class="img-fluid">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
-    <nav class="main-nav">
-        <ul>
-            <li class="menu-item"><a href="#">一年級</a>
-                <ul class="sub-menu">
-                    <li class="sub-menu-item">
-                        <li><a id="game1">數一數</a></li>
-                        <li><a id="game2">操控滑鼠</a></li>
-                        <li><a id="game3">認識 1~10</a></li>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-item"><a href="#">二年級</a>
-                <ul class="sub-menu">
-                    <li class="sub-menu-item">
-                        <li><a href="#">game4</a></li>
-                        <li><a href="#">game5</a></li>
-                        <li><a href="#">game6</a></li>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-item"><a href="#">三年級</a>
-                <ul class="sub-menu">
-                    <li class="sub-menu-item">
-                        <li><a id="game7">認識毫升</a></li>
-                        <li><a id="game8">毫公升連連看</a></li>
-                        <li><a id="game9">認識直角鈍角銳角</a></li>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-item"><a href="#">四年級</a>
-                <ul class="sub-menu">
-                    <li class="sub-menu-item">
-                        <li><a href="#">game10</a></li>
-                        <li><a href="#">game11</a></li>
-                        <li><a href="#">game12</a></li>
-                    </li>
-
-                </ul>
-            </li>
-            <li class="menu-item"><a href="#">五年級</a>
-                <ul class="sub-menu">
-                    <li class="sub-menu-item">
-                        <li><a href="#">game11</a></li>
-                        <li><a href="#">game12</a></li>
-                        <li><a href="#">game13</a></li>
-                    </li>
-                </ul>
-            </li>
-            <li class="menu-item"><a href="#">六年級</a>
-                <ul class="sub-menu">
-                    <li class="sub-menu-item">
-                        <li><a href="#">game14</a></li>
-                        <li><a href="#">game15</a></li>
-                        <li><a href="#">game16</a></li>
-                    </li>
-
-                </ul>
-            </li>
-            <li class="menu-item" onclick="window.location.reload()"><a href="#">回首頁</a>
-            </li>
-        </ul>   
-    </nav>
-    <div class="body-container">
-        <iframe id="frame1" frameborder="0"
-            noresize="noresize" style="position: absolute; background: transparent; width: 100%; height: 100%;
-            ;display: none;"
-            src="./math/index.html"
-            frameborder="0">
-        </iframe>
-        <iframe id="frame2" frameborder="0"
-            noresize="noresize" style="position: absolute; background: transparent; width: 100%; height: 100%;
-            ;display: none;"
-            src="./mouse/index.html"
-            frameborder="0">
-        </iframe>
-        <iframe id="frame3" frameborder="0"
-            noresize="noresize" style="position: absolute; background: transparent; width: 100%; height: 100%;
-            ;display: none;"
-            src="./digital_connection/index.html"
-            frameborder="0">
-        </iframe>
-        <iframe id="frame7" frameborder="0"
-            noresize="noresize" style="position: absolute; background: transparent; width: 100%; height: 100%;
-            ;display: none;"
-            src="./recognize_milliliter/index.html"
-            frameborder="0">
-        </iframe>
-        <iframe id="frame8" frameborder="0"
-            noresize="noresize" style="position: absolute; background: transparent; width: 100%; height: 100%;
-            ;display: none;"
-            src="./connection_milliliter/index.html"
-            frameborder="0">
-        </iframe>
-        <iframe id="frame9" frameborder="0"
-            noresize="noresize" style="position: absolute; background: transparent; width: 100%; height: 100%;
-            ;display: none;"
-            src="./recognize_angles/"
-            frameborder="0">
-        </iframe>
-        <a href="https://programtheworld.tw/about/about?pagetarget=us" id="frame4">
-        <img src="https://programtheworld.tw/about/aboutus_1.jpg" width="85%" height="85%">
-        </a>
+    <div id="sliderImmagini" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="asset/slider2/silder1.png" class="d-block w-100" style="max-width: 100%;" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="asset/slider2/silder2.png" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="asset/slider2/silder3.png" class="d-block w-100" alt="...">
+            </div>
+       </div>
     </div>
-    <script src="./script.js" type="text/JavaScript"></script>
+    
+    <div class="container-fluid ms-md-2">
+        <div class="part" id="grade-title">
+            <img src="asset/grade_btn/title.png" style="max-width: 100%;">
+        </div>
+        <div class="row">
+            <div class="col-lg-2 col-md-4 mb-3">
+                <div class="grade-item">
+                    <a href="/grade1/index.html" alt="">
+                        <img src="asset/grade_btn/grade1.png" style="max-width: 100%;">
+                    </a>       
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-3">
+                <div class="grade-item">
+                    <a href="#" alt="">
+                        <img src="asset/grade_btn/grade2.png" style="max-width: 100%;">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-3">
+                <div class="grade-item">
+                    <a href="#" alt="">
+                        <img src="asset/grade_btn/grade3.png" style="max-width: 100%;">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-3">
+                <div class="grade-item">
+                    <a href="#" alt="">
+                        <img src="asset/grade_btn/grade4.png" style="max-width: 100%;">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-3">
+                <div class="grade-item">
+                    <a href="#" alt="">
+                        <img src="asset/grade_btn/grade5.png" style="max-width: 100%;">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-3">
+                <div class="grade-item">
+                    <a href="#" alt="">
+                        <img src="asset/grade_btn/grade6.png" style="max-width: 100%;">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="part">
+                <img src="asset/grade_btn/title2.png" style="max-width: 99%;">
+            </div>
+        </div>
+    </div>
+
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js" ></script>
+    <script src="script.js"></script>
 </body>
 </html>

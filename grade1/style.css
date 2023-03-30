@@ -1,0 +1,44 @@
+.navbar-toggler {
+    z-index:1000;
+    border: 10px;
+    color: blueviolet;
+    background-color: white;
+    margin-top: 10px;
+}
+.navbar-collapse {
+    z-index: 1000;
+}
+
+.nav-link{
+    background-color: #57b9d985;
+    
+}
+
+.navbar-brand {
+   margin-bottom: 8px;
+}
+
+.nav2 {
+    display: none;
+}
+
+.nav-link:hover .nav1{
+    display: none;
+    transition-delay: 5s;
+}
+
+.nav-link:hover .nav2{
+    display: block;
+    transition-delay: 5s;
+}
+
+.sidebar {
+    /* display: block;
+    text-align: left; */
+
+    padding-top: 90px;
+}
+
+.nav-item2{
+    padding-top: 20px;
+}

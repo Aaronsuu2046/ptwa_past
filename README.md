@@ -9,6 +9,7 @@
 
 [//]: # (TODO demo gif)
 
+<<<<<<< HEAD
 1. 點擊連接網址，進入遊戲網站
     [**連結網址**](https://PTWA-NPO.github.io/)
 

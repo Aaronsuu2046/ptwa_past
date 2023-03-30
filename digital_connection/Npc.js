@@ -1,4 +1,5 @@
 NPC_PATH = "./asset/image/npc.png";
+<<<<<<< HEAD
 LIVES_PATH = "./asset/image/lives.svg";
 
 
@@ -11,6 +12,16 @@ class Npc {
         }
         this.x = x;
         this.y = y;
+=======
+
+
+class Npc {
+    constructor(){
+        this.image = new Image();
+        this.image.src = NPC_PATH;
+        this.x = 10;
+        this.y = 10;
+>>>>>>> new_web_view/main
         this.frame = 0;
         this.width = 50;
         this.height = 58;
