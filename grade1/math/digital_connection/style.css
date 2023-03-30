@@ -3,17 +3,8 @@
 }
 
 body {
-<<<<<<< HEAD
     display: flex;
     right: 10%;
-=======
-    width: 500px;
-    height: 800px;
-    display: flex;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: -13%;
->>>>>>> new_web_view/main
     align-items: center;
     font-family: '微軟正黑體';
 }
@@ -23,11 +14,7 @@ body {
     z-index: 1;
     border: 5px solid #b3e6e5;
     border-radius: 6px;
-<<<<<<< HEAD
     top: 15%;
-=======
-    margin-top: 150px;
->>>>>>> new_web_view/main
 }
 
 #canvas2 {
@@ -35,11 +22,7 @@ body {
     z-index: 2;
     border: 5px solid #008800;
     border-radius: 6px;
-<<<<<<< HEAD
     top: 15%;
-=======
-    margin-top: 150px;
->>>>>>> new_web_view/main
 }
 
 #canvas3 {
@@ -47,7 +30,6 @@ body {
     z-index: 3;
     border: 5px solid #b3e6e5;
     border-radius: 6px;
-<<<<<<< HEAD
     top: 15%;
 }
 
@@ -58,48 +40,21 @@ body {
     font-size: 30px;
     border-radius: 50%;
     border:5px solid #e7f9f8;
-=======
-    margin-top: 150px;
-}
-
-.chooseBtn {
-    z-index: 1;
-    margin-left: 1px;
-    margin-right: 13px;
-    width: 38px;
-    height: 38px;
-    font-size: 25px;
-    border-radius: 50%;
-    border-color: rgba(255, 0, 0, 0);
->>>>>>> new_web_view/main
     background-color: #48807d;
     color: antiquewhite;
 }
 
 .chooseBtn:hover {
-<<<<<<< HEAD
-=======
-    z-index: 1;
->>>>>>> new_web_view/main
     background-color: #8bbdbc;
     color: #48807d;
 }
 
 .stateBtn {
-<<<<<<< HEAD
     width: 140px;
     height: 50px;
     margin-top: 10px;
     margin-right: 20px;
     font-size: 30px;
-=======
-    z-index: 1;
-    width: 140px;
-    height: 30px;
-    margin-top: 10px;
-    margin-left: 15px;
-    font-size: 22px;
->>>>>>> new_web_view/main
     font-family: '微軟正黑體';
     font-weight: 700;
     text-align: center;
@@ -111,7 +66,6 @@ body {
     transition: all .3s linear;
 }
 .stateBtn:hover {
-<<<<<<< HEAD
     background-color: #48807d;
     color: #e7f9f8;
 }
@@ -180,9 +134,4 @@ body {
 #close-image-btn:hover {
     color: #fff;
     background-color: #000;
-=======
-    z-index: 1;
-    background-color: #48807d;
-    color: #e7f9f8;
->>>>>>> new_web_view/main
 }

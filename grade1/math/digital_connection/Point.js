@@ -1,14 +1,8 @@
 class Point {
-<<<<<<< HEAD
     constructor(ans, id, x, y){
         this.x = x;
         this.y = y;
         this.id = id;
-=======
-    constructor(ans, x, y){
-        this.x = x;
-        this.y = y;
->>>>>>> new_web_view/main
         this.ans = ans;
         this.radius = 10;
     }
