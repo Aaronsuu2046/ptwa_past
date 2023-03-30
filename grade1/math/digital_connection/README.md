@@ -26,7 +26,7 @@
 
 - 專案連結：[digital_connection](https://github.com/PTWA-NPO/PTWA-NPO.github.io/tree/develop/digital_connection)
 
-- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的 Grade1，選擇 digital_connection
+- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊**一年級 上學期**，選擇 **digital_connection**
 
 ### 遊戲簡介
 

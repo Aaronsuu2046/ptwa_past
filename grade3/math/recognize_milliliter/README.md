@@ -24,7 +24,7 @@
 
 - 專案連結：[recognize_milliliter](https://github.com/PTWA-NPO/PTWA-NPO.github.io/tree/main/recognize_milliliter)
 
-- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的 Grade3，選擇 recognize_milliliter
+- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊**三年級 上學期**，選擇 **recognize_milliliter**
 
 ### 遊戲簡介
 
