@@ -51,13 +51,13 @@ body {
 .overlay{
     position: relative;
     display: none;
+    /* display: block; */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: 9999;
 }
-
 .hintContainer{
     display: flex;
     justify-content: space-evenly;
@@ -71,6 +71,41 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
+}
+.hintContainer > h1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    color: #000;
+    cursor: pointer;
+}
+.hintContainer > * {
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.hintContainer svg {
+    height: 100%;
+    margin: 10px;
+}
+.hintContainer > h2 {
+    position: absolute;
+    display: inline-block;
+    margin: 0;
+    background-color: #02bbdc;
+}
+.hintContainer h2:nth-child(2) {
+    top: 0;
+}
+
+.hintContainer h2:nth-child(4) {
+    /* Styles for the second h2 element */
+}
+
+.hintContainer h2:nth-child(6) {
+    bottom: 0;
 }
 
 .closeHintBtn {

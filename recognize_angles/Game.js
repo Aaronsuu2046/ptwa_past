@@ -33,6 +33,7 @@ class Game {
         this.topic_explan = {1: `選擇直角、鈍角和銳角`};
         this.winLevelArr = [];
         this.angle = 90;
+        drawHint();
     }
     startGame(level) {
         if (this.gameState===GAME_ALIVE){
@@ -184,6 +185,22 @@ class Game {
         $('.question').html(angleGraphic);
         $('.question').append(fanShape);
     }
+}
+
+function drawHint() {
+    const right = $(".hintContainer > .angles .right");
+    const obtuse = $(".hintContainer > .angles .obtuse");
+    const acute = $(".hintContainer > .angles .acute");
+    const x = right.width()/2.5;
+    const y = right.height()-10;
+    const angles = [createAngle(45, 0, x, y), createAngle(90, 0, x, y), createAngle(135, 0, x, y)];
+    const fanShapes = [createFanShape(x, y, 30, 360-45, 0), createFanShape(x, y, 30, 360-90, 0), createFanShape(x, y, 30, 360-135, 0)]
+    right.html(angles[0]);
+    right.append(angles[0][0], angles[0][1],fanShapes[0]);
+    obtuse.html(angles[1]);
+    obtuse.append(angles[1][0], angles[1][1],fanShapes[1]);
+    acute.html(angles[2]);
+    acute.append(angles[2][0], angles[2][1],fanShapes[2]);
 }
 
 function createAngle(angle, rotationAngle, centerX, centerY) {
