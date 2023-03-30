@@ -14,6 +14,7 @@ const fireworkContainer = $('#firework-container');
 const fireworksUrl = './assets/images/fireworks.gif';
 
 class Game {
+    overlay = $('.overlay');
     gameRule = $('.gameRule');
     topic = $('.topic');
     levelBtn = $('.levelBtn');
@@ -52,7 +53,7 @@ class Game {
         this.getTopic();
         this.setLives(this.lives);
         this.addAngle();
-        reorder($('.angles'));
+        reorder($('.game_area .angles'));
     }
     
     checkAnswer(angle) {
@@ -150,8 +151,8 @@ class Game {
         URL.revokeObjectURL(url);
     }
     showHint(){
-        if (this.lives > 0)return
-        overlay.toggle();
+        if (this.gameState !== GAME_ALIVE)return
+        this.overlay.toggle();
     }
     
     getTopic(){
@@ -188,18 +189,18 @@ class Game {
 }
 
 function drawHint() {
-    const right = $(".hintContainer > .angles .right");
-    const obtuse = $(".hintContainer > .angles .obtuse");
-    const acute = $(".hintContainer > .angles .acute");
-    const x = right.width()/2.5;
-    const y = right.height()-10;
-    const angles = [createAngle(45, 0, x, y), createAngle(90, 0, x, y), createAngle(135, 0, x, y)];
-    const fanShapes = [createFanShape(x, y, 30, 360-45, 0), createFanShape(x, y, 30, 360-90, 0), createFanShape(x, y, 30, 360-135, 0)]
-    right.html(angles[0]);
+    const right = $(".hintContainer .angles .right");
+    const obtuse = $(".hintContainer .angles .obtuse");
+    const acute = $(".hintContainer .angles .acute");
+    const x = 500/2.5;
+    const y = 180-10;
+    const angles = [createAngle(90, 0, x, y), createAngle(135, 0, x, y), createAngle(45, 0, x, y)];
+    const fanShapes = [createFanShape(x, y, 30, 360-90, 0), createFanShape(x, y, 30, 360-135, 0), createFanShape(x, y, 30, 360-45, 0)]
+    right.html(angles[0]).addClass('right');
     right.append(angles[0][0], angles[0][1],fanShapes[0]);
-    obtuse.html(angles[1]);
+    obtuse.html(angles[1]).addClass('obtuse');
     obtuse.append(angles[1][0], angles[1][1],fanShapes[1]);
-    acute.html(angles[2]);
+    acute.html(angles[2]).addClass('acute');
     acute.append(angles[2][0], angles[2][1],fanShapes[2]);
 }
 

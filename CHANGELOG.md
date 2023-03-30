@@ -2,6 +2,16 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+### 2023.03.30
+
+##### [v0.0.0] - Educational Games
+**Changed**
+- 更新網站顯示樣式
+  
+##### [v0.1.1] - Recognize Angles
+**Added**
+- 新增提示
+  
 ### 2023.03.29
 
 ##### [v0.1.0] - Recognize Angles
@@ -19,7 +29,7 @@ The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0
 **Changed**
 - 更新提示畫面，顯示水杯的容量
 
-##### [v0.1.0] - Game Tempalte
+##### [v0.1.0] - Game Template
 **Changed**
 - 更新功能使用責任鍊模式，和建立遊戲類別
   

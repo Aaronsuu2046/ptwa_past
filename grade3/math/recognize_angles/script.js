@@ -3,7 +3,7 @@ import {startBtnHandler, game} from './Handler.js';
 
 const levelsArea = document.querySelector(`.levelBtn`);
 const optionsArea = document.querySelector(`.optionsBtn`);
-const anglesArea = document.querySelector(`.angles`);
+const anglesArea = document.querySelector(`.game_area .angles`);
 
 levelsArea.addEventListener('click', (e) => {
     const level = parseInt(e.target.id);
