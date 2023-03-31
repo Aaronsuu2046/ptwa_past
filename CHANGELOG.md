@@ -2,7 +2,6 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-
 ### 2023.03.30
 
 ##### [v0.0.0] - Educational Games
