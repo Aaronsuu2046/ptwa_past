@@ -53,7 +53,7 @@ class Game {
         this.getTopic();
         this.setLives(this.lives);
         this.addAngle();
-        reorder($('.game_area .angles'));
+        // reorder($('.game_area .angles'));
     }
     
     checkAnswer(angle) {

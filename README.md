@@ -34,7 +34,7 @@
 - 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊**一年級 上學期**，選擇**認識 1~10**
 
 ## Grad3-1 填入容積，認識毫升（recognize_milliliter）
-[![recognize_milliliter](https://img.shields.io/badge/recognize_milliliter-v0.1.4-blue.svg)](./recognize_milliliter)
+[![recognize_milliliter](https://img.shields.io/badge/recognize_milliliter-v0.1.5-blue.svg)](./recognize_milliliter)
 
 - 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊**三年級 上學期**，選擇**認識毫升**
 
@@ -44,7 +44,7 @@
 - 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊**三年級 上學期**，選擇**毫公升連連看**
 
 ## Grad3-3 認識直角鈍角銳角（recognize_angles）
-[![recognize_angles](https://img.shields.io/badge/recognize_angles-v0.1.1-blue.svg)](./recognize_angles)
+[![recognize_angles](https://img.shields.io/badge/recognize_angles-v0.1.2-blue.svg)](./recognize_angles)
 
 - 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊**三年級 上學期**，選擇**認識直角鈍角銳角**
 

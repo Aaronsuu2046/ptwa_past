@@ -2,6 +2,13 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+### 2023.04.01
+
+##### [v0.1.5] - Recognize Milliliter
+**Added**
+- 新增生命設定與提示
+  
+
 ### 2023.03.30
 
 ##### [v0.0.0] - Educational Games
@@ -44,11 +51,9 @@ The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0
 - 支援觸控遊玩方式。
 
 **Fixed**
-- Connection Milliliter
-  - 取消默認的滾動頁面
+- 取消默認的滾動頁面
 
 ##### [v0.1.4] - Recgnize Milliliter
 
 **Fixed**
-- Recgnize Milliliter
-  - 取消默認的滾動頁面
+- 取消默認的滾動頁面

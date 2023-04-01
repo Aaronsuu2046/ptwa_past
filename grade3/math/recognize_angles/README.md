@@ -21,7 +21,7 @@
 # 遊戲介紹
 
 ## Grad3-2 認識直角鈍角銳角（recognize_angles）
-[![recognize_angles](https://img.shields.io/badge/recognize_angles-v0.1.1-blue.svg)](./recognize_angles)
+[![recognize_angles](https://img.shields.io/badge/recognize_angles-v0.1.2-blue.svg)](./recognize_angles)
 
 - 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊**三年級 上學期**，選擇**認識直角鈍角銳角**
 
