@@ -9,6 +9,10 @@ The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0
 - 新增國文與多元科技
 - 新增鍵盤遊戲
 
+**Changed**
+- 更改首頁樣式
+- 更改首頁連結
+
 ### 2023.04.01
 ##### [v0.1.5] - Recognize Milliliter
 **Added**
