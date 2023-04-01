@@ -5,13 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PTWA</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
-
+    <script src="script.js"></script>
+    
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-md navbar-expand-sm navbar-dark fixed-top" style="background-color: #57B9D9; height: 90px; width: 100%;">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top" >
             <div class="container-fluid" style="width: 100%;">
                 <a class="navbar-brand" href="https://programtheworld.tw/main.php" alt="Home">
                     <img src="asset/nav_bar/logo.png" class="img-fluid" style="max-width: 90%;">
@@ -25,7 +29,6 @@
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="https://programtheworld.tw/donate/donate" alt="捐款" target="_blank">
                                 <div class="nav1"><img src="asset/nav_bar/donate.png" class="img-fluid"></div>
-                                <div class="nav2"><img src="asset/nav_bar/donate_hover.png" class="img-fluid"></div>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -53,57 +56,111 @@
             </div>
         </nav>
     </header>
-    
-    <div class="container-fluid ms-md-2">
-        <div class="row">
-            <div class="col-lg-2 col-md-4">
-                <div class="grade-item">
-                    <a href="/grade1/index.html" alt="">
-                        <img src="asset/grade_btn/grade1.png" style="max-width: 100%;">
-                    </a>       
-                </div>
+  
+    <div class="container-fluid">
+        <div class="row main-menu">
+            <div class="col-12 col-md-4">
+                <a href="#" class="link-block" data-toggle="collapse" data-target="#menu1">國文</a>
             </div>
-            <div class="col-lg-2 col-md-4">
-                <div class="grade-item">
-                    <a href="#" alt="">
-                        <img src="asset/grade_btn/grade2.png" style="max-width: 100%;">
-                    </a>
-                </div>
+            <div class="col-12 col-md-4">
+                <a href="#" class="link-block" data-toggle="collapse" data-target="#menu2">數學</a>
             </div>
-            <div class="col-lg-2 col-md-4">
-                <div class="grade-item">
-                    <a href="/grade3/index.html" alt="">
-                        <img src="asset/grade_btn/grade3.png" style="max-width: 100%;">
-                    </a>
-                </div>
+            <div class="col-12 col-md-4">
+                <a href="#" class="link-block" data-toggle="collapse" data-target="#menu3">多元科技</a>
             </div>
-            <div class="col-lg-2 col-md-4">
-                <div class="grade-item">
-                    <a href="#" alt="">
-                        <img src="asset/grade_btn/grade4.png" style="max-width: 100%;">
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4">
-                <div class="grade-item">
-                    <a href="#" alt="">
-                        <img src="asset/grade_btn/grade5.png" style="max-width: 100%;">
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4">
-                <div class="grade-item">
-                    <a href="#" alt="">
-                        <img src="asset/grade_btn/grade6.png" style="max-width: 100%;">
-                    </a>
+        </div>        
+        <div class="row submenus">
+            <div class="col-12">
+                    <div id="menu1" class="collapse">
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade1-3.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade2-3.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade3-3.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade4-3.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade5-3.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade6-3.png" class="img-fluid" ></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu2" class="collapse">
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade1.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade2.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade3.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade4.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade5.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade6.png" class="img-fluid" ></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade1-2.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade2-2.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade3-2.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade4-2.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade5-2.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade6-2.png" class="img-fluid" ></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu3" class="collapse">
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade1-3.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade2-3.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade3-3.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade4-3.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade5-3.png" class="img-fluid" ></a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="submenu-link-block"><img src="asset/grade_btn/grade6-3.png" class="img-fluid" ></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
- 
-
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js" ></script>
-    <script src="script.js"></script>
+      </div>
+      
 </body>
 </html>
