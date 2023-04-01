@@ -24,7 +24,7 @@
 
 - 專案連結：[connection_milliliter](https://github.com/PTWA-NPO/PTWA-NPO.github.io/tree/main/connection_milliliter)
 
-- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的 Grade3，選擇**毫公升連連看**
+- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊**三年級 上學期**，選擇**毫公升連連看**
 
 ### 遊戲簡介
 

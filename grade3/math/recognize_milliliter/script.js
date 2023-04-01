@@ -19,14 +19,14 @@ const gameRule = document.querySelector('.gameRule');
 const firework_sound = document.getElementById('win');
 const fireworkContainer = document.querySelector('#firework-container');
 const fireworksUrl = './assets/images/fireworks.gif';
-let level = 0, milliliter = 0, start = 0, end = 10, tolerance = 1, delay = 40;
+let level = 0, lives = 3, milliliter = 0, start = 0, end = 10, tolerance = 1, delay = 40;
 let act = '', hint = `${milliliter} ml`;
 let isHint, isWrong = false;
 let gameState = GAME_FILE;
 let answer = getRandomNumber();
 let winArr = [];
 
-
+setLives(lives);
 topic.textContent = answer;
 
 gameBtn.forEach((item) => {
@@ -51,6 +51,7 @@ gameBtn.forEach((item) => {
                 checkAnswer();
             }
             else if (act === HINT_BTN){
+                if (lives > 0)return
                 if (!isWrong){return}
                 if (isHint){
                     isHint=false;
@@ -130,6 +131,9 @@ function startGame() {
     if (gameState===GAME_ALIVE){
         return
     }
+    if (gameState===GAME_WIN){
+        resetGame();
+    }
     if (level===0){
         level = 1;
         $(gameBtn[0]).addClass('active');
@@ -137,6 +141,8 @@ function startGame() {
     gameState = GAME_ALIVE;
     gameRule.style.display = 'none';
     isHint = false;
+    lives = 3;
+    setLives(lives);
     water_scale.textContent ='';
     mid = (end-start)/2;
     document.querySelector('.top').textContent=end;
@@ -180,6 +186,8 @@ function checkAnswer() {
         winArr.pop(level);
         $(gameBtn[level-1]).addClass('active');
         isWrong = true;
+        lives -= 1;
+        setLives(lives);
     }
 }
 
@@ -234,6 +242,8 @@ function changeLevel() {
 
 function resetGame(){
     gameState = GAME_FILE;
+    firework_sound.pause();
+    $(fireworkContainer).css('display', 'none');
     gameBtn.forEach((item, index)=>{
         $(item).removeClass('active');
         if ($.inArray(index+1, winArr) !== -1) {
@@ -304,4 +314,27 @@ function getRandomNumber() {
         setTimeout(() => (inThrottle = false), limit);
         }
     };
+}
+
+$('.jumpBtn').on('animationiteration', ()=>{
+    $('.jumpBtn').css('animation-play-state', 'paused');
+    setTimeout(()=>{$('.jumpBtn').css('animation-play-state', 'running');}, 2000);
+});
+
+function setLives(lives){
+    const count = lives - $('.lives').children().length;
+    if (count === 0 || lives < 0) return
+    if (count < 0) {
+        $('.lives > :last-child').remove();
+        return
+    }
+    for (let i = 0; i <count; i++){
+        const livesImg = $('<img>')
+        .attr('src', './assets/images/lives.svg')
+        .attr('alt', 'lives image')
+        .attr('width', '60')
+        .attr('height', 'auto')
+        .css('margin-right', '-30px');
+        $('.lives').append(livesImg);
+    }
 }

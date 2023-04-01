@@ -10,7 +10,7 @@ body {
 }
 
 .gameWindow {
-    position: aboslute;
+    position: absolute;
     display: flex;
     flex-direction: column;
     width: 800px;
@@ -81,8 +81,8 @@ body {
     cursor: pointer;
 }
 .hintContainer > * {
-    flex: 5;
     display: flex;
+    position: relative;
     flex-direction: column;
     justify-content: space-evenly;
 }
@@ -90,22 +90,18 @@ body {
     height: 100%;
     margin: 10px;
 }
-.hintContainer > h2 {
-    position: absolute;
-    display: inline-block;
+.hintContainer .angles{
+    flex: 7;
+}
+.hintContainer .angles:nth-child(2) {
+    flex: 3;
+    align-items: center;
+}
+.hintContainer .angles h1 {
     margin: 0;
+    right: 0;
     background-color: #02bbdc;
-}
-.hintContainer h2:nth-child(2) {
-    top: 0;
-}
-
-.hintContainer h2:nth-child(4) {
-    /* Styles for the second h2 element */
-}
-
-.hintContainer h2:nth-child(6) {
-    bottom: 0;
+    border-radius: 10px;
 }
 
 .closeHintBtn {
