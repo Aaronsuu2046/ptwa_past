@@ -42,7 +42,26 @@
 .nav-item2{
     padding-top: 20px;
 }
+/* Unit */
+.mathUnit {
+    display: flex;
+    width: 60%;
+    justify-content: space-around;
+    font-size: 30px;
+    color: #eee;
 
+}
+.mathUnit button{
+    font-size: 30px;
+    width: 50px;
+    border-radius: 50%;
+    border: solid 2px #d38a56;
+    background-color:#ECA673;
+}
+.mathUnit button:hover{
+    color: aliceblue;
+    background-color:#d38a56;
+}
 .content * {
     /* border: solid 2px black; */
 }
