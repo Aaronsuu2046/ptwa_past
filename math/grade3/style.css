@@ -1,0 +1,115 @@
+.navbar-toggler {
+    z-index:1000;
+    border: 10px;
+    color: blueviolet;
+    background-color: white;
+    margin-top: 10px;
+}
+.navbar-collapse {
+    z-index: 1000;
+}
+
+.nav-link{
+    background-color: #57b9d985;
+    
+}
+
+.navbar-brand {
+   margin-bottom: 8px;
+}
+
+.nav2 {
+    display: none;
+}
+
+.nav-link:hover .nav1{
+    display: none;
+    transition-delay: 5s;
+}
+
+.nav-link:hover .nav2{
+    display: block;
+    transition-delay: 5s;
+}
+
+.sidebar {
+    float: left;
+    /*text-align: left; */
+
+    padding-top: 90px;
+}
+
+.nav-item2{
+    padding-top: 20px;
+}
+/* Unit */
+.mathUnit {
+    display: flex;
+    width: 60%;
+    justify-content: space-around;
+    font-size: 30px;
+    color: #eee;
+
+}
+.mathUnit button{
+    font-size: 30px;
+    width: 50px;
+    border-radius: 50%;
+    border: solid 2px #7b8e5d;
+    background-color:#ADC090;
+}
+.mathUnit button:hover{
+    color: aliceblue;
+    background-color:#7b8e5d;
+}
+.content * {
+    /* border: solid 2px black; */
+}
+.content {
+    padding-top: 8%;
+}
+/* previousPage Btn */
+.previousPage {
+    position: relative;
+    float: left;
+    display: none;
+}
+/* gameArea */
+.gameArea {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+}
+
+/* game block */
+.gameArea .game {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 300px;
+}
+
+/* game */
+
+.game .img {
+    flex: 9;
+    border: solid 2px #7b8e5d;
+    background-color:#ADC090;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 80px;
+    line-height: 230px;
+}
+
+.game h3 {
+    flex: 1;
+    text-align: center;
+}
+
+/* iframe */
+iframe {
+    display: none;
+    width: 100%;
+    height: 850px;
+}

@@ -2,15 +2,19 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-### 2023.04.01
+### 2023.04.02
 
+##### [v0.0.0] - Educational Games
+**Added**
+- 新增國文與多元科技
+- 新增鍵盤遊戲
+
+### 2023.04.01
 ##### [v0.1.5] - Recognize Milliliter
 **Added**
 - 新增生命設定與提示
   
-
 ### 2023.03.30
-
 ##### [v0.0.0] - Educational Games
 **Changed**
 - 更新網站顯示樣式
