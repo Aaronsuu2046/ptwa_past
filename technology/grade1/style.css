@@ -74,20 +74,25 @@
     float: left;
     display: none;
 }
-/* gameArea */
-.gameArea {
+/* gameBlock */
+.gameBlock {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
     height: 100%;
 }
-
+.gameBlock *{
+    cursor: pointer;
+}
 /* game block */
-.gameArea .game {
+.gameBlock .game {
     display: flex;
     flex-direction: column;
     width: 400px;
     height: 300px;
+}
+.gameBlock button{
+    appearance: none;
 }
 
 /* game */
