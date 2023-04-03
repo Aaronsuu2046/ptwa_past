@@ -2,15 +2,13 @@ body {
   width: 550px;
   height: 800px;
   display: flex;
-  margin-left: 10%;
-  margin-right: 10%;
-  font-family: '微軟正黑體';
+  font-family: 'Arial';
 }
 
 #canvas1{
     border: 5px solid black;
-    width: 550px;
-    height: 350px;
+    width: 800px;
+    height: 500px;
     cursor: none;
     border-radius: 6px;
     border-color: #003D79;
@@ -25,41 +23,42 @@ body {
 .levelBtn{
   background-color: 	#003D79;
   color: 		#BEBEBE;
-  width: 82px;
+  width: 200px;
   height: 55px;
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight:bolder;
   border: none;
   border-radius: 20px;
   margin-top: 10px;
-  margin-right: 8px;
+  margin-left: 50px;
   transition: transform .2s;
   transition: all .3s linear;
 }
 #startBtn{
   background-color: #003D79;
   color: 		#BEBEBE;
-  width: 360px;
+  width: 450px;
   height: 50px;
   font-size: 20px;
   font-weight: 600;
   position: relative;
   border: none;
   border-radius: 20px;
+  margin-left: 50px;
   transition: transform .2s;
   transition: all .3s linear;
 }
 #resultBtn {
   background-color: #003D79;
   color: 	#BEBEBE;
-  width: 180px;
+  width: 200px;
   height: 50px;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: bolder;
   position: relative;
   border: none;
   border-radius: 20px;
-  margin-left: 10px;
+  margin-left: 53px;
   transition: all .3s linear;
 }
 
