@@ -3,11 +3,13 @@ const allGameIframe = document.querySelectorAll('iframe');
 $(".previousPage").on('click', (e) => {
     hideFrames();
     $(".previousPage").css("display", "none");
-    $('.gameArea').toggle()
+    $('.gameBlock').toggle()
 })
-$("h3").on('click', (e) => {
-    hideFrames(e.target.id);
-    $('.gameArea').css({'display': 'none'});
+$(".game").on('click', function(e) {
+    const id = $(this).attr('id');
+    console.log(id);
+    hideFrames(id);
+    $('.gameBlock').css({'display': 'none'});
 })
 
 
