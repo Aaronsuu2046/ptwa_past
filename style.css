@@ -14,10 +14,6 @@ body {
     margin-top: 35px;
 }   
 
-.main-menu{
-    padding-top: 90px;
-}
-
 .submenus {
     display: flex;
     flex-wrap: wrap;
