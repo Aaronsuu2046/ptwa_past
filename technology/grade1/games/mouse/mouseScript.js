@@ -6,12 +6,9 @@ window.addEventListener('load', function(){
     CANVAS_WIDTH = canvas.width = 550;
     CANVAS_HEIGHT = canvas.height = 350;
     const enemiesArray = [];
-    let countdown = 10; // 60 secs
+    let countdown = 15; // 60 secs
     let countdownTimer;
     let gameStart = false;
-    let islevel1 = false;
-    let islevel2 = false;
-    let islevel3 = false;
     let gameMode = 'level1';
 
     
@@ -51,7 +48,7 @@ window.addEventListener('load', function(){
     const startBtn = document.getElementById('startBtn')
     startBtn.addEventListener('click', () => {
         if (!gameStart) {
-            gameStart = true; // Set gameStart to true to avoid showing the startScreen
+            gameStart = true; 
             let countdownBeforeStart = 3;
     
             const countdownBeforeStartInterval = setInterval(() => {
@@ -61,7 +58,7 @@ window.addEventListener('load', function(){
                 ctx.fillText(countdownBeforeStart, canvas.width / 2 - 20, canvas.height / 2 + 20);
     
                 if (countdownBeforeStart >= 1) {
-                    countdownSound.play(); // Play countdown sound
+                    countdownSound.play(); 
                 }
     
                 countdownBeforeStart--;
@@ -94,12 +91,23 @@ window.addEventListener('load', function(){
 
     const level1Btn = document.getElementById('level1');
     level1Btn.addEventListener('click', () => {
-        gameMode = 'level1';
+        if (!gameStart) {
+            gameMode = 'level1';
+        }
     });
 
     const level2Btn = document.getElementById('level2');
     level2Btn.addEventListener('click', () => {
-        gameMode = 'level2';
+        if (!gameStart) {
+            gameMode = 'level2';
+        }
+    });
+
+    const level3Btn = document.getElementById('level3');
+    level3Btn.addEventListener('click', () => {
+        if (!gameStart) {
+            gameMode = 'level3';
+        }
     });
     
    
@@ -111,9 +119,6 @@ window.addEventListener('load', function(){
             this.y = 0;
             this.width = 50;
             this.height = 50;
-        }
-        update(){
-            
         }
         draw(){
             ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
@@ -133,11 +138,15 @@ window.addEventListener('load', function(){
     })
 
     class Enemy {
-        constructor(){
+        constructor(gameMode){
             this.image = new Image();
-            this.image.src = './asset/fish1.png';
             this.image2 = new Image();
             this.image2.src = './asset/fish2.png';
+            if (gameMode === 'level1') {
+                this.image.src = './asset/fish1.png';
+            } else if (gameMode === 'level2') {
+                this.image.src = './asset/fish2.png';
+            }
             this.speedx = -3
             this.speedy = 0;
             this.spriteWidth = 840;
@@ -149,6 +158,11 @@ window.addEventListener('load', function(){
             this.frame = 0;
             this.angle = 0;
             this.counted = false;        
+            this.gameMode = gameMode 
+
+            if (gameMode === 'level3') {
+                this.gameMode = Math.random() < 0.5 ? 'level1' : 'level2';
+            } 
         }
         update(){
             this.x += this.speedx;
@@ -166,15 +180,14 @@ window.addEventListener('load', function(){
                 distancce < player.height/2.2 + this.height/2.2){
                 if (!this.counted){
                     this.counted = true;
-                    if (gameMode === 'level1') {
+                    if (this.gameMode === 'level1') {
                         score += 1;
                         collisionSound.play();
                     }
-                    if (gameMode === 'level2') {
+                    if (this.gameMode === 'level2') {
                         remainingHearts -= 1;
                         collisionSound2.play()
                     }
-                    
                 }
             };
         }
@@ -189,42 +202,49 @@ window.addEventListener('load', function(){
 
     function handleEnemies() {
         if (gameFrame % 100 == 0) {
-            let newEnemy;
-            let isOverlapping;
-            let retryCount = 0;
+            let modesToCreate = [gameMode];
+            if (gameMode === 'level3') {
+                modesToCreate = ['level1', 'level2'];
+            }
     
-            // check overlapping
-            do {
-                newEnemy = new Enemy();
-                isOverlapping = false;
+            for (const mode of modesToCreate) {
+                let newEnemy;
+                let isOverlapping;
+                let retryCount = 0;
     
-                for (let i = 0; i < enemiesArray.length; i++) {
-                    const dx = enemiesArray[i].x - newEnemy.x;
-                    const dy = enemiesArray[i].y - newEnemy.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < enemiesArray[i].width + newEnemy.width) {
-                        isOverlapping = true;
-                        break;
+                // Check overlapping
+                do {
+                    newEnemy = new Enemy(mode);
+                    isOverlapping = false;
+    
+                    for (let i = 0; i < enemiesArray.length; i++) {
+                        const dx = enemiesArray[i].x - newEnemy.x;
+                        const dy = enemiesArray[i].y - newEnemy.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < enemiesArray[i].width + newEnemy.width) {
+                            isOverlapping = true;
+                            break;
+                        }
                     }
-                }
     
-                retryCount++;
-            } while (isOverlapping && retryCount < 10);
-            if (!isOverlapping) {
-                enemiesArray.push(newEnemy);
+                    retryCount++;
+                } while (isOverlapping && retryCount < 10);
+                if (!isOverlapping) {
+                    enemiesArray.push(newEnemy);
+                }
             }
         }
     
         for (let i = 0; i < enemiesArray.length; i++) {
             enemiesArray[i].update();
-            
-            if (enemiesArray[i].x + 50 < 0 ) {
+    
+            if (enemiesArray[i].x + 50 < 0) {
                 enemiesArray.splice(i, 1);
-                i--; // Decrease index to ensure next enemy is checked
+                i--; 
             }
             else if (enemiesArray[i].counted) {
-                    enemiesArray.splice(i, 1);
-                }
+                enemiesArray.splice(i, 1);
+            }
             else {
                 enemiesArray[i].draw();
             }
@@ -234,15 +254,24 @@ window.addEventListener('load', function(){
             enemiesArray.splice(0);
         }
     };
+    
 
     function drawScoreOrHearts() {
         if (gameMode === 'level1') {
             ctx.font = "30px Verdana";
             ctx.fillText('得分: ' + score, canvas.width - 150, 40);
-        } else if (gameMode === 'level2') {
+        }
+        if (gameMode === 'level2') {
             for (let i = 0; i < remainingHearts; i++) {
                 ctx.drawImage(heartImage, canvas.width - 150 + i * (heartImage.width + 1), 10, heartImage.width, heartImage.height);
             }
+        }
+        if (gameMode === 'level3') {
+            for (let i = 0; i < remainingHearts; i++) {
+                ctx.drawImage(heartImage, canvas.width - 150 + i * (heartImage.width + 1), 10, heartImage.width, heartImage.height);
+            }
+            ctx.font = "30px Verdana";
+            ctx.fillText('得分: ' + score, canvas.width - 150, 80);
         }
     };
 
@@ -264,6 +293,13 @@ window.addEventListener('load', function(){
             ctx.fillStyle = "#003D79";
             ctx.fillText("剩餘秒數: " + countdown, 200, canvas.height / 2 - 40);
             ctx.fillText("剩餘愛心: " + remainingHearts, 200, canvas.height / 2 + 10);
+        }
+        if (gameMode === 'level3') {
+            ctx.font = "bold 30px 微軟正黑體";
+            ctx.fillStyle = "#003D79";
+            ctx.fillText("得分: " + score, 200, canvas.height / 2 - 20);
+            ctx.fillText("剩餘愛心: " + remainingHearts, 200, canvas.height / 2 + 20);
+            ctx.fillText("剩餘秒數: " + countdown, 200, canvas.height / 2 + 60);
         }
     };
 
