@@ -65,14 +65,14 @@ class Game {
         if (question === answer){
             this.correctSound.play();
             this.bingoGroph.css('display', 'block');
-            this.record.result.push('Ｏ');
+            this.record.result.push('O');
             setTimeout(()=>{this.bingoGroph.css('display', 'none');}, 500);
             set_off_fireworks();
             this.winLevelArr.push(this.level);
             this.gameState = GAME_WIN;
         }
         else {
-            this.record.result.push('Ｘ');
+            this.record.result.push('X');
             this.wrongSound.play();
             this.dadaGroph.css('display', 'block');
             this.lives -= 1;
