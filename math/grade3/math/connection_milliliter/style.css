@@ -61,7 +61,6 @@ body {
 
 .hintContainer{
     display: flex;
-    justify-content: space-evenly;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -78,24 +77,34 @@ body {
 }
 .milliliterHint {
     flex: 3;
-    margin: 10% 0% 3% 2%;
+    margin: 10% 0% 3% 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 .literHint {
-    margin: 10% 2% 2%;
-    flex: 6.6;
+    flex: 1;
+    margin-right: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.literHint :nth-child(3)  {
+    margin-top: 25%;
 }
 .literHint .water_container  {
     height: 16%;
-    margin-bottom: 3%;
+    margin-left: 10px;
 }
 .literHint .water_container .liters::after, .milliliterHint .water_container .milliliter::after{
     content: "ml";
 }
 .dividing{
-    float: left;
+    position: absolute;
+    top: 5%;
+    transform: translateX(-20px);
     width: 3px;
-    height: 100%;
-    margin-right: 5%;
+    height: 90%;
     background-color: #8e8e9c;
 }
 .hintContainer > h1{
@@ -110,14 +119,15 @@ body {
     position: absolute;
     display: inline-block;
     margin: 0;
-    transform: translateY(-80%);
+    top: 10%;
     background-color: #02bbdc;
 }
 .hintContainer h2::after {
     content: 'ml';
 }
 .literHint h2 {
-    transform: translateY(-120%);
+    top: 3%;
+    margin-left: 10px;
 }
 .literHint h2::after {
     content: 'L';
@@ -290,29 +300,26 @@ svg {
     width: 30%;
     height: 100%;
     left: 3%;
-    top: 3%;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .game_area .right {
     position: absolute;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 115%;
     width: 20%;
+    top: -14%;
     right: 0%;
 }
 .left .milliliter_container, .milliliterHint .water_container {
     position: relative;
-    height:16%;
-    margin-bottom: 5%;
-    top: 2%;
-}
-.left .milliliter_container{
-    margin-bottom: 10%;
+    height: 60px;
 }
 .right .water_container {
-    top: -5%;
-    height: 19%;
-    margin-bottom: 5%;
+    top: 2%;
+    height: 120px;
 }
 .left .water_container {
     margin-left: 10px;
@@ -381,7 +388,6 @@ svg {
     position: absolute;
     justify-content: space-around;
     width: 5%;
-    height: 100%;
 }
 
 .milliliterDots .circle, .literDots .circle {
@@ -391,12 +397,12 @@ svg {
     border-radius: 50%;
   }
 .milliliterDots {
+    height: 100%;
     right: 0;
     transform: translateX(30px);
 }
 .literDots {
-    top: -5%;
-    height: 108%;
+    height: 105%;
     transform: translateX(-40px);
 }
 
