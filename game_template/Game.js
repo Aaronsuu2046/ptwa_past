@@ -131,10 +131,14 @@ class Game {
         let textContent = `遊玩紀錄：
         `;
         
+        let count = 0;
         for (let i=0; i<this.record.q.length; i++) {
             textContent += `\t\n第 ${i+1} 次回答，Q: ${this.record.q[i]}，A: ${this.record.a[i]}，結果為 ${this.record.result[i]}`
-    
+            if (this.record.result[i] === 'Ｏ')count++;
         }
+        textContent += `
+
+        正確率： ${count/this.record.result.length*100}%`
         // 建立一個 Blob 物件
         const blob = new Blob([textContent], {type: 'text/plain'});
     
@@ -152,7 +156,7 @@ class Game {
         // 釋放 URL 物件
         URL.revokeObjectURL(url);
     }
-    showHint(){
+    toggleHint(){
         if (this.lives > 0)return
         overlay.toggle();
     }

@@ -1,5 +1,5 @@
 export {Game}
-import {getRandomNumber, reorder} from './function.js'
+import {getRandomNumber, reorder, createAngle, createFanShape, createLine} from './function.js'
 
 
 // state
@@ -129,10 +129,17 @@ class Game {
         let textContent = `遊玩紀錄：
         `;
         
+        let count = 0;
         for (let i=0; i<this.record.A.length; i++) {
             textContent += `\t\n第 ${i+1} 次回答，Q: ${this.record.Q[i]} 度，A: ${this.record.A[i]}，結果為 ${this.record.result[i]}`
-    
+            if (this.record.result[i] === 'Ｏ')count++;
         }
+        textContent += `
+
+        正確率： ${count/this.record.result.length*100}%`
+        console.log(this.record.result);
+        console.log(count);
+        console.log(this.record.result.length);
         // 建立一個 Blob 物件
         const blob = new Blob([textContent], {type: 'text/plain'});
     
@@ -150,7 +157,7 @@ class Game {
         // 釋放 URL 物件
         URL.revokeObjectURL(url);
     }
-    showHint(){
+    toggleHint(){
         if (this.gameState !== GAME_ALIVE)return
         this.overlay.toggle();
     }
@@ -196,54 +203,21 @@ function drawHint() {
     const y = 180-10;
     const angles = [createAngle(90, 0, x, y), createAngle(135, 0, x, y), createAngle(45, 0, x, y)];
     const fanShapes = [createFanShape(x, y, 30, 360-90, 0), createFanShape(x, y, 30, 360-135, 0), createFanShape(x, y, 30, 360-45, 0)]
+    const init = {strokeDasharray: "10 3"
+                  , stroke: '#bbb'
+                  , strokeWidth: 4
+                  , x1: x
+                  , y1: y
+                  , x2: x
+                  , y2: 3
+                }
+    const dashed = [createLine(init), createLine(init)]
     right.html(angles[0]).addClass('right');
     right.append(angles[0][0], angles[0][1],fanShapes[0]);
     obtuse.html(angles[1]).addClass('obtuse');
-    obtuse.append(angles[1][0], angles[1][1],fanShapes[1]);
+    obtuse.append(dashed[0], angles[1][0], angles[1][1],fanShapes[1]);
     acute.html(angles[2]).addClass('acute');
-    acute.append(angles[2][0], angles[2][1],fanShapes[2]);
-}
-
-function createAngle(angle, rotationAngle, centerX, centerY) {
-    const lineLength = 200;
-    angle *= Math.PI / 180;
-    rotationAngle *= Math.PI / 180;
-    const xA = centerX + lineLength * Math.cos(rotationAngle);
-    const yA = centerY - lineLength * Math.sin(rotationAngle);
-    const xB = centerX + lineLength * Math.cos(rotationAngle + angle);
-    const yB = centerY - lineLength * Math.sin(rotationAngle + angle);
-
-    return `
-      <line x1="${centerX}" y1="${centerY}" x2="${xA}" y2="${yA}" stroke="black" stroke-width="4" />
-      <line x1="${centerX}" y1="${centerY}" x2="${xB}" y2="${yB}" stroke="black" stroke-width="4" />
-    `;
-}
-
-function createFanShape(cx, cy, radius, startAngle, endAngle) {
-    startAngle *= Math.PI / 180;
-    endAngle *= Math.PI / 180;
-    const start = {
-        x: cx + Math.cos(startAngle) * radius,
-        y: cy + Math.sin(startAngle) * radius
-    };
-    const end = {
-        x: cx + Math.cos(endAngle) * radius,
-        y: cy + Math.sin(endAngle) * radius
-    };
-
-    const largeArcFlag = endAngle - startAngle <= Math.PI ? 0 : 1;
-    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path.setAttribute("class", "fanShape");
-    path.setAttribute("fill", "lightblue");
-    path.setAttribute("stroke", "black");
-    path.setAttribute("stroke-width", "2");
-    path.setAttribute("d", `
-        M ${cx} ${cy}
-        L ${start.x} ${start.y}
-        A ${radius} ${radius} 0 ${largeArcFlag} 1 ${end.x} ${end.y}
-        Z
-    `);
-    return path
+    acute.append(dashed[1], angles[2][0], angles[2][1],fanShapes[2]);
 }
 
 function set_off_fireworks(){

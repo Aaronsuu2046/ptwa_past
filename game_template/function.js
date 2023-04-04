@@ -84,6 +84,28 @@ function createFanShape(cx, cy, radius, startAngle, endAngle) {
     return path
 }
 
+function createLine({...extra}={}) {
+    const defaults = {
+        stroke: "black"
+        , strokeWidth: "2"
+        , strokeDasharray: ""
+        , x1: 0
+        , y1: 0
+        , x2: 0
+        , y2: 0
+    };
+    const settings = { ...defaults, ...extra };
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', `${settings.x1}`);
+    line.setAttribute('y1', `${settings.y1}`);
+    line.setAttribute('x2', `${settings.x2}`);
+    line.setAttribute('y2', `${settings.y2}`);
+    $(line).css({"stroke": settings.stroke
+                , "stroke-width": settings.strokeWidth
+                , "stroke-dasharray": settings.strokeDasharray});
+    return line;
+}
+
 function randomNumber(start, end) {
     return Math.random() * (end - start) + start;
 }

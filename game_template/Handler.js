@@ -69,7 +69,7 @@ class RecordBtnHandler extends Handler {
 class HintBtnHandler extends Handler {
     handleRequest(request) {
         if (request === HINT_BTN) {
-            game.showHint();
+            game.toggleHint();
         } else {
             super.handleRequest(request);
         }
