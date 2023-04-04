@@ -432,8 +432,8 @@ function createHint() {
     const allMilliliterContainer = document.querySelectorAll('.left>.milliliter_container');
     const allLiterContainer = document.querySelectorAll('.right>.water_container');
     
-    $(milliliterHint).html();
-    $(literHint).html();
+    $('.milliliterHint .milliliter_container').remove();
+    $('.literHint .water_container').remove();
     for (let i=0; i<allLiterContainer.length; i++) {
         milliliterHint.appendChild(allMilliliterContainer[i].cloneNode(true));
         literHint.appendChild(allLiterContainer[i].cloneNode(true));

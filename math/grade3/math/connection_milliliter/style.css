@@ -90,10 +90,10 @@ body {
     justify-content: space-evenly;
 }
 .literHint :nth-child(3)  {
-    margin-top: 25%;
+    margin-top: 35%;
 }
 .literHint .water_container  {
-    height: 16%;
+    height: 120px;
     margin-left: 10px;
 }
 .literHint .water_container .liters::after, .milliliterHint .water_container .milliliter::after{
@@ -101,10 +101,10 @@ body {
 }
 .dividing{
     position: absolute;
-    top: 5%;
+    top: 3%;
     transform: translateX(-20px);
     width: 3px;
-    height: 90%;
+    height: 95%;
     background-color: #8e8e9c;
 }
 .hintContainer > h1{
@@ -126,7 +126,7 @@ body {
     content: 'ml';
 }
 .literHint h2 {
-    top: 3%;
+    top: 2%;
     margin-left: 10px;
 }
 .literHint h2::after {
@@ -307,7 +307,6 @@ svg {
     position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     height: 115%;
     width: 20%;
     top: -14%;
@@ -319,6 +318,7 @@ svg {
 }
 .right .water_container {
     top: 2%;
+    margin-top: 20px;
     height: 120px;
 }
 .left .water_container {
@@ -385,8 +385,8 @@ svg {
     position: absolute;
     display: flex;
     flex-direction: column;
-    position: absolute;
     justify-content: space-around;
+    position: absolute;
     width: 5%;
 }
 
@@ -395,14 +395,15 @@ svg {
     height: 20px;
     background-color: black;
     border-radius: 50%;
-  }
+}
 .milliliterDots {
     height: 100%;
     right: 0;
     transform: translateX(30px);
 }
 .literDots {
-    height: 105%;
+    height: 100%;
+    top: 3%;
     transform: translateX(-40px);
 }
 
