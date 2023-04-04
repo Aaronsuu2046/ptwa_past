@@ -60,20 +60,20 @@ class Game {
         if (this.gameState !== GAME_ALIVE){
             return
         }
-        const answer = this.angle > 90 ? "鈍角" : this.angle === 90 ? "直角" : "銳角"
+        const answer = this.angle > 90 ? "obtuse" : this.angle === 90 ? "right" : "acute"
         this.record.Q.push(this.angle);
-        this.record.A.push(answer);
+        this.record.A.push(angle);
         if (answer === angle){
             this.correctSound.play();
             this.bingoGroph.css('display', 'block');
-            this.record.result.push('Ｏ');
+            this.record.result.push('O');
             setTimeout(()=>{this.bingoGroph.css('display', 'none');}, 500);
             set_off_fireworks();
             this.winLevelArr.push(this.level);
             this.gameState = GAME_WIN;
         }
         else {
-            this.record.result.push('Ｘ');
+            this.record.result.push('X');
             this.wrongSound.play();
             this.dadaGroph.css('display', 'block');
             setTimeout(()=>{this.dadaGroph.css('display', 'none');}, 500);
@@ -123,40 +123,36 @@ class Game {
         this.gameRule.css('display', 'block');
     }
     
-    loadRecord(){
-        // 設定下載檔案名稱
-        const filename = `遊玩紀錄.txt `;
-        let textContent = `遊玩紀錄：
-        `;
-        
-        let count = 0;
-        for (let i=0; i<this.record.A.length; i++) {
-            textContent += `\t\n第 ${i+1} 次回答，Q: ${this.record.Q[i]} 度，A: ${this.record.A[i]}，結果為 ${this.record.result[i]}`
-            if (this.record.result[i] === 'Ｏ')count++;
-        }
-        textContent += `
-
-        正確率： ${count/this.record.result.length*100}%`
-        console.log(this.record.result);
-        console.log(count);
-        console.log(this.record.result.length);
-        // 建立一個 Blob 物件
-        const blob = new Blob([textContent], {type: 'text/plain'});
+    loadRecord() {
+        // Set download file name
+        const filename = "遊玩紀錄.csv";
+        let csvContent = "Times,Question,Answer,Result\n"; // Add CSV headers
     
-        // 建立一個下載連結
+        let count = 0;
+        for (let i = 0; i < this.record.A.length; i++) {
+            csvContent += `${i + 1},${this.record.Q[i]},${this.record.A[i]},${this.record.result[i]}\n`;
+            if (this.record.result[i] === "O") count++;
+        }
+        csvContent += `\nCorrectRate,${(count / this.record.result.length) * 100}%\n`;
+    
+        // Create a Blob object
+        const blob = new Blob([csvContent], { type: "text/csv" });
+    
+        // Create a download link
         const url = URL.createObjectURL(blob);
     
-        // 建立一個 <a> 元素，並設定 href 屬性和 download 屬性
-        const a = document.createElement('a');
+        // Create an <a> element and set href and download attributes
+        const a = document.createElement("a");
         a.href = url;
         a.download = filename;
     
-        // 模擬點擊 <a> 元素，開始下載檔案
+        // Simulate clicking the <a> element to start the download
         a.click();
     
-        // 釋放 URL 物件
+        // Release the URL object
         URL.revokeObjectURL(url);
     }
+    
     toggleHint(){
         if (this.gameState !== GAME_ALIVE)return
         this.overlay.toggle();

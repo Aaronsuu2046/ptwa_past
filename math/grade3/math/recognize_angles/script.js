@@ -18,8 +18,8 @@ optionsArea.on('click', (e) => {
 })
 
 anglesArea.on('click', (e) => {
-    const angle = e.target.textContent;
-    if (angle.length === 2){
+    const angle = e.target.classList.value;
+    if (angle !== "angles"){
         game.checkAnswer(angle);
     }
 })
