@@ -115,6 +115,7 @@
 /* iframe */
 iframe {
     display: none;
-    width: 100%;
-    height: 850px;
+    width: 840px;
+    height: 750px;
+    transform: translateX(50%);
 }
