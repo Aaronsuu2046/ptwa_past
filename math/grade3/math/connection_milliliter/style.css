@@ -41,10 +41,8 @@ body {
 .lives{
     position: absolute;
     top: 2%;
-    left: 50%;
+    left: 60%;
     width: 100px;
-    transform: translateX(-25%);
-    right: 0;
 }
 
 /* hint */

@@ -49,13 +49,38 @@ let act = '', start = '', end = '';
 let gameState = GAME_FILE;
 let winLevelArr = [];
 let correctAnswer = new Set();
-let topic_explan = {1: `毫公升連連看`};
+let topic_explan = {
+    1: `毫升／公升連連看（一）`
+    , 2: `毫升／公升連連看（二）`
+    , 3: `毫升／公升連連看（三）`
+    , 4: `毫升／公升連連看（四）`
+    , 5: `毫升／公升連連看（五）`
+};
 let liters, milliliters = [];
 let drawing = false;
 let record = {'start': []
               , 'end': []
               , 'result': []
              };
+
+const gameData = await getGameConfig();
+
+async function getGameConfig() {
+    return fetch('./game_config.json')
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then((jsonData) => {
+            const gameData = jsonData;
+            return gameData;
+        })
+        .catch((error) => {
+            console.error('Error fetching JSON file:', error);
+        });
+}
 
 
 gameBtn.forEach((item) => {
@@ -127,7 +152,7 @@ function startGame() {
              };
     correctAnswer = new Set();
     line = svg.querySelector(".line");
-    liters = getRandomNumber(0, 2000, 100, 4);
+    liters = gameData.gameData[level];
     milliliters = [];
     shuffle([...liters]).forEach((item, index) =>{
         if (item > 1000){
@@ -456,3 +481,5 @@ function createHint() {
         literHintWaterCount[i].textContent = liter;
     }
 }
+
+  
