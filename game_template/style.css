@@ -209,23 +209,38 @@ body {
 }
 
 .optionsBtn #lastBtn {
-    flex: 2;
-}
-.optionsBtn #startBtn {
     flex: 3;
 }
+.optionsBtn #startBtn {
+    flex: 4;
+}
 .optionsBtn #nextBtn {
+    flex: 3;
+}
+.optionsBtn #hintBtn {
     flex: 2;
 }
-/* .optionsBtn #hintBtn {
-    flex: 1;
-}
 .optionsBtn #recordBtn {
-    flex: 1;
+    flex: 2;
 }
 .optionsBtn #submitBtn {
-    flex: 1;
-} */
+    flex: 4;
+    background-color: #02dc31;
+    border-color: #02dc31;
+  }
+  
+.jumpBtn {
+    animation: jump 1s ease-in-out;
+    animation-iteration-count: infinite;
+}
+@keyframes jump {
+0%, 100%{
+    transform: translateY(0);
+}
+50% {
+    transform: translateY(-5px);
+}
+}
 .shadow {
     box-shadow: 0px 0px 5px rgba(0,0,0,0.7);
 }

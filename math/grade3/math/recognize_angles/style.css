@@ -221,12 +221,15 @@ body {
 }
 
 .optionsBtn #startBtn {
-    flex: 7;
+    flex: 4;
 }
-.optionsBtn #recordBtn {
+.optionsBtn #lastBtn, #nextBtn {
     flex: 2;
 }
-.optionsBtn #hintBtn {
+.optionsBtn #recordBtn {
+    flex: 3;
+}
+.optionsBtn #hint {
     flex: 1;
 }
 .shadow {

@@ -49,7 +49,7 @@ class NextBtnHandler extends Handler {
 class StartBtnHandler extends Handler {
     handleRequest(request) {
         if (request === START_BTN) {
-            game.startGame();
+            game.startGame(game.level);
         } else {
             super.handleRequest(request);
         }
