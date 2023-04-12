@@ -22,7 +22,7 @@
 
 ## Grad3-1 認識毫升（recognize_milliliter）
 
-[![recognize_milliliter](https://img.shields.io/badge/recognize_milliliter-v0.1.5-blue.svg)](./recognize_milliliter)
+[![recognize_milliliter](https://img.shields.io/badge/recognize_milliliter-v0.1.6-blue.svg)](./recognize_milliliter)
 
 - 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊**三年級 上學期**，選擇**認識毫升**
 

@@ -1,6 +1,7 @@
 # Educational Games
 
 ![educational_games](https://img.shields.io/github/v/tag/PTWA-NPO/PTWA-NPO.github.io)
+[![educational Games](https://img.shields.io/badge/Educational_Games-Tatal_8-blue.svg)](./index.html)
 
 ---
 這是一個用於國小教育的遊戲教案。
@@ -18,41 +19,23 @@
 [//]: # (TODO demo gif)
 
 
-# 遊戲介紹
+# 網站介紹
 
-## Grad1-1 數學遊戲，數一數（Math）
+## 國文
 
-[//]: # (TODO write game information)
+- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊 **國文**，選擇 **年級**
+## 數學
 
-## Grad1-2 滑鼠遊戲，操控滑鼠（Mouse）
+- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊 **數學**，選擇 **年級**
+## 多元科技
 
-[//]: # (TODO write game information)
-
-## Grad1-3 數字連連看，認識 1～10（Digital Connection）
-[![digital_connection](https://img.shields.io/badge/digital_connection-v0.1.0-blue.svg)](./digital_connection)
-
-- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊**一年級 上學期**，選擇**認識 1~10**
-
-## Grad3-1 填入容積，認識毫升（recognize_milliliter）
-[![recognize_milliliter](https://img.shields.io/badge/recognize_milliliter-v0.1.5-blue.svg)](./recognize_milliliter)
-
-- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊**三年級 上學期**，選擇**認識毫升**
-
-## Grad3-2 毫公升連連看（connection_milliliter）
-[![connection_milliliter](https://img.shields.io/badge/connection_milliliter-v0.1.4-blue.svg)](./connection_milliliter)
-
-- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊**三年級 上學期**，選擇**毫公升連連看**
-
-## Grad3-3 認識直角鈍角銳角（recognize_angles）
-[![recognize_angles](https://img.shields.io/badge/recognize_angles-v0.1.2-blue.svg)](./recognize_angles)
-
-- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊**三年級 上學期**，選擇**認識直角鈍角銳角**
+- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊 **多元科技**，選擇 **年級**
 
 # Future Work
 
-1. [ ] Merge [New Web View](https://aaronsutemp.github.io/)
-2. [ ] 更多遊戲關卡
-4. [ ] 適合三年級生的遊戲
+1. [ ] 更多遊戲開發中
+2. [ ] 適合三年級生的遊戲
+3. [ ] 加入國文遊戲
 
 ## Change Log
 

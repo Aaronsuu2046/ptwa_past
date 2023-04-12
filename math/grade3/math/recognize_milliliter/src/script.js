@@ -8,7 +8,7 @@ const START_BTN = 'startBtn'
 const NEXT_BTN = 'nextBtn'
 const SUBMIT_BTN = 'submitBtn'
 const HINT_BTN = 'hintBtn'
-const canvas = document.querySelector(`canvas`);
+const gameArea = document.querySelector(`.game_area`);
 const gameBtn = [...document.querySelectorAll(`.gameBtn *`)];
 const water = document.querySelector(`.water`);
 const water_scale = document.querySelector(`.water_scale`);
@@ -55,18 +55,18 @@ gameBtn.forEach((item) => {
                 if (!isWrong){return}
                 if (isHint){
                     isHint=false;
-                    water_scale.textContent ='';
+                    writeWaterScale('');
                     return
                 }
                 isHint = true;
-                hint = `${milliliter} ml`;
-                water_scale.textContent = hint;
+                hint = `目前為：${milliliter} ml`;
+                writeWaterScale(hint);
             }
         }
     });
 });
 
-water_control.addEventListener('wheel', (e) => {
+gameArea.addEventListener('wheel', (e) => {
     e.preventDefault();
     if (milliliter>end || gameState !== GAME_ALIVE){
         return
@@ -77,24 +77,23 @@ water_control.addEventListener('wheel', (e) => {
     else if (e.deltaY>0 && milliliter>start){
         milliliter -= tolerance;
     }
-    water_scale.style.transform = `translate(0%, ${100-((start+milliliter)/end)*100}%)`;
     water.style.height = `${((start+milliliter)/end)*100}%`;
     if (isHint){
-        hint = `${milliliter} ml`;
-        water_scale.textContent = hint;
+        hint = `目前為：${milliliter} ml`;
+        writeWaterScale(hint);
     }
 });
 
 let active = false;
 let lastTouchY, currentTouchY = null;
 
-water_control.addEventListener('touchstart', (e) => {
+gameArea.addEventListener('touchstart', (e) => {
     e.preventDefault();
     lastTouchY = e.touches[0].clientY;
     active = true;
 });
 
-water_control.addEventListener('touchmove', (e) => {
+gameArea.addEventListener('touchmove', (e) => {
     e.preventDefault();
     if (active) {
         if (milliliter>end || gameState !== GAME_ALIVE){
@@ -114,16 +113,15 @@ water_control.addEventListener('touchmove', (e) => {
             }
         }
 
-        water_scale.style.transform = `translate(0%, ${100-((start+milliliter)/end)*100}%)`;
         water.style.height = `${((start+milliliter)/end)*100}%`;
         if (isHint){
-            hint = `${milliliter} ml`;
-            water_scale.textContent = hint;
+            hint = `"目前為：${milliliter} ml`;
+            writeWaterScale(hint);
         }
     }
 });
 
-water_control.addEventListener('touchend', () => {
+gameArea.addEventListener('touchend', () => {
     active = false;
 });
 
@@ -143,7 +141,7 @@ function startGame() {
     isHint = false;
     lives = 3;
     setLives(lives);
-    water_scale.textContent ='';
+    writeWaterScale('');
     mid = (end-start)/2;
     document.querySelector('.top').textContent=end;
     document.querySelector('.mid').textContent=mid;
@@ -160,7 +158,6 @@ function startGame() {
     }
     // $(`.scales :nth-child(${Math.ceil($(scales).children().length / 2)})`).css("width", "25px");
 
-    water_scale.style.transform = `translate(0%, ${100-((start+milliliter)/end)*100}%)`;
     water.style.height = `${((start+milliliter)/end)*100}%`;
     answer = getRandomNumber();
     topic.textContent = answer;
@@ -337,4 +334,8 @@ function setLives(lives){
         .css('margin-right', '-30px');
         $('.lives').append(livesImg);
     }
+}
+
+function writeWaterScale(text){
+    water_scale.textContent =text;
 }

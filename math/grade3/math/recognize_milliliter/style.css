@@ -217,14 +217,9 @@ body {
 
 .game_area .water_scale {
     font-size: 30px;
-    text-align: right;
-    transform: translate(0%, 50%);
+    font-weight: bold;
+    transform: translate(5%, -9%);
     flex: 3;
-}
-
-.game_area .water_scale::after {
-    content: " ml";
-    display: none;
 }
 
 .game_area .water_control {
@@ -306,7 +301,9 @@ body {
     font-size: 30px;
     padding: 5px;
 }
-
+.milliliterContainer .bottom{
+    transform: translateY(-50%);
+}
 /* fireworks */
 
 #firework-container {
