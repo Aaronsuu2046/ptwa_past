@@ -1,4 +1,11 @@
-// import * as constVarlue from './constant';
+const gameData = await getGameConfig();
+let i = 1;
+while (i<Object.keys(gameData.gameData).length){
+    i++;
+    const level = document.querySelector('.level').cloneNode(true);
+    level.textContent = i;
+    document.querySelector('.levelBtn').appendChild(level);
+}
 
 const GAME_FILE = 'FILE'
 const GAME_ALIVE = 'ALIVE'
@@ -26,7 +33,7 @@ const leftContainer = document.querySelector('.left');
 const rightContainer = document.querySelector('.right');
 const milliliterContainer = document.querySelector('.milliliter_container');
 const litersContainer = document.querySelector('.right>.water_container');
-let i = 0;
+i = 0;
 while (i<3){
     const clonedMilliliterContainer = milliliterContainer.cloneNode(true);
     const clonedLitersContainer = litersContainer.cloneNode(true);
@@ -49,13 +56,30 @@ let act = '', start = '', end = '';
 let gameState = GAME_FILE;
 let winLevelArr = [];
 let correctAnswer = new Set();
-let topic_explan = {1: `毫公升連連看`};
+let topic_explan = `毫升／公升連連看`;
 let liters, milliliters = [];
 let drawing = false;
 let record = {'start': []
               , 'end': []
               , 'result': []
              };
+
+async function getGameConfig() {
+    return fetch('./game_config.json')
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then((jsonData) => {
+            const gameData = jsonData;
+            return gameData;
+        })
+        .catch((error) => {
+            console.error('Error fetching JSON file:', error);
+        });
+}
 
 
 gameBtn.forEach((item) => {
@@ -127,7 +151,7 @@ function startGame() {
              };
     correctAnswer = new Set();
     line = svg.querySelector(".line");
-    liters = getRandomNumber(0, 2000, 100, 4);
+    liters = gameData.gameData[level];
     milliliters = [];
     shuffle([...liters]).forEach((item, index) =>{
         if (item > 1000){
@@ -327,7 +351,7 @@ function showHint(){
 }
 
 function getTopic(){
-    topic.textContent = topic_explan[level];
+    topic.textContent = `${topic_explan}（${level}）`;
 }
 
 function createLine(){
@@ -456,3 +480,5 @@ function createHint() {
         literHintWaterCount[i].textContent = liter;
     }
 }
+
+  

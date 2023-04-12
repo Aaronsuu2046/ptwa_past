@@ -27,7 +27,7 @@
 - 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊**三年級 上學期**，選擇**認識毫升**
 
 ## Grad3-2 毫公升連連看（connection_milliliter）
-[![connection_milliliter](https://img.shields.io/badge/connection_milliliter-v0.1.4-blue.svg)](./connection_milliliter)
+[![connection_milliliter](https://img.shields.io/badge/connection_milliliter-v0.2.1-blue.svg)](./connection_milliliter)
 
 - 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊**三年級 上學期**，選擇**毫公升連連看**
 
