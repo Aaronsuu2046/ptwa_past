@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>重量的量感與估測</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 
+    架構： 
+      第一個區塊 show-game-level
+      第二個區塊 game-container 裡面包含五個子區塊 分別代表五關
+      第三個區塊 game-control-btn
+  -->
+  <div id="show-game-level">
+    <button id="level-1" class="circle">1</button>
+    <button id="level-2" class="circle">2</button>
+    <button id="level-3" class="circle">3</button>
+    <button id="level-4" class="circle">4</button>
+    <button id="level-5" class="circle">5</button>
+  </div>
+  <div id="game-container">
+    <div id="description" class="level-container">
+      <h1>遊戲玩法：</h1>
+      <h1 class="context">電腦使用滑鼠點選正確答案</h1>
+      <h1 class="context">平板使用觸控點選正確答案</h1>
+      <h1 class="context">選擇符合題目敘述的答案即可通關</h1>
+      <h1 class="end">準備好了嗎？點擊<span>遊戲開始</span>！</h1>
+    </div>
+    <div id="level-1-container" class="level-container">
+        <p>一個書包大約700口</p>
+        <img src="images/level-1.png" alt="書包圖片">
+        <div class="btn-inline">
+          <button type="button" class="left-btn">公斤</button>
+          <button type="button" class="right-btn">公克</button>
+        </div>
+    </div>
+  
+    <div id="level-2-container" class="level-container">
+      <p>一雙鞋子大約500口</p>
+        <img src="images/level-2.png" alt="鞋子圖片">
+        <div class="btn-inline">
+          <button type="button" class="left-btn">公斤</button>
+          <button type="button" class="right-btn">公克</button>
+        </div>
+    </div>
+    
+    <div id="level-3-container" class="level-container">
+      <p>一台腳踏車大約5口</p>
+        <img src="images/level-3.png" alt="書包圖片">
+        <div class="btn-inline">
+          <button type="button" class="left-btn">公斤</button>
+          <button type="button" class="right-btn">公克</button>
+        </div>
+    </div>
+  
+    <div id="level-4-container" class="level-container">
+      <p>一顆汽車輪胎大約10口</p>
+        <img src="images/level-4.png" alt="書包圖片">
+        <div class="btn-inline">
+          <button type="button" class="left-btn">公斤</button>
+          <button type="button" class="right-btn">公克</button>
+        </div>
+    </div>
+  
+    <div id="level-5-container" class="level-container">
+      <p>一個水壺大約300口</p>
+        <img src="images/level-5.png" alt="書包圖片">
+        <div class="btn-inline">
+          <button type="button" class="left-btn">公斤</button>
+          <button type="button" class="right-btn">公克</button>
+        </div>
+    </div>
+  </div>
+  <div id="restart-btn" class="level-container">
+    <button id="restart">點擊以再玩一次</button>
+  </div>
+</div>
+<div id="game-control-btn">
+ <button id="last-level-btn" class="btn">上一關</button>
+ <button id="game-start-btn" class="btn">遊戲開始</button>
+ <button id="next-level-btn" class="btn">下一關</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
