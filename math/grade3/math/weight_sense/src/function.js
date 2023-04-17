@@ -1,4 +1,4 @@
-export { getRandomNumberArr, shuffle, reorder}
+export { getRandomNumberArr, shuffle, reorder, getGameConfig}
 
 
 function getRandomNumberArr(start, end, tolerance, times=1) {
@@ -108,4 +108,21 @@ function createLine({...extra}={}) {
 
 function randomNumber(start, end) {
     return Math.random() * (end - start) + start;
+}
+
+async function getGameConfig() {
+    return fetch('./game_config.json')
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then((jsonData) => {
+            const gameData = jsonData;
+            return gameData;
+        })
+        .catch((error) => {
+            console.error('Error fetching JSON file:', error);
+        });
 }

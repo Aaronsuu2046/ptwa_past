@@ -1,3 +1,4 @@
+import {getGameConfig} from './function.js'
 export {Game}
 
 
@@ -10,6 +11,7 @@ const GAME_WIN = 'WIN'
 const firework_sound = $('#win')[0];
 const fireworkContainer = $('#firework-container');
 const fireworksUrl = './assets/images/fireworks.gif';
+const gameData = await getGameConfig();
 
 class Game {
     gameRule = $('.gameRule');
@@ -28,7 +30,7 @@ class Game {
                       , 'a': []
                       , 'result': []
                       };
-        this.topic_explan = {1: `遊戲目標`};
+        this.topic_explan = {1: gameData.gameData[1].q};
         this.winLevelArr = [];
 
     }
