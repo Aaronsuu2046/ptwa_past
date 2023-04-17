@@ -41,7 +41,7 @@ body {
 .lives{
     position: absolute;
     top: 2%;
-    left: 50%;
+    /* left: 50%; */
     width: 100px;
     transform: translateX(-25%);
     right: 0;
@@ -208,23 +208,10 @@ body {
     transition: 0.5s;
 }
 
-.optionsBtn #lastBtn {
-    flex: 3;
-}
 .optionsBtn #startBtn {
     flex: 4;
 }
-.optionsBtn #nextBtn {
-    flex: 3;
-}
-.optionsBtn #hintBtn {
-    flex: 2;
-}
-.optionsBtn #recordBtn {
-    flex: 4;
-}
 .optionsBtn #submitBtn {
-    flex: 4;
     background-color: #02dc31;
     border-color: #02dc31;
   }
@@ -280,11 +267,60 @@ body {
     display: none;
     font-size: 500px;
 }
-
-
 .result #bingo {
     color: green;
 }
 .result #dada {
     color: red;
+}
+/* Game Area */
+.game_area {
+    display: flex;
+}
+/* Question */
+.game_area .question {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 6;
+    margin: 30px;
+    margin-right: 0;
+    background-color: #b3e6e5;
+    border-radius: 50px;
+}
+.question img {
+    width: 80%;
+    height: 80%;
+}
+/* Answer */
+.game_area .answer {
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.game_area .answer > *{
+    background-color: #eee;
+    color: #8e8e9c;
+    width: 80%;
+    height: 20%;
+    font-size: 50px; 
+    text-align: center;
+    line-height: 100px;
+    border: solid 4px #02bbdc;
+    border-radius: 50px;
+}
+
+.game_area .answer > *:hover{
+    color: black;
+    background-color: #bbb;
+    transform: translate(0px, -10px);
+    transition: 0.3s;
+}
+.redWord{
+    color: red !important;
+}
+.greenWord{
+    color: green !important;
 }

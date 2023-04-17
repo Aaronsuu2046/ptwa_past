@@ -12,7 +12,13 @@ const firework_sound = $('#win')[0];
 const fireworkContainer = $('#firework-container');
 const fireworksUrl = './assets/images/fireworks.gif';
 const gameData = await getGameConfig();
-
+let i = 1;
+while (i<Object.keys(gameData.gameData).length){
+    i++;
+    const level = document.querySelector('.level').cloneNode(true);
+    level.textContent = i;
+    document.querySelector('.levelBtn').appendChild(level);
+}
 class Game {
     gameRule = $('.gameRule');
     topic = $('.topic');
@@ -25,22 +31,18 @@ class Game {
     constructor(){
         this.gameState = GAME_FILE;
         this.level = 0;
-        this.lives = 3;
+        this.lives = 0;
         this.record = {'q': []
                       , 'a': []
                       , 'result': []
                       };
-        this.topic_explan = {1: gameData.gameData[1].q};
-        this.winLevelArr = [];
-
+        this.topic_explan = [];
+        $.each(gameData.gameData, (key, value) => {
+            this.topic_explan.push(value.q);
+        });
+        this.winLevelArr = new Set();
     }
     startGame(level) {
-        if (this.gameState===GAME_ALIVE){
-            return
-        }
-        if (this.gameState===GAME_WIN){
-            this.resetGame();
-        }
         if (this.level===0){
             this.levelBtn.children().eq(this.level).addClass('active');
             this.level = 1;
@@ -48,42 +50,39 @@ class Game {
         else {
             this.changeLevel(level);
         }
-        this.changeLevel(level);
+        this.resetGame();
         this.gameState = GAME_ALIVE;
         this.gameRule.css('display', 'none');
-        this.getTopic();
-        this.lives = 3;
-        this.setLives(this.lives);
-        this.record = {'q': []
-                    , 'a': []
-                    , 'result': []
-                    };
-    }
+        $('#startBtn').text("重新開始");
+}
     
-    checkAnswer(question, answer) {
+    checkAnswer(answer) {
         if (this.gameState !== GAME_ALIVE){
             return
         }
-        this.record.q.push(question);
+        const question = gameData.gameData[this.level].a;
+        this.record.q.push(gameData.gameData[this.level].q.replace("（公克）、（公斤）？", question=='gram'? " 公克。":" 公斤。"));
         this.record.a.push(answer);
         if (question === answer){
             this.correctSound.play();
             this.bingoGroph.css('display', 'block');
             this.record.result.push('O');
+            $(`.${answer}`).addClass('greenWord');
             setTimeout(()=>{this.bingoGroph.css('display', 'none');}, 500);
             set_off_fireworks();
-            this.winLevelArr.push(this.level);
+            this.winLevelArr.add(this.level);
             this.gameState = GAME_WIN;
         }
         else {
             this.record.result.push('X');
             this.wrongSound.play();
             this.dadaGroph.css('display', 'block');
-            this.lives -= 1;
-            setLives(this.lives)
+            $(`.${answer}`).addClass('redWord');
+            // this.lives -= 1;
+            // setLives(this.lives)
             setTimeout(()=>{
             this.dadaGroph.css('display', 'none');}, 500);
-            this.winLevelArr.pop(level);
+            this.winLevelArr.delete(this.level);
             this.levelBtn.children().eq(this.level - 1).removeClass('bingo');
             this.levelBtn.children().eq(this.level - 1).addClass('active');
         }
@@ -112,21 +111,29 @@ class Game {
     }
     
     resetGame(){
-        this.gameState = GAME_FILE;
+        // this.gameState = GAME_FILE;
+        this.gameState = GAME_ALIVE;
         firework_sound.pause();
         fireworkContainer.css('display', 'none');
+        this.winLevelArr.forEach((level)=>{
+            this.levelBtn.children().eq(level-1).addClass('bingo');
+        });
         this.levelBtn.children().each((index, child) => {
             const $child = $(child);
             $child.removeClass('active');
-
-            if ($.inArray(index + 1, this.winLevelArr) !== -1) {
-                $child.addClass('bingo');
-            } else if (index + 1 === this.level) {
-                $child.addClass('active');
-            }
-        })
-
-        this.gameRule.css('display', 'block');
+        });
+        $(`.answer *`).removeClass('redWord greenWord');
+        this.levelBtn.children().eq(this.level-1).addClass('active');
+        // this.gameRule.css('display', 'block');
+        this.getTopic();
+        // this.lives = 3;
+        // this.setLives(this.lives);
+        $('.question').html(`<img src='./assets/images/${this.level}.png'></img>`)
+        $('.topic').each(function() {
+            const text = $(this).html();
+            const newText = text.replace(/(\d+)/g, '<span class="redWord">$1</span>');
+            $(this).html(newText);
+        });
     }
     
     loadRecord() {

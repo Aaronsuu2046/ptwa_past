@@ -5,9 +5,10 @@ const levelsArea = $(`.levelBtn`);
 const optionsArea = $(`.optionsBtn`);
 const closeHintBtn = $(`.hintContainer .closeHintBtn`);
 const jumpBtn = $('.jumpBtn');
+const answerArea = $(`.game_area .answer`);
 
 levelsArea.on('click', (e) => {
-    const level = parseInt(e.target.id);
+    const level = parseInt(e.target.textContent);
     $(e.target).addClass('active');
     game.changeLevel(level);
 })
@@ -25,3 +26,10 @@ jumpBtn.on('animationiteration', ()=>{
     jumpBtn.css('animation-play-state', 'paused');
     setTimeout(()=>{jumpBtn.css('animation-play-state', 'running');}, 2000);
 });
+
+answerArea.on('click', (e) => {
+    const answer = e.target.classList.value;
+    if (answer !== "answer"){
+        game.checkAnswer(answer);
+    }
+})
