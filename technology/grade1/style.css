@@ -73,23 +73,34 @@
     position: relative;
     float: left;
     display: none;
+    background-color: #eee;
+    color: #8e8e9c;
+    border-radius: 30%;
+    height: 50px;
+    width: 50px;
+    border:3px solid #02bbdc;
+}
+
+.previousPage:hover {
+    background-color: #02bbdc;
+    color: #fff;
+    transition: 0.5s;
 }
 /* gameBlock */
 .gameBlock {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
-    height: 100%;
+    flex-wrap: wrap
 }
-.gameBlock *{
+.gameBlock > *{
     cursor: pointer;
+    flex-shrink: 0;
 }
 /* game block */
 .gameBlock .game {
     display: flex;
     flex-direction: column;
-    width: 400px;
-    height: 300px;
 }
 .gameBlock button{
     appearance: none;
@@ -98,18 +109,27 @@
 /* game */
 
 .game .img {
-    flex: 9;
-    border: solid 2px #d38a56;
-    background-color:#ECA673;
+    display: flex;
+    align-items: center;
+    width: 400px;
+    height: 300px;
+    background-color: #ECC73E;
+    border: solid 3px #ECA673;
     border-radius: 30px;
-    text-align: center;
-    font-size: 80px;
-    line-height: 230px;
+    overflow: hidden;
 }
-
+.game .img img {
+    width: 100%;
+    height: 100%;
+}
+.game:nth-child(2) .img img{
+    width: 100%;
+    height: 90%;
+}
 .game h3 {
     flex: 1;
     text-align: center;
+    font-weight: bold;
 }
 
 /* iframe */
@@ -119,8 +139,7 @@ iframe {
     height: 750px;
     transform: translateX(50%);
 }
-
 #frame2 {
-    width: 100%;
+    width: 60%;
     transform: translateX(0%);
 }

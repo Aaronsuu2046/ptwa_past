@@ -2,6 +2,15 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+### 2023.04.17
+
+##### [v0.0.0] - Educational Games
+**Added**
+- 新增重量的量感與估測遊戲
+
+**Changed**
+- 更改遊戲縮圖
+
 ### 2023.04.02
 
 ##### [v0.0.0] - Educational Games

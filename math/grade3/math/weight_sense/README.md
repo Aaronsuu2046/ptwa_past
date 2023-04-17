@@ -1,9 +1,9 @@
-#　認識直角鈍角銳角（recognize_angles）
+# 重量的量感與估測（weight_sense）
 
 ![educational_games](https://img.shields.io/github/v/tag/PTWA-NPO/PTWA-NPO.github.io)
 
 ---
-適合小學三年級的同學，透過玩遊戲來認識直角鈍角銳角。
+適合小學三年級的同學，透過玩遊戲來培養重量的量感與估測。
 
 # 使用方式
 
@@ -20,10 +20,10 @@
 
 # 遊戲介紹
 
-## Grad3-2 認識直角鈍角銳角（recognize_angles）
-[![recognize_angles](https://img.shields.io/badge/recognize_angles-v0.0.1-blue.svg)](./recognize_angles)
+## Grad3-4 重量的量感與估測（weight_sense）
+[![weight_sense](https://img.shields.io/badge/weight_sense-v0.0.1-blue.svg)](./weight_sense)
 
-- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的**三年級**，選擇**認識直角鈍角銳角**
+- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的**三年級**，選擇**重量的量感與估測**
 
 ### 遊戲簡介
 
@@ -33,12 +33,16 @@
 [//]: # (TODO game play view gif)
 
 ### 關卡說明
-- 第一關：認識直角鈍角銳角
+- 第一關：一個書包 700（公克）、（公斤）？
+- 第二關：一個鞋子 500（公克）、（公斤）？
+- 第三關：一個腳踏車 5（公克）、（公斤）？
+- 第四關：一個水壺 300（公克）、（公斤）？
+- 第五關：一個汽車輪胎 10（公克）、（公斤）？
   
 ### 遊戲玩法
-- 根據題目選擇對應的直角、鈍角、銳角答案
+- 根據題目選擇對應的答案
 - 正確即可過關
-- 可拖拉直角圖形比對答案
+- 點擊紀錄下載可下載遊戲紀錄
  
 ### Image Source
 - []()
