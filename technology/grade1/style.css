@@ -66,12 +66,14 @@
     /* border: solid 2px black; */
 }
 .content {
+    display: flex;
+    justify-content: center;
     padding-top: 2%;
 }
 /* previousPage Btn */
 .previousPage {
-    position: relative;
-    float: left;
+    position: absolute;
+    left: 50px;
     display: none;
     background-color: #eee;
     color: #8e8e9c;
@@ -135,11 +137,10 @@
 /* iframe */
 iframe {
     display: none;
-    width: 840px;
-    height: 750px;
-    transform: translateX(50%);
+    width: 820px;
+    height: 700px;
 }
 #frame2 {
-    width: 60%;
-    transform: translateX(0%);
+    padding-top: 2%;
+    width: 190vh;
 }
