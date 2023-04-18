@@ -8,7 +8,11 @@ body {
     font-family: '微軟正黑體';
     margin: 0;
 }
-
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .gameWindow {
     position: absolute;
     display: flex;

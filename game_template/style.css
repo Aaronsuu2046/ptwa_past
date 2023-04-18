@@ -8,7 +8,11 @@ body {
     font-family: '微軟正黑體';
     margin: 0;
 }
-
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .gameWindow {
     position: aboslute;
     display: flex;
@@ -208,26 +212,17 @@ body {
     transition: 0.5s;
 }
 
-.optionsBtn #lastBtn {
-    flex: 3;
-}
 .optionsBtn #startBtn {
     flex: 4;
 }
-.optionsBtn #nextBtn {
-    flex: 3;
-}
-.optionsBtn #hintBtn {
-    flex: 2;
-}
 .optionsBtn #recordBtn {
-    flex: 2;
+    flex: 4;
 }
 .optionsBtn #submitBtn {
     flex: 4;
     background-color: #02dc31;
     border-color: #02dc31;
-  }
+}
   
 .jumpBtn {
     animation: jump 1s ease-in-out;
