@@ -95,16 +95,17 @@ button {
     margin: 10px;
 }
 .hintContainer .angles{
-    flex: 7;
+    flex: 6;
 }
 .hintContainer .angles:nth-child(2) {
-    flex: 3;
-    align-items: center;
+    flex: 4;
+    align-items: end;
 }
 .hintContainer .angles h1 {
     margin: 0;
     right: 0;
-    background-color: #02bbdc;
+    font-size: 80px;
+    color: red;
     border-radius: 10px;
 }
 

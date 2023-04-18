@@ -224,6 +224,7 @@ button {
     font-weight: bold;
     transform: translate(5%, -9%);
     flex: 3;
+    color: red;
 }
 
 .game_area .water_control {
