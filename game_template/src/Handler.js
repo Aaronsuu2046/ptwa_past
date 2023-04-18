@@ -93,8 +93,8 @@ const recordBtnHandler = new RecordBtnHandler();
 const hintBtnHandler = new HintBtnHandler();
 const submitBtnHandler = new SubmitBtnHandler();
 
-lastBtnHandler
-    .setNext(startBtnHandler)
+startBtnHandler
+    .setNext(lastBtnHandler)
     .setNext(nextBtnHandler)
     .setNext(recordBtnHandler)
     .setNext(hintBtnHandler)

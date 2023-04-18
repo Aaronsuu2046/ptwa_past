@@ -171,7 +171,7 @@ class Game {
     }
     
     getTopic(){
-        $(this.topic).text(this.topic_explan[this.level]);
+        $(this.topic).text(this.topic_explan[this.level-1]);
     }
     
     setLives(lives){
