@@ -21,7 +21,7 @@
 # 遊戲介紹
 
 ## Grad3-4 重量的量感與估測（weight_sense）
-[![weight_sense](https://img.shields.io/badge/weight_sense-v0.0.1-blue.svg)](./weight_sense)
+[![weight_sense](https://img.shields.io/badge/weight_sense-v0.1.1-blue.svg)](./weight_sense)
 
 - 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的**三年級**，選擇**重量的量感與估測**
 
@@ -45,7 +45,11 @@
 - 點擊紀錄下載可下載遊戲紀錄
  
 ### Image Source
-- []()
+- [backpack](https://www.cleanpng.com/png-school-backpack-png-clipart-22697/)
+- [bicycle](https://www.flaticon.com/free-icon/bicycle_562008?term=bicycle&page=1&position=2&origin=search&related_id=562008)
+- [shoes](https://www.cleanpng.com/png-shoelaces-infant-sneakers-vector-baby-shoes-379052/)
+- [bottle](https://www.flaticon.com/free-icon/water-bottle_8012727?term=bottle&page=1&position=56&origin=search&related_id=8012727)
+- [tire](https://www.cleanpng.com/png-car-wheel-png-58678/)
 
 ### Sound Source
 - [Fireworks](https://opengameart.org/content/fireworks-with-applause-happy-people)
