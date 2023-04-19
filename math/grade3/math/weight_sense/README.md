@@ -21,7 +21,7 @@
 # 遊戲介紹
 
 ## Grad3-4 重量的量感與估測（weight_sense）
-[![weight_sense](https://img.shields.io/badge/weight_sense-v0.1.1-blue.svg)](./weight_sense)
+[![weight_sense](https://img.shields.io/badge/weight_sense-v0.1.2-blue.svg)](./weight_sense)
 
 - 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的**三年級**，選擇**重量的量感與估測**
 
@@ -34,15 +34,15 @@
 
 ### 關卡說明
 - 第一關：一個書包 700（公克）、（公斤）？
-- 第二關：一個鞋子 500（公克）、（公斤）？
-- 第三關：一個腳踏車 5（公克）、（公斤）？
+- 第二關：一雙鞋子 500（公克）、（公斤）？
+- 第三關：一輛腳踏車 5（公克）、（公斤）？
 - 第四關：一個水壺 300（公克）、（公斤）？
 - 第五關：一個汽車輪胎 10（公克）、（公斤）？
   
 ### 遊戲玩法
 - 根據題目選擇對應的答案
 - 正確即可過關
-- 點擊紀錄下載可下載遊戲紀錄
+- 點擊💾可下載遊戲紀錄
  
 ### Image Source
 - [backpack](https://www.cleanpng.com/png-school-backpack-png-clipart-22697/)

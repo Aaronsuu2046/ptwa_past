@@ -1,4 +1,4 @@
-#　認識直角鈍角銳角（recognize_angles）
+# 認識直角鈍角銳角（recognize_angles）
 
 ![educational_games](https://img.shields.io/github/v/tag/PTWA-NPO/PTWA-NPO.github.io)
 
@@ -36,10 +36,10 @@
 - 第一關：認識直角鈍角銳角
   
 ### 遊戲玩法
-- 根據題目選擇對應的直角、鈍角、銳角答案
+- 根據題目選擇對應的答案
 - 正確即可過關
-- 可拖拉直角圖形比對答案
- 
+- 點擊💾可下載遊戲紀錄
+- 錯誤三次可點擊提示
 ### Image Source
 - []()
 
