@@ -28,20 +28,13 @@ function shuffle(originArray){
     return array;
 }
   
-
-function reorder(parentElement) {
-    // Detach child elements
-    let childElements = parentElement.children().detach();
-
-    // Reorder child elements
-    childElements = childElements.sort(function(a, b) {
+function reorder($parentElement) {
+    // Detach child elements, reorder, and re-append them
+    $parentElement.children().detach().sort(function(a, b) {
       return Math.random() - 0.5;
-    });
-
-    // Re-append child elements in the new order
-    parentElement.append(childElements);
-}
-
+    }).appendTo($parentElement);
+  }
+  
 function createAngle(angle, rotationAngle, centerX, centerY) {
     const lineLength = 200;
     angle *= Math.PI / 180;

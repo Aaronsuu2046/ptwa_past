@@ -51,6 +51,7 @@ body {
 .overlay{
     position: relative;
     display: none;
+    /* display: block; */
     top: 0;
     left: 0;
     width: 100%;
@@ -80,19 +81,24 @@ body {
     color: #000;
     cursor: pointer;
 }
-.hintContainer .angles{
+.hintContainer .left, .hintContainer .right{
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    width: 50%;
+    flex: 5;
+    margin: 8% 5% 3% 15%;
 }
-.hintContainer .angles h2{
-    margin: 0;
-    background-color: #02bbdc;
+.hintContainer .left{
+    padding-left: 10%;
+    padding-right: 15%;
 }
-.hintContainer:first-child {
-    top: 0;
+.hintContainer .left .topicArea {
+    margin: 5%;
 }
+.hintContainer .right{
+    margin: 8% 20% 3% 0%;
+    padding-right: 10%;
+}
+
 .closeHintBtn {
     position: absolute;
     top: 0;
@@ -284,7 +290,7 @@ body {
     justify-content: space-between;
 }
 
-.game_area > .left, .game_area > .right {
+.game_area .left, .game_area .right {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -302,14 +308,14 @@ body {
     flex: 2;
     align-items: center;
 }
-.questionArea .topicArea {
+.topicArea {
     position: relative;
     flex: 7;
     height: 100%;
 }
 
 /* water */
-.questionArea .water{
+.topicArea .water{
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -333,7 +339,7 @@ body {
     border: solid 1px black;
 }
 /* cup */
-.questionArea .topicArea .cup{
+.topicArea .cup{
     position: absolute;
     z-index: 10;
     border: solid 3px black;
@@ -353,7 +359,7 @@ body {
 }
 
 /* Fraction */
-.answerArea .fraction{
+.fraction{
     display: flex;
     flex: 7;
     flex-direction: column;
@@ -374,15 +380,15 @@ body {
 }
 
 /* dot */
-.questionArea .dot, .answerArea .dot {
+.game_area .questionArea .dot, .game_area .answerArea .dot {
     width: 20px;
     height: 20px;
     background-color: black;
     border-radius: 50%;
 }
-.questionArea .dot {
+.game_area .questionArea .dot {
     margin-left: 10%;
 }
-.answerArea .dot {
+.game_area .answerArea .dot {
     margin-right: 10%;
 }

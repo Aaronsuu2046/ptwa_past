@@ -1,4 +1,4 @@
-import {getGameConfig} from "./function.js"
+import {getGameConfig, reorder} from "./function.js"
 export {Game}
 
 
@@ -32,7 +32,7 @@ class Game {
                       };
         this.topic_explan = {1: `遊戲目標`};
         this.winLevelArr = [];
-        
+        this.gameData = gameData.gameData;
     }
     startGame(level) {
         if (this.gameState===GAME_ALIVE){
@@ -58,6 +58,10 @@ class Game {
                     , 'a': []
                     , 'result': []
                     };
+        this.createTopic();
+        this.createHint();
+        reorder($('.game_area .left'));
+        reorder($('.game_area .right'));
     }
     
     checkAnswer(question, answer) {
@@ -183,6 +187,21 @@ class Game {
             .css('margin-right', '-30px');
             $('.lives').append(livesImg);
         }
+    }
+    createTopic() {
+        $('.game_area .scalls').each((index, value) => {
+            let $value = $(value);
+            let bottom = this.gameData[this.level].bottom[index];
+            let top = this.gameData[this.level].top[index];
+            $value.html('<li></li>'.repeat(bottom + 1));
+            $('.game_area .fraction .top').eq(index).html(`<h1>${top}</h1>`)
+            $('.game_area .water').eq(index).css({"height": `${top/bottom*100}%`})
+            $('.game_area .fraction .bottom').eq(index).html(`<h1>${bottom}</h1>`)
+        });
+    }
+    createHint() {
+        $('.hintContainer .left').html($('.game_area .left .topicArea').clone());
+        $('.hintContainer .right').html($('.game_area .right .fraction').clone());
     }
 }
 
