@@ -209,20 +209,8 @@ body {
     transition: 0.5s;
 }
 
-.optionsBtn #lastBtn {
-    flex: 3;
-}
 .optionsBtn #startBtn {
     flex: 4;
-}
-.optionsBtn #nextBtn {
-    flex: 3;
-}
-.optionsBtn #hintBtn {
-    flex: 2;
-}
-.optionsBtn #recordBtn {
-    flex: 2;
 }
 .optionsBtn #submitBtn {
     flex: 4;

@@ -32,7 +32,7 @@ class Game {
                       };
         this.topic_explan = {1: `遊戲目標`};
         this.winLevelArr = [];
-
+        
     }
     startGame(level) {
         if (this.gameState===GAME_ALIVE){
