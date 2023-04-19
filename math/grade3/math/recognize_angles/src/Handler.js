@@ -39,7 +39,7 @@ class LastBtnHandler extends Handler {
 class NextBtnHandler extends Handler {
     handleRequest(request) {
         if (request === NEXT_BTN) {
-            game.changeLevel(level, {isNext: true});
+            game.changeLevel(game.level, {isNext: true});
         } else {
             super.handleRequest(request);
         }
