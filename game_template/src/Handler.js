@@ -29,7 +29,7 @@ class Handler {
 class LastBtnHandler extends Handler {
     handleRequest(request) {
         if (request === LAST_BTN) {
-            game.changeLevel(game.level, {isPrevious: ture});
+            game.changeLevel(game.level, {isPrevious: true});
         } else {
             super.handleRequest(request);
         }
@@ -98,4 +98,5 @@ startBtnHandler
     .setNext(nextBtnHandler)
     .setNext(recordBtnHandler)
     .setNext(hintBtnHandler)
-    .setNext(submitBtnHandler);
+    .setNext(submitBtnHandler)
+    .setNext(startBtnHandler);

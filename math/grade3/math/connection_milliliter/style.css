@@ -273,13 +273,7 @@ svg {
 }
 
 .optionsBtn #startBtn {
-    flex: 7;
-}
-.optionsBtn #recordBtn {
-    flex: 2;
-}
-.optionsBtn #hintBtn {
-    flex: 1;
+    flex: 4;
 }
 .shadow {
     box-shadow: 0px 0px 5px rgba(0,0,0,0.7);

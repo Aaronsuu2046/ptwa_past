@@ -215,9 +215,6 @@ button {
 .optionsBtn #startBtn {
     flex: 4;
 }
-.optionsBtn #recordBtn {
-    flex: 4;
-}
 .optionsBtn #submitBtn {
     flex: 4;
     background-color: #02dc31;

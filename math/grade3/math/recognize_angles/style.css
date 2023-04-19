@@ -228,15 +228,6 @@ button {
 .optionsBtn #startBtn {
     flex: 4;
 }
-.optionsBtn #lastBtn, #nextBtn {
-    flex: 2;
-}
-.optionsBtn #recordBtn {
-    flex: 3;
-}
-.optionsBtn #hint {
-    flex: 1;
-}
 .shadow {
     box-shadow: 0px 0px 5px rgba(0,0,0,0.7);
 }
