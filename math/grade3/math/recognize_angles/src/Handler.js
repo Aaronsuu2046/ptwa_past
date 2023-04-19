@@ -98,5 +98,5 @@ startBtnHandler
     .setNext(nextBtnHandler)
     .setNext(recordBtnHandler)
     .setNext(hintBtnHandler)
-    .setNext(lastBtnHandler)
+    .setNext(submitBtnHandler)
     .setNext(startBtnHandler);

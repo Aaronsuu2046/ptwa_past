@@ -1,11 +1,18 @@
 # Change Log
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
-### 2023.03.28
+
+### 2023.04.19
+##### [v0.0.0] - Educational Games
+**Changed**
+- 更改遊戲按鈕樣式
+  
+### 2023.04.18
   
 ##### [v0.1.1] - Weight Sense
 **Fixed**
 - 修復題目順序錯誤 Bug
+  
 ### 2023.04.17
 
 ##### [v0.0.0] - Educational Games
