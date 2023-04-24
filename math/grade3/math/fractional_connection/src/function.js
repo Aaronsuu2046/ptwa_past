@@ -1,4 +1,4 @@
-export { getRandomNumberArr, shuffle, reorder, getGameConfig}
+export { getRandomNumberArr, shuffle, reorder, getGameConfig, createAngle, createFanShape, createLine, randomNumber}
 
 
 function getRandomNumberArr(start, end, tolerance, times=1) {

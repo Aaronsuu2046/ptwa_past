@@ -1,4 +1,4 @@
-import {getGameConfig, reorder} from "./function.js"
+import {getGameConfig, reorder, createLine} from "./function.js"
 export {Game}
 
 
@@ -14,6 +14,7 @@ const fireworksUrl = './assets/images/fireworks.gif';
 const gameData = await getGameConfig();
 
 class Game {
+    gameArea = $('.game_area');
     gameRule = $('.gameRule');
     topic = $('.topic');
     levelBtn = $('.levelBtn');
@@ -24,6 +25,7 @@ class Game {
     levelLimit = this.levelBtn.children().length;
     constructor(){
         this.gameState = GAME_FILE;
+        this.drawingArea = $('.drawingArea');
         this.level = 0;
         this.lives = 3;
         this.record = {'q': []
@@ -33,6 +35,8 @@ class Game {
         this.topic_explan = {1: `遊戲目標`};
         this.winLevelArr = [];
         this.gameData = gameData.gameData;
+        this.isDrawing = false;
+        this.drawView();
     }
     startGame(level) {
         if (this.gameState===GAME_ALIVE){
@@ -48,7 +52,7 @@ class Game {
         else {
             this.changeLevel(level);
         }
-        this.changeLevel(level);
+        this.changeLevel(this.level);
         this.gameState = GAME_ALIVE;
         this.gameRule.css('display', 'none');
         this.getTopic();
@@ -63,7 +67,79 @@ class Game {
         reorder($('.game_area .left'));
         reorder($('.game_area .right'));
     }
+
+    drawView() {
+        const line = $('.line')[0];
+        const yStart = 65;
+        const mouseDownListener = (event) => {
+            event.preventDefault();
+            const {pageX, pageY} = event.touches ? event.touches[0] : event;
+            if (line.className.baseVal.includes('wrongLine')){
+                $(line).removeClass('wrongLine');
+            }
+            else{
+                createLine();
+                $(line).addClass('line');
+            }
+            line.setAttribute("x1", pageX);
+            line.setAttribute("y1", pageY-yStart);
+            line.setAttribute("x2", pageX);
+            line.setAttribute("y2", pageY-yStart);
+            this.isDrawing = true;
+        }
+        
+        const mouseMoveListener = (event) => {
+            event.preventDefault();
+            if (!this.isDrawing) return;
+            const {pageX, pageY} = event.touches ? event.touches[0] : event;
+            line.setAttribute("x2", pageX);
+            line.setAttribute("y2", pageY-yStart);
+        }
     
+        const mouseupListener = (event) => {
+            if (!this.isDrawing) return;
+            this.isDrawing = false;
+            
+            // this.checkAnswer();
+        }
+        this.gameArea.on("mousedown", (e) => {
+            console.log(e.target.classList)
+            if (checkQuestionArea(e)){
+                console.log("down")
+                mouseDownListener(e);
+            }
+        });
+        this.gameArea.on("touchstart", (e) => {
+            if (checkQuestionArea(e)){
+                mouseDownListener(e);
+            }
+        });
+        this.gameArea.on("mousemove", mouseMoveListener);
+        this.gameArea.on("touchmove", (e) => {
+            mouseMoveListener(e);
+        });
+        this.gameArea.on("mouseup", (e) => {
+            if (checkAnswerArea(e)){
+                mouseupListener(e);
+            }
+        });
+        this.gameArea.on("touchend", (e) => {
+            if (checkAnswerArea(e)){
+                mouseupListener(e);
+            }
+        });
+        const checkQuestionArea = (e) => {
+            if ($(e.target).closest('.questionArea').length) {
+                return true;
+              }
+        }
+        const checkAnswerArea = (e) => {
+            if ($(e.target).closest('.answerArea').length) {
+                return true;
+              }
+        }
+    };
+
     checkAnswer(question, answer) {
         if (this.gameState !== GAME_ALIVE){
             return
