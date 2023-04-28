@@ -1,6 +1,70 @@
 * {
     /* border: solid 2px black; */
 }
+.navbar-toggler {
+    z-index:1000;
+    border: 10px;
+    color: blueviolet;
+    background-color: white;
+    margin-top: 10px;
+}
+.navbar-collapse {
+    z-index: 1000;
+}
+
+.nav-link{
+    background-color: #57b9d985;
+    
+}
+
+.navbar-brand {
+   margin-bottom: 8px;
+}
+
+.nav2 {
+    display: none;
+}
+
+.nav-link:hover .nav1{
+    display: none;
+    transition-delay: 5s;
+}
+
+.nav-link:hover .nav2{
+    display: block;
+    transition-delay: 5s;
+}
+
+.sidebar {
+    float: left;
+    /*text-align: left; */
+
+    padding-top: 90px;
+}
+
+.nav-item2{
+    padding-top: 20px;
+}
+/* Unit */
+.mathUnit {
+    display: flex;
+    width: 60%;
+    justify-content: space-around;
+    font-size: 30px;
+    color: #eee;
+
+}
+.mathUnit button{
+    font-size: 30px;
+    width: 50px;
+    border-radius: 50%;
+    border: solid 2px #7b8e5d;
+    background-color:#ADC090;
+}
+.mathUnit button:hover{
+    color: aliceblue;
+    background-color:#7b8e5d;
+}
 
 body {
     position: relative;
@@ -8,9 +72,35 @@ body {
     font-family: '微軟正黑體';
     margin: 0;
 }
+button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Previous Btn */
+.previousPage {
+    position: absolute;
+    left: 50px;
+    background-color: #eee;
+    color: #8e8e9c;
+    border-radius: 30px;
+    height: 50px;
+    width: 200px;
+    border: 3px solid #02bbdc;
+    font-size: 30px;
+}
+.previousPage:hover {
+    background-color: #02bbdc;
+    color: #fff;
+    transition: 0.5s;
+}
+.content {
+    display: flex;
+    justify-content: center;
+    margin-top: 1%;
+}
 
 .gameWindow {
-    position: aboslute;
     display: flex;
     flex-direction: column;
     width: 800px;
@@ -38,38 +128,19 @@ body {
     color: black;
 }
 
-/* lives */
 .lives{
     position: absolute;
     top: 2%;
+    left: 50%;
     width: 100px;
     transform: translateX(-25%);
     right: 0;
 }
 
-/* Drawing Area */
-.drawingArea {
-    width: 100%;
-    height: 100%;
-}
-/* Line */
-.line {
-    stroke: black;
-    stroke-width: 5;
-}
-.correctLine {
-    stroke: green;
-    stroke-width: 5;
-}
-.wrongLine {
-    stroke: red;
-    stroke-width: 5;
-}
 /* hint */
 .overlay{
     position: relative;
     display: none;
-    /* display: block; */
     top: 0;
     left: 0;
     width: 100%;
@@ -99,24 +170,19 @@ body {
     color: #000;
     cursor: pointer;
 }
-.hintContainer .left, .hintContainer .right{
+.hintContainer .angles{
     display: flex;
     flex-direction: column;
-    flex: 5;
-    margin: 8% 5% 3% 15%;
+    justify-content: space-evenly;
+    width: 50%;
 }
-.hintContainer .left{
-    padding-left: 10%;
-    padding-right: 15%;
+.hintContainer .angles h2{
+    margin: 0;
+    background-color: #02bbdc;
 }
-.hintContainer .left .topicArea {
-    margin: 5%;
+.hintContainer:first-child {
+    top: 0;
 }
-.hintContainer .right{
-    margin: 8% 20% 3% 0%;
-    padding-right: 10%;
-}
-
 .closeHintBtn {
     position: absolute;
     top: 0;
@@ -132,43 +198,33 @@ body {
 }
 
 /* Rule */
-.myCanvas .gameRule {
-    /* display: none; */
-    position: absolute;
-    z-index: 9999;
+.gameRule {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     width: 100%;
     height: 100%;
-    background-color: #eee;
 }
-
-.myCanvas .gameRule *{
+.gameRule h1 {
+    font-weight: bold;
     font-size: 40px;
 }
-
-.myCanvas .gameRule .context{
-    position: absolute;
-    top: 20%;
-    left: 15%;
+.gameRule>:first-child {
+    flex: 1;
+    margin: 5%;
 }
-
-.myCanvas .gameRule #start{
-    transform: translateX(5%);
+.gameRule .context {
+    flex: 8;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-left: 15%;
 }
-
-.myCanvas .gameRule #start #version {
-    position: absolute;
-    font-size: 20px; 
-    top: 0%;
-    right: 10%;
-    color: #bbb;
+.gameRule>:last-child {
+    flex: 1;
+    margin: 5% 0% 5% 30%;
 }
-
-.myCanvas .gameRule #end{
-    position: absolute;
-    top: 80%;
-    left: 30%;
-}
-
+/* Game Btn */
 .gameBtn {
     width: 800px;
     display: flex;
@@ -184,13 +240,14 @@ body {
 }
 
 .gameBtn *:hover {
+    background-color: #02bbdc;
+    color: #fff;
     transform: translate(0px, -5px);
     transition: 0.5s;
 }
 
 /* level */
 .levelBtn {
-    padding-top: 10px;
     margin: 0;
 }
 .levelBtn * {
@@ -201,7 +258,7 @@ body {
     width: 50px;
 }
 
-.levelBtn *:hover,.levelBtn *.active {
+.levelBtn *.active {
     background-color: #02bbdc;
     color: #fff;
     transition: 0.5s;
@@ -237,10 +294,14 @@ body {
     flex: 4;
 }
 .optionsBtn #submitBtn {
-    flex: 4;
     background-color: #02dc31;
     border-color: #02dc31;
-  }
+}
+.optionsBtn #submitBtn:hover {
+    color: #eee;
+    box-shadow: 1px 5px 10px rgba(0,0,0,0.3);
+    transition: 0.5s;
+}
   
 .jumpBtn {
     animation: jump 1s ease-in-out;
@@ -255,7 +316,7 @@ body {
 }
 }
 .shadow {
-    box-shadow: 0px 0px 5px rgba(0,0,0,0.7);
+    box-shadow: 50px 50px 50px rgba(0,0,0,0.7);
 }
 
 /* container */
@@ -302,111 +363,12 @@ body {
     color: red;
 }
 
-/* Game Area */
-.game_area {
-    display: flex;
-    justify-content: space-between;
-}
-
-.game_area .left, .game_area .right {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: start;
-    flex: 5;
-    margin-left: 10%;
-}
-
-/* Question */
-.left .questionArea {
-    position: relative;
-    display: flex;
-    margin-top: 5%;
-    width: 40%;
-    flex: 2;
-    align-items: center;
-}
-.topicArea {
-    position: relative;
-    flex: 7;
-    height: 100%;
-}
-
-/* water */
-.topicArea .water{
+/* Game */
+.gameIframe {
     position: absolute;
-    z-index: 1;
-    width: 100%;
-    height: 50%;
-    background-color: #02bbdc;
-    bottom: 0;
-}
-/* scalls */
-.topicArea .scalls{
-    position: absolute;
-    z-index: 5;
-    display: flex;
-    height: 100%;
-    width: 20%;
-    flex-direction: column;
-    justify-content: space-between;
     top: 0;
-}
-.topicArea .scalls li{
-    list-style: none;
-    border: solid 1px black;
-}
-/* cup */
-.topicArea .cup{
-    position: absolute;
-    z-index: 10;
-    border: solid 3px black;
-    box-sizing: border-box;
-    border-top: none;
+    left: 0;
     width: 100%;
     height: 100%;
-}
-/* Answer */
-.right .answerArea {
-    margin-left: 40%;
-    display: flex;
-    margin-top: 5%;
-    width: 40%;
-    flex: 2;
-    align-items: center;
-}
-
-/* Fraction */
-.fraction{
-    display: flex;
-    flex: 7;
-    flex-direction: column;
-    align-items: center;
-}
-.fraction .top, .fraction .bottom {
-    flex: 5;
-}
-.fraction .fractionalLine{
-    border: solid 2px black;
-    width: 70%;
-}
-.fraction .top h1{
-    color: red;
-}
-.fraction h1{
-    margin: 0;
-}
-
-/* dot */
-.game_area .questionArea .dot, .game_area .answerArea .dot {
-    width: 20px;
-    height: 20px;
-    background-color: black;
-    border-radius: 50%;
-}
-.game_area .questionArea .dot {
-    margin-left: 10%;
-}
-.game_area .answerArea .dot {
-    margin-right: 10%;
+    display: none;
 }

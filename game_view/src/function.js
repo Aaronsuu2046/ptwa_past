@@ -1,7 +1,4 @@
-export { getRandomNumberArr, shuffle, reorder, getGameConfig, createAngle, createFanShape, createLine, randomNumber}
-
-
-function getRandomNumberArr(start, end, tolerance, times=1) {
+export function getRandomNumberArr(start, end, tolerance, times=1) {
     let result = new Set();
     while(result.size < times) {
         const range = Math.ceil((end - start) / tolerance);
@@ -18,7 +15,7 @@ function getRandomNumberArr(start, end, tolerance, times=1) {
     return [...result]
   }
 
-function shuffle(originArray){
+export function shuffle(originArray){
     // Fisher-Yates shuffle algorithm
     let array = [...originArray]
     for (let i = array.length - 1; i > 0; i--) {
@@ -28,14 +25,21 @@ function shuffle(originArray){
     return array;
 }
   
-function reorder($parentElement) {
-    // Detach child elements, reorder, and re-append them
-    $parentElement.children().detach().sort(function(a, b) {
+
+export function reorder(parentElement) {
+    // Detach child elements
+    let childElements = parentElement.children().detach();
+
+    // Reorder child elements
+    childElements = childElements.sort(function(a, b) {
       return Math.random() - 0.5;
-    }).appendTo($parentElement);
-  }
-  
-function createAngle(angle, rotationAngle, centerX, centerY) {
+    });
+
+    // Re-append child elements in the new order
+    parentElement.append(childElements);
+}
+
+export function createAngle(angle, rotationAngle, centerX, centerY) {
     const lineLength = 200;
     angle *= Math.PI / 180;
     rotationAngle *= Math.PI / 180;
@@ -50,7 +54,7 @@ function createAngle(angle, rotationAngle, centerX, centerY) {
     `;
 }
 
-function createFanShape(cx, cy, radius, startAngle, endAngle) {
+export function createFanShape(cx, cy, radius, startAngle, endAngle) {
     startAngle *= Math.PI / 180;
     endAngle *= Math.PI / 180;
     const start = {
@@ -77,7 +81,7 @@ function createFanShape(cx, cy, radius, startAngle, endAngle) {
     return path
 }
 
-function createLine({...extra}={}) {
+export function createLine({...extra}={}) {
     const defaults = {
         stroke: "black"
         , strokeWidth: "2"
@@ -99,12 +103,12 @@ function createLine({...extra}={}) {
     return line;
 }
 
-function randomNumber(start, end) {
+export function randomNumber(start, end) {
     return Math.random() * (end - start) + start;
 }
 
-async function getGameConfig() {
-    return fetch('./game_config.json')
+export async function getJson(fileName) {
+    return fetch(fileName)
         .then((response) => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
