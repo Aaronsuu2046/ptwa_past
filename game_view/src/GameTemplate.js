@@ -1,21 +1,12 @@
-import {GAME_FILE, GAME_ALIVE, GAME_WIN} from "./const.js"
+import * as constant from "./constant.js"
 import {getJson} from "./function.js"
 
 const gameData = await getJson('./game_config.json');
 
 export class GameTemplate {
-    gameRule = $('.gameRule');
-    levelBtn = $('.levelBtn');
-    bingoGroph = $('#bingo');
-    dadaGroph = $('#dada');
-    correctSound = $('#correct')[0];
-    wrongSound = $('#wrong')[0];
-    firework_sound = $('#win')[0];
-    fireworkContainer = $('#firework-container');
-    fireworksUrl = './assets/images/fireworks.gif';
     constructor(){
         this.explain = $('.explain');
-        this.levelLimit = this.levelBtn.children().length;
+        this.levelLimit = gameData.length;
         this.topic_explain = new Array(this.levelLimit).fill('遊戲目標');
         this.winLevelArr = [];
         this.gameData = gameData;
@@ -23,27 +14,19 @@ export class GameTemplate {
                       , 'a': []
                       , 'result': []
                       };
-        this.init(1);
-    }
-    init(level) {
-        this.gameState = GAME_FILE;
-        this.level = level;
-        this.lives = this.gameData.lives;
-        this.firework_sound.pause();
-        this.fireworkContainer.css('display', 'none');
+        this.gameState = constant.GAME_FILE;
+        this.level = 1;
     }
     startGame(level) {
-        if (this.gameState===GAME_ALIVE){
+        if (this.gameState=== constant.GAME_ALIVE){
             return
         }
-        if (this.gameState===GAME_WIN){
-            this.resetGame();
+        if (this.gameState=== constant.GAME_WIN){
+            this.resetGame(level);
         }
-        this.gameRule.css({display: 'none'});
-        this.gameState = GAME_ALIVE;
+        this.gameState =  constant.GAME_ALIVE;
         this.getExplain();
-        this.changeLevel(level);
-        this.levelBtn.children().eq(this.level-1).addClass('active');
+        this.lives = this.gameData.lives;
         this.setLives(this.gameData.lives);
     }
     
@@ -54,21 +37,13 @@ export class GameTemplate {
         this.record.q.push(question);
         this.record.a.push(answer);
         if (question === answer){
-            this.correctSound.play();
-            this.bingoGroph.css('display', 'block');
             this.record.result.push('O');
-            setTimeout(()=>{this.bingoGroph.css('display', 'none');}, 500);
         }
         else {
             this.record.result.push('X');
-            this.wrongSound.play();
-            this.dadaGroph.css('display', 'block');
             this.lives -= 1;
             setLives(this.lives)
-            setTimeout(()=>{this.dadaGroph.css('display', 'none');}, 500);
             this.winLevelArr.pop(level);
-            this.levelBtn.children().eq(this.level - 1).removeClass('bingo');
-            this.levelBtn.children().eq(this.level - 1).addClass('active');
         }
         this.getGameResult();
     }
@@ -98,14 +73,12 @@ export class GameTemplate {
                 level = 1;
             }
         }
-        this.levelBtn.children().eq(this.level - 1).removeClass('active');
-        this.levelBtn.children().eq(level - 1).addClass('active');
         this.level = level;
         this.resetGame(this.level);
     }
     
     resetGame(level){
-        this.init(level);
+        this.startGame(level);
         // this.record = {
         //     'q': []
         //     , 'a': []
@@ -168,45 +141,6 @@ export class GameTemplate {
             $('.lives').append(livesImg);
         }
         this.lives = lives;
-    }
-    set_off_fireworks(){
-        this.firework_sound.currentTime = 1.5;
-        this.firework_sound.play();
-        this.fireworkContainer.css('display', 'block');
-        showFirework();
-        setTimeout(()=>{this.firework_sound.pause()}, 2500);
-        let count = 0;
-        while (count < 2300){
-            let milliseconds =  Math.floor(Math.random() * (800 - 400 + 1)) + 400;
-            count += milliseconds;
-            setTimeout(this.showFirework, count)
-        }
-        setTimeout(() => {
-            this.fireworkContainer.css('display', 'none');
-        }, count)
-    } 
-    
-    showFirework() {
-        for (let i = 0; i < 5; i++) {
-            let width = 100 * (Math.random()*2.5);
-            const fireworksElement = $('<img>');
-            fireworksElement.attr('src', this.fireworksUrl);
-            fireworksElement.css({
-                'position': 'absolute',
-                'width': `${width}px`,
-                'height': 'auto',
-                'left': Math.floor(Math.random() * (this.fireworkContainer.width() - width)) + 'px',
-                'top': Math.floor(Math.random() * (this.fireworkContainer.height() - width * 1.5)) + 'px'
-            });
-            this.fireworkContainer.append(fireworksElement);
-        }
-        setTimeout(this.removeFirework, 1194);
-    }  
-    
-    removeFirework() {
-        for (let i = 0; i < 5; i++) {
-            this.fireworkContainer.children().first().remove();
-        }
     }
 }
 

@@ -2,15 +2,12 @@ import {getJson, reorder, createLine} from "../../../game_view/src/function.js"
 import {GameTemplate} from "../../../game_view/src/GameTemplate.js"
 
 
-// state
-const GAME_FILE = 'FILE'
-const GAME_ALIVE = 'ALIVE'
-const GAME_WIN = 'WIN'
 const gameData = await getJson('../../games/fractional_connection/game_config.json');
 
 export class Game extends GameTemplate {
     constructor(){
         super();
+        this.levelLimit = gameData.length;
         this.gameArea = $('.gameArea');
         this.topic_explain = new Array(this.levelLimit).fill('剩下多少水量呢？請連線告訴我吧！');
         this.drawingArea = $('.drawingArea');
@@ -120,3 +117,7 @@ export class Game extends GameTemplate {
         $('.hintContainer .right').html(this.gameArea.find('.right .fraction').clone());
     }
 }
+
+
+// TODO why gameIframe.contentWindow.game is undifined 
+window.game = new Game();
