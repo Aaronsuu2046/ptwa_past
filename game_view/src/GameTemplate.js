@@ -1,13 +1,10 @@
+import {GAME_FILE, GAME_ALIVE, GAME_WIN} from "./const.js"
 import {getJson} from "./function.js"
-// state
-const GAME_FILE = 'FILE'
-const GAME_ALIVE = 'ALIVE'
-const GAME_WIN = 'WIN'
+
 const gameData = await getJson('./game_config.json');
 
 export class GameTemplate {
     gameRule = $('.gameRule');
-    topic = $('.topic');
     levelBtn = $('.levelBtn');
     bingoGroph = $('#bingo');
     dadaGroph = $('#dada');
@@ -17,6 +14,7 @@ export class GameTemplate {
     fireworkContainer = $('#firework-container');
     fireworksUrl = './assets/images/fireworks.gif';
     constructor(){
+        this.explain = $('.explain');
         this.levelLimit = this.levelBtn.children().length;
         this.topic_explain = new Array(this.levelLimit).fill('遊戲目標');
         this.winLevelArr = [];
@@ -41,10 +39,11 @@ export class GameTemplate {
         if (this.gameState===GAME_WIN){
             this.resetGame();
         }
+        this.gameRule.css({display: 'none'});
         this.gameState = GAME_ALIVE;
-        this.getTopic();
+        this.getExplain();
         this.changeLevel(level);
-        this.levelBtn.children().eq(this.level).addClass('active');
+        this.levelBtn.children().eq(this.level-1).addClass('active');
         this.setLives(this.gameData.lives);
     }
     
@@ -148,8 +147,8 @@ export class GameTemplate {
         overlay.toggle();
     }
     
-    getTopic(){
-        $(this.topic).text(this.topic_explain[this.level-1]);
+    getExplain(){
+        this.explain.html(`<h1>${this.topic_explain[this.level-1]}</h1>`);
     }
     
     setLives(lives){

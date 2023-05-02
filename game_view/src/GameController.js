@@ -15,6 +15,7 @@ export class GameController {
             case fractionalConnection:
                 return new FractionalConnection();
         default:
+            return new Game();
             break;
         }
     }

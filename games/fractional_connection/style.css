@@ -11,6 +11,7 @@ body {
 
 /* Drawing Area */
 .drawingArea {
+    position: absolute;
     width: 100%;
     height: 100%;
 }
@@ -79,31 +80,42 @@ body {
     padding-right: 10%;
 }
 
-/* container */
-
-.fractional_connection {
+/* Explain */
+.explain {
     position: absolute;
-    width: 100%;
-    height: 85%;
-    bottom: 0%;
-    left: 0%;
-    margin-bottom: 20px;
+    width: 800px;
+    height: 50px;
+    top: 10px;
+    left: 10px;
+    font-size: 40px;
+    font-weight: bold;
+    color: black;
 }
-
-
+/* Lives */
+.lives{
+    position: absolute;
+    top: 2%;
+    /* left: 50%; */
+    width: 100px;
+    transform: translateX(-25%);
+    right: 0;
+}
 /* Game Area */
-.fractional_connection {
+.gameArea {
+    position: relative;
+    width: 800px;
+    height: 600px;
     display: flex;
     justify-content: space-between;
 }
 
-.fractional_connection .left, .fractional_connection .right {
+.gameArea .left, .gameArea .right {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: start;
     flex: 5;
-    margin-left: 10%;
+    margin: 8% 0% 0% 10%;
 }
 
 /* Question */
@@ -187,15 +199,15 @@ body {
 }
 
 /* dot */
-.fractional_connection .questionArea .dot, .fractional_connection .answerArea .dot {
+.gameArea .questionArea .dot, .gameArea .answerArea .dot {
     width: 20px;
     height: 20px;
     background-color: black;
     border-radius: 50%;
 }
-.fractional_connection .questionArea .dot {
+.gameArea .questionArea .dot {
     margin-left: 10%;
 }
-.fractional_connection .answerArea .dot {
+.gameArea .answerArea .dot {
     margin-right: 10%;
 }

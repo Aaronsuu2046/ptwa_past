@@ -9,23 +9,14 @@ const closeHintBtn = $(`.hintContainer .closeHintBtn`);
 const gameIframe = $('.gameIframe');
 const allGameData = await getJson('../../../game_view/game_config.json');
 const gameName = 'fractional_connection';
-const game = new GameController(gameName).game;
-const btnHandler = new Handler(game);
-
-gameIframe.html(`<iframe id=${gameName} src=../games/${gameName}></iframe>`)
 
 levelsArea.html(getLevels());
 $('.context').html(getRule());
-const myElement = $('.gameRule');
-  const elementHtml = myElement.html();
-  const elementHeight = myElement.outerHeight();
-  const elementStyle = myElement.attr('style');
-  
-  const alertHtml = '<div style="' + elementStyle + '; height: ' + elementHeight + 'px;">' + elementHtml + '</div>';
-  
-  alert(alertHtml);
 optionsArea.html(getOptions());
+gameIframe.html(`<iframe id=${gameName} scrolling="no" src=../games/${gameName}></iframe>`)
 
+const game = new GameController(gameName).game;
+const btnHandler = new Handler(game);
 levelsArea.on('click', (e) => {
     const level = parseInt(e.target.id);
     $(e.target).addClass('active');

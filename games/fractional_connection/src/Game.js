@@ -6,16 +6,17 @@ import {GameTemplate} from "../../../game_view/src/GameTemplate.js"
 const GAME_FILE = 'FILE'
 const GAME_ALIVE = 'ALIVE'
 const GAME_WIN = 'WIN'
-
+const gameData = await getJson('../../games/fractional_connection/game_config.json');
 
 export class Game extends GameTemplate {
     constructor(){
         super();
+        this.gameArea = $('.gameArea');
         this.topic_explain = new Array(this.levelLimit).fill('剩下多少水量呢？請連線告訴我吧！');
         this.drawingArea = $('.drawingArea');
-        this.gameArea = $('.game_area');
         this.isDrawing = false;
         this.drawView();
+        this.gameData = gameData;
     }
     startGame(level) {
         super.startGame(level);
@@ -25,8 +26,8 @@ export class Game extends GameTemplate {
                     };
         this.createQuestions();
         this.createHint();
-        reorder($('.game_area .left'));
-        reorder($('.game_area .right'));
+        reorder(this.gameArea.find('.left'));
+        reorder(this.gameArea.find('.right'));
     }
 
     drawView() {
@@ -103,18 +104,19 @@ export class Game extends GameTemplate {
 
     createQuestions() {
         const level = this.level - 1;
-        $('.game_area .scalls').each((index, value) => {
+        this.gameArea.find(('.scalls')).each((index, value) => {
+            console.log(value);
             let $value = $(value);
             let bottom = this.gameData[level].bottom[index];
             let top = this.gameData[level].top[index];
             $value.html('<li></li>'.repeat(bottom + 1));
-            $('.game_area .fraction .top').eq(index).html(`<h1>${top}</h1>`)
-            $('.game_area .water').eq(index).css({"height": `${top/bottom*100}%`})
-            $('.game_area .fraction .bottom').eq(index).html(`<h1>${bottom}</h1>`)
+            this.gameArea.find('.fraction .top').eq(index).html(`<h1>${top}</h1>`)
+            this.gameArea.find('.water').eq(index).css({"height": `${top/bottom*100}%`})
+            this.gameArea.find('.fraction .bottom').eq(index).html(`<h1>${bottom}</h1>`)
         });
     }
     createHint() {
-        $('.hintContainer .left').html($('.game_area .left .topicArea').clone());
-        $('.hintContainer .right').html($('.game_area .right .fraction').clone());
+        $('.hintContainer .left').html(this.gameArea.find('.left .topicArea').clone());
+        $('.hintContainer .right').html(this.gameArea.find('.right .fraction').clone());
     }
 }
