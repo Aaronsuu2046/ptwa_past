@@ -1,3 +1,4 @@
+import {Game} from '../../games/fractional_connection/src/Game.js'
 import * as constant from "./constant.js"
 import {getJson} from './function.js';
 import {Handler} from './Handler.js';
@@ -15,10 +16,6 @@ $('.context').html(getRule());
 optionsArea.html(getOptions());
 gameIframe.html(`<iframe id=${gameName} scrolling="no" src=../games/${gameName}></iframe>`)
 const game = window.game;
-console.log(window.game);
-console.log($('iframe')[0]);
-console.log($('iframe').contentWindow);
-console.log(game);
 levelsArea.on('click', (e) => {
     const level = parseInt(e.target.id);
     $(e.target).addClass('active');

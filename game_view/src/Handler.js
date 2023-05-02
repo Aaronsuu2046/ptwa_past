@@ -29,10 +29,10 @@ export class Handler {
             this.changeLevel(this.game.level);
             break;
         case HINT_BTN:
-            this.game.loadRecord();
+            this.game.toggleHint();
             break;
         case RECORD_BTN:
-            this.game.toggleHint();
+            this.game.loadRecord();
             break;
         case SUBMIT_BTN:
             this.game.checkAnswer();
