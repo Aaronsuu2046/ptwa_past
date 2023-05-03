@@ -7,15 +7,15 @@ const optionsBtn = {"lastBtn": "上一關", "startBtn": "遊戲開始", "nextBtn
 const levelsArea = $(`.levelBtn`);
 const optionsArea = $(`.optionsBtn`);
 const closeHintBtn = $(`.hintContainer .closeHintBtn`);
-const gameIframe = $('.gameIframe');
-const allGameData = await getJson('../../../game_view/game_config.json');
 const gameName = 'fractional_connection';
+const gameIframe = $('.gameIframe').find(`${gameName}`);
+const allGameData = await getJson('../../../game_view/game_config.json');
 
 levelsArea.html(getLevels());
 $('.context').html(getRule());
 optionsArea.html(getOptions());
-gameIframe.html(`<iframe id=${gameName} scrolling="no" src=../games/${gameName}></iframe>`)
-const game = window.game;
+const game = $(`#${gameName}`)[0].contentWindow.game;
+
 levelsArea.on('click', (e) => {
     const level = parseInt(e.target.id);
     $(e.target).addClass('active');
@@ -25,6 +25,10 @@ levelsArea.on('click', (e) => {
 const btnHandler = new Handler(game, levelsArea);
 optionsArea.on('click', (e) => {
     const act = e.target.id;
+    if (optionsBtn[act] === optionsBtn.startBtn){
+        const gameRule = $('.gameRule');
+        gameRule.css({"display": 'none'});
+    }
     btnHandler.handleRequest(act);
 })
 
@@ -68,8 +72,6 @@ function getOptions(){
     return options;
 }
 
-const gameRule = $('.gameRule');
-gameRule.css({display: 'none'});
 function showResultView(options){
     if (options === constant.BINGO){
         playCorrect();

@@ -18,12 +18,6 @@ export class GameTemplate {
         this.level = 1;
     }
     startGame(level) {
-        if (this.gameState=== constant.GAME_ALIVE){
-            return
-        }
-        if (this.gameState=== constant.GAME_WIN){
-            this.resetGame(level);
-        }
         this.gameState =  constant.GAME_ALIVE;
         this.getExplain();
         this.lives = this.gameData.lives;
@@ -78,6 +72,7 @@ export class GameTemplate {
     }
     
     resetGame(level){
+        this.gameState = constant.GAME_FILE;
         this.startGame(level);
         // this.record = {
         //     'q': []
@@ -121,7 +116,7 @@ export class GameTemplate {
     }
     
     getExplain(){
-        this.explain.html(`<h1>${this.topic_explain[this.level-1]}</h1>`);
+        this.explain.text(`${this.topic_explain[this.level-1]}`);
     }
     
     setLives(lives){
