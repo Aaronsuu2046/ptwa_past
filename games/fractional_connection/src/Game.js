@@ -70,11 +70,10 @@ export class Game extends GameTemplate {
             if (!this.isDrawing) return;
             const {offsetX, offsetY} = event.touches ? event.touches[0] : event;
             line.setAttribute("x2", offsetX);
-            line.setAttribute("y2", offsetY);
+            line.setAttribute("y2", offsetY+5);
         }
     
         const mouseupListener = (event) => {
-            console.log("up")
             if (!this.isDrawing) return;
             this.isDrawing = false;
             const pos = getDotPos(event, "answerArea");
@@ -92,12 +91,11 @@ export class Game extends GameTemplate {
                 mouseDownListener(e);
             }
         });
-        this.gameArea.on("mousemove", mouseMoveListener);
+        this.drawingArea.on("mousemove", mouseMoveListener);
         this.gameArea.on("touchmove", (e) => {
             mouseMoveListener(e);
         });
         this.gameArea.on("mouseup", (e) => {
-            console.log(e.target.classList)
             if (checkAnswerArea(e)){
                 mouseupListener(e);
                 console.log("up")
@@ -127,10 +125,10 @@ export class Game extends GameTemplate {
             let $value = $(value);
             let bottom = this.gameData[level].bottom[index];
             let top = this.gameData[level].top[index];
-            $value.html('<li></li>'.repeat(bottom + 1));
-            $value.siblings('.fraction').find('.top').html(`<h1>${top}</h1>`);
             $value.siblings('.water').css({ "height": `${top/bottom*100}%` });
-            $value.siblings('.fraction').find('.bottom').html(`<h1>${bottom}</h1>`);
+            $value.html('<li></li>'.repeat(bottom + 1));
+            $gameArea.find('.fraction .top').eq(index).html(`<h1>${top}</h1>`);
+            $gameArea.find('.fraction .bottom').eq(index).html(`<h1>${bottom}</h1>`);
         });
     }
       
