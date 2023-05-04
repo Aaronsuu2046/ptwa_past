@@ -168,7 +168,7 @@ class Game {
     }
     
     getTopic(){
-        $(this.topic).text('毫升、公升比大小(' + this.level + ')');
+        $(this.topic).text('不同重量單位比大小(' + this.level + ')');
     }
     
     setLives(lives){
