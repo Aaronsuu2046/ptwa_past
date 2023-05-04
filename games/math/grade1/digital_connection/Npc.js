@@ -1,5 +1,5 @@
 NPC_PATH = "./asset/image/npc.png";
-LIVES_PATH = "./asset/image/lives.svg";
+LIVES_PATH = "../../../../assets/images/game_images/lives.svg";
 
 
 class Npc {

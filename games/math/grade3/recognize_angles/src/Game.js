@@ -11,7 +11,7 @@ const GAME_WIN = 'WIN'
 // set firework
 const firework_sound = $('#win')[0];
 const fireworkContainer = $('#firework-container');
-const fireworksUrl = './assets/images/fireworks.gif';
+const fireworksUrl = '../../../../assets/images/game_images/fireworks.gif';
 
 class Game {
     overlay = $('.overlay');
@@ -174,7 +174,7 @@ class Game {
         }
         for (let i = 0; i <count; i++){
             const livesImg = $('<img>')
-            .attr('src', './assets/images/lives.svg')
+            .attr('src', '../../../../assets/images/game_images/lives.svg')
             .attr('alt', 'lives image')
             .attr('width', '60')
             .attr('height', 'auto')

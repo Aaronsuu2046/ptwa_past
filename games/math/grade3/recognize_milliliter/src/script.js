@@ -18,7 +18,7 @@ const scales = document.querySelector('.scales');
 const gameRule = document.querySelector('.gameRule');
 const firework_sound = document.getElementById('win');
 const fireworkContainer = document.querySelector('#firework-container');
-const fireworksUrl = './assets/images/fireworks.gif';
+const fireworksUrl = '../../../../assets/images/game_images/fireworks.gif';
 let level = 0, lives = 3, milliliter = 0, start = 0, end = 10, tolerance = 1, delay = 40;
 let act = '', hint = `${milliliter} ml`;
 let isHint, isWrong = false;
@@ -327,7 +327,7 @@ function setLives(lives){
     }
     for (let i = 0; i <count; i++){
         const livesImg = $('<img>')
-        .attr('src', './assets/images/lives.svg')
+        .attr('src', '../../../../assets/images/game_images/lives.svg')
         .attr('alt', 'lives image')
         .attr('width', '60')
         .attr('height', 'auto')

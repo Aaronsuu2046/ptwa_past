@@ -50,7 +50,7 @@ const literDots = [...document.querySelectorAll(`.literDots .circle`)];
 const allDots = [...milliliterDots, ...literDots];
 const firework_sound = document.getElementById('win');
 const fireworkContainer = document.querySelector('#firework-container');
-const fireworksUrl = './assets/images/fireworks.gif';
+const fireworksUrl = '../../../../assets/images/game_images/fireworks.gif';
 let level = 0, lives = 3;
 let act = '', start = '', end = '';
 let gameState = GAME_FILE;
@@ -372,7 +372,7 @@ function setLives(lives){
     }
     for (let i = 0; i <count; i++){
         const livesImg = $('<img>')
-        .attr('src', './assets/images/lives.svg')
+        .attr('src', '../../../../assets/images/game_images/lives.svg')
         .attr('alt', 'lives image')
         .attr('width', '60')
         .attr('height', 'auto')

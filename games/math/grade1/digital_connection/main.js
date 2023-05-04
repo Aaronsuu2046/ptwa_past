@@ -14,7 +14,7 @@ let HINT_FONT_STYLE = `bold ${HINT_SIZE}px Courier`;
 let SCORE_SIZE = 50;
 let SCORE_FONT_STYLE = `bold ${SCORE_SIZE}px Courier`;
 
-const fireworksUrl = './asset/image/fireworks.gif';
+const fireworksUrl = '../../../../assets/images/game_images/fireworks.gif';
 
 const canvas_bg = document.getElementById('canvas1');
 const ctx_bg = canvas_bg.getContext('2d');
