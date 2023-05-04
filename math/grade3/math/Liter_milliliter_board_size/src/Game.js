@@ -59,31 +59,31 @@ class Game {
 
         let Question = $('.Question'), valueL = this.questionLeft[this.level], valueR = this.questionRight[this.level];
         
-        Question.each(() => {
-            this.questionDigitSeparation(valueL, valueR);
-            let headL = false, headR = false;
-            for(let i = 0, j = 4; i < 4; i++, j++){
-                if(!headL && this.nowQuestion[i] === 0)
-                    $(Question[i]).html("")
-                else if(!headL && this.nowQuestion[i] !== 0){
-                    headL = true;
-                    $(Question[i]).html(this.nowQuestion[i])
-                }
-                else{
-                    $(Question[i]).html(this.nowQuestion[i])
-                }
+        // Question.each(() => {
+        //     this.questionDigitSeparation(valueL, valueR);
+        //     let headL = false, headR = false;
+        //     for(let i = 0, j = 4; i < 4; i++, j++){
+        //         if(!headL && this.nowQuestion[i] === 0)
+        //             $(Question[i]).html("")
+        //         else if(!headL && this.nowQuestion[i] !== 0){
+        //             headL = true;
+        //             $(Question[i]).html(this.nowQuestion[i])
+        //         }
+        //         else{
+        //             $(Question[i]).html(this.nowQuestion[i])
+        //         }
 
-                if(!headR && this.nowQuestion[j] === 0)
-                    $(Question[j]).html("")
-                else if(!headR && this.nowQuestion[j] !== 0){
-                    headR = true;
-                    $(Question[j]).html(this.nowQuestion[j])
-                }
-                else{
-                    $(Question[j]).html(this.nowQuestion[j])
-                }
-            }
-        })
+        //         if(!headR && this.nowQuestion[j] === 0)
+        //             $(Question[j]).html("")
+        //         else if(!headR && this.nowQuestion[j] !== 0){
+        //             headR = true;
+        //             $(Question[j]).html(this.nowQuestion[j])
+        //         }
+        //         else{
+        //             $(Question[j]).html(this.nowQuestion[j])
+        //         }
+        //     }
+        // })
     }
     
     checkAnswer() {
@@ -192,7 +192,7 @@ class Game {
     }
     
     getTopic(){
-        $(this.topic).text('比大小(' + this.level + ')');
+        $(this.topic).text('毫升、公升比大小(' + this.level + ')');
     }
     
     setLives(lives){

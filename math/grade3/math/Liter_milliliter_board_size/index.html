@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>比大小</title>
+    <title>毫升公升比大小</title>
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css" />
 </head>
@@ -19,7 +19,6 @@
             <button id="2">2</button>
             <button id="3">3</button>
             <button id="4">4</button>
-            <button id="5">5</button>
         </div>
         <div class="myCanvas">
             <div class="gameRule">
@@ -41,7 +40,8 @@
                 <div class="hintContainer">
                     <h1 >
                         提示：<br>
-                        先從千位開始比大小，<br>
+                        記得要先變成一樣的單位，<br>
+                        然後再從最高位數開始比大小，<br>
                         如果有一方比較大，<br>
                         接下來的數字都不用比較喔
                     </h1>
@@ -52,52 +52,14 @@
             <div class="game_area">
                 <div class="questionDisplay">
                     <div class="firstValueContainer">
-                        <div class="thousand">
-                            <h1>千位</h1>
-                            <hr>
-                            <p class="Question">n1</p>
-                        </div>
-                        <div class="hundred">
-                            <h1>百位</h1>
-                            <hr>
-                            <p class="Question">n2</p>
-                        </div>
-                        <div class="ten">
-                            <h1>十位</h1>
-                            <hr>
-                            <p class="Question">n3</p>
-                        </div>
-                        <div class="digits">
-                            <h1>個位</h1>
-                            <hr>
-                            <p class="Question">n</p>
-                        </div>
+                        <p class="Question">n</p>
                     </div>
 
                     <div class="compare">
                     </div>
 
                     <div class="secondValueContainer">
-                        <div class="thousand">
-                            <h1>千位</h1>
-                            <hr>
-                            <p class="Question">n</p>
-                        </div>
-                        <div class="hundred">
-                            <h1>百位</h1>
-                            <hr>
-                            <p class="Question">n</p>
-                        </div>
-                        <div class="ten">
-                            <h1>十位</h1>
-                            <hr>
-                            <p class="Question">n</p>
-                        </div>
-                        <div class="digits">
-                            <h1>個位</h1>
-                            <hr>
-                            <p class="Question">n</p>
-                        </div>
+                        <p class="Question">n</p>
                     </div>
                 </div>
 

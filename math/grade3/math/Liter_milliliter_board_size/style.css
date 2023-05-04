@@ -272,36 +272,20 @@ button {
 
 .firstValueContainer, .secondValueContainer{
     display: flex;
-    width: 300px;
+    width: 250px;
+    justify-content: center;
     border: 1px solid black;
     border-radius: 5px;
-}
-
-.compare{
-    width: 50px;
-    height: 50px;
-    border: 1px solid black;
-}
-
-.thousand, .hundred, .ten, .digits{
-    display: flex;
-    flex-flow: column;
-    border: 1px solid black;
-    flex: 1;
 }
 
 .Question{
     text-align: center;
     vertical-align: center;
+    transform: translateY(-5px);
     font-size: 50px;
     margin: 0px;
 }
 
-hr{
-    margin: 0px;
-    width: 100%;
-    box-sizing: border-box;
-}
 
 .questionDisplay{
     display: flex;
@@ -336,13 +320,16 @@ hr{
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
 }
 
 .compare h1{
     margin: 0px;
     padding: 0px;
     font-weight: bold;
-    font-size: 80px;
+    font-size: 100px;
     box-sizing: border-box;
     transform: translateY(-8px);
 }

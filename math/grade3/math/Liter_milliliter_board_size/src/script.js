@@ -29,7 +29,6 @@ jumpBtn.on('animationiteration', ()=>{
 
 comparisonSymbol.on('mousedown', (e) =>{
     let initX = e.clientX, initY = e.clientY;
-    console.log(initX, initY);
     if(e.target.className !== 'answerDisplay'){
         $('.' + e.target.className).on('mousemove', (event) => {
             //左下角:(374,302) 右上角:(423, 256)
@@ -39,6 +38,7 @@ comparisonSymbol.on('mousedown', (e) =>{
 
         $('.' + e.target.className).on('mouseup', (temp) => {
             let endPositionX = temp.clientX, endPositionY = temp.clientY;
+            // console.log(endPositionX, endPositionY); //用來鎖定答案框範圍
             $('.' + e.target.className).off();
             $('.' + e.target.className).css('transform', 'translate(0px, 0px)');
             if((parseInt(endPositionX) >= 370 && parseInt(endPositionX) <= 425) 
