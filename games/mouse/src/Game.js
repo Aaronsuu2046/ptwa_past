@@ -35,7 +35,8 @@ class Game {
         this.gameState = GAME_FILE;
         this.gameData = gameData;
         this.gameArea = $('.game_area')
-        this.level = 0;
+        this.fishArea = $('.fishArea')
+        this.level = 1;
         this.lives = 3;
         this.record = {'q': []
                         , 'a': []
@@ -43,33 +44,43 @@ class Game {
                       };
         this.winLevelArr = [];
         this.topic_explan = [];
+        this.score = 0;
         $(this.gameData).each((index, value)=>{
-            if (value.q === "eat"){
-                this.topic_explan.push("請吃藍魚，獲得更多分數！")
-            }
-            if (value.q === "dodge"){
-                this.topic_explan.push("請躲避紅魚，獲得更多分數！")
-            }
-            if (value.q === "mix"){
-                this.topic_explan.push("請吃藍魚，並躲避紅魚，獲得更多分數！")
-            }
+            this.topic_explan.push(this.gameData[index].explain)
         })
+        this.gameArea.on('mousemove touchmove', (e) => {
+            const mouseX = e.pageX || e.originalEvent.touches[0].pageX;
+            const mouseY = e.pageY || e.originalEvent.touches[0].pageY;
+            const player = $('img[data-name="player"]');
+            const playerWidth = player.width();
+            const playerHeight = player.height();
+            const playerLeft = mouseX - playerWidth / 2;
+            const playerTop = mouseY - playerHeight * 1.5;
+            const gameAreaWidth = this.gameArea.width();
+            const gameAreaHeight = this.gameArea.height();
+          
+            const checkOutOfBounds = (value, min, max) => {
+              return value < min ? min : (value + playerWidth > max ? max - playerWidth : value);
+            };
+          
+            player.css({
+              'position': 'absolute',
+              'left': checkOutOfBounds(playerLeft, 0, gameAreaWidth),
+              'top': checkOutOfBounds(playerTop, 0, gameAreaHeight),
+            });
+            this.checkCollision();
+          });
     }
+
     startGame(level) {
         if (this.gameState===GAME_ALIVE){
             return
         }
         if (this.gameState===GAME_WIN){
-            this.resetGame();
+            this.resetGame(level-1);
         }
-        if (this.level===0){
-            this.levelBtn.children().eq(this.level).addClass('active');
-            this.level = 1;
-        }
-        else {
-            this.changeLevel(level);
-        }
-        this.changeLevel(level);
+        this.level = level;
+        this.levelBtn.children().eq(this.level-1).addClass('active');
         this.gameState = GAME_ALIVE;
         this.getTopic();
         this.lives = 3;
@@ -79,15 +90,8 @@ class Game {
                     , 'result': []
                     };
         
-        this.gameArea.html("");
-        for (let i = 0; i < 5; i++){
-            const fish = this.createFish();
-            const appearTime = randomNumber(500, 2000);
-            setTimeout(()=>{
-                this.gameArea.append(fish)
-                this.swinming(fish);
-            }, appearTime);
-        }
+        this.fishArea.html("");
+        this.addFish(5);
     }
     
     checkAnswer(question, answer) {
@@ -138,10 +142,10 @@ class Game {
             }
         }
         this.level = level;
-        this.resetGame();
+        this.resetGame(this.level);
     }
     
-    resetGame(){
+    resetGame(level){
         this.gameState = GAME_FILE;
         firework_sound.pause();
         fireworkContainer.css('display', 'none');
@@ -155,43 +159,100 @@ class Game {
                 $child.addClass('active');
             }
         })
+        this.startGame(level);
 
     }
     
+    checkCollision(){
+        const fish1s = $('img[data-name="fish1"]');
+        const fish2s = $('img[data-name="fish2"]');
+
+        this.checkFish(fish1s, "fish1");
+        this.checkFish(fish2s, "fish2");
+    }
+
+    checkFish(fishArray, fishName) {
+        const player = $('img[data-name="player"]');
+        fishArray.each((index, fish) => {
+            const $fish = $(fish);
+            const overlap = !(
+              player.offset().left + player.width() < $fish.offset().left ||
+              player.offset().left > $fish.offset().left + $fish.width() ||
+              player.offset().top + player.height() < $fish.offset().top ||
+              player.offset().top > $fish.offset().top + $fish.height()
+            );
+            if (!overlap) {
+                return true;
+            }
+            if (fishName === "fish1"){
+                this.score += 1;
+                $fish.remove();
+                this.addFish(1);
+                $('.score').text(this.score);
+            }
+            if (fishName === "fish2"){
+                this.lives -= 1;
+                this.setLives(this.lives)
+            }
+        });
+    }
+
+    addFish(times) {
+        for (let i = 0; i < times; i++){
+            const appearTime = randomNumber(1000, 5000);
+            setTimeout(()=>{
+                const fish = this.createFish();
+                this.fishArea.append(fish)
+                this.swimming(fish);
+            }, appearTime);
+        }
+    }
+
     createFish(){
-        let imgURL = "./assets/images/fish1.gif"
-        if (this.gameData[this.level].q !== "eat"){
-            imgURL = "./assets/images/fish2.gif"
+        let imgURL = ["./assets/images/fish1.gif"]
+        let fishName = ["fish1"];
+        if (this.gameData[this.level-1].q === "dodge"){
+            imgURL = ["./assets/images/fish2.gif"]
+            fishName = ["fish2"];
+        }
+        else if (this.gameData[this.level-1].q === "mix"){
+            imgURL.push("./assets/images/fish2.gif")
+            fishName = ["fish1", "fish2"];
         }
         const fishElement = $('<img>');
-        fishElement.attr('src', imgURL);
+        const fishNumber = randomNumber(0, imgURL.length);
+        fishElement.attr('src', imgURL[fishNumber]);
         const width = randomNumber(100, 200);
         fishElement
             .css({
                 'position': 'absolute',
                 'width': `${width}px`,
                 'height': 'auto',
-                'left':  `${this.gameArea.width()}px`,
-                'top': randomNumber(0, this.gameArea.height()-width) + 'px'
+                'left':  `${this.fishArea.width()}px`,
+                'top': randomNumber(0, this.fishArea.height()-width) + 'px'
             })
             .attr({
-                'speed': this.gameData[this.level].speed
+                'data-speed': this.gameData[this.level-1].speed
+                ,'data-name': fishName[fishNumber]
             });
-        return fishElement
+        return fishElement;
     }
 
-    swinming(fish){
-        let i = 0;
-        while (i < this.gameArea.width()){
-            setTimeout((i)=>{
-                fish.css({'left': `${this.gameArea.width()-i}px`})
-                console.log(fish);
-                console.log(i);
-            }, 1000);
-            i += 10;
-        }
-        return
-    }
+    swimming = (fish) => {
+        const screenWidth = this.fishArea.width();
+        const imgWidth = fish.width();
+        const animateTime = 8000 / fish.data('speed');
+
+        fish.animate({left: -imgWidth}, animateTime, 'linear', () => {
+            const width = randomNumber(100, 200);
+            fish.css({
+                'left': screenWidth+width + randomNumber(0, 500)
+                , 'width': `${width}px`
+                , 'top': randomNumber(0, this.fishArea.height()-fish.height()) + 'px'
+            });
+            this.swimming(fish);
+        });
+    }    
 
     loadRecord() {
         // Set download file name
@@ -228,7 +289,7 @@ class Game {
     }
     
     getTopic(){
-        $(this.topic).text(this.topic_explan[this.level]);
+        $(this.topic).text(this.topic_explan[this.level-1]);
     }
     
     setLives(lives){
@@ -240,7 +301,7 @@ class Game {
         }
         for (let i = 0; i <count; i++){
             const livesImg = $('<img>')
-            .attr('src', './assets/images/lives.svg')
+            .attr('src', './assets/images/heart.png')
             .attr('alt', 'lives image')
             .attr('width', '60')
             .attr('height', 'auto')

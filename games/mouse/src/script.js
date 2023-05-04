@@ -7,7 +7,7 @@ const closeHintBtn = $(`.hintContainer .closeHintBtn`);
 const jumpBtn = $('.jumpBtn');
 
 levelsArea.on('click', (e) => {
-    const level = parseInt(e.target.id);
+    const level = parseInt(e.target.textContent);
     $(e.target).addClass('active');
     game.changeLevel(level);
 })
