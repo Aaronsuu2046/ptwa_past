@@ -30,9 +30,9 @@ class Game {
                       };
         this.topic_explan = {1: `遊戲目標`};
         this.winLevelArr = [];
-        this.questionLeft = [, '3020mL', '1L', '17mL', '1600mL']
-        this.questionRight = [, '3L 200mL', '100mL', '17 x 1 L', '1L 60mL']
-        this.answer = [, '<', '>', '<', '>']
+        this.questionLeft = [, '4kg', '1kg 100g', '2030g', '6700g', '3kg 9g']
+        this.questionRight = [, '4002g', '1010g', '2kg 300g', '6kg 700g', '3090g']
+        this.answer = [, '<', '>', '<', '=', '<']
         this.nowReply = "";
     }
     startGame(level) { 
