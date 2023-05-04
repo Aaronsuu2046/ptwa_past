@@ -274,8 +274,8 @@ button {
     display: flex;
     width: 250px;
     justify-content: center;
-    border: 1px solid black;
-    border-radius: 5px;
+    border: 3px solid rgb(2,187,220);
+    border-radius: 10px;
 }
 
 .Question{
@@ -322,7 +322,8 @@ button {
     align-items: center;
     width: 100px;
     height: 100px;
-    border: 1px solid black;
+    border: 3px solid rgb(2,187,220);
+    border-radius: 10px;
 }
 
 .compare h1{
