@@ -109,7 +109,6 @@ class Game {
             this.setLives(this.lives)
             setTimeout(()=>{
             this.dadaGroph.css('display', 'none');}, 500);
-            console.log(this.level -1)
             this.winLevelArr[this.level - 1] = -1;
             this.levelBtn.children().eq(this.level - 1).removeClass('bingo');
             this.levelBtn.children().eq(this.level - 1).addClass('active');
@@ -149,7 +148,6 @@ class Game {
             if ($.inArray(index + 1, this.winLevelArr) !== -1) {
                 $child.addClass('bingo');
             } else if (index + 1 === this.level) {
-                console.log(index + 1, this.level, this.winLevelArr);
                 $child.addClass('active');
             }
         })

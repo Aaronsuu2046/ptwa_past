@@ -31,7 +31,7 @@ comparisonSymbol.on('mousedown', (e) =>{
     let initX = e.clientX, initY = e.clientY;
     if(e.target.className !== 'answerDisplay'){
         $('.' + e.target.className).on('mousemove', (event) => {
-            //左下角:(374,302) 右上角:(423, 256)
+            //左下角:(349, 317) 右上角:(449, 215)
             $('.' + e.target.className).css('transform', 'translate(' 
             + (event.clientX - initX) + 'px,' + (event.clientY - initY) +'px)');
         })
@@ -41,8 +41,8 @@ comparisonSymbol.on('mousedown', (e) =>{
             // console.log(endPositionX, endPositionY); //用來鎖定答案框範圍
             $('.' + e.target.className).off();
             $('.' + e.target.className).css('transform', 'translate(0px, 0px)');
-            if((parseInt(endPositionX) >= 370 && parseInt(endPositionX) <= 425) 
-            && (parseInt(endPositionY) <= 305 && parseInt(endPositionY) >= 255)){
+            if((parseInt(endPositionX) >= 345 && parseInt(endPositionX) <= 450) 
+            && (parseInt(endPositionY) <= 320 && parseInt(endPositionY) >= 215)){
                 game.symbolDisplay(temp.target.className);
             }
         })
