@@ -1,0 +1,11 @@
+[
+    {"q": "eat", "speed": 1}
+    , {"q": "eat", "speed": 1.5}
+    , {"q": "eat", "speed": 2}
+    , {"q": "dodge", "speed": 1}
+    , {"q": "dodge", "speed": 1.5}
+    , {"q": "dodge", "speed": 2}
+    , {"q": "mix", "speed": 1}
+    , {"q": "mix", "speed": 1.5}
+    , {"q": "mix", "speed": 2}
+]
