@@ -30,11 +30,10 @@ class Game {
                       };
         this.topic_explan = {1: `遊戲目標`};
         this.winLevelArr = [];
-        this.questionLeft = [, 999, 5311, 8712, 2135, 9874]
-        this.questionRight = [, 1000, 6311, 8439, 2132, 9894]
-        this.answer = [, '<', '<', '>', '>', '<']
+        this.questionLeft = [, '3020毫升', '1公升', '17mL', '1600mL']
+        this.questionRight = [, '3L 200mL', '100毫升', '17個1公升', '1L 60mL']
+        this.answer = [, '<', '>', '<', '>']
         this.nowReply = "";
-        this.nowQuestion = [];
     }
     startGame(level) { 
         $('.compare').html('');
@@ -59,31 +58,10 @@ class Game {
 
         let Question = $('.Question'), valueL = this.questionLeft[this.level], valueR = this.questionRight[this.level];
         
-        // Question.each(() => {
-        //     this.questionDigitSeparation(valueL, valueR);
-        //     let headL = false, headR = false;
-        //     for(let i = 0, j = 4; i < 4; i++, j++){
-        //         if(!headL && this.nowQuestion[i] === 0)
-        //             $(Question[i]).html("")
-        //         else if(!headL && this.nowQuestion[i] !== 0){
-        //             headL = true;
-        //             $(Question[i]).html(this.nowQuestion[i])
-        //         }
-        //         else{
-        //             $(Question[i]).html(this.nowQuestion[i])
-        //         }
-
-        //         if(!headR && this.nowQuestion[j] === 0)
-        //             $(Question[j]).html("")
-        //         else if(!headR && this.nowQuestion[j] !== 0){
-        //             headR = true;
-        //             $(Question[j]).html(this.nowQuestion[j])
-        //         }
-        //         else{
-        //             $(Question[j]).html(this.nowQuestion[j])
-        //         }
-        //     }
-        // })
+        Question.each(() => {
+            $(Question[0]).html(valueL);
+            $(Question[1]).html(valueR);
+        })
     }
     
     checkAnswer() {
@@ -230,22 +208,6 @@ class Game {
         else
             return;
 
-    }
-
-    questionDigitSeparation(valueL, valueR){
-        for(let index = 0, __ = 4; index < 4; index++, __++){
-            let tempL = valueL, tempR = valueR;
-            valueL = valueL / 10 ** (3 - index);
-            valueL = Math.floor(valueL) % 10;
-            this.nowQuestion[index] = valueL;
-
-            valueR = valueR / 10 ** (3 - index);
-            valueR = Math.floor(valueR) % 10;
-            this.nowQuestion[__] = valueR;
-
-            valueL = tempL;
-            valueR = tempR;
-          } 
     }
 }
 
