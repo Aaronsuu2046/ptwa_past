@@ -54,12 +54,12 @@ class Game {
             this.topic_explan.push(this.gameData[index].explain)
         })
         this.gameArea.on('mousemove touchmove', (e) => {
-            if (this.timeCount <= 0){
+            const player = $('img[data-name="player"]');
+            if (this.timeCount <= 0 || player.length === 0) {
                 return false;
             }
             const mouseX = e.pageX || e.originalEvent.touches[0].pageX;
             const mouseY = e.pageY || e.originalEvent.touches[0].pageY;
-            const player = $('img[data-name="player"]');
             const playerWidth = player.width();
             const playerHeight = player.height();
             const playerLeft = mouseX - playerWidth / 2;
@@ -76,7 +76,11 @@ class Game {
               'left': checkOutOfBounds(playerLeft, 0, gameAreaWidth),
               'top': checkOutOfBounds(playerTop, 0, gameAreaHeight),
             });
-            this.checkCollision();
+            const fish1s = $('img[data-name="fish1"]');
+            const fish2s = $('img[data-name="fish2"]');
+    
+            this.checkCollision(player, fish1s, "fish1");
+            this.checkCollision(player, fish2s, "fish2");
           });
     }
 
@@ -184,16 +188,8 @@ class Game {
         this.timeCount -= 1;
         this.time.text(this.timeCount);
     }
-    checkCollision(){
-        const fish1s = $('img[data-name="fish1"]');
-        const fish2s = $('img[data-name="fish2"]');
 
-        this.checkFish(fish1s, "fish1");
-        this.checkFish(fish2s, "fish2");
-    }
-
-    checkFish(fishArray, fishName) {
-        const player = $('img[data-name="player"]');
+    checkCollision(player, fishArray, fishName) {
         fishArray.each((index, fish) => {
             const $fish = $(fish);
             const overlap = !(
@@ -219,8 +215,23 @@ class Game {
                 if (this.lives <= 0){
                     this.timeCount = 0;
                 }
+                this.rebirth()
             }
         });
+    }
+
+    rebirth() {
+        const player = $('img[data-name="player"]');
+        player.attr('data-name', 'die');
+        player.css({'display': "none"})
+
+        for(let i = 0; i < 3; i++) {
+            player.fadeOut(250).fadeIn(250);
+        }
+        setTimeout(()=>{
+            player.attr('data-name', 'player');
+        }, 1500);
+
     }
 
     addFish(times) {
