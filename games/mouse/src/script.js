@@ -14,8 +14,12 @@ levelsArea.on('click', (e) => {
 
 optionsArea.on('click', (e) => {
     const act = e.target.id;
-    if (act === 'startBtn'){
+    if (act !== 'recordBtn'){
         $('.gameRule').css('display', 'none');
+        $('#startBtn').text("重新開始");
+    }
+    else{
+        game.checkAnswer();
     }
     startBtnHandler.handleRequest(act);
 })

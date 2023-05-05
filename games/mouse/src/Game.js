@@ -58,12 +58,13 @@ class Game {
             if (this.timeCount <= 0 || player.length === 0) {
                 return false;
             }
+            // TODO minus btns and head, use offset:
             const mouseX = e.pageX || e.originalEvent.touches[0].pageX;
             const mouseY = e.pageY || e.originalEvent.touches[0].pageY;
             const playerWidth = player.width();
             const playerHeight = player.height();
             const playerLeft = mouseX - playerWidth / 2;
-            const playerTop = mouseY - playerHeight * 1.5;
+            const playerTop = mouseY - playerHeight - 100;
             const gameAreaWidth = this.gameArea.width();
             const gameAreaHeight = this.gameArea.height();
           
@@ -75,6 +76,8 @@ class Game {
               'position': 'absolute',
               'left': checkOutOfBounds(playerLeft, 0, gameAreaWidth),
               'top': checkOutOfBounds(playerTop, 0, gameAreaHeight),
+              "width": '80px',
+              "height": 'auto'
             });
             const fish1s = $('img[data-name="fish1"]');
             const fish2s = $('img[data-name="fish2"]');
@@ -99,11 +102,6 @@ class Game {
         $('.score').text(this.score);
         this.lives = 3;
         this.setLives(this.lives);
-        this.record = {'q': []
-                    , 'a': []
-                    , 'result': []
-                    };
-        
         this.timeCount = this.gameData[this.level-1].countDown;
         this.time.text(this.timeCount)
         this.fishArea.html("");
@@ -112,32 +110,29 @@ class Game {
         this.stopCountID = setInterval(()=>{this.countDown()}, 1000);
     }
     
-    checkAnswer(question, answer) {
+    checkAnswer() {
         if (this.gameState !== GAME_ALIVE){
             return
         }
-        this.record.q.push(question);
-        this.record.a.push(answer);
-        if (question === answer){
-            this.correctSound.play();
-            this.bingoGroph.css('display', 'block');
-            this.record.result.push('O');
-            setTimeout(()=>{this.bingoGroph.css('display', 'none');}, 500);
-            set_off_fireworks();
-            this.winLevelArr.push(this.level);
-            this.gameState = GAME_WIN;
+        const topic = this.gameData[this.level-1].q;
+        this.record.q.push(topic === "eat"? "藍" : topic === "dodge" ? "紅" : "藍＋紅");
+        this.record.result.push(this.timeCount);
+        if (topic === "dodge"){
+            this.record.a.push(this.lives);
+            if (this.lives <= 0){
+                this.winLevelArr.pop(level);
+                this.levelBtn.children().eq(this.level - 1).removeClass('bingo');
+                this.levelBtn.children().eq(this.level - 1).addClass('active');
+                return
+            }
+            if (this.timeCount <= 0){
+                set_off_fireworks();
+                this.winLevelArr.push(this.level);
+                this.gameState = GAME_WIN;
+            }
         }
         else {
-            this.record.result.push('X');
-            this.wrongSound.play();
-            this.dadaGroph.css('display', 'block');
-            this.lives -= 1;
-            setLives(this.lives)
-            setTimeout(()=>{
-            this.dadaGroph.css('display', 'none');}, 500);
-            this.winLevelArr.pop(level);
-            this.levelBtn.children().eq(this.level - 1).removeClass('bingo');
-            this.levelBtn.children().eq(this.level - 1).addClass('active');
+            this.record.a.push(this.score);
         }
     }
     
@@ -182,6 +177,7 @@ class Game {
     countDown() {
         if (this.timeCount <= 0){
             this.finishSound.play();
+            this.checkAnswer();
             clearInterval(this.stopCountID);
             return false;
         }
@@ -192,13 +188,13 @@ class Game {
     checkCollision(player, fishArray, fishName) {
         fishArray.each((index, fish) => {
             const $fish = $(fish);
-            const overlap = !(
+            const isOverlap = !(
               player.offset().left + player.width() < $fish.offset().left ||
               player.offset().left > $fish.offset().left + $fish.width() ||
               player.offset().top + player.height() < $fish.offset().top ||
               player.offset().top > $fish.offset().top + $fish.height()
             );
-            if (!overlap) {
+            if (!isOverlap) {
                 return true;
             }
             if (fishName === "fish1"){
@@ -245,9 +241,11 @@ class Game {
     createFish(){
         let imgURL = ["./assets/images/fish1.gif"]
         let fishName = ["fish1"];
+        $('.score').css("display", "inline-block")
         if (this.gameData[this.level-1].q === "dodge"){
             imgURL = ["./assets/images/fish2.gif"]
             fishName = ["fish2"];
+            $('.score').css("display", "none")
         }
         else if (this.gameData[this.level-1].q === "mix"){
             imgURL.push("./assets/images/fish2.gif")
@@ -256,7 +254,7 @@ class Game {
         const fishElement = $('<img>');
         const fishNumber = randomNumber(0, imgURL.length);
         fishElement.attr('src', imgURL[fishNumber]);
-        const width = randomNumber(100, 200);
+        const width = randomNumber(80, 150);
         fishElement
             .css({
                 'position': 'absolute',
@@ -275,17 +273,16 @@ class Game {
     swimming = (fish) => {
         const screenWidth = this.fishArea.width();
         const screenHeight = this.fishArea.height();
-        const imgWidth = fish.width();
+        const endY = fish.width()+100;
         const animateTime = 8000 / fish.data('speed');
-        const currentTop = parseInt(fish.css('top'));
 
         fish.animate({
-            left: -imgWidth
+            left: -endY
             , top: `${0 + randomNumber(0, screenHeight)}px`
         }, animateTime, 'linear', () => {
             const width = randomNumber(100, 200);
             fish.css({
-                'left': screenWidth + width + randomNumber(0, 500)
+                'left': screenWidth + width + randomNumber(100, 1000)
                 , 'width': `${width}px`
                 , 'top': randomNumber(0, screenHeight-fish.height()) + 'px'
             });
@@ -297,7 +294,7 @@ class Game {
     loadRecord() {
         // Set download file name
         const filename = "遊玩紀錄.csv";
-        let csvContent = "Times,Question,Answer,Result\n"; // Add CSV headers
+        let csvContent = "Times,主題,分數／生命,時間倒數\n"; // Add CSV headers
     
         let count = 0;
         for (let i = 0; i < this.record.a.length; i++) {

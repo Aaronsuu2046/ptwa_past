@@ -290,11 +290,6 @@ button {
     height: 100%;
 }
 
-/* Player */
-img[data-name="player"] {
-    position: 'absolute',
-}
-
 /* Game Info */
 
 .gameInfo {
@@ -312,11 +307,11 @@ img[data-name="player"] {
     color: black;
 }
 .time::after {
-    content: " 秒；";
+    content: " 秒";
     color: black;
 }
 .score::before {
-    content: "分數為：";
+    content: "；分數為：";
     color: black;
 }
 .score::after {
