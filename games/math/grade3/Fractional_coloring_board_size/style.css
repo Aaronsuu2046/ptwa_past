@@ -77,7 +77,7 @@ button {
     overflow: hidden;
 }
 .hintContainer > h1{
-    line-height: 50px;
+    line-height: 100px;
     margin: 0;
     color: #000;
     cursor: pointer;
@@ -333,4 +333,13 @@ button {
     font-size: 100px;
     box-sizing: border-box;
     transform: translateY(-8px);
+}
+
+.context h1{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.questionImg{
+    height: 150px;
 }

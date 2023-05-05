@@ -56,12 +56,12 @@ class Game {
         this.lives = 3;
         this.setLives(this.lives);
 
-        let Question = $('.Question'), valueL = this.questionLeft[this.level], valueR = this.questionRight[this.level];
+        // let Question = $('.Question'), valueL = this.questionLeft[this.level], valueR = this.questionRight[this.level];
         
-        Question.each(() => {
-            $(Question[0]).html(valueL);
-            $(Question[1]).html(valueR);
-        })
+        // Question.each(() => {
+        //     $(Question[0]).html(valueL);
+        //     $(Question[1]).html(valueR);
+        // })
     }
     
     checkAnswer() {
@@ -168,7 +168,7 @@ class Game {
     }
     
     getTopic(){
-        $(this.topic).text('不同重量單位比大小(' + this.level + ')');
+        $(this.topic).text('分數大小比較(' + this.level + ')');
     }
     
     setLives(lives){
