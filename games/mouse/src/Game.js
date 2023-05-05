@@ -54,6 +54,7 @@ class Game {
             this.topic_explan.push(this.gameData[index].explain)
         })
         this.gameArea.on('mousemove touchmove', (e) => {
+            e.preventDefault();
             const player = $('img[data-name="player"]');
             if (this.timeCount <= 0 || player.length === 0) {
                 return false;
@@ -120,7 +121,7 @@ class Game {
         if (topic === "dodge"){
             this.record.a.push(this.lives);
             if (this.lives <= 0){
-                this.winLevelArr.pop(level);
+                this.winLevelArr.pop(this.level);
                 this.levelBtn.children().eq(this.level - 1).removeClass('bingo');
                 this.levelBtn.children().eq(this.level - 1).addClass('active');
                 return
@@ -178,6 +179,7 @@ class Game {
         if (this.timeCount <= 0){
             this.finishSound.play();
             this.checkAnswer();
+            this.gameState = GAME_FILE;
             clearInterval(this.stopCountID);
             return false;
         }
