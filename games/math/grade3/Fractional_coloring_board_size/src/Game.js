@@ -28,6 +28,14 @@ class Game {
         this.pearQuesstionRecordL = [];
         this.pearQuesstionRecordR = [];
 
+        this.circleUnit =   '<div class="unit">' +
+                                '個圓' +
+                            '</div>' ;
+
+        this.pearUnit =   '<div class="unit">' +
+                            '盒' +
+                        '</div>' ;
+
         this.integer =  '<div class="value">' +
                             '<p class="Question">1</p>' +
                         '</div>'
@@ -332,24 +340,29 @@ class Game {
     }
 
     valueDisplay(type, value, randomQuestionLeft, randomQuestionRight, question){
+        let unit;
         if(type === 'circle'){
+            unit = this.circleUnit;
             $('.firstImgContainer').html(this.circle);
             $('.secondImgContainer').html(this.circle);  
         }
         else{
+            unit = this.pearUnit;
             $('.firstImgContainer').html(this.pear);
             $('.secondImgContainer').html(this.pear);
         }
 
         $(question[0]).html(randomQuestionLeft);
         $(question[1]).html(value);
+        $('.firstValueContainer').html($('.firstValueContainer').html() + unit);
         if(randomQuestionLeft === value){
-            $('.firstValueContainer').html(this.integer);
+            $('.firstValueContainer').html(this.integer + unit);
         }
         $(question[2]).html(randomQuestionRight);
         $(question[3]).html(value);
+        $('.secondValueContainer').html($('.secondValueContainer').html() + unit);
         if(randomQuestionRight === value){
-            $('.secondValueContainer').html(this.integer);
+            $('.secondValueContainer').html(this.integer + unit);
         }
     }
 }
