@@ -96,8 +96,9 @@ class Game {
         this.winLevelArr = [];
         this.questionLeft = [, '', '', '', '', '']
         this.questionRight = [, '', '', '', '', '']
-        this.answer = [, '<', '>', '<', '=', '<']
+        this.answer = [, '', '', '', '', '']
         this.nowReply = "";
+        this.clickAmount = [0, 0];
     }
     startGame(level) { 
         $('.compare').html('');
@@ -119,6 +120,7 @@ class Game {
         this.getTopic();
         this.lives = 3;
         this.setLives(this.lives);
+        this.clickAmount = [0, 0];
         
         $('.firstImgContainer').html('');
         $('.secondImgContainer').html(''); 
@@ -136,6 +138,8 @@ class Game {
             this.valueDisplay('pear', 11, randomQuestionLeft, randomQuestionRight, question);
 
             pearClickEstablish();
+
+            this.answerStorge(randomQuestionLeft, randomQuestionRight);
         }
         else{
             let question = $('.value .Question')
@@ -148,23 +152,31 @@ class Game {
             this.valueDisplay('circle', 8, randomQuestionLeft, randomQuestionRight, question);
 
             circleClickEstablish();
-        }
 
-        // let Question = $('.Question'), valueL = this.questionLeft[this.level], valueR = this.questionRight[this.level];
-        
-        // Question.each(() => {
-        //     $(Question[0]).html(valueL);
-        //     $(Question[1]).html(valueR);
-        // })
+            this.answerStorge(randomQuestionLeft, randomQuestionRight);
+        }
     }
     
     checkAnswer() {
         if (this.gameState !== GAME_ALIVE){
             return
         }
-        this.record.q.push(this.questionLeft[this.level] + ':' + this.questionRight[this.level]);
-        this.record.a.push(this.nowReply);
-        if (this.nowReply === this.answer[this.level]){
+        if(this.level <= 3){
+            this.record.q.push('(' + this.questionLeft[this.level] + '/11):(' + this.questionRight[this.level] + '/11)');
+        }
+        else{
+            this.record.q.push('(' + this.questionLeft[this.level] + '/8):(' + this.questionRight[this.level] + '/8)');
+        }
+        if(this.level <= 3){
+            this.record.a.push(this.nowReply + ':(' + this.clickAmount[0] + '/11):(' + this.clickAmount[1] + '/11)');
+        }
+        else{
+            this.record.a.push(this.nowReply + ':' + this.clickAmount[0] + '/8):(' + this.clickAmount[1] + '/8)');
+        }
+
+        console.log(this.record.a);
+
+        if (this.nowReply === this.answer[this.level] && this.clickAmount[0] === this.questionLeft[this.level] && this.clickAmount[1] === this.questionRight[this.level]){
             this.correctSound.play();
             this.bingoGroph.css('display', 'block');
             this.record.result.push('O');
@@ -364,6 +376,12 @@ class Game {
         if(randomQuestionRight === value){
             $('.secondValueContainer').html(this.integer + unit);
         }
+    }
+
+    answerStorge(randomQuestionLeft, randomQuestionRight){
+        this.questionLeft[this.level] = randomQuestionLeft;
+        this.questionRight[this.level] = randomQuestionRight;
+        this.answer[this.level] = randomQuestionLeft > randomQuestionRight ? '>' : randomQuestionLeft === randomQuestionRight ? '=' : '<';
     }
 }
 
