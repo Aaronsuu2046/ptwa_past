@@ -107,7 +107,7 @@ class Game {
         this.timeCount = this.gameData[this.level-1].countDown;
         this.time.text(this.timeCount)
         this.fishArea.html("");
-        this.addFish(5);
+        this.addFish(this.gameData[this.level].fish);
         clearInterval(this.stopCountID);
         this.stopCountID = setInterval(()=>{this.countDown()}, 1000);
     }
@@ -205,7 +205,7 @@ class Game {
                 this.score += 1;
                 $fish.remove();
                 this.getSound.play();
-                this.addFish(1);
+                setTimeout(this.addFish(1), randomNumber(2500, 4000));
                 $('.score').text(this.score);
             }
             if (fishName === "fish2"){
@@ -235,12 +235,23 @@ class Game {
     }
 
     addFish(times) {
-        for (let i = 0; i < times; i++){
+        let count = 0;
+        const fish = this.createFish();
+        this.fishArea.append(fish)
+        this.swimming(fish);
+        times -= 1;
+        const intervalId = setInterval(() => {
+            if (count >= times) {
+                clearInterval(intervalId);
+                return;
+            }
             const fish = this.createFish();
             this.fishArea.append(fish)
             this.swimming(fish);
-        }
+            count++;
+        }, randomNumber(2000, 3000));
     }
+    
 
     createFish(){
         let imgURL = ["./assets/images/fish1.gif"]
@@ -267,7 +278,7 @@ class Game {
                 'position': 'absolute',
                 'width': `${width}px`,
                 'height': 'auto',
-                'left':  `${this.fishArea.width()+randomNumber(100, 1000)}px`,
+                'left':  `${this.fishArea.width()+randomNumber(100, 500)}px`,
                 'top': randomNumber(0, this.fishArea.height()-width) + 'px'
             })
             .attr({
@@ -281,7 +292,7 @@ class Game {
         const screenWidth = this.fishArea.width();
         const screenHeight = this.fishArea.height();
         const endY = fish.width()+100;
-        const animateTime = 8000 / fish.data('speed');
+        const animateTime = 10000 / fish.data('speed');
 
         fish.animate({
             left: -endY
@@ -289,7 +300,7 @@ class Game {
         }, animateTime, 'linear', () => {
             const width = randomNumber(100, 200);
             fish.css({
-                'left': screenWidth + width + randomNumber(100, 1000)
+                'left': screenWidth + width + randomNumber(500, 1000)
                 , 'width': `${width}px`
                 , 'top': randomNumber(0, screenHeight-fish.height()) + 'px'
             });
