@@ -95,7 +95,7 @@ class Game {
         if (this.gameState===GAME_WIN){
             this.resetGame(level-1);
         }
-
+        $('#nextBtn').removeClass('jumpBtn');
         this.level = level;
         this.levelBtn.children().eq(this.level-1).addClass('active');
         this.gameState = GAME_ALIVE;
@@ -181,6 +181,7 @@ class Game {
             this.finishSound.play();
             this.checkAnswer();
             this.gameState = GAME_FILE;
+            $('#nextBtn').addClass('jumpBtn');
             clearInterval(this.stopCountID);
             return false;
         }
