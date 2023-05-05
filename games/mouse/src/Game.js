@@ -255,7 +255,7 @@ class Game {
             imgURL = Array(4).fill("./assets/images/fish1.gif");
             imgURL.push("./assets/images/fish2.gif")
             fishName = Array(4).fill("fish1");
-            fishName.push("fish1", "fish2");
+            fishName.push("fish2");
         }
         const fishElement = $('<img>');
         const fishNumber = randomNumber(0, imgURL.length);
