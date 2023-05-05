@@ -13,7 +13,6 @@ $(".previousPage").on('click', (e) => {
 
 $(".game").on('click', function(e) {
     const id = $(this).attr('id');
-    console.log(id);
     hideFrames(id);
     $('.gameBlock').css({'display': 'none'});
 })

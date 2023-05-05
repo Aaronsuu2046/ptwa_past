@@ -2,6 +2,20 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+### 2023.05.05
+##### Educational Games
+**Changed**
+- 建立新的滑鼠遊戲（Mouse）更新舊的
+**Fixed**
+- 修正 boostrape 檔案路徑引入錯誤
+  
+### 2023.05.04
+##### [v0.0.0] - Educational Games
+**Changed**
+- 整理遊戲專案架構
+**Added**
+- 新增時間單位換算（Time Unit）遊戲
+  
 ### 2023.04.19
 ##### [v0.0.0] - Educational Games
 **Changed**
