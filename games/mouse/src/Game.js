@@ -46,6 +46,7 @@ class Game {
         this.topic_explan = [];
         this.score = 0;
         this.time = $('.time');
+        this.stopCountID = setInterval(()=>{this.countDown()}, 1000);
         $(this.gameData).each((index, value)=>{
             this.topic_explan.push(this.gameData[index].explain)
         })
@@ -87,6 +88,8 @@ class Game {
         this.levelBtn.children().eq(this.level-1).addClass('active');
         this.gameState = GAME_ALIVE;
         this.getTopic();
+        this.score = 0;
+        $('.score').text(this.score);
         this.lives = 3;
         this.setLives(this.lives);
         this.record = {'q': []
@@ -98,6 +101,7 @@ class Game {
         this.time.text(this.timeCount)
         this.fishArea.html("");
         this.addFish(5);
+        clearInterval(this.stopCountID);
         this.stopCountID = setInterval(()=>{this.countDown()}, 1000);
     }
     
@@ -208,6 +212,9 @@ class Game {
             if (fishName === "fish2"){
                 this.lives -= 1;
                 this.setLives(this.lives)
+                if (this.lives <= 0){
+                    this.timeCount = 0;
+                }
             }
         });
     }
