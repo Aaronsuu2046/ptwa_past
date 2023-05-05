@@ -107,7 +107,7 @@ class Game {
         this.timeCount = this.gameData[this.level-1].countDown;
         this.time.text(this.timeCount)
         this.fishArea.html("");
-        this.addFish(this.gameData[this.level].fish);
+        this.addFish(this.gameData[this.level-1].fish);
         clearInterval(this.stopCountID);
         this.stopCountID = setInterval(()=>{this.countDown()}, 1000);
     }
@@ -205,8 +205,11 @@ class Game {
                 this.score += 1;
                 $fish.remove();
                 this.getSound.play();
-                setTimeout(this.addFish(1), randomNumber(2500, 4000));
                 $('.score').text(this.score);
+                if (this.fishArea.children().length > this.gameData[this.level-1].fish){
+                    return true;
+                }
+                setTimeout(this.addFish(1), randomNumber(2500, 4000));
             }
             if (fishName === "fish2"){
                 this.lives -= 1;
@@ -298,12 +301,11 @@ class Game {
             left: -endY
             , top: `${0 + randomNumber(0, screenHeight)}px`
         }, animateTime, 'linear', () => {
-            const width = randomNumber(100, 200);
-            fish.css({
-                'left': screenWidth + width + randomNumber(500, 1000)
-                , 'width': `${width}px`
-                , 'top': randomNumber(0, screenHeight-fish.height()) + 'px'
-            });
+            if (this.fishArea.children().length > this.gameData[this.level-1].fish){
+                fish.remove();
+                return true;
+            }
+            setTimeout(()=>{this.addFish(1)}, randomNumber(1000, 3000));
             this.swimming(fish);
         });
 
