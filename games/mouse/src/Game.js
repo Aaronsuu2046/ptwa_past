@@ -95,6 +95,7 @@ class Game {
         if (this.gameState===GAME_WIN){
             this.resetGame(level-1);
         }
+
         this.level = level;
         this.levelBtn.children().eq(this.level-1).addClass('active');
         this.gameState = GAME_ALIVE;
@@ -250,8 +251,11 @@ class Game {
             $('.score').css("display", "none")
         }
         else if (this.gameData[this.level-1].q === "mix"){
+            // TODO rm fish then recreates
+            imgURL = Array(4).fill("./assets/images/fish1.gif");
             imgURL.push("./assets/images/fish2.gif")
-            fishName = ["fish1", "fish2"];
+            fishName = Array(4).fill("fish1");
+            fishName.push("fish1", "fish2");
         }
         const fishElement = $('<img>');
         const fishNumber = randomNumber(0, imgURL.length);
