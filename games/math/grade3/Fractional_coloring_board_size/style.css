@@ -340,6 +340,28 @@ button {
     margin-bottom: 20px;
 }
 
-.questionImg{
+.questionImgContainer{
     height: 150px;
+}
+
+.pear{
+    display: flex;
+    flex-flow: column;
+    border: 3px solid black;
+    border-radius: 5px;
+}
+
+.pearFirstRow, .pearSecondRow, .pearThirdRow{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pearFirstRow>img, .pearSecondRow>img, .pearThirdRow>img{
+    cursor: pointer;
+    width: 50px;
+}
+
+.questionImg{
+    padding: 10px;
 }

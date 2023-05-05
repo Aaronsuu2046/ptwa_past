@@ -42,7 +42,7 @@
 - 點擊💾可下載遊戲紀錄
 - 困惑時可點擊提示
 ### Image Source
-- []()
+- [Freepik](https://www.flaticon.com/free-icons/pear Pear icons created by Freepik - Flaticon)
 
 ### Sound Source
 - [Fireworks](https://opengameart.org/content/fireworks-with-applause-happy-people)
