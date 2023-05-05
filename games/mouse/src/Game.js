@@ -34,8 +34,11 @@ class Game {
     constructor(){
         this.gameState = GAME_FILE;
         this.gameData = gameData;
-        this.gameArea = $('.game_area')
-        this.fishArea = $('.fishArea')
+        this.gameArea = $('.game_area');
+        this.fishArea = $('.fishArea');
+        this.finishSound = $('#finish')[0];
+        this.getSound = $('#get')[0];
+        this.eatSound = $('#eat')[0];
         this.level = 1;
         this.lives = 3;
         this.record = {'q': []
@@ -158,8 +161,6 @@ class Game {
     
     resetGame(level){
         this.gameState = GAME_FILE;
-        firework_sound.pause();
-        fireworkContainer.css('display', 'none');
         this.levelBtn.children().each((index, child) => {
             const $child = $(child);
             $child.removeClass('active');
@@ -176,6 +177,7 @@ class Game {
     
     countDown() {
         if (this.timeCount <= 0){
+            this.finishSound.play();
             clearInterval(this.stopCountID);
             return false;
         }
@@ -206,12 +208,14 @@ class Game {
             if (fishName === "fish1"){
                 this.score += 1;
                 $fish.remove();
+                this.getSound.play();
                 this.addFish(1);
                 $('.score').text(this.score);
             }
             if (fishName === "fish2"){
                 this.lives -= 1;
                 this.setLives(this.lives)
+                this.eatSound.play();
                 if (this.lives <= 0){
                     this.timeCount = 0;
                 }
