@@ -340,15 +340,12 @@ button {
     margin-bottom: 20px;
 }
 
-.questionImgContainer{
-    height: 150px;
-}
-
 .pear{
     display: flex;
     flex-flow: column;
     border: 3px solid black;
     border-radius: 5px;
+    background-color: #8e8e9c;
 }
 
 .pearFirstRow, .pearSecondRow, .pearThirdRow{
@@ -364,4 +361,43 @@ button {
 
 .questionImg{
     padding: 10px;
+    box-sizing: border-box;
+}
+
+.circleFraction{
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 3px solid black;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+
+.circleFraction svg{
+    top: -2px;
+    left: -2.5px;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.circleFraction path{
+    stroke: black;
+    fill: none;
+    stroke-width: 2px;
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+    fill:#8e8e9c;
+}
+
+.firstImgContainer, .secondImgContainer{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

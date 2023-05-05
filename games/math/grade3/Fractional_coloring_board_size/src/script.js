@@ -27,6 +27,9 @@ jumpBtn.on('animationiteration', ()=>{
     setTimeout(()=>{jumpBtn.css('animation-play-state', 'running');}, 2000);
 });
 
+$('path').on('click', (index) => {
+    console.log(index);
+})
 // comparisonSymbol.on('mousedown', (e) =>{
 //     let initX = e.clientX, initY = e.clientY;
 //     if(e.target.className !== 'answerDisplay'){
