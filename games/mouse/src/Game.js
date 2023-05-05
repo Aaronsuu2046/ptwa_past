@@ -45,10 +45,14 @@ class Game {
         this.winLevelArr = [];
         this.topic_explan = [];
         this.score = 0;
+        this.time = $('.time');
         $(this.gameData).each((index, value)=>{
             this.topic_explan.push(this.gameData[index].explain)
         })
         this.gameArea.on('mousemove touchmove', (e) => {
+            if (this.timeCount <= 0){
+                return false;
+            }
             const mouseX = e.pageX || e.originalEvent.touches[0].pageX;
             const mouseY = e.pageY || e.originalEvent.touches[0].pageY;
             const player = $('img[data-name="player"]');
@@ -90,8 +94,11 @@ class Game {
                     , 'result': []
                     };
         
+        this.timeCount = this.gameData[this.level-1].countDown;
+        this.time.text(this.timeCount)
         this.fishArea.html("");
         this.addFish(5);
+        this.stopCountID = setInterval(()=>{this.countDown()}, 1000);
     }
     
     checkAnswer(question, answer) {
@@ -163,6 +170,14 @@ class Game {
 
     }
     
+    countDown() {
+        if (this.timeCount <= 0){
+            clearInterval(this.stopCountID);
+            return false;
+        }
+        this.timeCount -= 1;
+        this.time.text(this.timeCount);
+    }
     checkCollision(){
         const fish1s = $('img[data-name="fish1"]');
         const fish2s = $('img[data-name="fish2"]');
@@ -199,12 +214,9 @@ class Game {
 
     addFish(times) {
         for (let i = 0; i < times; i++){
-            const appearTime = randomNumber(1000, 5000);
-            setTimeout(()=>{
-                const fish = this.createFish();
-                this.fishArea.append(fish)
-                this.swimming(fish);
-            }, appearTime);
+            const fish = this.createFish();
+            this.fishArea.append(fish)
+            this.swimming(fish);
         }
     }
 
@@ -228,7 +240,7 @@ class Game {
                 'position': 'absolute',
                 'width': `${width}px`,
                 'height': 'auto',
-                'left':  `${this.fishArea.width()}px`,
+                'left':  `${this.fishArea.width()+randomNumber(100, 1000)}px`,
                 'top': randomNumber(0, this.fishArea.height()-width) + 'px'
             })
             .attr({
@@ -240,18 +252,24 @@ class Game {
 
     swimming = (fish) => {
         const screenWidth = this.fishArea.width();
+        const screenHeight = this.fishArea.height();
         const imgWidth = fish.width();
         const animateTime = 8000 / fish.data('speed');
+        const currentTop = parseInt(fish.css('top'));
 
-        fish.animate({left: -imgWidth}, animateTime, 'linear', () => {
+        fish.animate({
+            left: -imgWidth
+            , top: `${0 + randomNumber(0, screenHeight)}px`
+        }, animateTime, 'linear', () => {
             const width = randomNumber(100, 200);
             fish.css({
-                'left': screenWidth+width + randomNumber(0, 500)
+                'left': screenWidth + width + randomNumber(0, 500)
                 , 'width': `${width}px`
-                , 'top': randomNumber(0, this.fishArea.height()-fish.height()) + 'px'
+                , 'top': randomNumber(0, screenHeight-fish.height()) + 'px'
             });
             this.swimming(fish);
         });
+
     }    
 
     loadRecord() {

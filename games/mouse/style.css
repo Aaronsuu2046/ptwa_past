@@ -295,13 +295,25 @@ img[data-name="player"] {
     position: 'absolute',
 }
 
-/* Score */
+/* Game Info */
 
-.score {
+.gameInfo {
     position: absolute;
     z-index: 1000;
     margin-left: 1%;
+}
+.gameInfo > *{
+    display: inline-block;
     color: red;
+}
+
+.time::before {
+    content: "時間倒數：";
+    color: black;
+}
+.time::after {
+    content: " 秒；";
+    color: black;
 }
 .score::before {
     content: "分數為：";
