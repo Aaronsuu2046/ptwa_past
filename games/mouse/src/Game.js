@@ -36,7 +36,7 @@ class Game {
         this.gameData = gameData;
         this.gameArea = $('.game_area');
         this.fishArea = $('.fishArea');
-        this.finishSound = $('#finish')[0];
+        this.startSound = $('#start')[0];
         this.getSound = $('#get')[0];
         this.eatSound = $('#eat')[0];
         this.level = 1;
@@ -49,6 +49,7 @@ class Game {
         this.topic_explan = [];
         this.score = 0;
         this.time = $('.time');
+        this.addFishIntervalIds = [];
         this.stopCountID = setInterval(()=>{this.countDown()}, 1000);
         $(this.gameData).each((index, value)=>{
             this.topic_explan.push(this.gameData[index].explain)
@@ -107,7 +108,12 @@ class Game {
         this.timeCount = this.gameData[this.level-1].countDown;
         this.time.text(this.timeCount)
         this.fishArea.html("");
-        this.addFish(this.gameData[this.level-1].fish);
+        for (let i = 0; i < this.addFishIntervalIds.length; i++) {
+            clearInterval(this.addFishIntervalIds[i]);
+        }
+        this.addFishIntervalIds = [];
+        this.startSound.play();
+        this.addFish();
         clearInterval(this.stopCountID);
         this.stopCountID = setInterval(()=>{this.countDown()}, 1000);
     }
@@ -120,22 +126,17 @@ class Game {
         const speed = this.gameData[this.level-1].speed;
         this.record.q.push(topic === "eat"? `藍（x${speed}）` : topic === "dodge" ? `紅（x${speed}）` : `藍+紅（x${speed}）`);
         this.record.result.push(this.timeCount);
-        if (topic === "dodge"){
-            this.record.a.push(this.lives);
-            if (this.lives <= 0){
-                this.winLevelArr.pop(this.level);
-                this.levelBtn.children().eq(this.level - 1).removeClass('bingo');
-                this.levelBtn.children().eq(this.level - 1).addClass('active');
-                return
-            }
-            if (this.timeCount <= 0){
-                set_off_fireworks();
-                this.winLevelArr.push(this.level);
-                this.gameState = GAME_WIN;
-            }
+        this.record.a.push(this.score);
+        if (this.lives <= 0){
+            this.winLevelArr.pop(this.level);
+            this.levelBtn.children().eq(this.level - 1).removeClass('bingo');
+            this.levelBtn.children().eq(this.level - 1).addClass('active');
+            return
         }
-        else {
-            this.record.a.push(this.score);
+        if (this.timeCount <= 0){
+            set_off_fireworks();
+            this.winLevelArr.push(this.level);
+            this.gameState = GAME_WIN;
         }
     }
     
@@ -179,7 +180,6 @@ class Game {
     
     countDown() {
         if (this.timeCount <= 0){
-            this.finishSound.play();
             this.checkAnswer();
             this.gameState = GAME_FILE;
             $('#nextBtn').addClass('jumpBtn');
@@ -207,10 +207,7 @@ class Game {
                 $fish.remove();
                 this.getSound.play();
                 $('.score').text(this.score);
-                if (this.fishArea.children().length > this.gameData[this.level-1].fish){
-                    return true;
-                }
-                setTimeout(this.addFish(1), randomNumber(2500, 4000));
+                this.addFish()
             }
             if (fishName === "fish2"){
                 this.lives -= 1;
@@ -238,26 +235,32 @@ class Game {
 
     }
     
-    addFish(times) {
-        let count = 0;
+    addFish() {
+        let count = this.fishArea.children().length;
         let isFromLeft = Math.random() < 0.5;
-        if (times > 1) {
+        const limit = this.gameData[this.level-1].fish;
+        if (count <= 0) {
             const fish = this.createFish(isFromLeft);
             this.fishArea.append(fish);
             this.swimming(fish, isFromLeft);
-            times -= 1;
+            count ++;
         }
+        let appearTime = 2000;
         const intervalId = setInterval(() => {
-            if (count >= times) {
-                clearInterval(intervalId);
-                return;
+            count = this.fishArea.children().length;
+            if (count < limit) {
+                isFromLeft = Math.random() < 0.5;
+                const fish = this.createFish(isFromLeft);
+                this.fishArea.append(fish);
+                this.swimming(fish, isFromLeft);
+                appearTime = 2000 / this.gameData[this.level-1].speed;
+                count ++;
             }
-            isFromLeft = Math.random() < 0.5;
-            const fish = this.createFish(isFromLeft);
-            this.fishArea.append(fish);
-            this.swimming(fish, isFromLeft);
-            count++;
-        }, randomNumber(1500, 3000));
+            else{
+                clearInterval(this.addFishIntervalIds[0]);
+            }
+        }, appearTime);
+        this.addFishIntervalIds.push(intervalId);
     }
     
 
@@ -283,12 +286,13 @@ class Game {
         const fishNumber = randomNumber(0, imgURL.length);
         fishElement.attr('src', imgURL[fishNumber]);
         const imgWidth = randomNumber(80, 150);
+        const distance = isFromLeft ? randomNumber(-(imgWidth*2), 0):randomNumber(0, imgWidth*2);
         fishElement
             .css({
                 'position': 'absolute',
                 'width': `${imgWidth}px`,
                 'height': 'auto',
-                'left':  isFromLeft ? -imgWidth : screenWidth + imgWidth,
+                'left':  isFromLeft ? -imgWidth+distance : screenWidth + imgWidth+distance,
                 'top': `${randomNumber(0, screenHeight - imgWidth)}px`,
                 'transform': isFromLeft ? 'scaleX(-1)' : 'scaleX(1)'
             })
@@ -304,26 +308,23 @@ class Game {
         const screenHeight = this.fishArea.height();
         const imgWidth = fish.width();
         const imgHeight = fish.height();
-        const animateTime = 8000 / fish.data('speed');
+        const imgTop = fish.offset().top;
+        const animateTime = 10000 / fish.data('speed');
         const endX = isFromLeft ? screenWidth : -imgWidth;
     
         fish.animate({
             left: endX,
-            top: `${randomNumber(0, screenHeight-imgHeight)}px`
+            top: `${randomNumber(imgTop+screenHeight-imgHeight, imgTop-screenHeight+imgHeight)}px`
         }, animateTime, 'linear', () => {
-            if (this.fishArea.children().length > this.gameData[this.level - 1].fish) {
-                fish.remove();
-                return true;
-            }
             fish.remove();
-            this.addFish(1);
+            this.addFish();
         });
     }   
 
     loadRecord() {
         // Set download file name
         const filename = "遊玩紀錄.csv";
-        let csvContent = "Times,主題,分數／生命,時間倒數\n"; // Add CSV headers
+        let csvContent = "Times,主題,分數,時間倒數\n"; // Add CSV headers
     
         let count = 0;
         for (let i = 0; i < this.record.a.length; i++) {
