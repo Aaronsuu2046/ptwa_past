@@ -49,6 +49,7 @@ class Game {
         this.topic_explan = [];
         this.score = 0;
         this.time = $('.time');
+        this.addFishIntervalIds = [];
         this.stopCountID = setInterval(()=>{this.countDown()}, 1000);
         $(this.gameData).each((index, value)=>{
             this.topic_explan.push(this.gameData[index].explain)
@@ -107,7 +108,11 @@ class Game {
         this.timeCount = this.gameData[this.level-1].countDown;
         this.time.text(this.timeCount)
         this.fishArea.html("");
-        this.addFish(this.gameData[this.level-1].fish);
+        for (let i = 0; i < this.addFishIntervalIds.length; i++) {
+            clearInterval(this.addFishIntervalIds[i]);
+        }
+        this.addFishIntervalIds = [];
+        this.addFish();
         clearInterval(this.stopCountID);
         this.stopCountID = setInterval(()=>{this.countDown()}, 1000);
     }
@@ -207,10 +212,7 @@ class Game {
                 $fish.remove();
                 this.getSound.play();
                 $('.score').text(this.score);
-                if (this.fishArea.children().length > this.gameData[this.level-1].fish){
-                    return true;
-                }
-                setTimeout(this.addFish(1), randomNumber(2500, 4000));
+                this.addFish()
             }
             if (fishName === "fish2"){
                 this.lives -= 1;
@@ -238,26 +240,32 @@ class Game {
 
     }
     
-    addFish(times) {
-        let count = 0;
+    addFish() {
+        let count = this.fishArea.children().length;
         let isFromLeft = Math.random() < 0.5;
-        if (times > 1) {
+        const limit = this.gameData[this.level-1].fish;
+        if (count <= 0) {
             const fish = this.createFish(isFromLeft);
             this.fishArea.append(fish);
             this.swimming(fish, isFromLeft);
-            times -= 1;
+            count ++;
         }
+        let appearTime = 2000;
         const intervalId = setInterval(() => {
-            if (count >= times) {
-                clearInterval(intervalId);
-                return;
+            count = this.fishArea.children().length;
+            if (count < limit) {
+                isFromLeft = Math.random() < 0.5;
+                const fish = this.createFish(isFromLeft);
+                this.fishArea.append(fish);
+                this.swimming(fish, isFromLeft);
+                appearTime = 2000 / this.gameData[this.level-1].speed;
+                count ++;
             }
-            isFromLeft = Math.random() < 0.5;
-            const fish = this.createFish(isFromLeft);
-            this.fishArea.append(fish);
-            this.swimming(fish, isFromLeft);
-            count++;
-        }, randomNumber(1500, 3000));
+            else{
+                clearInterval(this.addFishIntervalIds[0]);
+            }
+        }, appearTime);
+        this.addFishIntervalIds.push(intervalId);
     }
     
 
@@ -283,12 +291,13 @@ class Game {
         const fishNumber = randomNumber(0, imgURL.length);
         fishElement.attr('src', imgURL[fishNumber]);
         const imgWidth = randomNumber(80, 150);
+        const distance = isFromLeft ? randomNumber(-(imgWidth*2), 0):randomNumber(0, imgWidth*2);
         fishElement
             .css({
                 'position': 'absolute',
                 'width': `${imgWidth}px`,
                 'height': 'auto',
-                'left':  isFromLeft ? -imgWidth : screenWidth + imgWidth,
+                'left':  isFromLeft ? -imgWidth+distance : screenWidth + imgWidth+distance,
                 'top': `${randomNumber(0, screenHeight - imgWidth)}px`,
                 'transform': isFromLeft ? 'scaleX(-1)' : 'scaleX(1)'
             })
@@ -304,19 +313,15 @@ class Game {
         const screenHeight = this.fishArea.height();
         const imgWidth = fish.width();
         const imgHeight = fish.height();
-        const animateTime = 8000 / fish.data('speed');
+        const animateTime = 10000 / fish.data('speed');
         const endX = isFromLeft ? screenWidth : -imgWidth;
     
         fish.animate({
             left: endX,
             top: `${randomNumber(0, screenHeight-imgHeight)}px`
         }, animateTime, 'linear', () => {
-            if (this.fishArea.children().length > this.gameData[this.level - 1].fish) {
-                fish.remove();
-                return true;
-            }
             fish.remove();
-            this.addFish(1);
+            this.addFish();
         });
     }   
 
