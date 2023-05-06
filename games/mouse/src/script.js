@@ -8,6 +8,8 @@ const jumpBtn = $('.jumpBtn');
 
 levelsArea.on('click', (e) => {
     const level = parseInt(e.target.textContent);
+    $('.gameRule').css('display', 'none');
+    $('#startBtn').text("重新開始");
     $(e.target).addClass('active');
     game.changeLevel(level);
 })
