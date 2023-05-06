@@ -36,7 +36,7 @@ class Game {
         this.gameData = gameData;
         this.gameArea = $('.game_area');
         this.fishArea = $('.fishArea');
-        this.finishSound = $('#finish')[0];
+        this.startSound = $('#start')[0];
         this.getSound = $('#get')[0];
         this.eatSound = $('#eat')[0];
         this.level = 1;
@@ -112,6 +112,7 @@ class Game {
             clearInterval(this.addFishIntervalIds[i]);
         }
         this.addFishIntervalIds = [];
+        this.startSound.play();
         this.addFish();
         clearInterval(this.stopCountID);
         this.stopCountID = setInterval(()=>{this.countDown()}, 1000);
@@ -125,22 +126,17 @@ class Game {
         const speed = this.gameData[this.level-1].speed;
         this.record.q.push(topic === "eat"? `藍（x${speed}）` : topic === "dodge" ? `紅（x${speed}）` : `藍+紅（x${speed}）`);
         this.record.result.push(this.timeCount);
-        if (topic === "dodge"){
-            this.record.a.push(this.lives);
-            if (this.lives <= 0){
-                this.winLevelArr.pop(this.level);
-                this.levelBtn.children().eq(this.level - 1).removeClass('bingo');
-                this.levelBtn.children().eq(this.level - 1).addClass('active');
-                return
-            }
-            if (this.timeCount <= 0){
-                set_off_fireworks();
-                this.winLevelArr.push(this.level);
-                this.gameState = GAME_WIN;
-            }
+        this.record.a.push(this.score);
+        if (this.lives <= 0){
+            this.winLevelArr.pop(this.level);
+            this.levelBtn.children().eq(this.level - 1).removeClass('bingo');
+            this.levelBtn.children().eq(this.level - 1).addClass('active');
+            return
         }
-        else {
-            this.record.a.push(this.score);
+        if (this.timeCount <= 0){
+            set_off_fireworks();
+            this.winLevelArr.push(this.level);
+            this.gameState = GAME_WIN;
         }
     }
     
@@ -184,7 +180,6 @@ class Game {
     
     countDown() {
         if (this.timeCount <= 0){
-            this.finishSound.play();
             this.checkAnswer();
             this.gameState = GAME_FILE;
             $('#nextBtn').addClass('jumpBtn');
@@ -313,12 +308,13 @@ class Game {
         const screenHeight = this.fishArea.height();
         const imgWidth = fish.width();
         const imgHeight = fish.height();
+        const imgTop = fish.offset().top;
         const animateTime = 10000 / fish.data('speed');
         const endX = isFromLeft ? screenWidth : -imgWidth;
     
         fish.animate({
             left: endX,
-            top: `${randomNumber(0, screenHeight-imgHeight)}px`
+            top: `${randomNumber(imgTop+screenHeight-imgHeight, imgTop-screenHeight+imgHeight)}px`
         }, animateTime, 'linear', () => {
             fish.remove();
             this.addFish();
@@ -328,7 +324,7 @@ class Game {
     loadRecord() {
         // Set download file name
         const filename = "遊玩紀錄.csv";
-        let csvContent = "Times,主題,分數／生命,時間倒數\n"; // Add CSV headers
+        let csvContent = "Times,主題,分數,時間倒數\n"; // Add CSV headers
     
         let count = 0;
         for (let i = 0; i < this.record.a.length; i++) {
