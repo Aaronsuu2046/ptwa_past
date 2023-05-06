@@ -117,7 +117,8 @@ class Game {
             return
         }
         const topic = this.gameData[this.level-1].q;
-        this.record.q.push(topic === "eat"? "藍" : topic === "dodge" ? "紅" : "藍＋紅");
+        const speed = this.gameData[this.level-1].speed;
+        this.record.q.push(topic === "eat"? `藍（x${speed}）` : topic === "dodge" ? `紅（x${speed}）` : `藍+紅（x${speed}）`);
         this.record.result.push(this.timeCount);
         if (topic === "dodge"){
             this.record.a.push(this.lives);
@@ -236,27 +237,31 @@ class Game {
         }, 1500);
 
     }
-
+    
     addFish(times) {
         let count = 0;
-        const fish = this.createFish();
-        this.fishArea.append(fish)
-        this.swimming(fish);
-        times -= 1;
+        let isFromLeft = Math.random() < 0.5;
+        if (times > 1) {
+            const fish = this.createFish(isFromLeft);
+            this.fishArea.append(fish);
+            this.swimming(fish, isFromLeft);
+            times -= 1;
+        }
         const intervalId = setInterval(() => {
             if (count >= times) {
                 clearInterval(intervalId);
                 return;
             }
-            const fish = this.createFish();
-            this.fishArea.append(fish)
-            this.swimming(fish);
+            isFromLeft = Math.random() < 0.5;
+            const fish = this.createFish(isFromLeft);
+            this.fishArea.append(fish);
+            this.swimming(fish, isFromLeft);
             count++;
-        }, randomNumber(2000, 3000));
+        }, randomNumber(1500, 3000));
     }
     
 
-    createFish(){
+    createFish(isFromLeft){
         let imgURL = ["./assets/images/fish1.gif"]
         let fishName = ["fish1"];
         $('.score').css("display", "inline-block")
@@ -272,17 +277,20 @@ class Game {
             fishName = Array(4).fill("fish1");
             fishName.push("fish2");
         }
+        const screenWidth = this.fishArea.width();
+        const screenHeight = this.fishArea.height();
         const fishElement = $('<img>');
         const fishNumber = randomNumber(0, imgURL.length);
         fishElement.attr('src', imgURL[fishNumber]);
-        const width = randomNumber(80, 150);
+        const imgWidth = randomNumber(80, 150);
         fishElement
             .css({
                 'position': 'absolute',
-                'width': `${width}px`,
+                'width': `${imgWidth}px`,
                 'height': 'auto',
-                'left':  `${this.fishArea.width()+randomNumber(100, 500)}px`,
-                'top': randomNumber(0, this.fishArea.height()-width) + 'px'
+                'left':  isFromLeft ? -imgWidth : screenWidth + imgWidth,
+                'top': `${randomNumber(0, screenHeight - imgWidth)}px`,
+                'transform': isFromLeft ? 'scaleX(-1)' : 'scaleX(1)'
             })
             .attr({
                 'data-speed': this.gameData[this.level-1].speed
@@ -291,25 +299,26 @@ class Game {
         return fishElement;
     }
 
-    swimming = (fish) => {
+    swimming = (fish, isFromLeft) => {
         const screenWidth = this.fishArea.width();
         const screenHeight = this.fishArea.height();
-        const endY = fish.width()+100;
-        const animateTime = 10000 / fish.data('speed');
-
+        const imgWidth = fish.width();
+        const imgHeight = fish.height();
+        const animateTime = 8000 / fish.data('speed');
+        const endX = isFromLeft ? screenWidth : -imgWidth;
+    
         fish.animate({
-            left: -endY
-            , top: `${0 + randomNumber(0, screenHeight)}px`
+            left: endX,
+            top: `${randomNumber(0, screenHeight-imgHeight)}px`
         }, animateTime, 'linear', () => {
-            if (this.fishArea.children().length > this.gameData[this.level-1].fish){
+            if (this.fishArea.children().length > this.gameData[this.level - 1].fish) {
                 fish.remove();
                 return true;
             }
-            setTimeout(()=>{this.addFish(1)}, randomNumber(1000, 3000));
-            this.swimming(fish);
+            fish.remove();
+            this.addFish(1);
         });
-
-    }    
+    }   
 
     loadRecord() {
         // Set download file name

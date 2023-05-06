@@ -8,6 +8,7 @@ The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0
 - 建立新的滑鼠遊戲（Mouse）更新舊的
 - 新增毫升、公升比大小（Liter Milliliter Board Size）
 - 新增定位板比大小（Positioning Board Size）
+- 新增公克、公斤比大小（Positioning Board Size）
 
 **Fixed**
 - 修正 boostrape 檔案路徑引入錯誤
