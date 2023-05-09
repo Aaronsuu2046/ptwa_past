@@ -31,7 +31,7 @@ comparisonSymbol.on('mousedown', (e) =>{
     let initX = e.clientX, initY = e.clientY;
     if(e.target.className !== 'answerDisplay'){
         $('body').on('mousemove', (event) => {
-            //左下角:(349, 317) 右上角:(449, 215)
+            //左下角:(349, 492) 右上角:(449, 394)
             $('.' + e.target.className).css('transform', 'translate(' 
             + (event.clientX - initX) + 'px,' + (event.clientY - initY) +'px)');
         })
@@ -43,7 +43,7 @@ comparisonSymbol.on('mousedown', (e) =>{
             $('body').off();
             $('.' + e.target.className).css('transform', 'translate(0px, 0px)');
             if((parseInt(endPositionX) >= 345 && parseInt(endPositionX) <= 450) 
-            && (parseInt(endPositionY) <= 320 && parseInt(endPositionY) >= 215)){
+            && (parseInt(endPositionY) <= 495 && parseInt(endPositionY) >= 390)){
                 game.symbolDisplay(temp.target.className);
             }
         })

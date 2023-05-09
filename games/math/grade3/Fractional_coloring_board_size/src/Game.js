@@ -1,4 +1,5 @@
 export {Game}
+import { circleClickEstablish, pearClickEstablish } from './function.js';
 
 
 // state
@@ -21,6 +22,69 @@ class Game {
     wrongSound = $('#wrong')[0];
     levelLimit = this.levelBtn.children().length;
     constructor(){ //初始化 O
+        this.circleQuesstionRecordL = [];
+        this.circleQuesstionRecordR = [];
+
+        this.pearQuesstionRecordL = [];
+        this.pearQuesstionRecordR = [];
+
+        this.circleUnit =   '<div class="unit">' +
+                                '個圓' +
+                            '</div>' ;
+
+        this.pearUnit =   '<div class="unit">' +
+                            '盒' +
+                        '</div>' ;
+
+        this.integer =  '<div class="value">' +
+                            '<p class="Question">1</p>' +
+                        '</div>'
+
+        this.value = '<div class="value">' +
+                        '<p class="Question">0</p>' +
+                        '<p class="Question">0</p>' +
+                    '</div>'
+
+        this.pear =     '<div class="questionImg pear">' +
+                            '<div class="pearFirstRow">' +
+                                '<img src="src/fractionImg/pear.png" class="uncolored">' +
+                                '<img src="src/fractionImg/pear.png" class="uncolored">' +
+                                '<img src="src/fractionImg/pear.png" class="uncolored">' +
+                                '<img src="src/fractionImg/pear.png" class="uncolored">' +
+                            '</div>' +
+                            '<div class="pearSecondRow">' +
+                                '<img src="src/fractionImg/pear.png" class="uncolored">' +
+                                '<img src="src/fractionImg/pear.png" class="uncolored">' +
+                                '<img src="src/fractionImg/pear.png" class="uncolored">' +
+                            '</div>' +
+                            '<div class="pearThirdRow">' +
+                                '<img src="src/fractionImg/pear.png" class="uncolored">' +
+                                '<img src="src/fractionImg/pear.png" class="uncolored">' +
+                                '<img src="src/fractionImg/pear.png" class="uncolored">' +
+                                '<img src="src/fractionImg/pear.png" class="uncolored">' +
+                            '</div>' +
+                        '</div>' ;
+
+        this.circle =   '<div class="questionImg circleFraction" >' +
+                           '<svg>' +
+                                '<path d = "M170.71, 29.29 L100, 100 L100 0 A100 100 45 0,1 170.71, 29.29Z "  class="uncolored"></path>' +
+
+                                '<path d = "M200 100 L100, 100 L170.71, 29.29 A100 100 45 0,1 200 100Z "  class="uncolored"></path>' +
+
+                                '<path d = "M170.71, 170.71 L100, 100 L200, 100 A100 100 45 0,1 170.71, 170.71Z"  class="uncolored"></path>' +
+
+                                '<path d = "M100, 200 L100, 100 L170.71, 170.71 A100 100 45 0,1 100, 200Z"  class="uncolored"></path>' +
+
+                                '<path d = "M29.29, 170.71 L100, 100 L100 200 A100 100 45 0,1 29.29, 170.71Z "  class="uncolored"></path>' +
+
+                                '<path d = "M0 100 L100, 100 L29.29, 170.71 A100 100 45 0,1 0 100Z "  class="uncolored"></path>' +
+
+                                '<path d = "M29.29, 29.29 L100, 100 L0, 100 A100 100 45 0,1 29.29, 29.29Z"  class="uncolored"></path>' +
+
+                                '<path d = "M100, 0 L100, 100 L29.29, 29.29 A100 100 45 0,1 100, 0Z"  class="uncolored"></path>' +
+                            '</svg>' +
+                        '</div>' ;
+
         this.gameState = GAME_FILE;
         this.level = 0;
         this.lives = 3;
@@ -30,10 +94,11 @@ class Game {
                       };
         this.topic_explan = {1: `遊戲目標`};
         this.winLevelArr = [];
-        this.questionLeft = [, '4kg', '1kg 100g', '2030g', '6700g', '3kg 9g']
-        this.questionRight = [, '4002g', '1010g', '2kg 300g', '6kg 700g', '3090g']
-        this.answer = [, '<', '>', '<', '=', '<']
+        this.questionLeft = [, '', '', '', '', '']
+        this.questionRight = [, '', '', '', '', '']
+        this.answer = [, '', '', '', '', '']
         this.nowReply = "";
+        this.clickAmount = [0, 0];
     }
     startGame(level) { 
         $('.compare').html('');
@@ -55,22 +120,63 @@ class Game {
         this.getTopic();
         this.lives = 3;
         this.setLives(this.lives);
-
-        let Question = $('.Question'), valueL = this.questionLeft[this.level], valueR = this.questionRight[this.level];
+        this.clickAmount = [0, 0];
         
-        Question.each(() => {
-            $(Question[0]).html(valueL);
-            $(Question[1]).html(valueR);
-        })
+        $('.firstImgContainer').html('');
+        $('.secondImgContainer').html(''); 
+        $('.firstValueContainer').html(this.value);
+        $('.secondValueContainer').html(this.value);
+
+        if(this.level <= 3){
+            let question = $('.value .Question')
+            , randomQuestionLeft = Math.floor(Math.random() * 11) + 1
+            , randomQuestionRight = Math.floor(Math.random() * 11) + 1;
+
+            randomQuestionLeft = this.questionRepeatJudge(randomQuestionLeft, 'L', 'pear');
+            randomQuestionRight = this.questionRepeatJudge(randomQuestionRight, 'L', 'pear');
+
+            this.valueDisplay('pear', 11, randomQuestionLeft, randomQuestionRight, question);
+
+            pearClickEstablish();
+
+            this.answerStorge(randomQuestionLeft, randomQuestionRight);
+        }
+        else{
+            let question = $('.value .Question')
+            , randomQuestionLeft = Math.floor(Math.random() * 8) + 1
+            , randomQuestionRight = Math.floor(Math.random() * 8) + 1;
+
+            randomQuestionLeft = this.questionRepeatJudge(randomQuestionLeft, 'L', 'circle');
+            randomQuestionRight = this.questionRepeatJudge(randomQuestionRight, 'L', 'circle');
+
+            this.valueDisplay('circle', 8, randomQuestionLeft, randomQuestionRight, question);
+
+            circleClickEstablish();
+
+            this.answerStorge(randomQuestionLeft, randomQuestionRight);
+        }
     }
     
     checkAnswer() {
         if (this.gameState !== GAME_ALIVE){
             return
         }
-        this.record.q.push(this.questionLeft[this.level] + ':' + this.questionRight[this.level]);
-        this.record.a.push(this.nowReply);
-        if (this.nowReply === this.answer[this.level]){
+        if(this.level <= 3){
+            this.record.q.push('(' + this.questionLeft[this.level] + '/11):(' + this.questionRight[this.level] + '/11)');
+        }
+        else{
+            this.record.q.push('(' + this.questionLeft[this.level] + '/8):(' + this.questionRight[this.level] + '/8)');
+        }
+        if(this.level <= 3){
+            this.record.a.push(this.nowReply + ':(' + this.clickAmount[0] + '/11):(' + this.clickAmount[1] + '/11)');
+        }
+        else{
+            this.record.a.push(this.nowReply + ':' + this.clickAmount[0] + '/8):(' + this.clickAmount[1] + '/8)');
+        }
+
+        console.log(this.record.a);
+
+        if (this.nowReply === this.answer[this.level] && this.clickAmount[0] === this.questionLeft[this.level] && this.clickAmount[1] === this.questionRight[this.level]){
             this.correctSound.play();
             this.bingoGroph.css('display', 'block');
             this.record.result.push('O');
@@ -168,7 +274,7 @@ class Game {
     }
     
     getTopic(){
-        $(this.topic).text('不同重量單位比大小(' + this.level + ')');
+        $(this.topic).text('分數大小比較(' + this.level + ')');
     }
     
     setLives(lives){
@@ -208,6 +314,74 @@ class Game {
         else
             return;
 
+    }
+
+    questionRepeatJudge(value, type, img){
+        let temp, count = 0, amount = 0;
+        if(img === 'pear'){
+            amount = 11;
+            if(type === 'L')
+                temp = this.pearQuesstionRecordL;
+            else
+                temp = this.pearQuesstionRecordR;
+        }
+        else{
+            amount = 8;
+            if(type === 'L')
+                temp = this.circleQuesstionRecordL;
+            else
+                temp = this.circleQuesstionRecordR;
+        }
+
+        while(true){
+            count++;
+            console.log(count)
+            if($.inArray(value, temp) === -1){
+                temp.push(value);
+                return value;
+            }
+            else{
+                value = Math.floor(Math.random() * amount) + 1;
+            }
+            if(count >= 8){
+                temp = [];
+                count = 0;
+                console.log(temp);
+            }
+        }
+    }
+
+    valueDisplay(type, value, randomQuestionLeft, randomQuestionRight, question){
+        let unit;
+        if(type === 'circle'){
+            unit = this.circleUnit;
+            $('.firstImgContainer').html(this.circle);
+            $('.secondImgContainer').html(this.circle);  
+        }
+        else{
+            unit = this.pearUnit;
+            $('.firstImgContainer').html(this.pear);
+            $('.secondImgContainer').html(this.pear);
+        }
+
+        $(question[0]).html(randomQuestionLeft);
+        $(question[1]).html(value);
+        $('.firstValueContainer').html($('.firstValueContainer').html() + unit);
+        if(randomQuestionLeft === value){
+            $('.firstValueContainer').html(this.integer + unit);
+        }
+        $(question[2]).html(randomQuestionRight);
+        $(question[3]).html(value);
+        $('.secondValueContainer').html($('.secondValueContainer').html() + unit);
+        if(randomQuestionRight === value){
+            $('.secondValueContainer').html(this.integer + unit);
+        }
+    }
+
+    answerStorge(randomQuestionLeft, randomQuestionRight){
+        this.questionLeft[this.level] = randomQuestionLeft;
+        this.questionRight[this.level] = randomQuestionRight;
+        this.answer[this.level] = randomQuestionLeft > randomQuestionRight ? '>' : randomQuestionLeft === randomQuestionRight ? '=' : '<';
     }
 }
 
