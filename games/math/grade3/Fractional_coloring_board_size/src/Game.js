@@ -115,6 +115,7 @@ class Game {
         else {
             this.changeLevel(level);
         }
+        $('#nextBtn').removeClass('jumpBtn');
         this.gameState = GAME_ALIVE;
         this.gameRule.css('display', 'none');
         this.getTopic();
@@ -183,6 +184,7 @@ class Game {
             setTimeout(()=>{this.bingoGroph.css('display', 'none');}, 500);
             set_off_fireworks();
             this.winLevelArr[this.level - 1] = this.level;
+            $('#nextBtn').addClass('jumpBtn');
             this.gameState = GAME_WIN;
         }
         else {

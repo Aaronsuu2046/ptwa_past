@@ -141,6 +141,7 @@ function startGame() {
         level = 1;
         $(gameBtn[0]).addClass('active');
     }
+    $('#nextBtn').removeClass('jumpBtn');
     gameState = GAME_ALIVE;
     gameRule.style.display = 'none';
     getTopic();
@@ -254,6 +255,7 @@ function checkAnswer() {
         setTimeout(()=>{document.getElementById('bingo').style.display = 'none';}, 500);
         if (correctAnswer.size === liters.length){
             gameState = GAME_WIN;
+            $('#nextBtn').addClass('jumpBtn');
             set_off_fireworks();
             winLevelArr.push(level);
         }
@@ -483,5 +485,4 @@ function createHint() {
         literHintWaterCount[i].textContent = liter;
     }
 }
-
   

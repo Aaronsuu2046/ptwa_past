@@ -71,6 +71,7 @@ class Game {
             setTimeout(()=>{this.bingoGroph.css('display', 'none');}, 500);
             set_off_fireworks();
             this.winLevelArr.add(this.level);
+            $('#nextBtn').addClass('jumpBtn');
             this.gameState = GAME_WIN;
         }
         else {
@@ -112,6 +113,7 @@ class Game {
     
     resetGame(){
         // this.gameState = GAME_FILE;
+        $('#nextBtn').removeClass('jumpBtn');
         this.gameState = GAME_ALIVE;
         firework_sound.pause();
         fireworkContainer.css('display', 'none');
