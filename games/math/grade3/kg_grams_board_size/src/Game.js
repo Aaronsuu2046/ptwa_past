@@ -81,6 +81,8 @@ class Game {
             this.gameState = GAME_WIN;
         }
         else {
+            $('.compare').html("");
+            this.hideSymbol('');
             this.record.result.push('X');
             this.wrongSound.play();
             this.dadaGroph.css('display', 'block');
