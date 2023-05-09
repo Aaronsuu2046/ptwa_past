@@ -6,6 +6,7 @@ The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0
 ##### Educational Games
 **Added**
 - 新增數字 0~10 找找在哪裡（PTWA Num Game）
+- 新增分數填色比大小（Fractional Coloring Board Size）
 
 
 ### 2023.05.05
