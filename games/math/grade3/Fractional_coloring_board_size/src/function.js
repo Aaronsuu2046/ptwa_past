@@ -3,24 +3,40 @@ import { game } from './Handler.js';
 
 function circleClickEstablish(){
     $('.circleFraction svg').on('click', (e) => {
+        // console.log(e.clientX, e.clientY);
         if($(e.target).attr('class') === 'uncolored'){
-            $(e.target).css('fill', '#dc0073');
-            $(e.target).attr('class', 'colored');
-
-            if((e.clientX >= 69 && e.clientX <= 269) && (e.clientY >= 147 && e.clientY <= 347))
-                game.clickAmount[0]++;
-            else
-                game.clickAmount[1]++;
-        }
+            if((e.clientX >= 69 && e.clientX <= 269) && (e.clientY >= 147 && e.clientY <= 347)){
+                if(Math.sqrt((e.clientX - 169) ** 2 + (e.clientY - 247) ** 2) <= 100){
+                    $(e.target).css('fill', '#dc0073');
+                    $(e.target).attr('class', 'colored');
+                    game.clickAmount[0]++;
+                    }
+                }
+            else{
+                if(Math.sqrt((e.clientX - 634) ** 2 + (e.clientY - 247) ** 2) <= 100){
+                    $(e.target).css('fill', '#dc0073');
+                    $(e.target).attr('class', 'colored');
+                    game.clickAmount[1]++;
+                    }
+                }
+            }
         else{
-            $(e.target).css('fill', '#8e8e9c');
-            $(e.target).attr('class', 'uncolored');
-
-            if((e.clientX >= 69 && e.clientX <= 269) && (e.clientY >= 147 && e.clientY <= 347))
-                game.clickAmount[0]--;
-            else
-                game.clickAmount[1]--;
-        }    
+            if((e.clientX >= 69 && e.clientX <= 269) && (e.clientY >= 147 && e.clientY <= 347)){
+                if(Math.sqrt((e.clientX - 169) ** 2 + (e.clientY - 247) ** 2) <= 100){
+                    // console.log(Math.sqrt((e.clientX - 169) ** 2 + (e.clientY - 247) ** 2));
+                    $(e.target).css('fill', '#8e8e9c');
+                    $(e.target).attr('class', 'uncolored');
+                    game.clickAmount[0]--;
+                }
+            }
+            else{
+                if(Math.sqrt((e.clientX - 634) ** 2 + (e.clientY - 247) ** 2) <= 100){
+                    $(e.target).css('fill', '#8e8e9c');
+                    $(e.target).attr('class', 'uncolored');
+                    game.clickAmount[1]--;
+                    }
+                }
+            }    
     })
 }
 
