@@ -192,7 +192,7 @@ class Game {
     }
     
     getTopic(){
-        $(this.topic).text('比大小(' + this.level + ')');
+        $(this.topic).text('10000以內的數比大小(' + this.level + ')');
     }
     
     setLives(lives){
