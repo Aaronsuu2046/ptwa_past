@@ -174,7 +174,7 @@ class Game {
             this.record.a.push(this.nowReply + ':' + this.clickAmount[0] + '/8):(' + this.clickAmount[1] + '/8)');
         }
 
-        console.log(this.record.a);
+        // console.log(this.record.a);
 
         if (this.nowReply === this.answer[this.level] && this.clickAmount[0] === this.questionLeft[this.level] && this.clickAmount[1] === this.questionRight[this.level]){
             this.correctSound.play();
@@ -335,7 +335,7 @@ class Game {
 
         while(true){
             count++;
-            console.log(count)
+            // console.log(count)
             if($.inArray(value, temp) === -1){
                 temp.push(value);
                 return value;
@@ -346,7 +346,7 @@ class Game {
             if(count >= 8){
                 temp = [];
                 count = 0;
-                console.log(temp);
+                // console.log(temp);
             }
         }
     }
