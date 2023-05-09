@@ -24,21 +24,21 @@ export class GameTemplate {
         this.setLives(this.gameData.lives);
     }
     
-    checkAnswer(question, answer) {
-        if (this.gameState !== GAME_ALIVE){
-            return
-        }
-        this.record.q.push(question);
-        this.record.a.push(answer);
-        if (question === answer){
-            this.record.result.push('O');
-        }
-        else {
-            this.record.result.push('X');
-            this.lives -= 1;
-            setLives(this.lives)
-            this.winLevelArr.pop(level);
-        }
+    checkAnswer() {
+        if (arguments.length === 2){
+            question = arguments[0];
+            answer = arguments[1];
+            this.appendToRecordQ(question)
+            this.appendToRecordA(answer)
+            if (question === answer){
+                this.appendToRecordResult("O")
+            }
+            else {
+                this.appendToRecordResult("X")
+                this.setLives(this.lives-1)
+                this.winLevelArr.pop(level);
+            }
+        } 
         this.getGameResult();
     }
     getGameResult(){
@@ -74,11 +74,6 @@ export class GameTemplate {
     resetGame(level){
         this.gameState = constant.GAME_FILE;
         this.startGame(level);
-        // this.record = {
-        //     'q': []
-        //     , 'a': []
-        //     , 'result': []
-        // };
     }
     
     loadRecord() {
@@ -109,6 +104,22 @@ export class GameTemplate {
     
         // Release the URL object
         URL.revokeObjectURL(url);
+    }
+    appendToRecordQ(question){
+        this.record.q.push(question);
+    }
+    appendToRecordA(answer){
+        this.record.a.push(answer);
+    }
+    appendToRecordResult(result){
+        this.record.result.push(result);
+    }
+    resetRecord(){
+        this.record = {
+            'q': []
+            , 'a': []
+            , 'result': []
+        };
     }
     toggleHint(){
         if (this.lives > 0)return
