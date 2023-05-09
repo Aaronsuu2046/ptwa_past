@@ -7,7 +7,8 @@ The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0
 **Added**
 - 新增數字 0~10 找找在哪裡（PTWA Num Game）
 - 新增分數填色比大小（Fractional Coloring Board Size）
-
+**Changed**
+- 修復下載 csv 檔案無法正確轉譯中文問題
 
 ### 2023.05.05
 ##### Educational Games

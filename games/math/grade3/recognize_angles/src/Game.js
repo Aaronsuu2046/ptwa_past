@@ -138,6 +138,8 @@ class Game {
         }
         csvContent += `\nCorrectRate,${(count / this.record.result.length) * 100}%\n`;
     
+        csvContent = '\ufeff'+csvContent; // 添加 BOM
+        
         // Create a Blob object
         const blob = new Blob([csvContent], { type: "text/csv" });
     
