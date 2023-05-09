@@ -1,4 +1,4 @@
-# 定位板數字比大小遊戲（positioning_board_size）
+# 10000以內的數字比大小遊戲（positioning_board_size）
 
 ![educational_games](https://img.shields.io/github/v/tag/PTWA-NPO/PTWA-NPO.github.io)
 
@@ -20,7 +20,7 @@
 
 # 遊戲介紹
 
-## Grad3-2 練習數字比大小（positioning_board_size）
+## Grad3-2 練習10000以內的數字比大小（positioning_board_size）
 [![recognize_angles](https://img.shields.io/badge/recognize_angles-v0.0.1-blue.svg)](./recognize_angles)
 
 - 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的**三年級**，選擇**定位板比大小**
@@ -33,7 +33,7 @@
 [//]: # (TODO game play view gif)
 
 ### 關卡說明
-- 第一關：練習數字比大小
+- 第一關：練習10000以內的數字比大小
   
 ### 遊戲玩法
 - 根據題目拖移正確符號進入答案框內
