@@ -50,6 +50,7 @@ class Game {
         else {
             this.changeLevel(level);
         }
+        $('#nextBtn').removeClass('jumpBtn');
         this.gameState = GAME_ALIVE;
         this.gameRule.css('display', 'none');
         this.getTopic();
@@ -77,6 +78,7 @@ class Game {
             setTimeout(()=>{this.bingoGroph.css('display', 'none');}, 500);
             set_off_fireworks();
             this.winLevelArr[this.level - 1] = this.level;
+            $('#nextBtn').addClass('jumpBtn');
             this.gameState = GAME_WIN;
         }
         else {
@@ -145,6 +147,8 @@ class Game {
         }
         csvContent += `\nCorrectRate,${(count / this.record.result.length) * 100}%\n`;
     
+        csvContent = '\ufeff'+csvContent; // 添加 BOM
+        
         // Create a Blob object
         const blob = new Blob([csvContent], { type: "text/csv" });
     

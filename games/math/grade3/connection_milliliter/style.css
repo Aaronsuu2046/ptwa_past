@@ -435,3 +435,16 @@ svg {
 .result #dada {
     color: red;
 }
+
+.jumpBtn {
+    animation: jump 1s ease-in-out;
+    animation-iteration-count: infinite;
+}
+@keyframes jump {
+0%, 100%{
+    transform: translateY(0);
+}
+50% {
+    transform: translateY(-5px);
+}
+}

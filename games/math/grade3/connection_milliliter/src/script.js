@@ -141,6 +141,7 @@ function startGame() {
         level = 1;
         $(gameBtn[0]).addClass('active');
     }
+    $('#nextBtn').removeClass('jumpBtn');
     gameState = GAME_ALIVE;
     gameRule.style.display = 'none';
     getTopic();
@@ -178,7 +179,7 @@ function drawView() {
     const yStart = 65;
     const mouseDownListener = (event) => {
         event.preventDefault();
-        start = event.target.className;
+        start = event.target.classList[1];
         record.start.push(start);
         const {pageX, pageY} = event.touches ? event.touches[0] : event;
         if (line.className.baseVal.includes('wrongLine')){
@@ -202,7 +203,7 @@ function drawView() {
     const mouseupListener = (event) => {
         if (!drawing) return;
         drawing = false;
-        end = event.target.className;
+        end = event.target.classList[1];
         
         checkAnswer();
         record.end.push(end);
@@ -241,12 +242,12 @@ function checkAnswer() {
     if (start === end){
         document.getElementById('correct').play();
         document.getElementById('bingo').style.display = 'block';
-        record.result.push('Ｏ');
+        record.result.push('O');
         $(line).addClass('correctLine');
         $(line).removeClass('line');
         createLine();
         record.result.forEach((item, index)=>{
-            if (item === 'Ｏ'){
+            if (item === 'O'){
                 correctAnswer.add(record.start[index]);
             }
         })
@@ -254,12 +255,13 @@ function checkAnswer() {
         setTimeout(()=>{document.getElementById('bingo').style.display = 'none';}, 500);
         if (correctAnswer.size === liters.length){
             gameState = GAME_WIN;
+            $('#nextBtn').addClass('jumpBtn');
             set_off_fireworks();
             winLevelArr.push(level);
         }
     }
     else {
-        record.result.push('Ｘ');
+        record.result.push('X');
         document.getElementById('wrong').play();
         document.getElementById('dada').style.display = 'block';
         $(line).addClass('wrongLine');
@@ -311,32 +313,35 @@ function resetGame(){
     })
     lives = 3;
 }
+function loadRecord() {
+    // Set download file name
+    const filename = "遊玩紀錄.csv";
+    let csvContent = "Times,毫升,公升,結果\n"; // Add CSV headers
 
-function loadRecord(){
-    // 設定下載檔案名稱
-    const filename = `遊玩紀錄.txt `;
-    let textContent = `遊玩紀錄：
-    `;
-    
-    for (let i=0; i<record.start.length; i++) {
-        textContent += `\t\n第 ${i+1} 次點擊從 ${record.start[i]}ml 到 ${(record.end[i])/1000}L，結果為 ${record.result[i]}`
-
+    let count = 0;
+    for (let i = 0; i < record.start.length; i++) {
+        csvContent += `${i + 1},${record.start[i]},${record.end[i]/1000},${record.result[i]}\n`;
+        if (record.result[i] === "O") count++;
     }
-    // 建立一個 Blob 物件
-    const blob = new Blob([textContent], {type: 'text/plain'});
+    csvContent += `\nCorrectRate,${(count / record.result.length) * 100}%\n`;
+    
+    csvContent = '\ufeff'+csvContent; // 添加 BOM
 
-    // 建立一個下載連結
+    // Create a Blob object
+    const blob = new Blob([csvContent], { type: "text/csv" });
+
+    // Create a download link
     const url = URL.createObjectURL(blob);
 
-    // 建立一個 <a> 元素，並設定 href 屬性和 download 屬性
-    const a = document.createElement('a');
+    // Create an <a> element and set href and download attributes
+    const a = document.createElement("a");
     a.href = url;
     a.download = filename;
 
-    // 模擬點擊 <a> 元素，開始下載檔案
+    // Simulate clicking the <a> element to start the download
     a.click();
 
-    // 釋放 URL 物件
+    // Release the URL object
     URL.revokeObjectURL(url);
 }
 function showHint(){
@@ -480,5 +485,4 @@ function createHint() {
         literHintWaterCount[i].textContent = liter;
     }
 }
-
   
