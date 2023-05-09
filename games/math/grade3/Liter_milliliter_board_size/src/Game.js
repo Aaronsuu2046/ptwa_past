@@ -30,9 +30,9 @@ class Game {
                       };
         this.topic_explan = {1: `遊戲目標`};
         this.winLevelArr = [];
-        this.questionLeft = [, '3020mL', '1L', '17mL', '1600mL']
-        this.questionRight = [, '3L 200mL', '100mL', '17 x 1 L', '1L 60mL']
-        this.answer = [, '<', '>', '<', '>']
+        this.questionLeft = [, '3020mL', '1L', '17毫升', '1600mL', '4公升']
+        this.questionRight = [, '3L 200mL', '100mL', '17個一公升', '1L 60mL', '4000毫升']
+        this.answer = [, '<', '>', '<', '>', '=']
         this.nowReply = "";
     }
     startGame(level) { 
@@ -81,6 +81,8 @@ class Game {
             this.gameState = GAME_WIN;
         }
         else {
+            $('.compare').html("");
+            this.hideSymbol('');
             this.record.result.push('X');
             this.wrongSound.play();
             this.dadaGroph.css('display', 'block');
