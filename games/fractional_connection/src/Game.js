@@ -41,6 +41,11 @@ export class Game extends GameTemplate {
         const line = $('.line')[0];
         const getDotPos = (event, parentName) => {
             const dot = $(event.target).closest(`.${parentName}`).find('.dot');
+            if (event.type === 'touchstart') {
+                mouseMoveListener(event);
+                console.log(event);
+                console.log(event);
+            }
             const offset = dot.offset();
             const width = dot.width();
             const height = dot.height();
@@ -68,6 +73,7 @@ export class Game extends GameTemplate {
         const mouseMoveListener = (event) => {
             event.preventDefault();
             if (!this.isDrawing) return;
+            console.log(event.touches ? event.touches[0] : event);
             const {offsetX, offsetY} = event.touches ? event.touches[0] : event;
             line.setAttribute("x2", offsetX);
             line.setAttribute("y2", offsetY+5);
@@ -86,22 +92,8 @@ export class Game extends GameTemplate {
                 mouseDownListener(e);
             }
         });
-        this.gameArea.on("touchstart", (e) => {
-            if (checkQuestionArea(e)){
-                mouseDownListener(e);
-            }
-        });
         this.drawingArea.on("mousemove", mouseMoveListener);
-        this.gameArea.on("touchmove", (e) => {
-            mouseMoveListener(e);
-        });
         this.gameArea.on("mouseup", (e) => {
-            if (checkAnswerArea(e)){
-                mouseupListener(e);
-                console.log("up")
-            }
-        });
-        this.gameArea.on("touchend", (e) => {
             if (checkAnswerArea(e)){
                 mouseupListener(e);
             }
@@ -140,6 +132,8 @@ export class Game extends GameTemplate {
 
 
 // TODO why gameIframe.contentWindow.game is undifined 
-window.game = new Game();
+// window.game = new Game();
 
-const game = new Game();
+export function getGame(){
+    return new Game();
+}

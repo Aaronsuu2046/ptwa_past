@@ -15,6 +15,9 @@ levelsArea.html(getLevels());
 $('.context').html(getRule());
 optionsArea.html(getOptions());
 const game = $(`#${gameName}`)[0].contentWindow.game;
+console.log($(`#${gameName}`)[0]);
+console.log($(`#${gameName}`)[0].contentWindow);
+console.log($(`#${gameName}`)[0].contentWindow.game);
 
 levelsArea.on('click', (e) => {
     const level = parseInt(e.target.id);

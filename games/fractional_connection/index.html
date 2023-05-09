@@ -112,5 +112,9 @@
         </div>
     </div>
     <script src="./src/Game.js" type="module"></script>
+    <script type="module">
+        import {getGame} from './src/Game.js'
+        export const game = getGame();
+    </script>
 </body>
 </html>
