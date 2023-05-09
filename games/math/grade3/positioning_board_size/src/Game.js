@@ -37,6 +37,7 @@ class Game {
         this.nowQuestion = [];
     }
     startGame(level) { 
+        this.hideSymbol("");
         $('.compare').html('');
         if (this.gameState===GAME_ALIVE){
             return
@@ -216,22 +217,32 @@ class Game {
     symbolDisplay(symbol){
         if(symbol === "moreThan"){
             $('.compare').html('<h1> > </h1>');
+            this.hideSymbol('.moreThan');
             this.nowReply = '>';
         }
         
         else if(symbol === "lessThan"){
             $('.compare').html('<h1> < </h1>');
+            this.hideSymbol('.lessThan');
             this.nowReply = '<';
         }
         
         else if(symbol === "equal"){
             $('.compare').html('<h1> = </h1>');
+            this.hideSymbol('.equal');
             this.nowReply = '=';
         }
         
         else
             return;
 
+    }
+
+    hideSymbol(name){
+        $('.equal').css('display', 'block');
+        $('.lessThan').css('display', 'block');
+        $('.moreThan').css('display', 'block');
+        $(name).css('display', 'none');
     }
 
     questionDigitSeparation(valueL, valueR){
