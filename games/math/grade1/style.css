@@ -135,3 +135,9 @@ iframe {
     width: 840px;
     height: 750px;
 }
+
+#frame3{
+    margin-top: 5%;
+    width: 130vh;
+    height: 135vh;
+}
