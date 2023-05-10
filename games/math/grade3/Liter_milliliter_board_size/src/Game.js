@@ -30,12 +30,13 @@ class Game {
                       };
         this.topic_explan = {1: `遊戲目標`};
         this.winLevelArr = [];
-        this.questionLeft = [, '3020mL', '1L', '17mL', '1600mL']
-        this.questionRight = [, '3L 200mL', '100mL', '17 x 1 L', '1L 60mL']
-        this.answer = [, '<', '>', '<', '>']
+        this.questionLeft = [, '3020mL', '1L', '17毫升', '1600mL', '4公升']
+        this.questionRight = [, '3L 200mL', '100mL', '17個一公升', '1L 60mL', '4000毫升']
+        this.answer = [, '<', '>', '<', '>', '=']
         this.nowReply = "";
     }
     startGame(level) { 
+        this.hideSymbol('');
         $('.compare').html('');
         if (this.gameState===GAME_ALIVE){
             return
@@ -82,6 +83,8 @@ class Game {
             this.gameState = GAME_WIN;
         }
         else {
+            $('.compare').html("");
+            this.hideSymbol('');
             this.record.result.push('X');
             this.wrongSound.play();
             this.dadaGroph.css('display', 'block');
@@ -196,22 +199,32 @@ class Game {
     symbolDisplay(symbol){
         if(symbol === "moreThan"){
             $('.compare').html('<h1> > </h1>');
+            this.hideSymbol('.moreThan');
             this.nowReply = '>';
         }
         
         else if(symbol === "lessThan"){
             $('.compare').html('<h1> < </h1>');
+            this.hideSymbol('.lessThan');
             this.nowReply = '<';
         }
         
         else if(symbol === "equal"){
             $('.compare').html('<h1> = </h1>');
+            this.hideSymbol('.equal');
             this.nowReply = '=';
         }
         
         else
             return;
 
+    }
+
+    hideSymbol(name){
+        $('.equal').css('display', 'block');
+        $('.lessThan').css('display', 'block');
+        $('.moreThan').css('display', 'block');
+        $(name).css('display', 'none');
     }
 }
 
