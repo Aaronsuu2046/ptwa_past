@@ -2,6 +2,32 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+### 2023.05.09
+##### Educational Games
+**Added**
+- 新增數字 0~10 找找在哪裡（PTWA Num Game）
+- 新增分數填色比大小（Fractional Coloring Board Size）
+**Changed**
+- 修復下載 csv 檔案無法正確轉譯中文問題
+
+### 2023.05.05
+##### Educational Games
+**Changed**
+- 建立新的滑鼠遊戲（Mouse）更新舊的
+- 新增毫升、公升比大小（Liter Milliliter Board Size）
+- 新增定位板比大小（Positioning Board Size）
+- 新增公克、公斤比大小（Positioning Board Size）
+
+**Fixed**
+- 修正 boostrape 檔案路徑引入錯誤
+  
+### 2023.05.04
+##### [v0.0.0] - Educational Games
+**Changed**
+- 整理遊戲專案架構
+**Added**
+- 新增時間單位換算（Time Unit）遊戲
+  
 ### 2023.04.19
 ##### [v0.0.0] - Educational Games
 **Changed**

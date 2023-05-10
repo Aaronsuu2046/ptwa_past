@@ -65,6 +65,7 @@ button {
 
 .hintContainer{
     display: flex;
+    flex-flow: column;
     justify-content: center;
     align-items: center;
     position: absolute;
@@ -76,8 +77,28 @@ button {
     height: 100%;
     overflow: hidden;
 }
+
+.hintDigitsContainer{
+    display: flex;
+    margin-top: 50px;
+    width: 50%;
+    text-align: center;
+}
+
+.DigitsSpace{
+    height: 30px;
+}
+
+.digitsCheckSymbol{
+    color: red;
+    position: fixed;
+    top: 360px;
+    font-size: 50px;
+    left: 240px;
+}
+
 .hintContainer > h1{
-    line-height: 50px;
+    line-height: 80px;
     margin: 0;
     color: #000;
     cursor: pointer;

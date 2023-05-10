@@ -136,6 +136,7 @@ function startGame() {
         level = 1;
         $(gameBtn[0]).addClass('active');
     }
+    $('#nextBtn').removeClass('jumpBtn');
     gameState = GAME_ALIVE;
     gameRule.style.display = 'none';
     isHint = false;
@@ -174,6 +175,7 @@ function checkAnswer() {
         document.getElementById('bingo').style.display = 'block';
         set_off_fireworks();
         setTimeout(()=>{document.getElementById('bingo').style.display = 'none';}, 2500);
+        $('#nextBtn').addClass('jumpBtn');
     }
     else {
         document.getElementById('wrong').play();

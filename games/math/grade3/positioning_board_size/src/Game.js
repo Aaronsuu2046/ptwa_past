@@ -9,7 +9,7 @@ const GAME_WIN = 'WIN'
 // set firework
 const firework_sound = $('#win')[0];
 const fireworkContainer = $('#firework-container');
-const fireworksUrl = './assets/images/fireworks.gif';
+const fireworksUrl = '../../../../assets/images/game_images/fireworks.gif';
 
 class Game {
     gameRule = $('.gameRule');
@@ -37,6 +37,7 @@ class Game {
         this.nowQuestion = [];
     }
     startGame(level) { 
+        this.hideSymbol("");
         $('.compare').html('');
         if (this.gameState===GAME_ALIVE){
             return
@@ -51,6 +52,7 @@ class Game {
         else {
             this.changeLevel(level);
         }
+        $('#nextBtn').removeClass('jumpBtn');
         this.gameState = GAME_ALIVE;
         this.gameRule.css('display', 'none');
         this.getTopic();
@@ -99,9 +101,13 @@ class Game {
             setTimeout(()=>{this.bingoGroph.css('display', 'none');}, 500);
             set_off_fireworks();
             this.winLevelArr[this.level - 1] = this.level;
+            $('#nextBtn').addClass('jumpBtn');
             this.gameState = GAME_WIN;
         }
         else {
+            $('.compare').html("");
+            this.hideSymbol('');
+            
             this.record.result.push('X');
             this.wrongSound.play();
             this.dadaGroph.css('display', 'block');
@@ -169,6 +175,8 @@ class Game {
         }
         csvContent += `\nCorrectRate,${(count / this.record.result.length) * 100}%\n`;
     
+        csvContent = '\ufeff'+csvContent; // 添加 BOM
+        
         // Create a Blob object
         const blob = new Blob([csvContent], { type: "text/csv" });
     
@@ -192,7 +200,7 @@ class Game {
     }
     
     getTopic(){
-        $(this.topic).text('比大小(' + this.level + ')');
+        $(this.topic).text('10000以內的數比大小(' + this.level + ')');
     }
     
     setLives(lives){
@@ -204,7 +212,7 @@ class Game {
         }
         for (let i = 0; i <count; i++){
             const livesImg = $('<img>')
-            .attr('src', './assets/images/lives.svg')
+            .attr('src', '../../../../assets/images/game_images/lives.svg')
             .attr('alt', 'lives image')
             .attr('width', '60')
             .attr('height', 'auto')
@@ -216,22 +224,32 @@ class Game {
     symbolDisplay(symbol){
         if(symbol === "moreThan"){
             $('.compare').html('<h1> > </h1>');
+            this.hideSymbol('.moreThan');
             this.nowReply = '>';
         }
         
         else if(symbol === "lessThan"){
             $('.compare').html('<h1> < </h1>');
+            this.hideSymbol('.lessThan');
             this.nowReply = '<';
         }
         
         else if(symbol === "equal"){
             $('.compare').html('<h1> = </h1>');
+            this.hideSymbol('.equal');
             this.nowReply = '=';
         }
         
         else
             return;
 
+    }
+
+    hideSymbol(name){
+        $('.equal').css('display', 'block');
+        $('.lessThan').css('display', 'block');
+        $('.moreThan').css('display', 'block');
+        $(name).css('display', 'none');
     }
 
     questionDigitSeparation(valueL, valueR){
