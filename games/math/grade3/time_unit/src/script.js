@@ -5,6 +5,7 @@ const levelsArea = $(`.levelBtn`);
 const optionsArea = $(`.optionsBtn`);
 const closeHintBtn = $(`.hintContainer .closeHintBtn`);
 const closeRightAnsBtn = $(`.RightAnsSection .closeRightAnsBtn`);
+const closeCalculateCanvasBtn = $(`.calculate-canvas .closeCalculateCanvasBtn`);
 const jumpBtn = $('.jumpBtn');
 const answerArea = $(`.game_area .answer`);
 
@@ -26,6 +27,10 @@ closeHintBtn.on('click', (e) => {
 closeRightAnsBtn.on('click',(e) => {
     game.toggleRightAns();
     game.SetshowAnsState('HIDE');
+});
+
+closeCalculateCanvasBtn.on('click',(e)=>{
+    $('.calculate-canvas').toggle();
 });
 
 jumpBtn.on('animationiteration', ()=>{
