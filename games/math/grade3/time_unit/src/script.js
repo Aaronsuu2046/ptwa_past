@@ -8,6 +8,7 @@ const closeRightAnsBtn = $(`.RightAnsSection .closeRightAnsBtn`);
 const closeCalculateCanvasBtn = $(`.calculate-canvas .closeCalculateCanvasBtn`);
 const jumpBtn = $('.jumpBtn');
 const answerArea = $(`.game_area .answer`);
+const calculatecanvasBtn = $(`.calculate-canvas-btn`);
 
 levelsArea.on('click', (e) => {
     const level = parseInt(e.target.textContent);
@@ -30,12 +31,17 @@ closeRightAnsBtn.on('click',(e) => {
 });
 
 closeCalculateCanvasBtn.on('click',(e)=>{
-    $('.calculate-canvas').toggle();
+    game.toggleCalculateCanvas();
 });
 
 jumpBtn.on('animationiteration', ()=>{
     jumpBtn.css('animation-play-state', 'paused');
     setTimeout(()=>{jumpBtn.css('animation-play-state', 'running');}, 2000);
+});
+
+calculatecanvasBtn.on('click',(e)=>{
+    game.createCanvasElement(game.level);
+    game.setupCanvas();
 });
 
 answerArea.on('click', (e) => {

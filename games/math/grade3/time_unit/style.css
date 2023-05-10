@@ -387,7 +387,19 @@ border-radius: 50px;
 }
 
 
+.FormHint{
+    position: absolute;
+    top: 30px;
+    left: 300px;
+    font-size: 30px;
+}
 
+.Calculus-section-question{
+    position: absolute;
+    top: 30px;
+    left: 50px;
+    font-size: 30px;
+}
 
 
 .startErasing,

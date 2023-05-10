@@ -21,6 +21,7 @@ while (i<Object.keys(gameData.gameData).length){
 }
 AddAnimationGrayRect();
 AddQuestion();
+initCalculateCanvas();
 
 class Game {
     gameRule = $('.gameRule');
@@ -228,6 +229,97 @@ class Game {
             });
         });
     }
+    createCanvasElement(level){
+        $('.calculate-canvas').toggle();
+        $('.Calculus-section-question').remove();
+        $('#calculate-section').addClass('pen-cursor');
+        const QuestionText = gameData.gameData[level].question; 
+        const QuestionElement = $('<p>').attr('class','Calculus-section-question').text('題目：' + QuestionText);
+        $('.calculate-canvas').append(QuestionElement);
+    }
+    setupCanvas() {
+    
+        //設定按鈕控制
+        $('.startWriting').on('click',()=>{
+            isEraserActive = false;
+            $('.showmode').text("正在書寫模式");
+            $('#calculate-section').removeClass('eraser-cursor');
+            $('#calculate-section').addClass('pen-cursor');
+        });
+    
+        $('.startErasing').on('click',()=>{
+            isEraserActive = true;
+            $('.showmode').text("正在擦布模式");
+            $('#calculate-section').removeClass('pen-cursor');
+            $('#calculate-section').addClass('eraser-cursor');
+        });
+    
+        
+    
+        const canvas = $('#calculate-section')[0];
+        const ctx = canvas.getContext('2d');
+        ctx.strokeStyle = 'black';
+        canvas.width = 800;
+        canvas.height = 600;
+    
+        let x1 = 0;
+        let y1 = 0;
+        let x2 = 0;
+        let y2 = 0;
+    
+        const hasTouchEvent = 'ontouchstart' in window ? true : false;
+        const downEvent = hasTouchEvent ? 'ontouchstart' : 'mousedown';
+        const moveEvent = hasTouchEvent ? 'ontouchmove' : 'mousemove';
+        const upEvent = hasTouchEvent ? 'touchend' : 'mouseup';
+        let isMouseActive = false;
+        let isEraserActive = false;
+    
+        $('.BlackColor').on('click',()=>{ctx.strokeStyle = 'black';});
+        $('.BlueColor').on('click',()=>{ctx.strokeStyle = 'blue';});
+        $('.RedColor').on('click',()=>{ctx.strokeStyle = 'red';});
+    
+        $('.clearAll').on('click',()=>{
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+        });
+    
+        $(canvas).on(downEvent, function(e){
+            isMouseActive = true;
+        });
+    
+        $(canvas).on(downEvent, function(e){
+            isMouseActive = true;
+            x1 = e.offsetX;
+            y1 = e.offsetY+16;
+    
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+        });
+        $(canvas).on(moveEvent, function(e){
+            if(!isMouseActive){
+                return;
+            }
+            x2 = e.offsetX;
+            y2 = e.offsetY+32;
+            if(isEraserActive){
+                ctx.clearRect(x2-10,y2-10,20,20);
+            }else{
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();    
+                x1 = x2;
+                y1 = y2;
+            }
+        });
+    
+        canvas.addEventListener(upEvent, function(e){
+            isMouseActive = false;
+        });
+    }
+    toggleCalculateCanvas(){
+        $('.calculate-canvas').toggle();
+    }
 }
 
 
@@ -323,29 +415,23 @@ function UpdateAnswer(level){
     // }
 }
 
-$('.calculate-canvas-btn').on('click',function(){
-    createCanvasElement();
-    setupCanvas();
-});
-
-function createCanvasElement(){
-    $('.calculate-canvas').toggle();
-    $('#calculate-section').addClass('pen-cursor');
+function initCalculateCanvas(){
     const penElement = $('<img>').attr({
         'class': 'startWriting animate-pen',
-         'src' : 'assets/images/pen.png',
-         'alt' : 'startWriting'
+            'src' : 'assets/images/pen.png',
+            'alt' : 'startWriting'
     });
     const eraserElement = $('<img>').attr({
         'class': 'startErasing animate-eraser',
-         'src' : 'assets/images/eraser.png',
-         'alt' : 'startErasing'
+            'src' : 'assets/images/eraser.png',
+            'alt' : 'startErasing'
     });
     const modeElement = $('<p>').attr({'class': 'showmode'}).text("正在書寫模式");
     const clearallElement = $('<button>').attr({'class': 'clearAll animate-clearAllBtn'}).text("清空畫布");
     const BlackColorElement = $('<div>').attr('class','BlackColor');
     const BlueColorElement = $('<div>').attr('class','BlueColor');
     const RedColorElement = $('<div>').attr('class','RedColor');
+    const FormHintElement = $('<p>').attr('class','FormHint').text("公式：1小時=60分鐘/1分鐘=60秒");
     $('.calculate-canvas').append(penElement);
     $('.calculate-canvas').append(eraserElement);
     $('.calculate-canvas').append(clearallElement);
@@ -353,86 +439,6 @@ function createCanvasElement(){
     $('.calculate-canvas').append(BlackColorElement);
     $('.calculate-canvas').append(BlueColorElement);
     $('.calculate-canvas').append(RedColorElement);
-    
+    $('.calculate-canvas').append(FormHintElement);
 }
 
-function setupCanvas() {
-    
-    //設定按鈕控制
-    $('.startWriting').on('click',()=>{
-        isEraserActive = false;
-        $('.showmode').text("正在書寫模式");
-        $('#calculate-section').removeClass('eraser-cursor');
-        $('#calculate-section').addClass('pen-cursor');
-    });
-
-    $('.startErasing').on('click',()=>{
-        isEraserActive = true;
-        $('.showmode').text("正在擦布模式");
-        $('#calculate-section').removeClass('pen-cursor');
-        $('#calculate-section').addClass('eraser-cursor');
-    });
-
-    
-
-    const canvas = $('#calculate-section')[0];
-    const ctx = canvas.getContext('2d');
-    ctx.strokeStyle = 'black';
-    canvas.width = 800;
-    canvas.height = 600;
-
-    let x1 = 0;
-    let y1 = 0;
-    let x2 = 0;
-    let y2 = 0;
-
-    const hasTouchEvent = 'ontouchstart' in window ? true : false;
-    const downEvent = hasTouchEvent ? 'ontouchstart' : 'mousedown';
-    const moveEvent = hasTouchEvent ? 'ontouchmove' : 'mousemove';
-    const upEvent = hasTouchEvent ? 'touchend' : 'mouseup';
-    let isMouseActive = false;
-    let isEraserActive = false;
-
-    $('.BlackColor').on('click',()=>{ctx.strokeStyle = 'black';});
-    $('.BlueColor').on('click',()=>{ctx.strokeStyle = 'blue';});
-    $('.RedColor').on('click',()=>{ctx.strokeStyle = 'red';});
-
-    $('.clearAll').on('click',()=>{
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-    });
-
-    $(canvas).on(downEvent, function(e){
-        isMouseActive = true;
-    });
-
-    $(canvas).on(downEvent, function(e){
-        isMouseActive = true;
-        x1 = e.offsetX;
-        y1 = e.offsetY+16;
-
-        ctx.lineWidth = 3;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-    });
-    $(canvas).on(moveEvent, function(e){
-        if(!isMouseActive){
-            return;
-        }
-        x2 = e.offsetX;
-        y2 = e.offsetY+32;
-        if(isEraserActive){
-            ctx.clearRect(x2-10,y2-10,20,20);
-        }else{
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.stroke();    
-            x1 = x2;
-            y1 = y2;
-        }
-    });
-
-    canvas.addEventListener(upEvent, function(e){
-        isMouseActive = false;
-    });
-}
