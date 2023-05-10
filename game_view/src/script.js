@@ -1,6 +1,6 @@
 import {Game} from '../../games/fractional_connection/src/Game.js'
 import * as constant from "./constant.js"
-import {getJson} from './function.js';
+import {getJson} from './module.js';
 import {Handler} from './Handler.js';
 
 const optionsBtn = {"lastBtn": "上一關", "startBtn": "遊戲開始", "nextBtn": "下一關", "hintBtn": "提示", "recordBtn": "💾", "submitBtn": "送出答案"}
@@ -15,9 +15,9 @@ levelsArea.html(getLevels());
 $('.context').html(getRule());
 optionsArea.html(getOptions());
 const game = $(`#${gameName}`)[0].contentWindow.game;
-console.log($(`#${gameName}`)[0]);
-console.log($(`#${gameName}`)[0].contentWindow);
-console.log($(`#${gameName}`)[0].contentWindow.game);
+// console.log($(`#${gameName}`)[0]);
+// console.log($(`#${gameName}`)[0].contentWindow);
+// console.log($(`#${gameName}`)[0].contentWindow.game);
 
 levelsArea.on('click', (e) => {
     const level = parseInt(e.target.id);

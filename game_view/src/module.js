@@ -81,7 +81,7 @@ export function createFanShape(cx, cy, radius, startAngle, endAngle) {
     return path
 }
 
-export function createLine({...extra}={}) {
+export function getNewLine({...extra}={}) {
     const defaults = {
         stroke: "black"
         , strokeWidth: "2"

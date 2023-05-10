@@ -1,5 +1,5 @@
 import * as constant from "./constant.js"
-import {getJson} from "./function.js"
+import {getJson} from "./module.js"
 
 const gameData = await getJson('./game_config.json');
 
@@ -26,17 +26,18 @@ export class GameTemplate {
     
     checkAnswer() {
         if (arguments.length === 2){
-            question = arguments[0];
-            answer = arguments[1];
+            const question = arguments[0];
+            const answer = arguments[1];
             this.appendToRecordQ(question)
             this.appendToRecordA(answer)
             if (question === answer){
-                this.appendToRecordResult("O")
+                this.correctAnswer();
+                this.appendToRecordResult("O");
             }
             else {
-                this.appendToRecordResult("X")
-                this.setLives(this.lives-1)
-                this.winLevelArr.pop(level);
+                this.wrongAnswer();
+                this.appendToRecordResult("X");
+                this.winLevelArr.pop(this.level);
             }
         } 
         this.getGameResult();
@@ -104,6 +105,13 @@ export class GameTemplate {
     
         // Release the URL object
         URL.revokeObjectURL(url);
+    }
+
+    correctAnswer(){
+        // define content
+    }
+    wrongAnswer(){
+        // define content
     }
     appendToRecordQ(question){
         this.record.q.push(question);
