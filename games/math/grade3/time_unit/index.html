@@ -24,14 +24,20 @@
                 </h1>
                 <div class="context">
                     <h1>根據題目選擇對應的答案</h1>
+                    <h1>可使用右上角的計算紙來計算</h1>
                     <h1>正確即可過關</h1>
                     <h1>點擊💾可下載遊戲紀錄</h1>
                 </div>
                 <h1 id="end">準備好了嗎？點擊遊戲開始！</h1>
             </div>
-            <div class="topic">
+                <div class="topic">
             </div>
             <div class="lives"></div>
+            <btn class="calculate-canvas-btn"><img src="assets/images/notebook.png" alt="計算紙">計算紙</btn>
+            <div class="calculate-canvas">
+                <canvas id="calculate-section"></canvas>
+                <span class="closeCalculateCanvasBtn">Ｘ</span>
+            </div>
             <div class="overlay">
                 <div class="hintContainer">
                     <h1 >提示：</h1>
@@ -50,10 +56,20 @@
                 </div>
             </div>
             <div class="game_area">
-                <!-- 遊戲內容 -->
+                <div class="tool"></div>
+                <div class="fill_blank_top"></div>
+                <div class="question-container"></div>
+                <div class="fill_blank_down"></div>
+                <div class="answer">
+                    <div class="a"></div>
+                    <div class="b"></div>
+                    <div class="c"></div>
+                </div>
+            </div>
+            <!-- <div class="game_area">
                 <div class="question"></div>
                 <div class="answer"></div>
-            </div>
+            </div> -->
             <div class="result">
                 <h1 id="bingo">Ｏ</h1>
                 <h1 id="dada">Ｘ</h1>
@@ -65,7 +81,7 @@
             <button id="startBtn">遊戲開始</button>
             <button id="nextBtn">下一關</button>
             <button id="recordBtn">💾</button>
-            <button id="hintBtn">提示</button>
+            <!-- <button id="hintBtn">提示</button> -->
             <!-- <button class="jumpBtn" id="submitBtn">送出答案</button> -->
         </div>
     </div>
