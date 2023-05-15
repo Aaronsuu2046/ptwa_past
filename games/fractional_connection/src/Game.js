@@ -28,6 +28,9 @@ export class Game extends GameTemplate {
             this.resetGame(level);
         }
         super.startGame(level);
+        this.drawingArea.html('');
+        this.line = $(getNewLine()).addClass('line')[0];
+        this.drawingArea.append($(this.line));
         this.record = {'q': []
                     , 'a': []
                     , 'result': []
@@ -40,8 +43,9 @@ export class Game extends GameTemplate {
 
     correctAnswer(){
         $('.line:last').addClass('correctLine');
-        const line = getNewLine();
-        this.drawingArea.append($(line).addClass('line'));
+        this.line = $(getNewLine()).addClass('line')[0];
+        console.log(this.line);
+        this.drawingArea.append($(this.line));
     }
 
     wrongAnswer(){
@@ -71,14 +75,9 @@ export class Game extends GameTemplate {
         }
         const mouseDownListener = (event) => {
             event.preventDefault();
-            this.line = $('.line:last')[0];
             const pos = getDotPos(event, "questionArea");
             if ($(this.line).hasClass('wrongLine')){
                 $(this.line).removeClass('wrongLine');
-            }
-            else{
-                getNewLine();
-                $(this.line).addClass('line');
             }
             this.line.setAttribute("x1", pos.x);
             this.line.setAttribute("y1", pos.y);
@@ -90,7 +89,6 @@ export class Game extends GameTemplate {
         const mouseMoveListener = (event) => {
             event.preventDefault();
             if (!this.isDrawing) return;
-            this.line = $('.line:last')[0];
             const {offsetX, offsetY} = event.touches ? event.touches[0] : event;
             this.line.setAttribute("x2", offsetX);
             this.line.setAttribute("y2", offsetY+5);
@@ -99,7 +97,6 @@ export class Game extends GameTemplate {
         const mouseupListener = (event) => {
             if (!this.isDrawing) return;
             this.isDrawing = false;
-            this.line = $('.line:last')[0];
             const pos = getDotPos(event, "answerArea");
             this.line.setAttribute("x2", pos.x);
             this.line.setAttribute("y2", pos.y);

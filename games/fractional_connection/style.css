@@ -21,11 +21,11 @@ body {
     stroke-width: 5;
 }
 .correctLine {
-    stroke: green;
+    stroke: green !important;
     stroke-width: 5;
 }
 .wrongLine {
-    stroke: red;
+    stroke: red !important;
     stroke-width: 5;
 }
 /* hint */
