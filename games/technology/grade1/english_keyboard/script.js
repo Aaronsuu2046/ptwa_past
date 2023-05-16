@@ -1,7 +1,7 @@
 var start_game_run = false; // 偵測遊戲是否運行
 let keydown_run = true; // 防止一次按很多按鍵
 let keydown_random = false; // 調整模式為依序或隨機
-let keydown_delay = 3000; // 調整答對後圖片出現的間隔
+let keydown_delay = 500; // 調整答對後圖片出現的間隔
 let letter_list = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90];
 let value_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
@@ -97,7 +97,7 @@ function game_start_reciprocal(){
         game_status.error_count = 0;
         game_status.correct_count = 0;
         game_status.keydown_time = [];
-        keydown_delay = 3000;
+        keydown_delay = parseInt(document.getElementById('letterTime').value);
     }, time[6]);
     setTimeout(function(){game_time_reciprocal(); setInterval(game_time_reciprocal, 1000); game_start_bool = false}, 6000);
 }
@@ -107,7 +107,7 @@ function game_time_reciprocal(){
         return;
     let tmp_id = document.getElementById('time_id');
     if(keydown_random == false){ // 依序模式
-        if(game_status.score == 3700){
+        if(game_status.score >= 5100){
             start_game_run = false;
             var id = document.getElementById('opo');
             id.textContent = '';
@@ -238,7 +238,7 @@ function keyboard_keydown(e) {
             setTimeout(function(){
                 keydown_run = true
                 txt_id.classList.remove('error_transition')
-            }, 750);
+            }, keydown_delay+250);
         }
     }
 }
