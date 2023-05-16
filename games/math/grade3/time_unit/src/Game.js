@@ -224,65 +224,71 @@ class Game {
         $('.horizontal-form').text(gameData.gameData[level].explaination_horizontal);
         let question = gameData.gameData[level].question;
         let answer = gameData.gameData[level].options[gameData.gameData[level].answer];
-        let verticalForm = "";
-
+    
         let hours = 0;
         let minutes = 0;
         let seconds = 0;
+        //作法：用一個4*4表格來顯示直式
 
+        // clear table 
+        $('#conversion-table tr:nth-child(1) td:nth-child(2)').empty();
+        $('#conversion-table tr:nth-child(2) td:nth-child(3)').empty();
+        $('#conversion-table tr:nth-child(2) td:nth-child(4)').empty();
+        $('#conversion-table tr:nth-child(3) td:nth-child(2)').empty();
+        $('#conversion-table tr:nth-child(4) td:nth-child(2)').empty();
+
+    
         // 判斷題目類型
         if(answer.includes("秒")){ //題型為分鐘轉小時
             if(question.includes("秒")){ 
                 //題目格式是x分鐘y秒
                 let minutes = parseInt(question.split("分鐘")[0]);
+                console.log(minutes);
                 let seconds = parseInt(question.split("分鐘")[1].split("秒")[0]);
-                verticalForm += '   60\n';
-                verticalForm += 'x   ' + minutes + '\n';
-                verticalForm += '———\n';
-                verticalForm += ' ' + minutes * 60 + '\n\n';
+                console.log(seconds);
+                $('#conversion-table tr:nth-child(1) td:nth-child(1)').text('60');
+                $('#conversion-table tr:nth-child(2) td:nth-child(2)').text(minutes);
+                $('#conversion-table tr:nth-child(4) td:nth-child(1)').text(minutes * 60);
+                
+                $('#conversion-table tr:nth-child(1) td:nth-child(2)').text(minutes * 60);
+                $('#conversion-table tr:nth-child(2) td:nth-child(3)').text('+');
+                $('#conversion-table tr:nth-child(2) td:nth-child(4)').text(seconds);
+                $('#conversion-table tr:nth-child(3) td:nth-child(2)').text('————————');
+                $('#conversion-table tr:nth-child(4) td:nth-child(2)').text(minutes * 60 + seconds);
 
-                $('.vertical-form').text(verticalForm);
-                verticalForm = "";
-
-                verticalForm += '   ' + minutes * 60 + '\n';
-                verticalForm += '+   ' + seconds + '\n';
-                verticalForm += '———\n';
-                verticalForm += ' ' + answer.split("秒")[0];
             }else{
                 //題目格式為x分鐘
                 let minutes = parseInt(question.split("分鐘")[0]);
-                verticalForm += '   60\n';
-                verticalForm += 'x   ' + minutes + '\n';
-                verticalForm += '———\n';
-                verticalForm += ' ' + answer.split("秒")[0];
+    
+                $('#conversion-table tr:nth-child(1) td:nth-child(1)').text('60');
+                $('#conversion-table tr:nth-child(2) td:nth-child(2)').text(minutes);
+                $('#conversion-table tr:nth-child(4) td:nth-child(1)').text(60 * minutes);
             }
         }else{  //題型為小時轉分鐘
             if(question.includes("分鐘")){
                 //題目格式是x小時y分鐘
                 let hours = parseInt(question.split("小時")[0]);
                 let minutes = parseInt(question.split("小時")[1].split("分鐘")[0]);
-                verticalForm += '   60\n';
-                verticalForm += 'x   ' + hours + '\n';
-                verticalForm += '———\n';
-                verticalForm += ' ' + hours * 60 + '\n\n';
+    
+                $('#conversion-table tr:nth-child(1) td:nth-child(1)').text('60');
+                $('#conversion-table tr:nth-child(2) td:nth-child(2)').text(hours);
+                $('#conversion-table tr:nth-child(4) td:nth-child(1)').text(hours * 60);
 
-                $('.vertical-form').text(verticalForm);
-                verticalForm = "";
-
-                verticalForm += '   ' + hours * 60 + '\n';
-                verticalForm += '+   ' + minutes + '\n';
-                verticalForm += '———\n';
-                verticalForm += ' ' + answer.split("分鐘")[0];
+                $('#conversion-table tr:nth-child(1) td:nth-child(2)').text(hours * 60);
+                $('#conversion-table tr:nth-child(2) td:nth-child(3)').text('+');
+                $('#conversion-table tr:nth-child(2) td:nth-child(4)').text(minutes);
+                $('#conversion-table tr:nth-child(3) td:nth-child(2)').text('————————');
+                $('#conversion-table tr:nth-child(4) td:nth-child(2)').text(hours * 60 + minutes);
+                
             }else{
                 //題目格式是x小時
                 let hours = parseInt(question.split("小時")[0]);
-                verticalForm += '   60\n';
-                verticalForm += 'x   ' + hours + '\n';
-                verticalForm += '———\n';
-                verticalForm += ' ' + answer.split("分鐘")[0];
+    
+                $('#conversion-table tr:nth-child(1) td:nth-child(1)').text('60');
+                $('#conversion-table tr:nth-child(2) td:nth-child(2)').text(hours);
+                $('#conversion-table tr:nth-child(4) td:nth-child(1)').text(60 * hours);
             }
         }
-        $('.vertical-form').append(verticalForm);
         this.toggleRightAns();
     }
 

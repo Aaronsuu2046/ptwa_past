@@ -605,6 +605,23 @@ animation-fill-mode: forwards;
     display: flex;
 }
 
+.RightAnsSection table{
+    font-weight: 500;
+    font-size: 30px;
+    width: 100%;
+    height: 100%;
+    color: #000;
+    table-layout: fixed;
+    padding: 20px;
+}
+
+.RightAnsSection table td{
+    width: 25%;
+    text-align: right;
+}
+
+
+  
 
 .overlay .hintContainer > img{
     position: absolute;
