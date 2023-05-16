@@ -221,9 +221,71 @@ class Game {
         
     }
     showExplaination(level){
-        $('.RightAns').text(gameData.gameData[level].explaination);
+        $('.horizontal-form').text(gameData.gameData[level].explaination_horizontal);
+        let question = gameData.gameData[level].question;
+        let answer = gameData.gameData[level].options[gameData.gameData[level].answer];
+        let verticalForm = "";
+
+        let hours = 0;
+        let minutes = 0;
+        let seconds = 0;
+
+        // 判斷題目類型
+        if(answer.includes("秒")){ //題型為分鐘轉小時
+            if(question.includes("秒")){ 
+                //題目格式是x分鐘y秒
+                let minutes = parseInt(question.split("分鐘")[0]);
+                let seconds = parseInt(question.split("分鐘")[1].split("秒")[0]);
+                verticalForm += '   60\n';
+                verticalForm += 'x   ' + minutes + '\n';
+                verticalForm += '———\n';
+                verticalForm += ' ' + minutes * 60 + '\n\n';
+
+                $('.vertical-form').text(verticalForm);
+                verticalForm = "";
+
+                verticalForm += '   ' + minutes * 60 + '\n';
+                verticalForm += '+   ' + seconds + '\n';
+                verticalForm += '———\n';
+                verticalForm += ' ' + answer.split("秒")[0];
+            }else{
+                //題目格式為x分鐘
+                let minutes = parseInt(question.split("分鐘")[0]);
+                verticalForm += '   60\n';
+                verticalForm += 'x   ' + minutes + '\n';
+                verticalForm += '———\n';
+                verticalForm += ' ' + answer.split("秒")[0];
+            }
+        }else{  //題型為小時轉分鐘
+            if(question.includes("分鐘")){
+                //題目格式是x小時y分鐘
+                let hours = parseInt(question.split("小時")[0]);
+                let minutes = parseInt(question.split("小時")[1].split("分鐘")[0]);
+                verticalForm += '   60\n';
+                verticalForm += 'x   ' + hours + '\n';
+                verticalForm += '———\n';
+                verticalForm += ' ' + hours * 60 + '\n\n';
+
+                $('.vertical-form').text(verticalForm);
+                verticalForm = "";
+
+                verticalForm += '   ' + hours * 60 + '\n';
+                verticalForm += '+   ' + minutes + '\n';
+                verticalForm += '———\n';
+                verticalForm += ' ' + answer.split("分鐘")[0];
+            }else{
+                //題目格式是x小時
+                let hours = parseInt(question.split("小時")[0]);
+                verticalForm += '   60\n';
+                verticalForm += 'x   ' + hours + '\n';
+                verticalForm += '———\n';
+                verticalForm += ' ' + answer.split("分鐘")[0];
+            }
+        }
+        $('.vertical-form').append(verticalForm);
         this.toggleRightAns();
     }
+
     LevelTranslationControl(DestinationLevel){
         const DestinationLevel_X = (DestinationLevel-1) * 800;
         $('.question-container, .fill_blank_top, .fill_blank_down').each(function () {
@@ -324,6 +386,7 @@ class Game {
     toggleCalculateCanvas(){
         $('.calculate-canvas').toggle();
     }
+    
 }
 
 
