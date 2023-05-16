@@ -2,6 +2,11 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+### 2023.05.16
+##### Educational Games
+**Added**
+- 認識英文鍵盤（English Keyboard Game）
+
 ### 2023.05.09
 ##### Educational Games
 **Added**

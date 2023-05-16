@@ -52,11 +52,11 @@ function init(){
         keydown_random = !keydown_random;
         if(keydown_random == true){
             var tmp = document.getElementById('Random_text_id');
-            tmp.textContent = "注音隨機出現";
+            tmp.textContent = "字母隨機出現";
         }
         else{
             var tmp = document.getElementById('Random_text_id');
-            tmp.textContent = "注音依序出現";
+            tmp.textContent = "字母依序出現";
         }
     }
     RandomBtn.addEventListener('click', change_random);
