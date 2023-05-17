@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js" ></script>
 </head>
 <body>
     <header>
@@ -34,11 +36,6 @@
             </div>
         </nav>
     </header>
-    <div class="audio">
-        <audio id="correct" src="assets/sounds/correct_sound_effect.mp3"></audio>
-        <audio id="wrong" src="assets/sounds/wrong_sound_effect.mp3"></audio>
-        <audio id="win" src="assets/sounds/applause_fireworks.mp3" duration="3"></audio>
-    </div>
     <div class="content">
         <button class="previousPage">選擇遊戲</button>
         <div class="gameWindow">
@@ -52,22 +49,13 @@
                     <h1>準備好了嗎？點擊遊戲開始！</h1>
                 </div>
                 <div class="gameIframe">
-                    <iframe id="fractional_connection" scrolling="no" src=../games/fractional_connection></iframe>
+                    <iframe id="fractional_connection" scrolling="no" src=../games/fractional_connection/index.html></iframe>
                 </div>
-                <div class="result">
-                    <h1 id="bingo">Ｏ</h1>
-                    <h1 id="dada">Ｘ</h1>
-                </div>
-                <div id="firework-container"></div>
             </div>
             <div class="gameBtn optionsBtn">
             </div>
         </div>
     </div>
-    <div class="script">
-        <script src="../js/popper.min.js"></script>
-        <script src="../js/bootstrap.min.js" ></script>
-        <script src="src/script.js" type="module"></script>
-    </div>
+    <script src="src/script.js" type="module"></script>
 </body>
 </html>

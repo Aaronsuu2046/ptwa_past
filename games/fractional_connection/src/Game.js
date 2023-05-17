@@ -6,8 +6,8 @@ import {GameTemplate} from "../../../game_view/src/GameTemplate.js"
 const gameData = await getJson('../../games/fractional_connection/game_config.json');
 
 export class Game extends GameTemplate {
-    constructor(){
-        super();
+    constructor(gameData){
+        super(gameData);
         this.levelLimit = gameData.length;
         this.gameArea = $('.gameArea');
         this.topic_explain = new Array(this.levelLimit).fill('剩下多少水量呢？請連線告訴我吧！');
@@ -41,10 +41,14 @@ export class Game extends GameTemplate {
         reorder(this.gameArea.find('.right'));
     }
 
+    resetGame(level){
+        super.resetGame(level);
+        $('.overlay').css('display', 'none');
+    }
+
     correctAnswer(){
         $('.line:last').addClass('correctLine');
         this.line = $(getNewLine()).addClass('line')[0];
-        console.log(this.line);
         this.drawingArea.append($(this.line));
     }
 
@@ -52,15 +56,23 @@ export class Game extends GameTemplate {
         this.setLives(this.lives-1);
         $('.line:last').addClass('wrongLine');
     }
-
+    getGameResult(){
+        const correct_record = new Set(
+            this.record.a.map((_, i) => this.record.a[i]).filter((_, i) => this.record.result[i] === 'O')
+        );
+          
+        if (correct_record.size >= this.gameData.length){
+            this.getWin();
+        }
+    }
     drawView() {
         const getDotPos = (event, parentName) => {
             const dot = $(event.target).closest(`.${parentName}`).find('.dot');
             if (parentName=="questionArea"){
-                this.record.a.push(`${dot.data('top')}/${dot.data('bottom')}`);
+                this.appendToRecordQ(`${dot.data('top')}/${dot.data('bottom')}`)
             }
             else if (parentName=="answerArea"){
-                this.record.q.push(`${dot.data('top')}/${dot.data('bottom')}`);
+                this.appendToRecordA(`${dot.data('top')}/${dot.data('bottom')}`)
             }
             if (event.type === 'touchstart') {
                 mouseMoveListener(event);
@@ -153,8 +165,11 @@ export class Game extends GameTemplate {
 
 
 // TODO why gameIframe.contentWindow.game is undifined 
-window.game = new Game();
+// window.game = new Game(gameData);
 
-export function getGame(){
-    return new Game();
-}
+export default Game;
+
+const gameInstance = new Game(gameData);
+window.getGame = function() {
+    return gameInstance;
+};

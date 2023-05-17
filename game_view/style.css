@@ -242,39 +242,6 @@ button {
     box-shadow: 50px 50px 50px rgba(0,0,0,0.7);
 }
 
-/* fireworks */
-
-#firework-container {
-    position: absolute;
-    display: none;
-    z-index: 99;
-    top: 15%;
-    left: 5%;
-    width : 90%;
-    height: 85%;
-}
-
-/* result */
-
-.result #bingo,#dada {
-    position:absolute;
-    margin: 0;
-    top: -5%;
-    left: 50%;
-    transform: translate(-50%, 0%);
-    z-index: 99;
-    display: none;
-    font-size: 500px;
-}
-
-
-.result #bingo {
-    color: green;
-}
-.result #dada {
-    color: red;
-}
-
 /* Game */
 .gameIframe {
     position: absolute;

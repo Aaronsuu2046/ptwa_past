@@ -1,3 +1,5 @@
+import * as constant from "./constant.js"
+
 export function getRandomNumberArr(start, end, tolerance, times=1) {
     let result = new Set();
     while(result.size < times) {
@@ -122,4 +124,28 @@ export async function getJson(fileName) {
         .catch((error) => {
             console.error('Error fetching JSON file:', error);
         });
+}
+
+export function showResultView(options){
+    if (options === constant.BINGO){
+        playCorrect();
+    }
+    else {
+        playWrong();
+    }
+}
+
+function playCorrect(){
+    const bingoGroph = $('#bingo');
+    const correctSound = $('#correct')[0];
+    bingoGroph.css('display', 'block');
+    correctSound.play();
+    setTimeout(()=>{bingoGroph.css('display', 'none');}, 500);
+}
+function playWrong(){
+    const dadaGroph = $('#dada');
+    const wrongSound = $('#wrong')[0];
+    dadaGroph.css('display', 'block');
+    wrongSound.play();
+    setTimeout(()=>{dadaGroph.css('display', 'none');}, 500);
 }

@@ -30,7 +30,7 @@ body {
 }
 /* hint */
 .overlay{
-    position: relative;
+    position: absolute;
     display: none;
     /* display: block; */
     top: 0;
@@ -58,9 +58,22 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    margin: 0;
+    margin: 1% 0 0 1%;
     color: #000;
     cursor: pointer;
+}
+.closeHintBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 30px;
+    color: #000;
+    cursor: pointer;
+}
+
+.closeHintBtn:hover {
+    color: #fff;
+    background-color: #000;
 }
 .hintContainer .left, .hintContainer .right{
     display: flex;
@@ -209,3 +222,24 @@ body {
 .gameArea .answerArea .dot {
     margin-right: 10%;
 }
+
+/* result */
+
+.result > * {
+    position:absolute;
+    margin: 0;
+    top: -5%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    z-index: 99;
+    display: none;
+    font-size: 500px;
+}
+
+.result #bingo {
+    color: green;
+}
+.result #dada {
+    color: red;
+}
+
