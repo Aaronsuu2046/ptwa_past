@@ -141,7 +141,7 @@ iframe {
     width: 800px;
     height: 710px;
 }
-#frame2 {
+#frame2, #frame3 {
     padding-top: 3%;
     width: 190vh;
 }
