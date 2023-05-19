@@ -151,7 +151,7 @@ export class GameTemplate {
         }
         for (let i = 0; i <count; i++){
             const livesImg = $('<img>')
-            .attr('src', '../../../game_view/assets/images/lives.svg')
+            .attr('src', '../../../assets/images/game_images/lives.svg')
             .attr('alt', 'lives image')
             .attr('width', '60')
             .attr('height', 'auto')
@@ -163,9 +163,9 @@ export class GameTemplate {
     generateAudioElements() {
         let audioHTML = `
           <div class="audio">
-            <audio id="correct" src="../../../game_view/assets/sounds/correct_sound_effect.mp3"></audio>
-            <audio id="wrong" src="../../../game_view/assets/sounds/wrong_sound_effect.mp3"></audio>
-            <audio id="win" src="../../../game_view/assets/sounds/applause_fireworks.mp3" duration="3"></audio>
+            <audio id="correct" src="../../../assets/sounds/game_sounds/correct_sound_effect.mp3"></audio>
+            <audio id="wrong" src="../../../assets/sounds/game_sounds/wrong_sound_effect.mp3"></audio>
+            <audio id="win" src="../../../assets/sounds/game_sounds/applause_fireworks.mp3" duration="3"></audio>
           </div>
         `;
         $('body').append(audioHTML);
@@ -221,7 +221,7 @@ export class GameTemplate {
       }      
     
     showFirework = () => {
-        const fireworksUrl = '../../../game_view/assets/images/fireworks.gif';
+        const fireworksUrl = '../../../assets/images/game_images/fireworks.gif';
         const fireworksArea = {"width": this.fireworkContainer.width()
                                 , "height": this.fireworkContainer.height()};
         for (let i = 0; i < 5; i++) {
