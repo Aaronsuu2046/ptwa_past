@@ -1,7 +1,6 @@
-export { getRandomNumberArr, shuffle, reorder, getGameConfig}
+import * as constant from "./constant.js"
 
-
-function getRandomNumberArr(start, end, tolerance, times=1) {
+export function getRandomNumberArr(start, end, tolerance, times=1) {
     let result = new Set();
     while(result.size < times) {
         const range = Math.ceil((end - start) / tolerance);
@@ -18,7 +17,7 @@ function getRandomNumberArr(start, end, tolerance, times=1) {
     return [...result]
   }
 
-function shuffle(originArray){
+export function shuffle(originArray){
     // Fisher-Yates shuffle algorithm
     let array = [...originArray]
     for (let i = array.length - 1; i > 0; i--) {
@@ -29,7 +28,7 @@ function shuffle(originArray){
 }
   
 
-function reorder(parentElement) {
+export function reorder(parentElement) {
     // Detach child elements
     let childElements = parentElement.children().detach();
 
@@ -42,7 +41,7 @@ function reorder(parentElement) {
     parentElement.append(childElements);
 }
 
-function createAngle(angle, rotationAngle, centerX, centerY) {
+export function createAngle(angle, rotationAngle, centerX, centerY) {
     const lineLength = 200;
     angle *= Math.PI / 180;
     rotationAngle *= Math.PI / 180;
@@ -57,7 +56,7 @@ function createAngle(angle, rotationAngle, centerX, centerY) {
     `;
 }
 
-function createFanShape(cx, cy, radius, startAngle, endAngle) {
+export function createFanShape(cx, cy, radius, startAngle, endAngle) {
     startAngle *= Math.PI / 180;
     endAngle *= Math.PI / 180;
     const start = {
@@ -84,10 +83,10 @@ function createFanShape(cx, cy, radius, startAngle, endAngle) {
     return path
 }
 
-function createLine({...extra}={}) {
+export function getNewLine({...extra}={}) {
     const defaults = {
         stroke: "black"
-        , strokeWidth: "2"
+        , strokeWidth: "4"
         , strokeDasharray: ""
         , x1: 0
         , y1: 0
@@ -106,12 +105,12 @@ function createLine({...extra}={}) {
     return line;
 }
 
-function randomNumber(start, end) {
+export function randomNumber(start, end) {
     return Math.random() * (end - start) + start;
 }
 
-async function getGameConfig() {
-    return fetch('./game_config.json')
+export async function getJson(fileName) {
+    return fetch(fileName)
         .then((response) => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -125,4 +124,28 @@ async function getGameConfig() {
         .catch((error) => {
             console.error('Error fetching JSON file:', error);
         });
+}
+
+export function showResultView(options){
+    if (options === constant.BINGO){
+        playCorrect();
+    }
+    else {
+        playWrong();
+    }
+}
+
+function playCorrect(){
+    const bingoGroph = $('#bingo');
+    const correctSound = $('#correct')[0];
+    bingoGroph.css('display', 'block');
+    correctSound.play();
+    setTimeout(()=>{bingoGroph.css('display', 'none');}, 500);
+}
+function playWrong(){
+    const dadaGroph = $('#dada');
+    const wrongSound = $('#wrong')[0];
+    dadaGroph.css('display', 'block');
+    wrongSound.play();
+    setTimeout(()=>{dadaGroph.css('display', 'none');}, 500);
 }

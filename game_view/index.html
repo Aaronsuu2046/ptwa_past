@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一年級</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js" ></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-expand-sm navbar-dark sticky-top" style="background-color: #57B9D9; height: 90px;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../index.html" alt="Home">
+                    <img src="assets/images/nav_bar/logo.png" class="img-fluid" style="max-width: 90%;">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon" ></span>
+                </button>
+                <div class="mathUnit">單元：
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>4</button>
+                    <button>5</button>
+                    <button>6</button>
+                    <button>7</button>
+                    <button>8</button>
+                    <button>9</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="content">
+        <button class="previousPage">選擇遊戲</button>
+        <div class="gameWindow">
+            <div class="gameBtn levelBtn">            
+            </div>
+            <div class="myCanvas">
+                <div class="gameRule">
+                    <h1>遊戲玩法：</h1>
+                    <div class="context">
+                    </div>
+                    <h1>準備好了嗎？點擊遊戲開始！</h1>
+                </div>
+                <div class="gameIframe">
+                    <iframe id="fractional_connection" scrolling="no" src=../games/fractional_connection/index.html></iframe>
+                </div>
+            </div>
+            <div class="gameBtn optionsBtn">
+            </div>
+        </div>
+    </div>
+    <script src="src/script.js" type="module"></script>
+</body>
+</html>
