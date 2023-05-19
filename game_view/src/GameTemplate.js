@@ -49,6 +49,7 @@ export class GameTemplate {
     getWin(){
         this.winLevelSet.add(this.level);
         this.gameState = constant.GAME_WIN;
+        parent.postMessage({ type: this.gameState }, '*');
         this.set_off_fireworks();
     }
     changeLevel(level=1, {...extra}={}) {

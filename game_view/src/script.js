@@ -2,14 +2,13 @@ import * as constant from "./constant.js";
 import { getJson } from './module.js';
 import { Handler } from './Handler.js';
 
-const optionsBtn = {
-  "lastBtn": "上一關",
-  "startBtn": "遊戲開始",
-  "nextBtn": "下一關",
-  "hintBtn": "提示",
-  "recordBtn": "💾",
-  "submitBtn": "送出答案"
-};
+const optionsBtn = {};
+optionsBtn[constant.LAST_BTN] = "上一關";
+optionsBtn[constant.START_BTN] = "遊戲開始";
+optionsBtn[constant.NEXT_BTN] = "下一關";
+optionsBtn[constant.HINT_BTN] = "提示";
+optionsBtn[constant.RECORD_BTN] = "💾";
+optionsBtn[constant.SUBMIT_BTN] = "送出答案";
 
 const levelsArea = $(`.levelBtn`);
 const optionsArea = $(`.optionsBtn`);
@@ -21,11 +20,15 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     window.addEventListener('message', function(event) {
         if (event.source !== iframeElement.contentWindow) {
-          return;
+            return;
         }
 
         const message = event.data;
+        // console.log(message);
 
+        if (message.type === constant.GAME_WIN) {
+            $(`#nextBtn`).addClass("jumpBtn");
+        }
         if (message.type !== 'iframeLoaded') {return false}
         console.log('Iframe loaded');
 
@@ -52,6 +55,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (optionsBtn[act] === optionsBtn.startBtn) {
                 const gameRule = $('.gameRule');
                 gameRule.css({"display": 'none'});
+                $(`#${act}`).text("重新開始");
             }
             btnHandler.handleRequest(act);
         });
