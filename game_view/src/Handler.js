@@ -9,14 +9,15 @@ const SUBMIT_BTN = 'submitBtn'
 
 // Handlers
 export class Handler {
-    constructor(game, levelBtn) {
+    constructor(game, levelArea) {
       this.game = game;
-      this.levelBtn = levelBtn;
+      this.levelArea = levelArea;
     }
   
     handleRequest(request) {
       switch (request) {
         case LAST_BTN:
+            this.levelArea.children().eq(this.game.level-1).removeClass('active');
             this.game.changeLevel(this.game.level, { isPrevious: true });
             this.changeLevel(this.game.level);
             break;
@@ -25,6 +26,7 @@ export class Handler {
             this.changeLevel(this.game.level);
             break;
         case NEXT_BTN:
+            this.levelArea.children().eq(this.game.level-1).removeClass('active');
             this.game.changeLevel(this.game.level, { isNext: true });
             this.changeLevel(this.game.level);
             break;
@@ -42,8 +44,10 @@ export class Handler {
         }
     }
     changeLevel(level){
-        this.levelBtn.children().removeClass('active');
-        this.levelBtn.children().eq(level-1).addClass('active').removeClass('bingo');
+        this.game.winLevelSet.forEach((value) => 
+            this.levelArea.children().eq(value-1).addClass('win')
+        )
+        this.levelArea.children().eq(level-1).addClass('active').removeClass('win');
     }
 }
   

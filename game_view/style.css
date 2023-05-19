@@ -187,7 +187,7 @@ button {
     transition: 0.5s;
 }
 
-.bingo {
+.win {
     border:2px solid green;
     background-color: green;
     color: #fff;

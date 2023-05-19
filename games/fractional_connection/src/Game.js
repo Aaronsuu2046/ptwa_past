@@ -19,6 +19,7 @@ export class Game extends GameTemplate {
         this.drawView();
         this.gameData = gameData;
         this.line = $('.line:last')[0];
+        $('.closeHintBtn').on('click', this.toggleHint);
     }
     startGame(level) {
         if (this.gameState=== constant.GAME_ALIVE){
@@ -163,13 +164,14 @@ export class Game extends GameTemplate {
     }
 }
 
-
-// TODO why gameIframe.contentWindow.game is undifined 
-// window.game = new Game(gameData);
-
 export default Game;
 
 const gameInstance = new Game(gameData);
 window.getGame = function() {
     return gameInstance;
 };
+
+window.addEventListener('load', function() {
+    parent.postMessage({ type: 'iframeLoaded' }, '*');
+  });
+  

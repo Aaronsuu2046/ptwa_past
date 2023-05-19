@@ -5,14 +5,10 @@ export class GameTemplate {
         this.generateAudioElements();
         this.generateResultElements();
         this.generateFireworkElements();
-        this.firework_sound = $('#win')[0];
-        this.fireworkContainer = $('#firework-container');
-        this.fireworksArea = {"width": this.fireworkContainer.width()
-                                , "height": this.fireworkContainer.height()};
         this.explain = $('.explain');
         this.levelLimit = gameData.length;
         this.topic_explain = new Array(this.levelLimit).fill('遊戲目標');
-        this.winLevelArr = [];
+        this.winLevelSet = new Set();
         this.gameData = gameData;
         this.record = {'q': []
                       , 'a': []
@@ -32,6 +28,7 @@ export class GameTemplate {
         if (arguments.length === 2){
             const question = arguments[0];
             const answer = arguments[1];
+            if (!question || !answer){return}
             if (question === answer){
                 this.correctAnswer();
                 this.appendToRecordResult("O");
@@ -41,7 +38,7 @@ export class GameTemplate {
                 this.wrongAnswer();
                 this.appendToRecordResult("X");
                 module.showResultView("X");
-                this.winLevelArr.pop(this.level);
+                this.winLevelSet.delete(this.level);
             }
         } 
         this.getGameResult();
@@ -50,7 +47,7 @@ export class GameTemplate {
         // juddging
     }
     getWin(){
-        this.winLevelArr.push(this.level);
+        this.winLevelSet.add(this.level);
         this.gameState = constant.GAME_WIN;
         this.set_off_fireworks();
     }
@@ -172,6 +169,7 @@ export class GameTemplate {
           </div>
         `;
         $('body').append(audioHTML);
+        this.firework_sound = $('#win')[0];
     }
     generateResultElements() {
         let resultHTML = `
@@ -184,43 +182,48 @@ export class GameTemplate {
     }
     generateFireworkElements() {
         let fireworkHTML = `
-        <div id="firework-container"></div>
+          <div id="firework-container"></div>
         `;
-        $(fireworkHTML).css({
-            "position": "absolute",
-            "display": "none",
-            "z-index": "99",
-            "top": "15%",
-            "left": "5%",
-            "width" : "90%",
-            "height": "85%"
-        })
-        $('body').append(fireworkHTML);
+        this.fireworkContainer = $(fireworkHTML).css({
+          "position": "absolute",
+          "display": "none",
+          "z-index": "100",
+          "top": "15%",
+          "left": "5%",
+          "width": "90%",
+          "height": "85%"
+        });
+        $('body').append(this.fireworkContainer);
     }
-    removeResultView(){
+      
+    removeResultView = () =>{
         this.firework_sound.pause();
         this.fireworkContainer.css('display', 'none');
     
     }
-    set_off_fireworks(){
+    set_off_fireworks = () => {
         this.firework_sound.currentTime = 1.5;
         this.firework_sound.play();
         this.fireworkContainer.css('display', 'block');
         this.showFirework();
-        setTimeout(()=>{this.firework_sound.pause()}, 2500);
+      
+        setTimeout(() => { this.firework_sound.pause() }, 2500);
         let count = 0;
-        while (count < 2300){
-            let milliseconds =  Math.floor(Math.random() * (800 - 400 + 1)) + 400;
+        while (count < 2300) {
+            let milliseconds = Math.floor(Math.random() * (800 - 400 + 1)) + 400;
             count += milliseconds;
-            setTimeout(this.showFirework, count)
+            setTimeout(this.showFirework, count);
         }
+      
         setTimeout(() => {
             this.fireworkContainer.css('display', 'none');
-        }, count)
-    } 
+            }, count);
+      }      
     
-    showFirework() {
+    showFirework = () => {
         const fireworksUrl = '../../../game_view/assets/images/fireworks.gif';
+        const fireworksArea = {"width": this.fireworkContainer.width()
+                                , "height": this.fireworkContainer.height()};
         for (let i = 0; i < 5; i++) {
             let width = 100 * (Math.random()*2.5);
             const fireworksElement = $('<img>');
@@ -229,16 +232,16 @@ export class GameTemplate {
                 'position': 'absolute',
                 'width': `${width}px`,
                 'height': 'auto',
-                'left': Math.floor(Math.random() * (this.fireworksArea.width - width)) + 'px',
-                'top': Math.floor(Math.random() * (this.fireworksArea.height - width * 1.5)) + 'px'
+                'left': Math.floor(Math.random() * (fireworksArea.width - width)) + 'px',
+                'top': Math.floor(Math.random() * (fireworksArea.height - width * 1.5)) + 'px'
             });
             this.fireworkContainer.append(fireworksElement);
         }
         setTimeout(this.removeFirework, 1194);
     }  
     
-    removeFirework() {
-        this.fireworkContainer.slice(0, 5).remove();
+    removeFirework = () => {
+        this.fireworkContainer.children().slice(0, 5).remove();
     }
 }
 
