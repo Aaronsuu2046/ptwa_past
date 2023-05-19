@@ -22,6 +22,10 @@ while (i<Object.keys(gameData.gameData).length){
 AddAnimationGrayRect();
 AddQuestion();
 initCalculateCanvas();
+//init the calculate canvas
+const canvas = $('#calculate-section')[0];
+canvas.width = 800;
+canvas.height = 600;
 
 class Game {
     gameRule = $('.gameRule');
@@ -301,16 +305,24 @@ class Game {
             });
         });
     }
-    createCanvasElement(level){
+    // createCanvasElement(level){
+    //     $('.calculate-canvas').toggle();
+    //     $('.Calculus-section-question').remove();
+    //     $('#calculate-section').addClass('pen-cursor');
+    //     const QuestionText = gameData.gameData[level].question; 
+    //     const QuestionElement = $('<p>').attr('class','Calculus-section-question').text('題目：' + QuestionText);
+    //     $('.calculate-canvas').append(QuestionElement);
+    // }
+    showCanvas(level){
         $('.calculate-canvas').toggle();
-        $('.Calculus-section-question').remove();
         $('#calculate-section').addClass('pen-cursor');
+        $('.Calculus-section-question').remove();
         const QuestionText = gameData.gameData[level].question; 
         const QuestionElement = $('<p>').attr('class','Calculus-section-question').text('題目：' + QuestionText);
         $('.calculate-canvas').append(QuestionElement);
+
     }
-    setupCanvas() {
-    
+    setupCanvas(){
         //設定按鈕控制
         $('.startWriting').on('click',()=>{
             isEraserActive = false;
@@ -326,13 +338,9 @@ class Game {
             $('#calculate-section').addClass('eraser-cursor');
         });
     
-        
-    
         const canvas = $('#calculate-section')[0];
         const ctx = canvas.getContext('2d');
         ctx.strokeStyle = 'black';
-        canvas.width = 800;
-        canvas.height = 600;
     
         let x1 = 0;
         let y1 = 0;
@@ -356,10 +364,6 @@ class Game {
     
         $(canvas).on(downEvent, function(e){
             isMouseActive = true;
-        });
-    
-        $(canvas).on(downEvent, function(e){
-            isMouseActive = true;
             x1 = e.offsetX;
             y1 = e.offsetY+16;
     
@@ -367,6 +371,7 @@ class Game {
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
         });
+
         $(canvas).on(moveEvent, function(e){
             if(!isMouseActive){
                 return;
@@ -389,6 +394,7 @@ class Game {
             isMouseActive = false;
         });
     }
+
     toggleCalculateCanvas(){
         $('.calculate-canvas').toggle();
     }
