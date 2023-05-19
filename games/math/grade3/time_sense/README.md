@@ -1,9 +1,9 @@
-# 重量的量感與估測（weight_sense）
+# 時間換算配對（time_sense）
 
 ![educational_games](https://img.shields.io/github/v/tag/PTWA-NPO/PTWA-NPO.github.io)
 
 ---
-適合小學三年級的同學，透過玩遊戲來培養重量的量感與估測。
+適合小學三年級的同學，透過玩遊戲來練習時間單位的換算。
 
 # 使用方式
 
@@ -20,24 +20,24 @@
 
 # 遊戲介紹
 
-## Grad3-4 重量的量感與估測（weight_sense）
+## Grad3-5 時間換算配對（time_sense）
 [![weight_sense](https://img.shields.io/badge/weight_sense-v0.1.2-blue.svg)](./weight_sense)
 
-- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的**三年級**，選擇**重量的量感與估測**
+- 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的**三年級**，選擇**時間換算配對**
 
 ### 遊戲簡介
 
-根據題目，選擇直角鈍角銳角，正確即可過關。
+根據題目，選擇日、小時、分鐘或秒鐘，正確即可過關。
 
 ### 遊戲畫面
 [//]: # (TODO game play view gif)
 
 ### 關卡說明
-- 第一關：一個書包 700（公克）、（公斤）？
-- 第二關：一雙鞋子 500（公克）、（公斤）？
-- 第三關：一輛腳踏車 5（公克）、（公斤）？
-- 第四關：一個水壺 300（公克）、（公斤）？
-- 第五關：一個汽車輪胎 10（公克）、（公斤）？
+- 第一關：唱一首歌要 3 ＿＿
+- 第二關：晚上睡覺睡了 8 ＿＿
+- 第三關：出國旅行玩 7 ＿＿
+- 第四關：洗澡用了 15 ＿＿
+- 第五關：喝一口水要 4 ＿＿
   
 ### 遊戲玩法
 - 根據題目選擇對應的答案
@@ -45,15 +45,14 @@
 - 點擊💾可下載遊戲紀錄
  
 ### Image Source
-- [backpack](https://www.cleanpng.com/png-school-backpack-png-clipart-22697/)
-- [bicycle](https://www.flaticon.com/free-icon/bicycle_562008?term=bicycle&page=1&position=2&origin=search&related_id=562008)
-- [shoes](https://www.cleanpng.com/png-shoelaces-infant-sneakers-vector-baby-shoes-379052/)
-- [bottle](https://www.flaticon.com/free-icon/water-bottle_8012727?term=bottle&page=1&position=56&origin=search&related_id=8012727)
-- [tire](https://www.cleanpng.com/png-car-wheel-png-58678/)
+- [SingSong](https://www.flaticon.com/?k=1624352281597)
+- [Sleep](https://www.flaticon.com/?k=1624352281597)
+- [Travel](https://www.flaticon.com/?k=1624352281597)
+- [Shower](https://www.flaticon.com/?k=1624352281597)
+- [DrinkWater](https://www.flaticon.com/?k=1624352281597)
+
 
 ### Sound Source
 - [Fireworks](https://opengameart.org/content/fireworks-with-applause-happy-people)
 
-# Future Work
 
-1. [ ] 
