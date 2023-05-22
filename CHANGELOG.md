@@ -2,6 +2,11 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+### 2023.05.22
+##### Educational Games
+**Added**
+- 理解並運用適當的時間單位（Time Sense Game）
+  
 ### 2023.05.16
 ##### Educational Games
 **Added**
