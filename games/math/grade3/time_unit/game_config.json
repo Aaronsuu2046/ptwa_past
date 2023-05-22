@@ -8,7 +8,7 @@
                 "c": "54秒"
             },
             "answer": "a",
-            "explaination": "9(分鐘) = 9 x 60(秒鐘) = 540(秒鐘)"
+            "explaination_horizontal": "9(分鐘) = 9 x 60(秒鐘) = 540(秒鐘)"
         },
         "2": {
             "question": "12分鐘",
@@ -18,7 +18,7 @@
                 "c": "660秒"
             },
             "answer": "b",
-            "explaination": "12(分鐘) = 12 x 60(秒鐘) = 720(秒鐘)"
+            "explaination_horizontal": "12(分鐘) = 12 x 60(秒鐘) = 720(秒鐘)"
         },
         "3": {
             "question": "6分鐘10秒",
@@ -28,7 +28,7 @@
                 "c": "610秒"
             },
             "answer": "a",
-            "explaination": "6(分鐘) 10(秒) = 6 x 60(秒鐘) + 10(秒鐘)= 370(秒鐘)"
+            "explaination_horizontal": "6(分鐘) 10(秒) = 6 x 60(秒鐘) + 10(秒鐘)= 370(秒鐘)"
         },
         "4": {
             "question": "1小時",
@@ -38,7 +38,7 @@
                 "c": "60分鐘"
             },
             "answer": "c",
-            "explaination": "1(小時) = 1 x 60(分鐘) = 60(分鐘)"
+            "explaination_horizontal": "1(小時) = 1 x 60(分鐘) = 60(分鐘)"
         },
         "5": {
             "question": "11小時",
@@ -48,7 +48,7 @@
                 "c": "600分鐘"
             },
             "answer": "a",
-            "explaination": "11(小時) = 11 x 60(分鐘) = 660(分鐘)"
+            "explaination_horizontal": "11(小時) = 11 x 60(分鐘) = 660(分鐘)"
         },
         "6": {
             "question": "3小時5分鐘",
@@ -58,7 +58,7 @@
                 "c": "165分鐘"
             },
             "answer": "b",
-            "explaination": "3(小時) 5(分鐘) = 3 x 60(分鐘) + 5(分鐘)= 185(分鐘)"
+            "explaination_horizontal": "3(小時) 5(分鐘) = 3 x 60(分鐘) + 5(分鐘)= 185(分鐘)"
         }
     }
 }
