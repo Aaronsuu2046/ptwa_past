@@ -272,18 +272,21 @@ button {
 
 .firstValueContainer, .secondValueContainer{
     display: flex;
-    width: 250px;
+    width: 300px;
     justify-content: center;
     border: 3px solid rgb(2,187,220);
     border-radius: 10px;
 }
 
 .Question{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    vertical-align: center;
     transform: translateY(-5px);
-    font-size: 50px;
+    font-size: 40px;
     margin: 0px;
+    height: 108px;
 }
 
 
