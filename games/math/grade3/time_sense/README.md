@@ -21,12 +21,13 @@
 # 遊戲介紹
 
 ## Grad3-5 時間換算配對（time_sense）
+[![weight_sense](https://img.shields.io/badge/weight_sense-v0.1.2-blue.svg)](./weight_sense)
 
 - 遊戲路徑：進入[遊戲網站](https://PTWA-NPO.github.io/)後，點擊左方列表中的**三年級**，選擇**時間換算配對**
 
 ### 遊戲簡介
 
-根據題目，選擇選擇日、小時、分鐘或秒鐘，正確即可過關。
+根據題目，選擇日、小時、分鐘或秒鐘，正確即可過關。
 
 ### 遊戲畫面
 [//]: # (TODO game play view gif)
@@ -50,6 +51,8 @@
 - [Shower](https://www.flaticon.com/?k=1624352281597)
 - [DrinkWater](https://www.flaticon.com/?k=1624352281597)
 
+
 ### Sound Source
 - [Fireworks](https://opengameart.org/content/fireworks-with-applause-happy-people)
+
 
