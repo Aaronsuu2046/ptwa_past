@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>時間單位換算</title>
-    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script src="../../../../jquery/dist/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -32,7 +32,7 @@
             </div>
                 <div class="topic">
             </div>
-            <div class="lives"></div>
+            <div class="lives"></div> 
             <btn class="calculate-canvas-btn"><img src="assets/images/notebook.png" alt="計算紙">計算紙</btn>
             <div class="calculate-canvas">
                 <canvas id="calculate-section"></canvas>
@@ -50,8 +50,23 @@
             <div class="RightAnsOverlay">
                 <div class="RightAnsSection">
                     <h1 class="RightAns-Explaination">正確換算過程:</h1>
-                    <p class="RightAns"></p>
-                    <img src="assets/images/keeptrying.png" alt="繼續努力！" id="keeptryingimg">
+                    <p class="horizontal-form"></p>
+                    <div class="vertical-form">
+                        <table id="conversion-table">
+                            <tr>
+                                <td colspan="2"></td><td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td>x</td><td></td><td></td><td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">————————</td><td colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"></td><td colspan="2"></td>
+                            </tr>
+                        </table>
+                    </div>
                     <span class="closeRightAnsBtn">Ｘ</span>
                 </div>
             </div>

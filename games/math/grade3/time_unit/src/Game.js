@@ -22,6 +22,10 @@ while (i<Object.keys(gameData.gameData).length){
 AddAnimationGrayRect();
 AddQuestion();
 initCalculateCanvas();
+//init the calculate canvas
+const canvas = $('#calculate-section')[0];
+canvas.width = 800;
+canvas.height = 600;
 
 class Game {
     gameRule = $('.gameRule');
@@ -221,9 +225,77 @@ class Game {
         
     }
     showExplaination(level){
-        $('.RightAns').text(gameData.gameData[level].explaination);
+        $('.horizontal-form').text(gameData.gameData[level].explaination_horizontal);
+        let question = gameData.gameData[level].question;
+        let answer = gameData.gameData[level].options[gameData.gameData[level].answer];
+    
+        let hours = 0;
+        let minutes = 0;
+        let seconds = 0;
+        //作法：用一個4*4表格來顯示直式
+
+        // clear table 
+        $('#conversion-table tr:nth-child(1) td:nth-child(2)').empty();
+        $('#conversion-table tr:nth-child(2) td:nth-child(3)').empty();
+        $('#conversion-table tr:nth-child(2) td:nth-child(4)').empty();
+        $('#conversion-table tr:nth-child(3) td:nth-child(2)').empty();
+        $('#conversion-table tr:nth-child(4) td:nth-child(2)').empty();
+
+    
+        // 判斷題目類型
+        if(answer.includes("秒")){ //題型為分鐘轉小時
+            if(question.includes("秒")){ 
+                //題目格式是x分鐘y秒
+                let minutes = parseInt(question.split("分鐘")[0]);
+                console.log(minutes);
+                let seconds = parseInt(question.split("分鐘")[1].split("秒")[0]);
+                console.log(seconds);
+                $('#conversion-table tr:nth-child(1) td:nth-child(1)').text('60');
+                $('#conversion-table tr:nth-child(2) td:nth-child(2)').text(minutes);
+                $('#conversion-table tr:nth-child(4) td:nth-child(1)').text(minutes * 60);
+                
+                $('#conversion-table tr:nth-child(1) td:nth-child(2)').text(minutes * 60);
+                $('#conversion-table tr:nth-child(2) td:nth-child(3)').text('+');
+                $('#conversion-table tr:nth-child(2) td:nth-child(4)').text(seconds);
+                $('#conversion-table tr:nth-child(3) td:nth-child(2)').text('————————');
+                $('#conversion-table tr:nth-child(4) td:nth-child(2)').text(minutes * 60 + seconds);
+
+            }else{
+                //題目格式為x分鐘
+                let minutes = parseInt(question.split("分鐘")[0]);
+    
+                $('#conversion-table tr:nth-child(1) td:nth-child(1)').text('60');
+                $('#conversion-table tr:nth-child(2) td:nth-child(2)').text(minutes);
+                $('#conversion-table tr:nth-child(4) td:nth-child(1)').text(60 * minutes);
+            }
+        }else{  //題型為小時轉分鐘
+            if(question.includes("分鐘")){
+                //題目格式是x小時y分鐘
+                let hours = parseInt(question.split("小時")[0]);
+                let minutes = parseInt(question.split("小時")[1].split("分鐘")[0]);
+    
+                $('#conversion-table tr:nth-child(1) td:nth-child(1)').text('60');
+                $('#conversion-table tr:nth-child(2) td:nth-child(2)').text(hours);
+                $('#conversion-table tr:nth-child(4) td:nth-child(1)').text(hours * 60);
+
+                $('#conversion-table tr:nth-child(1) td:nth-child(2)').text(hours * 60);
+                $('#conversion-table tr:nth-child(2) td:nth-child(3)').text('+');
+                $('#conversion-table tr:nth-child(2) td:nth-child(4)').text(minutes);
+                $('#conversion-table tr:nth-child(3) td:nth-child(2)').text('————————');
+                $('#conversion-table tr:nth-child(4) td:nth-child(2)').text(hours * 60 + minutes);
+                
+            }else{
+                //題目格式是x小時
+                let hours = parseInt(question.split("小時")[0]);
+    
+                $('#conversion-table tr:nth-child(1) td:nth-child(1)').text('60');
+                $('#conversion-table tr:nth-child(2) td:nth-child(2)').text(hours);
+                $('#conversion-table tr:nth-child(4) td:nth-child(1)').text(60 * hours);
+            }
+        }
         this.toggleRightAns();
     }
+
     LevelTranslationControl(DestinationLevel){
         const DestinationLevel_X = (DestinationLevel-1) * 800;
         $('.question-container, .fill_blank_top, .fill_blank_down').each(function () {
@@ -233,16 +305,24 @@ class Game {
             });
         });
     }
-    createCanvasElement(level){
+    // createCanvasElement(level){
+    //     $('.calculate-canvas').toggle();
+    //     $('.Calculus-section-question').remove();
+    //     $('#calculate-section').addClass('pen-cursor');
+    //     const QuestionText = gameData.gameData[level].question; 
+    //     const QuestionElement = $('<p>').attr('class','Calculus-section-question').text('題目：' + QuestionText);
+    //     $('.calculate-canvas').append(QuestionElement);
+    // }
+    showCanvas(level){
         $('.calculate-canvas').toggle();
-        $('.Calculus-section-question').remove();
         $('#calculate-section').addClass('pen-cursor');
+        $('.Calculus-section-question').remove();
         const QuestionText = gameData.gameData[level].question; 
         const QuestionElement = $('<p>').attr('class','Calculus-section-question').text('題目：' + QuestionText);
         $('.calculate-canvas').append(QuestionElement);
+
     }
-    setupCanvas() {
-    
+    setupCanvas(){
         //設定按鈕控制
         $('.startWriting').on('click',()=>{
             isEraserActive = false;
@@ -258,13 +338,9 @@ class Game {
             $('#calculate-section').addClass('eraser-cursor');
         });
     
-        
-    
         const canvas = $('#calculate-section')[0];
         const ctx = canvas.getContext('2d');
         ctx.strokeStyle = 'black';
-        canvas.width = 800;
-        canvas.height = 600;
     
         let x1 = 0;
         let y1 = 0;
@@ -288,10 +364,6 @@ class Game {
     
         $(canvas).on(downEvent, function(e){
             isMouseActive = true;
-        });
-    
-        $(canvas).on(downEvent, function(e){
-            isMouseActive = true;
             x1 = e.offsetX;
             y1 = e.offsetY+16;
     
@@ -299,6 +371,7 @@ class Game {
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
         });
+
         $(canvas).on(moveEvent, function(e){
             if(!isMouseActive){
                 return;
@@ -321,9 +394,11 @@ class Game {
             isMouseActive = false;
         });
     }
+
     toggleCalculateCanvas(){
         $('.calculate-canvas').toggle();
     }
+    
 }
 
 

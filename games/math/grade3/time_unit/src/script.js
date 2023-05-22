@@ -40,7 +40,7 @@ jumpBtn.on('animationiteration', ()=>{
 });
 
 calculatecanvasBtn.on('click',(e)=>{
-    game.createCanvasElement(game.level);
+    game.showCanvas(game.level);
     game.setupCanvas();
 });
 
