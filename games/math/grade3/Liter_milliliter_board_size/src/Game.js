@@ -30,8 +30,8 @@ class Game {
                       };
         this.topic_explan = {1: `遊戲目標`};
         this.winLevelArr = [];
-        this.questionLeft = [, '3020mL', '1L', '17毫升', '1600mL', '4公升']
-        this.questionRight = [, '3L 200mL', '100mL', '17個一公升', '1L 60mL', '4000毫升']
+        this.questionLeft = [, '3020 毫升(mL)', '1 公升(L)', '17 毫升(mL)', '1600 毫升(mL)', '4 公升(L)']
+        this.questionRight = [, '3 公斤(L)<br>200 毫升(mL)', '100 毫升(mL)', '17 個一公升(L)', '1 公升(L)<br>60 毫升(mL)', '4000 毫升(mL)']
         this.answer = [, '<', '>', '<', '>', '=']
         this.nowReply = "";
     }

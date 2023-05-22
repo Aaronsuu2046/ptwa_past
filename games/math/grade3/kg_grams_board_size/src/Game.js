@@ -30,8 +30,8 @@ class Game {
                       };
         this.topic_explan = {1: `遊戲目標`};
         this.winLevelArr = [];
-        this.questionLeft = [, '4kg', '1kg 100g', '2030g', '6700g', '3kg 9g']
-        this.questionRight = [, '4002g', '1010g', '2kg 300g', '6kg 700g', '3090g']
+        this.questionLeft = [, '4 公斤(kg)', '1 公斤(kg)<br>100 公克(g)', '2030 公克(g)', '6700 公克(g)', '3 公斤(kg)<br>9 公克(g)']
+        this.questionRight = [, '4002 公克(g)', '1010 公克(g)', '2 公斤(kg)<br>300 公克(g)', '6 公斤(kg)<br>700 公克(g)', '3090 公克(g)']
         this.answer = [, '<', '>', '<', '=', '<']
         this.nowReply = "";
     }
