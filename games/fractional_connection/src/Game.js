@@ -2,7 +2,6 @@ import * as constant from "../../../game_view/src/constant.js"
 import {getJson, reorder, getNewLine} from "../../../game_view/src/module.js"
 import {GameTemplate} from "../../../game_view/src/GameTemplate.js"
 
-
 const gameData = await getJson('../../games/fractional_connection/game_config.json');
 
 export class Game extends GameTemplate {
@@ -171,7 +170,4 @@ window.getGame = function() {
     return gameInstance;
 };
 
-window.addEventListener('load', function() {
-    parent.postMessage({ type: 'iframeLoaded' }, '*');
-  });
-  
+parent.postMessage({ type: 'fractional_connection' }, '*');
