@@ -136,9 +136,9 @@ class Game {
         $('.question img').attr('src' , `./assets/images/${this.level}.png`);
         const questionLength = (gameData.gameData[this.level].q).length;
         const numberLength = (gameData.gameData[this.level].q.match(/(\d+)/g).toString()).length;
-        const addToFirstPortionText = (gameData.gameData[this.level].q).slice(0,(questionLength-numberLength-1));
+        const addToFirstPortionText = (gameData.gameData[this.level].q).slice(0,(questionLength-numberLength));
         const addToNumberText = gameData.gameData[this.level].q.match(/(\d+)/g);
-        const addToLastPortionText = "____";
+        const addToLastPortionText = " ____";
         $('#first-portion').text(addToFirstPortionText);
         $('#number').text(addToNumberText);
         $('#last-portion').text(addToLastPortionText);
