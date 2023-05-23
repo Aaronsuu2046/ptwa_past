@@ -2,6 +2,13 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+### 2023.05.23
+##### [2.0.0]Educational Games
+**Added**
+- 分數連連看（Fraction Connection Game）
+**Changed**
+- Game View（Replace Game Template）
+
 ### 2023.05.22
 ##### [1.0.0]Educational Games
 **Added**

@@ -1,10 +1,13 @@
 import * as constant from "./constant.js"
 import * as module from "./module.js"
+
+
 export class GameTemplate {
     constructor(gameData){
         this.generateAudioElements();
         this.generateResultElements();
         this.generateFireworkElements();
+        this.generateBasicElements();
         this.explain = $('.explain');
         this.levelLimit = gameData.length;
         this.topic_explain = new Array(this.levelLimit).fill('遊戲目標');
@@ -196,6 +199,19 @@ export class GameTemplate {
         });
         $('body').append(this.fireworkContainer);
     }
+    generateBasicElements() {
+        const basic = `
+            <div class="explain"></div>
+            <div class="lives"></div>
+        `;
+
+        const closeBtn = `
+            <span class="closeHintBtn">Ｘ</span>
+        `;
+
+        $('body').prepend($(basic));
+        $('.overlay').append($(closeBtn));
+    }
       
     removeResultView = () =>{
         this.firework_sound.pause();
@@ -245,5 +261,3 @@ export class GameTemplate {
         this.fireworkContainer.children().slice(0, 5).remove();
     }
 }
-
-

@@ -2,6 +2,7 @@ import * as constant from "./constant.js";
 import { getJson } from './module.js';
 import { Handler } from './Handler.js';
 
+
 const previousPageBtn = $('.previousPage');
 
 previousPageBtn.on('click', function() {

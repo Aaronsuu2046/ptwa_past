@@ -1,5 +1,6 @@
 import * as constant from "./constant.js"
 
+
 export function getRandomNumberArr(start, end, tolerance, times=1) {
     let result = new Set();
     while(result.size < times) {

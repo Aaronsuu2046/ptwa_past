@@ -1,7 +1,6 @@
 import * as constant from "./constant.js";
 
 
-// Handlers
 export class Handler {
     constructor(game, levelArea) {
       this.game = game;
