@@ -36,10 +36,10 @@ class Game {
                       , 'a': []
                       , 'result': []
                       };
-        this.topic_explan = [];
-        $.each(gameData.gameData, (key, value) => {
-            this.topic_explan.push(value.q);
-        });
+        // this.topic_explain = [];
+        // $.each(gameData.gameData, (key, value) => {
+        //     this.topic_explain.push(value.q);
+        // });
         this.winLevelArr = new Set();
     }
     startGame(level) {
@@ -130,15 +130,18 @@ class Game {
         $(`.answer *`).removeClass('redWord greenWord');
         this.levelBtn.children().eq(this.level-1).addClass('active');
         // this.gameRule.css('display', 'block');
-        this.getTopic();
+        //this.getTopic();
         // this.lives = 3;
         // this.setLives(this.lives);
-        $('.question').html(`<img src='./assets/images/${this.level}.png'></img>`)
-        $('.topic').each(function() {
-            const text = $(this).html();
-            const newText = text.replace(/(\d+)/g, '<span class="redWord">$1</span>');
-            $(this).html(newText);
-        });
+        $('.question img').attr('src' , `./assets/images/${this.level}.png`);
+        const questionLength = (gameData.gameData[this.level].q).length;
+        const numberLength = (gameData.gameData[this.level].q.match(/(\d+)/g).toString()).length;
+        const addToFirstPortionText = (gameData.gameData[this.level].q).slice(0,(questionLength-numberLength-1));
+        const addToNumberText = gameData.gameData[this.level].q.match(/(\d+)/g);
+        const addToLastPortionText = "____";
+        $('#first-portion').text(addToFirstPortionText);
+        $('#number').text(addToNumberText);
+        $('#last-portion').text(addToLastPortionText);
     }
     
     loadRecord() {
@@ -177,9 +180,9 @@ class Game {
         overlay.toggle();
     }
     
-    getTopic(){
-        $(this.topic).text(this.topic_explan[this.level-1]);
-    }
+    // getTopic(){
+    //     $(this.topic).text(this.topic_explain[this.level-1]);
+    // }
     
     setLives(lives){
         const count = lives - $('.lives').children().length;

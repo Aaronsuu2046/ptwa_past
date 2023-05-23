@@ -40,7 +40,9 @@ button {
     font-size: 40px;
     font-weight: bold;
     color: black;
+    display: inline-block;
 }
+
 
 .lives{
     position: absolute;
