@@ -25,6 +25,12 @@ const urlParams = new URLSearchParams(queryString);
 const gameID = parseInt(urlParams.get('id')) - 11;
 const gameName = allGameData[gameID].game_name;
 
+const iframeElement = $('<iframe></iframe>')
+  .attr('src', `../games/${gameName}/index.html`)
+  .attr('id', 'fractional_connection')
+  .attr('scrolling', 'no');
+
+$('.gameIframe').append(iframeElement);
 let gameWindow;
 let game;
 
