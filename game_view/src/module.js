@@ -23,10 +23,12 @@ const helpModules = {
         return array;
     },
 
-    reorder(parentElement) {
-        let childElements = parentElement.children().detach();
-        childElements = childElements.sort(() => Math.random() - 0.5);
-        parentElement.append(childElements);
+    reorder(...parentElements) {
+        parentElements.forEach(parentElement => {
+            let childElements = parentElement.children().detach();
+            childElements = childElements.sort(() => Math.random() - 0.5);
+            parentElement.append(childElements);
+        });
     },
 
     randomNumber(start, end) {

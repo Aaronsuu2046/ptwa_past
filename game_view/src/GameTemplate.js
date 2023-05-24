@@ -1,5 +1,5 @@
 import * as constant from "./constant.js"
-import {gameModules} from "./module.js"
+import {gameModules, svgModules} from "./module.js"
 
 
 export class GameTemplate {
@@ -12,6 +12,7 @@ export class GameTemplate {
         this.gameState = constant.GAME_FILE;
         this.level = 1;
         this.createElements();
+        $('.closeHintBtn').on('click', this.toggleHint);
 }
     createElements() {
         const elementGenerator = new ElementGenerator();
@@ -27,6 +28,8 @@ export class GameTemplate {
         this.explain = $('.explain');
     }
     startGame(level) {
+        if (this.gameState === constant.GAME_ALIVE) return;
+        if (this.gameState === constant.GAME_WIN) this.resetGame(level);
         this.gameState =  constant.GAME_ALIVE;
         this.getExplain();
         this.lives = (this.gameData[level - 1].lives) ? this.gameData[level - 1].lives : 0;
@@ -37,6 +40,7 @@ export class GameTemplate {
         const result = question === answer ? constant.BINGO : constant.DADA;
         this.updateGameResult(result);
         this.getGameResult();
+        if (this.gameState === constant.GAME_WIN) this.getWin();
     }
 
     updateGameResult(result) {
@@ -46,19 +50,26 @@ export class GameTemplate {
             this.wrongAnswer();
             this.winLevelSet.delete(this.level);
         }
-        this.recordObj.appendToRecord("result", result);
+        this.recordObj.appendToRecord(constant.recordItim.RESULT, result);
         gameModules.showResultView(result);
     }
 
     getGameResult(){
         // juddging
+        throw new Error('please define getGameResult');
     }
 
     getWin(){
         this.winLevelSet.add(this.level);
-        this.gameState = constant.GAME_WIN;
         parent.postMessage({ type: this.gameState }, '*');
         this.setFireworks();
+    }
+    
+    correctAnswer(){
+        throw new Error('please define correctAnswer');
+    }
+    wrongAnswer(){
+        throw new Error('please define wrongAnswer');
     }
 
     changeLevel(level=1, options={}) {
@@ -75,15 +86,9 @@ export class GameTemplate {
     
     resetGame(level){
         this.gameState = constant.GAME_FILE;
-        this.removeResultView();
+        this.hideFirework();
+        $('.overlay').css('display', 'none');
         this.startGame(level);
-    }
-    
-    correctAnswer(){
-        // define content
-    }
-    wrongAnswer(){
-        // define content
     }
 
     toggleHint(){
@@ -103,20 +108,6 @@ export class GameTemplate {
         $lives.slice(lives).css('display', 'none');
     }
 
-    createLivesElement() {
-        return $('<img>')
-            .attr('src', '../../../assets/images/game_images/lives.svg')
-            .attr('alt', 'lives image')
-            .attr('width', '60')
-            .attr('height', 'auto')
-            .css('margin-right', '-30px');
-    }
-    
-    removeResultView(){
-        this.fireworkSound.pause();
-        this.fireworkContainer.css('display', 'none');
-    
-    }
     setFireworks() {
         this.playFireworkSound();
         this.displayFireworkContainer();
@@ -132,7 +123,7 @@ export class GameTemplate {
         }
 
         setTimeout(() => {
-            this.hideFireworkContainer();
+            this.hideFirework();
         }, count);
     }
 
@@ -150,7 +141,8 @@ export class GameTemplate {
         this.showFirework();
     }
 
-    hideFireworkContainer() {
+    hideFirework() {
+        this.fireworkSound.pause();
         this.fireworkContainer.css('display', 'none');
     }      
     
@@ -180,6 +172,122 @@ export class GameTemplate {
         this.fireworkContainer.children().slice(0, 5).remove();
     }
 }
+
+  
+export class ConnectionGame extends GameTemplate {
+    constructor(gameData){
+        super(gameData);
+        this.gameArea = $('.gameArea');
+        this.drawingArea = $('.drawingArea');
+        this.correctLimit = this.getCorrectLimit();
+        this.svgRect = this.drawingArea.length > 0 ? this.drawingArea[0].getBoundingClientRect() : null;
+        this.isDrawing = false;
+        this.line = $('.line:last')[0];
+        this.drawView();
+    }
+
+    getCorrectLimit(){
+        throw new Error('please return getCorrectLimit');
+    }
+
+    drawView() {
+        const getDotPos = (event, parentName) => {
+            const dot = $(event.target).closest(`.${parentName}`).find('.dot');
+            const recordType = parentName === constant.gameHTML.QUESTION_AREA ? constant.recordItim.QUESTION : constant.recordItim.ANSWER;
+            const recordData = this.creatRecord(recordType, dot);
+            this.recordObj.appendToRecord(recordType, recordData);
+            if (event.type === 'touchstart') {
+                mouseMoveListener(event);
+            }
+            const offset = dot.offset();
+            const width = dot.width();
+            const height = dot.height();
+            const x = (offset.left + width / 2);
+            const y = (offset.top + height / 2);
+            return { x, y };
+        }
+        const mouseDownListener = (event) => {
+            event.preventDefault();
+            const pos = getDotPos(event, constant.gameHTML.QUESTION_AREA);
+            if ($(this.line).hasClass('wrongLine')){
+                $(this.line).removeClass('wrongLine');
+            }
+            this.line.setAttribute("x1", pos.x);
+            this.line.setAttribute("y1", pos.y);
+            this.line.setAttribute("x2", pos.x);
+            this.line.setAttribute("y2", pos.y);
+            this.isDrawing = true;
+        }
+        
+        const mouseMoveListener = (event) => {
+            event.preventDefault();
+            if (!this.isDrawing) return;
+            const { offsetX, offsetY } = event.touches ? event.touches[0] : event;
+            this.line.setAttribute("x2", offsetX);
+            this.line.setAttribute("y2", offsetY + 5);
+        }
+    
+        const mouseupListener = (event) => {
+            if (!this.isDrawing) return;
+            this.isDrawing = false;
+            const pos = getDotPos(event, constant.gameHTML.ANSWER_AREA);
+            this.line.setAttribute("x2", pos.x);
+            this.line.setAttribute("y2", pos.y);
+            const lastQuestion = this.recordObj.getLastRecord(constant.recordItim.QUESTION);
+            const lastAnswer = this.recordObj.getLastRecord(constant.recordItim.ANSWER);
+            this.checkAnswer(lastQuestion, lastAnswer);
+        };
+        this.gameArea.on("mousedown", (e) => {
+            if (checkQuestionArea(e)){
+                mouseDownListener(e);
+            }
+        });
+        this.drawingArea.on("mousemove", mouseMoveListener);
+        this.gameArea.on("mouseup", (e) => {
+            if (checkAnswerArea(e)){
+                mouseupListener(e);
+            }
+        });
+        const checkQuestionArea = (e) => {
+            return $(e.target).closest(`.${constant.gameHTML.QUESTION_AREA}`).length > 0;
+        };
+
+        const checkAnswerArea = (e) => {
+            return $(e.target).closest(`.${constant.gameHTML.ANSWER_AREA}`).length > 0;
+        };
+    };
+
+    creatRecord(recordType, dot){
+        throw new Error('please return creatRecord');
+    }
+
+    startGame(level) {
+        super.startGame(level);
+        this.line = $(svgModules.getNewLine()).addClass('line')[0];
+        this.drawingArea.html($(this.line));
+        this.recordObj.initRecord();
+    }
+
+    correctAnswer(){
+        $('.line:last').addClass('correctLine');
+        this.line = $(svgModules.getNewLine()).addClass('line')[0];
+        this.drawingArea.append($(this.line));
+    }
+
+    wrongAnswer(){
+        this.setLives(this.lives-1);
+        $('.line:last').addClass('wrongLine');
+    }
+
+    getGameResult(){
+        const correctRecords = this.recordObj.getRecord(constant.recordItim.ANSWER).filter((_, i) => this.recordObj.getRecord(constant.recordItim.RESULT)[i] === 'O');
+        const correctRecordSet = new Set(correctRecords);
+        if (correctRecordSet.size >= this.correctLimit) {
+            this.gameState = constant.GAME_WIN;
+        }
+    }
+}
+
 
 class ElementGenerator {
     generateAudio() {
@@ -251,16 +359,28 @@ class ElementGenerator {
             .css('margin-right', '-30px');
     }
   }
-  
+
+
 class GameRecord {
     constructor() { 
+        this.initRecord();
+    }
+
+    initRecord(){
         this.record = {
-            'q': [],
-            'a': [],
-            'result': []
+            [constant.recordItim.QUESTION]: [],
+            [constant.recordItim.ANSWER]: [],
+            [constant.recordItim.RESULT]: []
         };
     }
   
+    getRecord(recordType){
+        return this.record[recordType];
+    }
+    getLastRecord(recordType){
+        return this.record[recordType].slice(-1)[0];
+    }
+    
     appendToRecord(recordType, value) {
         this.record[recordType].push(value);
     }
@@ -271,11 +391,14 @@ class GameRecord {
         let csvContent = "Times,Question,Answer,Result\n"; // Add CSV headers
     
         let count = 0;
-        for (let i = 0; i < this.record.a.length; i++) {
-            csvContent += `${i + 1},${this.record.q[i]},${this.record.a[i]},${this.record.result[i]}\n`;
-            if (this.record.result[i] === constant.BINGO) count++;
+        const questionArr = this.getRecord(constant.recordItim.QUESTION);
+        const answerArr = this.getRecord(constant.recordItim.ANSWER);
+        const resultArr = this.getRecord(constant.recordItim.RESULT);
+        for (let i = 0; i < this.getRecord(constant.recordItim.ANSWER).length; i++) {
+            csvContent += `${i + 1},${questionArr[i]},${answerArr[i]},${resultArr[i]}\n`;
+            if (resultArr[i] === constant.BINGO) count++;
         }
-        csvContent += `\nCorrectRate,${(count / this.record.result.length) * 100}%\n`;
+        csvContent += `\nCorrectRate,${(count / resultArr.length) * 100}%\n`;
     
         csvContent = '\ufeff'+csvContent; // 添加 BOM
         // Create a Blob object
@@ -294,13 +417,5 @@ class GameRecord {
     
         // Release the URL object
         URL.revokeObjectURL(url);
-    }
-
-    createEmptyRecord() {
-        return {
-            'q': []
-            , 'a': []
-            , 'result': []
-        };
     }
 }

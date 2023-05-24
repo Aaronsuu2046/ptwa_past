@@ -6,7 +6,6 @@ export const BINGO = 'O'
 export const DADA = 'X'
 
 // option btn
-
 export const optionsBtn = {
     'LAST_BTN' : 'lastBtn'
     , 'START_BTN' : 'startBtn'
@@ -17,8 +16,14 @@ export const optionsBtn = {
 }
 
 // record
+export const recordItim = {
+    "QUESTION": "question"
+    ,"ANSWER": "answer"
+    ,"RESULT": "result"
+}
 
-export const RECORD_TYPE = {
-    "question": "q"
-    ,"answer": "a"
-    }
+// game HTML
+export const gameHTML = {
+    "QUESTION_AREA": "questionArea"
+    ,"ANSWER_AREA": "answerArea"
+}

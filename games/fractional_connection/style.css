@@ -1,28 +1,9 @@
-@import url(../../game_view/game_style.css);
+@import url(../../game_view/css/connection_game.css);
 
 * {
     /* border: solid 2px black; */
 }
 
-/* Drawing Area */
-.drawingArea {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-/* Line */
-.line {
-    stroke: black;
-    stroke-width: 5;
-}
-.correctLine {
-    stroke: green !important;
-    stroke-width: 5;
-}
-.wrongLine {
-    stroke: red !important;
-    stroke-width: 5;
-}
 /* hint */
 .overlay{
     /* display: block; */
@@ -141,12 +122,6 @@
 }
 
 /* dot */
-.gameArea .questionArea .dot, .gameArea .answerArea .dot {
-    width: 20px;
-    height: 20px;
-    background-color: black;
-    border-radius: 50%;
-}
 .gameArea .questionArea .dot {
     margin-left: 10%;
 }
