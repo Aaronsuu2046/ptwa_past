@@ -29,7 +29,8 @@ export class GameTemplate {
     startGame(level) {
         this.gameState =  constant.GAME_ALIVE;
         this.getExplain();
-        this.setLives((this.gameData[level - 1].lives) ? this.gameData[level - 1].lives : 0);
+        this.lives = (this.gameData[level - 1].lives) ? this.gameData[level - 1].lives : 0;
+        this.setLives(this.lives);
     }
     
     checkAnswer(question, answer) {
@@ -95,6 +96,7 @@ export class GameTemplate {
     }
     
     setLives(lives) {
+        this.lives = lives;
         const $lives = $('.lives').children();
         $lives.slice(0, lives).css('display', 'inline-block');
         $lives.slice(lives).css('display', 'none');
