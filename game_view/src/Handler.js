@@ -1,47 +1,64 @@
 import * as constant from "./constant.js";
 
-
 export class Handler {
     constructor(game, levelArea) {
-      this.game = game;
-      this.levelArea = levelArea;
+        this.game = game;
+        this.levelArea = levelArea;
+        this.handlers = this.initializeHandlers();
     }
-  
+
+    initializeHandlers() {
+        return {
+            [constant.optionsBtn.LAST_BTN]: this.changeLevel.bind(this, { isPrevious: true }),
+            [constant.optionsBtn.START_BTN]: this.startGame.bind(this),
+            [constant.optionsBtn.NEXT_BTN]: this.changeLevel.bind(this, { isNext: true }),
+            [constant.optionsBtn.HINT_BTN]: this.game.toggleHint.bind(this.game),
+            [constant.optionsBtn.RECORD_BTN]: this.game.recordObj.loadRecord.bind(this.game.recordObj),
+            [constant.optionsBtn.SUBMIT_BTN]: this.game.checkAnswer.bind(this.game),
+        };
+    }
+
     handleRequest(request) {
-      switch (request) {
-        case constant.LAST_BTN:
-            this.levelArea.children().eq(this.game.level-1).removeClass('active');
-            this.game.changeLevel(this.game.level, { isPrevious: true });
-            this.changeLevel(this.game.level);
-            break;
-        case constant.START_BTN:
-            this.game.startGame(this.game.level);
-            this.changeLevel(this.game.level);
-            break;
-        case constant.NEXT_BTN:
-            this.levelArea.children().eq(this.game.level-1).removeClass('active');
-            this.game.changeLevel(this.game.level, { isNext: true });
-            this.changeLevel(this.game.level);
-            break;
-        case constant.HINT_BTN:
-            this.game.toggleHint();
-            break;
-        case constant.RECORD_BTN:
-            this.game.loadRecord();
-            break;
-        case constant.SUBMIT_BTN:
-            this.game.checkAnswer();
-            break;
-        default:
-            break;
+        const handler = this.handlers[request];
+        if (handler) handler();
+    }
+
+    changeLevel(option) {
+        this.changeActiveLevel();
+        this.game.changeLevel(this.game.level, option);
+        this.updateButtonAndLevelStyle();
+    }
+
+    startGame() {
+        this.game.startGame(this.game.level);
+        this.updateButtonAndLevelStyle();
+    }
+
+    updateButtonAndLevelStyle() {
+        this.updateLevelClasses();
+        this.removeNextButtonJumpStyle();
+    }
+
+    removeNextButtonJumpStyle() {
+        $(`#${constant.optionsBtn.NEXT_BTN}`).removeClass("jumpBtn");
+    }
+
+    updateLevelClasses() {
+        this.updateWinLevels();
+        this.updateActiveLevel();
+    }
+
+    updateWinLevels() {
+        for (const value of this.game.winLevelSet) {
+            this.levelArea.children().eq(value - 1).addClass("win");
         }
     }
-    changeLevel(level){
-        this.game.winLevelSet.forEach((value) => 
-            this.levelArea.children().eq(value-1).addClass('win')
-        )
-        this.levelArea.children().eq(level-1).addClass('active').removeClass('win');
-        $(`#${constant.NEXT_BTN}`).removeClass("jumpBtn");
+
+    updateActiveLevel() {
+        this.levelArea.children().eq(this.game.level - 1).addClass("active").removeClass("win");
+    }
+
+    changeActiveLevel() {
+        this.levelArea.children().eq(this.game.level - 1).removeClass("active");
     }
 }
-  

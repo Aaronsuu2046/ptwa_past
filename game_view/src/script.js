@@ -1,117 +1,126 @@
 import * as constant from "./constant.js";
-import { getJson } from './module.js';
+import { gameModules } from './module.js';
 import { Handler } from './Handler.js';
 
+async function init() {
+    const allGameData = await gameModules.getJson('../../../game_view/game_config.json');
+    const gameID = getGameID();
+    const gameData = allGameData[gameID];
+    const gameName = gameData.game_name;
 
-const previousPageBtn = $('.previousPage');
+    const levelsArea = $('.levelBtn');
+    const optionsArea = $('.optionsBtn');
 
-previousPageBtn.on('click', function() {
-    history.back();
-});
+    const iframeElement = createIframeElement(gameName);
+    $('.gameIframe').append(iframeElement);
+    updateLevels(gameData, levelsArea);
+    $('.context').html(getRule(gameData));
+    updateOptions(gameData);
 
-const allGameData = await getJson('../../../game_view/game_config.json');
-const optionsBtn = {};
-optionsBtn[constant.LAST_BTN] = "上一關";
-optionsBtn[constant.START_BTN] = "遊戲開始";
-optionsBtn[constant.NEXT_BTN] = "下一關";
-optionsBtn[constant.HINT_BTN] = "提示";
-optionsBtn[constant.RECORD_BTN] = "💾";
-optionsBtn[constant.SUBMIT_BTN] = "送出答案";
+    setupEventListeners(gameName, gameData, levelsArea, optionsArea);
+    setupAnimation();
+}
 
-const levelsArea = $('.levelBtn');
-const optionsArea = $('.optionsBtn');
+function getGameID() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    return parseInt(urlParams.get('id')) - 11;
+}
 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const gameID = parseInt(urlParams.get('id')) - 11;
-const gameName = allGameData[gameID].game_name;
+function createIframeElement(gameName) {
+    return $('<iframe></iframe>', {
+        src: `../games/${gameName}/index.html`,
+        id: 'fractional_connection',
+        scrolling: 'no'
+    });
+}
 
-const iframeElement = $('<iframe></iframe>')
-  .attr('src', `../games/${gameName}/index.html`)
-  .attr('id', 'fractional_connection')
-  .attr('scrolling', 'no');
+function updateLevels(gameData, levelsArea) {
+    const currentLevelCount = levelsArea.children('button').length;
+    const targetLevelCount = gameData.game_level;
 
-$('.gameIframe').append(iframeElement);
-let gameWindow;
-let game;
-
-levelsArea.html(getLevels());
-$('.context').html(getRule());
-optionsArea.html(getOptions());
-
-$(window).on('message', function(event) {
-    const message = event.originalEvent.data;
-    // console.log(message);
-
-    if (message.type === constant.GAME_WIN) {
-        $('#nextBtn').addClass("jumpBtn");
+    if (currentLevelCount > targetLevelCount) {
+        levelsArea.children('button:gt(' + (targetLevelCount - 1) + ')').remove();
+    } else if (currentLevelCount < targetLevelCount) {
+        const newButtons = Array.from(
+            { length: targetLevelCount - currentLevelCount },
+            (_, i) => $('<button>', {
+                id: currentLevelCount + i + 1,
+                text: currentLevelCount + i + 1
+            })
+        );
+        levelsArea.append(newButtons);
     }
-    if (message.type !== gameName) {
-        return false;
-    }
-    gameWindow = $('#' + gameName)[0].contentWindow;
-    console.log('Iframe loaded');
-    game = gameWindow.getGame();
-    levelsArea.on('click', 'button', function(e) {
-        const level = parseInt($(this).attr('id'));
-        if (!level) {
+}
+
+function getRule(gameData) {
+    return gameData.game_rule.map(element => `<h1>${element}</h1>`).join('');
+}
+
+function updateOptions(gameData) {
+    const options = gameData.game_option;
+    $('.optionsBtn button').filter((index, element) => {
+        return !options.includes(element.classList[0]);
+    }).remove();
+}
+
+function setupEventListeners(gameName, gameData, levelsArea, optionsArea) {
+    $(window).on('message', handleGameMessage);
+
+    function handleGameMessage(e) {
+        const message = e.originalEvent.data;
+
+        if (message.type === constant.GAME_WIN) {
+            $('#nextBtn').addClass("jumpBtn");
+        }
+        if (message.type !== gameName) {
             return false;
         }
-        levelsArea.children().eq(game.level - 1).removeClass('active');
-        game.winLevelSet.forEach((value) => 
-            levelsArea.children().eq(value - 1).addClass('win')
-        );
-        $(this).addClass('active');
-        game.changeLevel(level);
+        const gameWindow = $('#' + gameName)[0].contentWindow;
+        const game = gameWindow.getGame();
+
+        levelsArea.on('click', 'button', handleLevelButtonClick);
+        optionsArea.on('click', 'button', handleOptionsButtonClick);
+
+        function handleLevelButtonClick(e) {
+            const level = parseInt($(this).attr('id'));
+            if (!level) {
+                return false;
+            }
+            levelsArea.children().eq(game.level - 1).removeClass('active');
+            game.winLevelSet.forEach((value) => 
+                levelsArea.children().eq(value - 1).addClass('win')
+            );
+            $(this).addClass('active');
+            game.changeLevel(level);
+        };
+
+        const btnHandler = new Handler(game, levelsArea);
+        function handleOptionsButtonClick(e) {
+            const act = $(this).attr('class');
+            if (act === constant.optionsBtn.START_BTN) {
+                const gameRule = $('.gameRule');
+                gameRule.css({"display": 'none'});
+                $('#' + act).text("重新開始");
+            }
+            btnHandler.handleRequest(act);
+        };
+    };
+
+    const previousPageBtn = $('.previousPage');
+    previousPageBtn.on('click', () => {
+        history.back();
     });
-
-    const btnHandler = new Handler(game, levelsArea);
-    optionsArea.on('click', 'button', function(e) {
-        const act = $(this).attr('id');
-        if (optionsBtn[act] === optionsBtn.startBtn) {
-            const gameRule = $('.gameRule');
-            gameRule.css({"display": 'none'});
-            $('#' + act).text("重新開始");
-        }
-        btnHandler.handleRequest(act);
-    });
-});
-
-const jumpBtn = $('.jumpBtn');
-jumpBtn.on('animationiteration', function() {
-    $(this).css('animation-play-state', 'paused');
-    setTimeout(() => {
-        $(this).css('animation-play-state', 'running');
-    }, 2000);
-});
-
-function getLevels(){
-    let levels = '';
-    let i = 1;
-    while (i <= allGameData[gameID].game_level){
-        levels += `<button id="${i}">${i}</button>`;
-        i++;
-    }
-    return levels;
 }
 
-function getRule(){
-    let rule = '';
-    allGameData[gameID].game_rule.forEach(element => {
-        rule += `<h1>${element}</h1>`;
+function setupAnimation() {
+    const jumpBtn = $('.jumpBtn');
+    jumpBtn.on('animationiteration', function(e) {
+        $(this).css('animation-play-state', 'paused');
+        setTimeout(() => {
+            $(this).css('animation-play-state', 'running');
+        }, 2000);
     });
-    return rule;
 }
 
-function getOptions(){
-    let options = '';
-    allGameData[gameID].game_option.forEach(option => {
-        if (option === 'submitBtn'){
-            options += `<button class="jumpBtn" id="${option}">${optionsBtn[option]}</button>`;
-        }
-        else {
-            options += `<button id="${option}">${optionsBtn[option]}</button>`;
-        }
-    });
-    return options;
-}
+$(document).ready(init);

@@ -213,14 +213,14 @@ button {
     transition: 0.5s;
 }
 
-.optionsBtn #startBtn {
+.optionsBtn .startBtn {
     flex: 4;
 }
-.optionsBtn #submitBtn {
+.optionsBtn .submitBtn {
     background-color: #02dc31;
     border-color: #02dc31;
 }
-.optionsBtn #submitBtn:hover {
+.optionsBtn .submitBtn:hover {
     color: #eee;
     box-shadow: 1px 5px 10px rgba(0,0,0,0.3);
     transition: 0.5s;
