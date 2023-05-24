@@ -3,12 +3,14 @@
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### 2023.05.24
-##### [2.1.0]Educational Games
-**Changed**
-- Clean Game View Code
+##### [2.3.0] - Educational Games
+**Added**
+- Connection Game Template
+- **Changed**
+- Clean Game View JS Code
 
 ### 2023.05.23
-##### [2.0.0]Educational Games
+##### [2.0.0] - Educational Games
 **Added**
 - 分數連連看（Fraction Connection Game）
 **Changed**
