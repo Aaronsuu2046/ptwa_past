@@ -36,10 +36,6 @@ class Game {
                       , 'a': []
                       , 'result': []
                       };
-        // this.topic_explain = [];
-        // $.each(gameData.gameData, (key, value) => {
-        //     this.topic_explain.push(value.q);
-        // });
         this.winLevelArr = new Set();
     }
     startGame(level) {
@@ -82,8 +78,6 @@ class Game {
             this.wrongSound.play();
             this.dadaGroph.css('display', 'block');
             $(`.${answer}`).addClass('redWord');
-            // this.lives -= 1;
-            // setLives(this.lives)
             setTimeout(()=>{
             this.dadaGroph.css('display', 'none');}, 500);
             this.winLevelArr.delete(this.level);
@@ -115,7 +109,6 @@ class Game {
     }
     
     resetGame(){
-        // this.gameState = GAME_FILE;
         $('#nextBtn').removeClass('jumpBtn');
         this.gameState = GAME_ALIVE;
         firework_sound.pause();
@@ -129,19 +122,19 @@ class Game {
         });
         $(`.answer *`).removeClass('redWord greenWord');
         this.levelBtn.children().eq(this.level-1).addClass('active');
-        // this.gameRule.css('display', 'block');
-        //this.getTopic();
-        // this.lives = 3;
-        // this.setLives(this.lives);
-        $('.question img').attr('src' , `./assets/images/${this.level}.png`);
+        this.updateAppearance();
+    }
+
+    updateAppearance(){
+        $('.question .question-img').css('display', 'none');
+        $('.question .question-img').eq(this.level - 1).css('display', 'block');
+
         const questionLength = (gameData.gameData[this.level].q).length;
         const numberLength = (gameData.gameData[this.level].q.match(/(\d+)/g).toString()).length;
         const addToFirstPortionText = (gameData.gameData[this.level].q).slice(0,(questionLength-numberLength));
         const addToNumberText = gameData.gameData[this.level].q.match(/(\d+)/g);
-        const addToLastPortionText = " ____";
         $('#first-portion').text(addToFirstPortionText);
         $('#number').text(addToNumberText);
-        $('#last-portion').text(addToLastPortionText);
     }
     
     loadRecord() {
@@ -175,14 +168,6 @@ class Game {
         // Release the URL object
         URL.revokeObjectURL(url);
     }
-    toggleHint(){
-        if (this.lives > 0)return
-        overlay.toggle();
-    }
-    
-    // getTopic(){
-    //     $(this.topic).text(this.topic_explain[this.level-1]);
-    // }
     
     setLives(lives){
         const count = lives - $('.lives').children().length;
