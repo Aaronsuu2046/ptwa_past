@@ -1,5 +1,5 @@
 import * as constant from "./constant.js"
-import * as module from "./module.js"
+import {gameModules} from "./module.js"
 
 
 export class GameTemplate {
@@ -47,7 +47,7 @@ export class GameTemplate {
             this.winLevelSet.delete(this.level);
         }
         this.recordObj.appendToRecord("result", result);
-        module.showResultView(result);
+        gameModules.showResultView(result);
     }
 
     getGameResult(){
@@ -96,6 +96,7 @@ export class GameTemplate {
     }
     
     setLives(lives) {
+        if (lives < 0) return
         this.lives = lives;
         const $lives = $('.lives').children();
         $lives.slice(0, lives).css('display', 'inline-block');
