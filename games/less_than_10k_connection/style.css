@@ -112,9 +112,6 @@
 }
 
 /* Dot */
-.dot {
-    min-width: 20px;
-}
 .centerArea .dot {
     margin: 0% 1%;
 }

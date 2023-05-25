@@ -14,11 +14,11 @@
     display: flex;
     justify-content: space-evenly;
 }
-.hintContainer .leftArea, .hintContainer .centerArea, .hintContainer .rightArea{
+.hintContainer .leftArea, .hintContainer .rightArea{
     display: flex;
     flex-direction: column;
-    flex: 3;
-    padding-top: 8%;
+    justify-content: space-around;
+    padding-top: 5%;
 }
 .hintContainer .contentArea {
     padding: 5%
@@ -31,8 +31,9 @@
 }
 
 /* Question Area */
-.gameArea .leftArea, .gameArea .centerArea, .gameArea .rightArea {
+.gameArea .leftArea, .gameArea .rightArea {
     display: flex;
+    flex: 3;
     flex-direction: column;
     justify-content: space-around;
     margin-top: 8%;
@@ -40,83 +41,145 @@
 }
 .gameArea .leftArea {
     margin-left: 2%;
-    max-width: 240px;
-}
-.centerArea {
-    /* margin: 0% 10%; */
 }
 .rightArea {
     margin-right: 2%;
 }
 
 /* Ever Question Area*/
-.questionArea {
+.questionArea, .answerArea {
     display: flex;
+    flex: 2;
     justify-content: center;
-    align-items: end;
+    align-items: center;
 }
 
-/* Content Area */
-.contentArea {
-    display: flex;
-    align-items: end;
-}
-
-.contentArea img {
-    display: inline-block;
-}
-
-.contentArea h2{
+.contentArea h1{
     margin: 0;
 }
 /* Left Area */
 .leftArea .contentArea {
-    flex: 3;
-    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border: 2px solid black;
+    border-radius: 50%;
+}
+.leftArea .hour, .leftArea .minute {
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    border-style: solid;
+    border-color: black;
+  }
+  
+.leftArea .hour {
+    transform-origin: bottom;
+    border-width: 2px 2px 25px 2px;
+}
+  
+.leftArea .minute {
+    transform-origin: bottom;
+    border-width: 1px 1px 40px 1px;
 }
 
-/* Center Area */
-/* units */
-.centerArea .contentArea > * {
-    display: flex;
-    flex: 2;
+.number {
+    position: absolute;
+    width: 20%;
+    height: 20%;
+    line-height: 20%; /* Make the text vertically centered */
+    text-align: center; /* Make the text horizontally centered */
+    font-size: 14px;
+    color: black;
 }
-/* Number and Chinese */
-.centerArea .contentArea > * > *{
-    text-align: center;
+  
+.number12 {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 50%); /* Center the text horizontally */
+}
+  
+.number3 {
+    top: 50%;
+    right: 0;
+}
+  
+.number6 {
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%); /* Center the text horizontally */
+}
+  
+.number9 {
+    top: 50%;
+    left: 0;
+}
+    
+/* .number1 {
+    top: 20%;
+    left: 80%;
+    transform: translate(-90%, -20%);
+}
+  
+.number2 {
+    top: 35%;
+    left: 90%;
+    transform: translate(-80%, -35%);
+}
+  
+.number4 {
+    top: 65%;
+    right: 0%;
+    transform: translate(-30%, 20%);
+}
+  
+.number5 {
+    top: 80%;
+    right: 0%;
+    transform: translate(-90%, 30%);
+}
+  
+.number7 {
+    top: 80%;
+    left: 0%;
+    transform: translate(80%, 10%);
+}
+  
+.number8 {
+    top: 65%;
+    left: 10%;
+    transform: translate(-50%, 0%);
+}
+  
+.number10 {
+    top: 35%;
+    left: 10%;
+    transform: translate(-50%, 0%);
+}
+  
+.number11 {
+    top: 20%;
+    left: 20%;
+    transform: translate(-50%, 0%);
+} */
+
+/* Right Area */
+.rightArea .contentArea {
+    display: flex;
+    align-items: center;
+}
+
+.rightArea .contentArea .hour::after {
+    content: "：";
+}
+.rightArea .contentArea > * {
     flex: 5;
 }
-/* Right Area */
-/* units */
-.rightArea .contentArea > * {
-    display: flex;
-    flex-direction: column;
-    flex: 2;
-    border: 2px solid black;
-    min-width: 30px;
-}
-/* Chinese and Number */
-.rightArea .contentArea > * > *{
-    text-align: center;
-    width: 100%;
-}
-
-.rightArea .contentArea > * > .chinese{
-    display: flex;
-    flex-direction: column;
-    flex: 6;
-    border-bottom: 2px solid black;
-}
-.rightArea .contentArea > * > .chinese::after{
-    content: "位";
-}
-
 /* Dot */
-.dot {
-    min-width: 20px;
-}
-.centerArea .dot {
-    margin: 0% 1%;
+.leftArea .dot {
+    margin-left: 5%;
 }
 .rightArea .dot {
     margin-right: 5%;
