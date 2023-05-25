@@ -30,7 +30,7 @@ function getGameID() {
 function createIframeElement(gameName) {
     return $('<iframe></iframe>', {
         src: `../games/${gameName}/index.html`,
-        id: 'fractional_connection',
+        id: gameName,
         scrolling: 'no'
     });
 }
