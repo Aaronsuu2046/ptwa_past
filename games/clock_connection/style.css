@@ -61,6 +61,7 @@
 .leftArea .contentArea {
     width: 100px;
     height: 100px;
+    background-color: whitesmoke;
     border: 2px solid black;
     border-radius: 50%;
 }
