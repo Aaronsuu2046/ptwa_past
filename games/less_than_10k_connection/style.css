@@ -1,8 +1,8 @@
 @import url(../../game_view/css/connection_game.css);
 
 * {
-    /* border: solid 2px black;
-    position: relative; */
+    /* border: solid 2px black; */
+    position: relative;
 }
 
 /* hint */
@@ -14,22 +14,14 @@
     display: flex;
     justify-content: space-evenly;
 }
-.hintContainer .left, .hintContainer .right{
+.hintContainer .leftArea, .hintContainer .centerArea, .hintContainer .rightArea{
     display: flex;
     flex-direction: column;
-    flex: 5;
-    margin: 8% 5% 3% 15%;
+    flex: 3;
+    padding-top: 8%;
 }
-.hintContainer .left{
-    padding-left: 10%;
-    padding-right: 15%;
-}
-.hintContainer .left .topicArea {
-    margin: 5%;
-}
-.hintContainer .right{
-    margin: 8% 20% 3% 0%;
-    padding-right: 10%;
+.hintContainer .contentArea {
+    padding: 5%
 }
 
 /* Game Area */
@@ -42,40 +34,49 @@
 .gameArea .leftArea, .gameArea .centerArea, .gameArea .rightArea {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    flex: 3;
-    /* margin: 8% 0% 0% 10%; */
+    justify-content: space-around;
+    margin-top: 8%;
+    margin-bottom: 2%;
+}
+.gameArea .leftArea {
+    margin-left: 2%;
+    max-width: 240px;
+}
+.centerArea {
+    /* margin: 0% 10%; */
+}
+.rightArea {
+    margin-right: 2%;
 }
 
 /* Ever Question Area*/
 .questionArea {
     display: flex;
-    flex: 3;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
+    align-items: end;
 }
 
 /* Content Area */
 .contentArea {
     display: flex;
-    justify-content: space-between;
     align-items: end;
 }
 
-.contentArea *{
+.contentArea img {
     display: inline-block;
 }
 
-.contentArea h1{
+.contentArea h2{
     margin: 0;
+}
+/* Left Area */
+.leftArea .contentArea {
+    flex: 3;
+    display: inline-block;
 }
 
 /* Center Area */
 /* units */
-.centerArea .contentArea {
-    flex: 8;
-    height: 100%;
-}
 .centerArea .contentArea > * {
     display: flex;
     flex: 2;
@@ -86,15 +87,13 @@
     flex: 5;
 }
 /* Right Area */
-.rightArea .contentArea{
-    flex: 8;
-}
 /* units */
 .rightArea .contentArea > * {
     display: flex;
     flex-direction: column;
     flex: 2;
     border: 2px solid black;
+    min-width: 30px;
 }
 /* Chinese and Number */
 .rightArea .contentArea > * > *{
@@ -110,4 +109,15 @@
 }
 .rightArea .contentArea > * > .chinese::after{
     content: "位";
+}
+
+/* Dot */
+.dot {
+    min-width: 20px;
+}
+.centerArea .dot {
+    margin: 0% 1%;
+}
+.rightArea .dot {
+    margin-right: 5%;
 }

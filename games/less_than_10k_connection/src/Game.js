@@ -12,48 +12,90 @@ export class Game extends ConnectionGame {
     constructor(gameData){
         super(gameData);
         this.topicExplain = Array(this.levelLimit).fill('數一數，把積木連讀音連定位板吧！');
+    
+        this.leftArea = $('.gameArea .leftArea');
+        this.centerArea = $('.gameArea .centerArea');
+        this.rightArea = $('.gameArea .rightArea');
     }
 
     getCorrectLimit(){
-        return this.gameData[this.level-1].top.length;
+        return this.gameData[this.level-1].thousand.length;
     }
 
     startGame(level) {
         super.startGame(level);
-        // this.createQuestions();
-        // this.createHint();
-        // helpModules.reorder(
-        //     this.gameArea.find('.left')
-        //     , this.gameArea.find('.right'));
+        this.resetQuestions();
+        this.createQuestions();
+        this.createHint();
+        helpModules.reorder(
+            this.leftArea
+            , this.centerArea
+            , this.rightArea
+        );
     }
 
     creatRecord(recordType, dot){
-        const top = dot.data('top');
-        const bottom = dot.data('bottom');
-        return `${top}/${bottom}`;
+        const value = dot.data('value');
+        console.log(value);
+        console.log(this.recordObj.record);
+        return `${value}`;
+    }
+
+    resetQuestions() {
+        this.leftArea.find('*').remove('img');
+        this.centerArea.find('*').filter(':hidden').css('display', '');
+        this.rightArea.find('*').filter(':hidden').css('display', '');
     }
 
     createQuestions() {
         const level = this.level - 1;
         const $gameArea = $('.gameArea');
-        $gameArea.find('.scalls').each((index, value) => {
-            let $value = $(value);
-            let bottom = this.gameData[level].bottom[index];
-            let top = this.gameData[level].top[index];
-            const dot = $value.parent('.topicArea').siblings('.dot');
-            dot.data({'top': top, 'bottom': bottom});
-            $value.siblings('.water').css({ "height": `${top/bottom*100}%` });
-            $value.html('<li></li>'.repeat(bottom + 1));
-            const fraction = $gameArea.find('.fraction');
-            fraction.siblings('.dot').eq(index).data({'top': top, 'bottom': bottom});
-            fraction.find('.top').eq(index).html(`<h1>${top}</h1>`);
-            fraction.find('.bottom').eq(index).html(`<h1>${bottom}</h1>`);
-        });
+        for (let i = 0; i < 4; i++) {
+            const thousand = helpModules.randomNumber(0, this.gameData[level].thousand[i]);
+            const hundred = helpModules.randomNumber(0, this.gameData[level].hundred[i]);
+            const ten = helpModules.randomNumber(0, this.gameData[level].ten[i]);
+            const ones = helpModules.randomNumber(0, this.gameData[level].ones[i]);
+            // console.log(area);
+            this.createImg(this.leftArea.find('.contentArea').eq(i), "thousand", thousand);
+            this.createImg(this.leftArea.find('.contentArea').eq(i), "hundred", hundred);
+            this.createImg(this.leftArea.find('.contentArea').eq(i), "ten", ten);
+            this.createImg(this.leftArea.find('.contentArea').eq(i), "ones", ones);
+            thousand === 0 ? this.centerArea.find('.thousand').eq(i).css('display', 'none') :this.centerArea.find('.thousand .number').eq(i).text(thousand);
+            hundred === 0 ? this.centerArea.find('.hundred').eq(i).css('display', 'none') :this.centerArea.find('.hundred .number').eq(i).text(hundred);
+            ten === 0 ? this.centerArea.find('.ten').eq(i).css('display', 'none') :this.centerArea.find('.ten .number').eq(i).text(ten);
+            ones === 0 ? this.centerArea.find('.ones').eq(i).css('display', 'none') :this.centerArea.find('.ones .number').eq(i).text(ones);
+            thousand === 0 ? this.rightArea.find('.thousand').eq(i).css('display', 'none') :this.rightArea.find('.thousand .number').eq(i).text(thousand);
+            hundred === 0 ? this.rightArea.find('.hundred').eq(i).css('display', 'none') :this.rightArea.find('.hundred .number').eq(i).text(hundred);
+            ten === 0 ? this.rightArea.find('.ten').eq(i).css('display', 'none') :this.rightArea.find('.ten .number').eq(i).text(ten);
+            ones === 0 ? this.rightArea.find('.ones').eq(i).css('display', 'none') :this.rightArea.find('.ones .number').eq(i).text(ones);
+            if (i<3){
+                this.leftArea.find('.questionArea').eq(i).find('.dot').data({'value': `${thousand}${hundred}${ten}${ones}`});
+                this.centerArea.find('.questionArea').eq(i).find('.dot').data({'value': `${thousand}${hundred}${ten}${ones}`});
+                this.rightArea.find('.questionArea').eq(i).find('.dot').data({'value': `${thousand}${hundred}${ten}${ones}`});
+            }
+        };
+    }
+
+    createImg(unit, imgName, count) {
+        if (count < 0){
+            unit.css('display', 'none');
+            return
+        }
+        for (let i = 0; i < count; i++) {
+            unit.append(this.getImg(imgName));
+        }
+    }
+
+    getImg(imgName) {
+        return $('<img>')
+            .attr('src', `./assets/${imgName}.png`)
+            .attr('alt', imgName);
     }
       
     createHint() {
-        $('.hintContainer .left').html(this.gameArea.find('.left .topicArea').clone());
-        $('.hintContainer .right').html(this.gameArea.find('.right .fraction').clone());
+        $('.hintContainer .leftArea').html(this.gameArea.find('.leftArea .contentArea').clone());
+        $('.hintContainer .centerArea').html(this.gameArea.find('.centerArea .contentArea').clone());
+        $('.hintContainer .rightArea').html(this.gameArea.find('.rightArea .contentArea').clone());
     }
 }
 
