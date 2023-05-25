@@ -2,7 +2,7 @@
 
 * {
     /* border: solid 2px black; */
-    position: relative;
+    /* position: relative; */
 }
 
 /* hint */
@@ -54,11 +54,17 @@
     align-items: center;
 }
 
+/* ContenArea */
+.contentArea {
+    position: relative;
+}
 .contentArea h1{
     margin: 0;
 }
+
 /* Left Area */
 .leftArea .contentArea {
+    position: relative;
     width: 100px;
     height: 100px;
     background-color: whitesmoke;

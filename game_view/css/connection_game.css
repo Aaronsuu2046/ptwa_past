@@ -26,6 +26,7 @@
 
 /* dot */
 .gameArea .questionArea .dot, .gameArea .answerArea .dot {
+    position: relative;
     width: 20px;
     height: 20px;
     background-color: black;
