@@ -11,7 +11,7 @@ import {
 export class Game extends ConnectionGame {
     constructor(gameData){
         super(gameData);
-        this.topicExplain = Array(this.levelLimit).fill('時鐘上的刻度是幾點幾分呢？');
+        this.topicExplain = Array(this.levelLimit).fill('時鐘上的指針是幾點幾分呢？');
     
         this.leftArea = $('.gameArea .leftArea');
         this.rightArea = $('.gameArea .rightArea');
