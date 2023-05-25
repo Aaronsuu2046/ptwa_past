@@ -32,7 +32,7 @@ const helpModules = {
     },
 
     randomNumber(start, end) {
-        return Math.random() * (end - start) + start;
+        return Math.floor(Math.random() * (end - start) + start);
     }
 };
 

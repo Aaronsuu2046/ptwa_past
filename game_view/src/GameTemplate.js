@@ -358,6 +358,37 @@ class ElementGenerator {
             .attr('height', 'auto')
             .css('margin-right', '-30px');
     }
+
+    // TODO how to use
+    generateDot(...args) {
+        let targetElement;
+        const dotDiv = $('<div>').addClass('dot');
+      
+        if (typeof args[0] === 'object') {
+            const argObject = args[0];
+            Object.entries(argObject).forEach(([className, parent]) => {
+                const elements = $(className);
+                elements.each(function() {
+                    const clonedElement = $(this).clone();
+                    const parentElement = $(parent);
+                    parentElement.append(clonedElement);
+                    dotDiv.append(clonedElement);
+                });
+                targetElement = parent;
+            });
+        } else {
+            const classNames = args;
+            classNames.forEach(className => {
+                    const elements = $(className);
+                    elements.each(function() {
+                    dotDiv.append($(this).clone());
+                });
+                targetElement = classNames.length === 1 ? '.gameArea' : className;
+            });
+        }
+      
+        $(targetElement).append(dotDiv);
+    }
   }
 
 
