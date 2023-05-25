@@ -11,7 +11,7 @@ import {
 export class Game extends ConnectionGame {
     constructor(gameData){
         super(gameData);
-        this.topicExplain = Array(this.levelLimit).fill('剩下多少水量呢？請連線告訴我吧！');
+        this.topicExplain = Array(this.levelLimit).fill('數一數，把積木連讀音連定位板吧！');
     }
 
     getCorrectLimit(){
@@ -20,11 +20,11 @@ export class Game extends ConnectionGame {
 
     startGame(level) {
         super.startGame(level);
-        this.createQuestions();
-        this.createHint();
-        helpModules.reorder(
-            this.gameArea.find('.left')
-            , this.gameArea.find('.right'));
+        // this.createQuestions();
+        // this.createHint();
+        // helpModules.reorder(
+        //     this.gameArea.find('.left')
+        //     , this.gameArea.find('.right'));
     }
 
     creatRecord(recordType, dot){

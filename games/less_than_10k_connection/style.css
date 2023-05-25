@@ -1,7 +1,8 @@
 @import url(../../game_view/css/connection_game.css);
 
 * {
-    /* border: solid 2px black; */
+    /* border: solid 2px black;
+    position: relative; */
 }
 
 /* hint */
@@ -37,94 +38,76 @@
     justify-content: space-between;
 }
 
-.gameArea .left, .gameArea .right {
+/* Question Area */
+.gameArea .leftArea, .gameArea .centerArea, .gameArea .rightArea {
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: start;
-    flex: 5;
-    margin: 8% 0% 0% 10%;
-}
-
-/* Question */
-.left .questionArea {
-    position: relative;
-    display: flex;
-    margin-top: 5%;
-    width: 40%;
-    flex: 2;
-    align-items: center;
-}
-.topicArea {
-    position: relative;
-    flex: 7;
-    height: 100%;
-}
-
-/* water */
-.topicArea .water{
-    position: absolute;
-    width: 100%;
-    height: 50%;
-    background-color: #02bbdc;
-    bottom: 0;
-}
-/* scalls */
-.topicArea .scalls{
-    position: absolute;
-    display: flex;
-    height: 100%;
-    width: 20%;
     flex-direction: column;
     justify-content: space-between;
-    top: 0;
+    flex: 3;
+    /* margin: 8% 0% 0% 10%; */
 }
-.topicArea .scalls li{
-    list-style: none;
-    border: solid 1px black;
-}
-/* cup */
-.topicArea .cup{
-    position: absolute;
-    border: solid 3px black;
-    box-sizing: border-box;
-    border-top: none;
-    width: 100%;
-    height: 100%;
-}
-/* Answer */
-.right .answerArea {
-    position: relative;
-    margin-left: 40%;
+
+/* Ever Question Area*/
+.questionArea {
     display: flex;
-    margin-top: 5%;
-    width: 40%;
-    flex: 2;
+    flex: 3;
+    justify-content: space-between;
     align-items: center;
 }
 
-/* Fraction */
-.fraction{
+/* Content Area */
+.contentArea {
     display: flex;
-    flex: 7;
-    flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
+    align-items: end;
 }
-.fraction .top, .fraction .bottom {
-    flex: 5;
+
+.contentArea *{
+    display: inline-block;
 }
-.fraction .fractionalLine{
-    border: solid 2px black;
-    width: 70%;
-}
-.fraction h1{
+
+.contentArea h1{
     margin: 0;
 }
 
-/* dot */
-.gameArea .questionArea .dot {
-    margin-left: 10%;
+/* Center Area */
+/* units */
+.centerArea .contentArea {
+    flex: 8;
+    height: 100%;
 }
-.gameArea .answerArea .dot {
-    margin-right: 10%;
+.centerArea .contentArea > * {
+    display: flex;
+    flex: 2;
+}
+/* Number and Chinese */
+.centerArea .contentArea > * > *{
+    text-align: center;
+    flex: 5;
+}
+/* Right Area */
+.rightArea .contentArea{
+    flex: 8;
+}
+/* units */
+.rightArea .contentArea > * {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    border: 2px solid black;
+}
+/* Chinese and Number */
+.rightArea .contentArea > * > *{
+    text-align: center;
+    width: 100%;
+}
+
+.rightArea .contentArea > * > .chinese{
+    display: flex;
+    flex-direction: column;
+    flex: 6;
+    border-bottom: 2px solid black;
+}
+.rightArea .contentArea > * > .chinese::after{
+    content: "位";
 }
