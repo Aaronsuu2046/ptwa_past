@@ -18,7 +18,7 @@ async function init() {
     $('.context').html(getRule(gameData));
     updateOptions(gameData);
 
-    setupEventListeners(gameName, gameData, levelsArea, optionsArea);
+    setupEventListeners(gameData, levelsArea, optionsArea);
     setupAnimation();
     setupGameColor(constant.GAME_COLOR[gameGrade]);
 }
@@ -66,7 +66,10 @@ function updateOptions(gameData) {
     }).remove();
 }
 
-function setupEventListeners(gameName, gameData, levelsArea, optionsArea) {
+function setupEventListeners(gameData, levelsArea, optionsArea) {
+    const gameName = gameData.game_name;
+    const gameKind = gameData.game_kind;
+    const gameGrade = gameData.game_grade;
     $(window).on('message', handleGameMessage);
 
     function handleGameMessage(e) {
@@ -111,7 +114,7 @@ function setupEventListeners(gameName, gameData, levelsArea, optionsArea) {
 
     const previousPageBtn = $('.previousPage');
     previousPageBtn.on('click', () => {
-        history.back();
+        window.location.href = `../../games/${gameKind}/grade${gameGrade}/`;
     });
 }
 
