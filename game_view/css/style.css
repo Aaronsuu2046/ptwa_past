@@ -86,11 +86,11 @@ button {
     border-radius: 30px;
     height: 50px;
     width: 200px;
-    border: 3px solid #02bbdc;
+    border-width: 3px;
+    border-style: solid;
     font-size: 30px;
 }
 .previousPage:hover {
-    background-color: #02bbdc;
     color: #fff;
     transition: 0.5s;
 }
@@ -111,8 +111,8 @@ button {
     width: 800px;
     height: 600px;
     background-color: #eee;
-    border:5px solid #02bbdc;
-    background-color: #eee;
+    border-width:5px;
+    border-style: solid;
     border-radius: 10px;
     box-sizing: content-box;
 }
@@ -163,7 +163,6 @@ button {
 }
 
 .gameBtn *:hover {
-    background-color: #02bbdc;
     color: #fff;
     transform: translate(0px, -5px);
     transition: 0.5s;
@@ -182,7 +181,6 @@ button {
 }
 
 .levelBtn *.active {
-    background-color: #02bbdc;
     color: #fff;
     transition: 0.5s;
 }
@@ -195,7 +193,6 @@ button {
 
 /* option */
 .optionsBtn * {
-    background-color: #02bbdc;
     color: #fff;
     border-radius: 10px;
     height: 40px;
@@ -208,20 +205,20 @@ button {
 }
 
 .optionsBtn *:hover {
-    background-color: #eee;
+    background-color: #eee !important; 
     color: #8e8e9c;
     transition: 0.5s;
 }
 
-.optionsBtn .startBtn {
+.optionsBtn #startBtn {
     flex: 4;
 }
-.optionsBtn .submitBtn {
-    background-color: #02dc31;
-    border-color: #02dc31;
+.optionsBtn #submitBtn {
+    background-color: #02dc31 !important;
+    border-color: #02dc31 !important;
 }
-.optionsBtn .submitBtn:hover {
-    color: #eee;
+.optionsBtn #submitBtn:hover {
+    color: #8e8e9c;
     box-shadow: 1px 5px 10px rgba(0,0,0,0.3);
     transition: 0.5s;
 }

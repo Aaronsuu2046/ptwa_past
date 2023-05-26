@@ -6,6 +6,7 @@ async function init() {
     const allGameData = await gameModules.getJson('../../../game_view/game_config.json');
     const gameID = getGameID();
     const gameData = allGameData[gameID];
+    const gameGrade = gameData.game_grade;
     const gameName = gameData.game_name;
 
     const levelsArea = $('.levelBtn');
@@ -17,8 +18,9 @@ async function init() {
     $('.context').html(getRule(gameData));
     updateOptions(gameData);
 
-    setupEventListeners(gameName, gameData, levelsArea, optionsArea);
+    setupEventListeners(gameData, levelsArea, optionsArea);
     setupAnimation();
+    setupGameColor(constant.GAME_COLOR[gameGrade]);
 }
 
 function getGameID() {
@@ -60,11 +62,14 @@ function getRule(gameData) {
 function updateOptions(gameData) {
     const options = gameData.game_option;
     $('.optionsBtn button').filter((index, element) => {
-        return !options.includes(element.classList[0]);
+        return !options.includes($(element).attr('id'));
     }).remove();
 }
 
-function setupEventListeners(gameName, gameData, levelsArea, optionsArea) {
+function setupEventListeners(gameData, levelsArea, optionsArea) {
+    const gameName = gameData.game_name;
+    const gameKind = gameData.game_kind;
+    const gameGrade = gameData.game_grade;
     $(window).on('message', handleGameMessage);
 
     function handleGameMessage(e) {
@@ -97,7 +102,7 @@ function setupEventListeners(gameName, gameData, levelsArea, optionsArea) {
 
         const btnHandler = new Handler(game, levelsArea);
         function handleOptionsButtonClick(e) {
-            const act = $(this).attr('class');
+            const act = $(this).attr('id');
             if (act === constant.optionsBtn.START_BTN) {
                 const gameRule = $('.gameRule');
                 gameRule.css({"display": 'none'});
@@ -109,7 +114,7 @@ function setupEventListeners(gameName, gameData, levelsArea, optionsArea) {
 
     const previousPageBtn = $('.previousPage');
     previousPageBtn.on('click', () => {
-        history.back();
+        window.location.href = `../../games/${gameKind}/grade${gameGrade}/`;
     });
 }
 
@@ -123,4 +128,26 @@ function setupAnimation() {
     });
 }
 
+function setupGameColor(color) {
+    const bgElement = ['.active', '.optionsBtn *']
+    const borderElement = ['.previousPage', '.myCanvas', '.gameBtn *']
+    const hoverBGElement = ['.previousPage', '.levelBtn *']
+    bgElement.forEach((ele) => {
+        $(ele).css('background-color', color)
+    })
+    borderElement.forEach((ele) => {
+        $(ele).css('border-color', color);
+    })
+    
+    hoverBGElement.forEach((ele) => {
+        var colorStyle = $('<style>');
+        colorStyle.text(`
+        ${ele}:hover {
+            background-color: ${color};
+        }
+        `);
+        $('head').append(colorStyle);
+    })
+
+}
 $(document).ready(init);
