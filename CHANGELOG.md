@@ -2,13 +2,6 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-### 2023.05.25
-##### [2.3.1] - Educational Games
-**Added**
-- Clock Connection Game
-- **Fixed**
-- Fix Game View selection game bug
-
 ### 2023.05.26
 ##### [2.3.3] - Educational Games
 - **Fixed**
@@ -18,6 +11,13 @@ The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0
 - 新增時鐘樣式
 - 新增遊戲視窗跟隨年級換色
   
+### 2023.05.25
+##### [2.3.1] - Educational Games
+**Added**
+- Clock Connection Game
+- **Fixed**
+- Fix Game View selection game bug
+
 ### 2023.05.24
 ##### [2.3.0] - Educational Games
 **Added**
