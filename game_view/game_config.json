@@ -1,19 +1,22 @@
 [
     {
         "game_name": "fractional_connection"
-        ,"game_level": 5
+        , "game_grade": 3
+        , "game_level": 5
         , "game_rule": ["根據題目選擇對應的答案", "正確即可過關", "點擊💾可下載遊戲紀錄", "錯誤三次可點擊提示"]
-        , "game_option": ["lastBtn", "startBtn", "nextBtn", "hintBtn", "recordBtn"]
+        , "game_option": ["submitBtn","lastBtn", "startBtn", "nextBtn", "hintBtn", "recordBtn"]
     }
     , {
         "game_name": "clock_connection"
-        ,"game_level": 5
+        , "game_grade": 3
+        , "game_level": 5
         , "game_rule": ["根據題目選擇對應的答案", "正確即可過關", "點擊💾可下載遊戲紀錄", "錯誤兩次可點擊提示"]
         , "game_option": ["lastBtn", "startBtn", "nextBtn", "hintBtn", "recordBtn"]
     }
     , {
         "game_name": "less_than_10k_connection"
-        ,"game_level": 5
+        , "game_grade": 3
+        , "game_level": 5
         , "game_rule": ["根據題目選擇對應的答案", "正確即可過關", "點擊💾可下載遊戲紀錄", "錯誤兩次可點擊提示"]
         , "game_option": ["lastBtn", "startBtn", "nextBtn", "hintBtn", "recordBtn"]
     }
