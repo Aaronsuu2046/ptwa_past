@@ -86,8 +86,7 @@ button {
     border-radius: 30px;
     height: 50px;
     width: 200px;
-    border-width: 3px;
-    border-style: solid;
+    border: 3px solid #02bbdc;
     font-size: 30px;
 }
 .previousPage:hover {
@@ -111,8 +110,7 @@ button {
     width: 800px;
     height: 600px;
     background-color: #eee;
-    border-width:5px;
-    border-style: solid;
+    border: 5px solid #02bbdc;
     border-radius: 10px;
     box-sizing: content-box;
 }
