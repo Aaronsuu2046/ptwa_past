@@ -10,8 +10,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script src="js/script.js"></script>
-    
 </head>
 <body>
     <header>
@@ -61,17 +59,17 @@
       <div class="row main-menu">
           <div class="col-12 col-md-4">
               <a href="#" class="link-block" data-toggle="collapse" data-target="#menu1">
-                  <img src="assets/images/grade_btn/mand.png" class="img-fluid"  id="myImage" onclick="changeImage()">
+                  <img src="assets/images/grade_btn/mand.png" class="img-fluid"  id="mand" onclick="changeImage('mand')">
               </a>
           </div>
           <div class="col-12 col-md-4">
               <a href="#" class="link-block" data-toggle="collapse" data-target="#menu2">
-                  <img src="assets/images/grade_btn/math.png" class="img-fluid" id="myImage2" onclick="changeImage2()">
+                  <img src="assets/images/grade_btn/math.png" class="img-fluid" id="math" onclick="changeImage('math')">
               </a>
           </div>
           <div class="col-12 col-md-4">
               <a href="#" class="link-block" data-toggle="collapse" data-target="#menu3">
-                  <img src="assets/images/grade_btn/tech.png" class="img-fluid" id="myImage3" onclick="changeImage3()">
+                  <img src="assets/images/grade_btn/tech.png" class="img-fluid" id="tech" onclick="changeImage('tech')">
               </a>
           </div>
       </div>     
@@ -167,6 +165,6 @@
             </div>
         </div>
       </div>
-      
+    <script src="js/script.js"></script>
 </body>
 </html>
