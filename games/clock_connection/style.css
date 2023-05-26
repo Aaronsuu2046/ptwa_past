@@ -67,116 +67,51 @@
     position: relative;
     width: 100px;
     height: 100px;
-    background-color: whitesmoke;
-    border: 2px solid black;
-    border-radius: 50%;
+    background-size: 100% 100%;
+    background-image: url('./assets/clock.png');
 }
 .leftArea .hour, .leftArea .minute {
-    width: 0;
-    height: 0;
     position: absolute;
+    z-index: 10;
     bottom: 50%;
-    left: 50%;
+    left: 45%;
     transform-origin: bottom center;
-    border-style: solid;
-    border-color: black;
   }
   
 .leftArea .hour {
     transform-origin: bottom;
-    border-width: 2px 2px 25px 2px;
+    width: 10%;
+    height: 25%;
+    background-size: 100% 100%;
+    background-image: url('./assets/hour.png');
 }
   
 .leftArea .minute {
     transform-origin: bottom;
-    border-width: 1px 1px 40px 1px;
+    width: 10%;
+    height: 40%;
+    background-size: 100% 100%;
+    background-image: url('./assets/minite.png');
 }
-
-.number {
-    position: absolute;
-    width: 20%;
-    height: 20%;
-    line-height: 20%; /* Make the text vertically centered */
-    text-align: center; /* Make the text horizontally centered */
-    font-size: 14px;
-    color: black;
-}
-  
-.number12 {
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, 50%); /* Center the text horizontally */
-}
-  
-.number3 {
-    top: 50%;
-    right: 0;
-}
-  
-.number6 {
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 50%); /* Center the text horizontally */
-}
-  
-.number9 {
-    top: 50%;
-    left: 0;
-}
-    
-/* .number1 {
-    top: 20%;
-    left: 80%;
-    transform: translate(-90%, -20%);
-}
-  
-.number2 {
-    top: 35%;
-    left: 90%;
-    transform: translate(-80%, -35%);
-}
-  
-.number4 {
-    top: 65%;
-    right: 0%;
-    transform: translate(-30%, 20%);
-}
-  
-.number5 {
-    top: 80%;
-    right: 0%;
-    transform: translate(-90%, 30%);
-}
-  
-.number7 {
-    top: 80%;
-    left: 0%;
-    transform: translate(80%, 10%);
-}
-  
-.number8 {
-    top: 65%;
-    left: 10%;
-    transform: translate(-50%, 0%);
-}
-  
-.number10 {
-    top: 35%;
-    left: 10%;
-    transform: translate(-50%, 0%);
-}
-  
-.number11 {
-    top: 20%;
-    left: 20%;
-    transform: translate(-50%, 0%);
-} */
 
 /* Right Area */
 .rightArea .contentArea {
     display: flex;
     align-items: center;
 }
+.rightArea .contentArea::before {
+    content: "";
+    position: absolute;
+    top: -30%;
+    left: -15%;
+    width: 130%;
+    height: 150%;
+    background-image: url('./assets/digital_clock.png');
+    background-size: 100% 100%;
+    background-position: center;
+    z-index: -1;
+}
+
 
 .rightArea .contentArea .hour::after {
     content: "：";
@@ -189,5 +124,5 @@
     margin-left: 5%;
 }
 .rightArea .dot {
-    margin-right: 5%;
+    margin-right: 10%;
 }
