@@ -50,10 +50,10 @@
 }
 
 /* Ever Question Area*/
-.questionArea {
+.questionArea, .answerArea {
     display: flex;
     justify-content: center;
-    align-items: end;
+    align-items: center;
 }
 
 /* Content Area */

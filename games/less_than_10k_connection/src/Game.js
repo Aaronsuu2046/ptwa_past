@@ -71,7 +71,7 @@ export class Game extends ConnectionGame {
             if (i<3){
                 this.leftArea.find('.questionArea').eq(i).find('.dot').data({'value': `${thousand}${hundred}${ten}${ones}`});
                 this.centerArea.find('.questionArea').eq(i).find('.dot').data({'value': `${thousand}${hundred}${ten}${ones}`});
-                this.rightArea.find('.questionArea').eq(i).find('.dot').data({'value': `${thousand}${hundred}${ten}${ones}`});
+                this.rightArea.find('.answerArea').eq(i).find('.dot').data({'value': `${thousand}${hundred}${ten}${ones}`});
             }
         };
     }

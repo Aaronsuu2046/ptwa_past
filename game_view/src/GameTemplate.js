@@ -193,6 +193,7 @@ export class ConnectionGame extends GameTemplate {
     drawView() {
         const getDotPos = (event, parentName) => {
             const dot = $(event.target).closest(`.${parentName}`).find('.dot');
+            console.log(dot);
             const recordType = parentName === constant.gameHTML.QUESTION_AREA ? constant.recordItim.QUESTION : constant.recordItim.ANSWER;
             const recordData = this.creatRecord(recordType, dot);
             this.recordObj.appendToRecord(recordType, recordData);
