@@ -129,7 +129,7 @@ function setupAnimation() {
 }
 
 function setupGameColor(color) {
-    const bgElement = ['.active', '.optionsBtn *']
+    const bgElement = ['.optionsBtn *']
     const borderElement = ['.previousPage', '.myCanvas', '.gameBtn *']
     const hoverBGElement = ['.previousPage', '.levelBtn *']
     bgElement.forEach((ele) => {
@@ -140,7 +140,7 @@ function setupGameColor(color) {
     })
     
     hoverBGElement.forEach((ele) => {
-        var colorStyle = $('<style>');
+        const colorStyle = $('<style>');
         colorStyle.text(`
         ${ele}:hover {
             background-color: ${color};
@@ -148,6 +148,13 @@ function setupGameColor(color) {
         `);
         $('head').append(colorStyle);
     })
+    const colorStyle = $('<style>');
+        colorStyle.text(`
+        .levelBtn .active {
+            background-color: ${color};
+        }
+        `);
+    $('head').append(colorStyle);
 
 }
 $(document).ready(init);
