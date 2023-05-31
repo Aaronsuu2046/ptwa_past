@@ -19,7 +19,7 @@ export class Game extends ConnectionGame {
     }
 
     getCorrectLimit(){
-        return this.gameData[this.level-1].thousand.length;
+        return this.gameData[this.level-1].thousand.length * 2;
     }
 
     startGame(level) {
@@ -36,9 +36,14 @@ export class Game extends ConnectionGame {
 
     creatRecord(recordType, dot){
         const value = dot.data('value');
-        console.log(value);
-        console.log(this.recordObj.record);
-        return `${value}`;
+        if (recordType === constant.recordItim.QUESTION) {
+            this.lastQuestion = value;
+        }
+        else {
+            this.lastAnswer = value;
+        }
+        const prefix = dot.closest('.centerArea').length ? '讀音' : dot.closest('.leftArea').length ? '積木' : '定位板';
+        return `${prefix} ${value}`;
     }
 
     resetQuestions() {
@@ -68,10 +73,11 @@ export class Game extends ConnectionGame {
             hundred === 0 ? this.rightArea.find('.hundred').eq(i).css('display', 'none') :this.rightArea.find('.hundred .number').eq(i).text(hundred);
             ten === 0 ? this.rightArea.find('.ten').eq(i).css('display', 'none') :this.rightArea.find('.ten .number').eq(i).text(ten);
             ones === 0 ? this.rightArea.find('.ones').eq(i).css('display', 'none') :this.rightArea.find('.ones .number').eq(i).text(ones);
+            const data = parseInt(`${thousand}${hundred}${ten}${ones}`);
             if (i<3){
-                this.leftArea.find('.questionArea').eq(i).find('.dot').data({'value': `${thousand}${hundred}${ten}${ones}`});
-                this.centerArea.find('.questionArea').eq(i).find('.dot').data({'value': `${thousand}${hundred}${ten}${ones}`});
-                this.rightArea.find('.answerArea').eq(i).find('.dot').data({'value': `${thousand}${hundred}${ten}${ones}`});
+                this.leftArea.find('.questionArea').eq(i).find('.dot').data({'value': `${data}`});
+                this.centerArea.find('.questionArea').eq(i).find('.dot').data({'value': `${data}`});
+                this.rightArea.find('.answerArea').eq(i).find('.dot').data({'value': `${data}`});
             }
         };
     }
