@@ -27,10 +27,17 @@ export class Game extends ConnectionGame {
             , this.gameArea.find('.right'));
     }
 
+    // TODO force flow
     creatRecord(recordType, dot){
-        const top = dot.data('top');
-        const bottom = dot.data('bottom');
-        return `${top}/${bottom}`;
+        const value = `${dot.data('top')}/${dot.data('bottom')}`
+        if (recordType === constant.recordItim.QUESTION) {
+            this.lastQuestion = value;
+        }
+        else {
+            this.lastAnswer = value;
+        }
+        const prefix = dot.closest('.leftArea').length ? '水杯' : '分數';
+        return `${prefix} ${value}`;
     }
 
     createQuestions() {

@@ -96,7 +96,7 @@ button {
 .content {
     display: flex;
     justify-content: center;
-    margin-top: 1%;
+    margin-top: 1rem;
 }
 
 .gameWindow {
@@ -107,8 +107,8 @@ button {
 .myCanvas {
     position: relative;
     display: flex;
-    width: 800px;
-    height: 600px;
+    width: 900px;
+    height: 650px;
     background-color: #eee;
     border: 5px solid #02bbdc;
     border-radius: 10px;
@@ -132,22 +132,25 @@ button {
 }
 .gameRule>:first-child {
     flex: 1;
-    margin: 5%;
+    margin: 4rem;
 }
 .gameRule .context {
     flex: 8;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    margin-left: 15%;
+    margin-left: 8rem;
 }
 .gameRule>:last-child {
+    display: flex;
     flex: 1;
-    margin: 5% 0% 5% 30%;
+    justify-content: end;
+    align-items: end;
+    margin: 4rem;
 }
 /* Game Btn */
 .gameBtn {
-    width: 810px;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -190,15 +193,14 @@ button {
 }
 
 /* option */
+.optionsBtn :first-child {
+    margin-left: 10px;
+}
 .optionsBtn * {
     color: #fff;
     border-radius: 10px;
     height: 40px;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 5px;
+    margin: 10px 10px 0 0;
     box-sizing: border-box;
 }
 

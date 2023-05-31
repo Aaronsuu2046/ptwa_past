@@ -52,7 +52,7 @@ body {
 /* Explain */
 .explain {
     position: absolute;
-    width: 800px;
+    width: 100%;
     height: 50px;
     top: 10px;
     left: 10px;
@@ -71,8 +71,8 @@ body {
 /* Game Area */
 .gameArea {
     position: relative;
-    width: 800px;
-    height: 600px;
+    width: 100%;
+    height: 650px;
 }
 
 /* result */
