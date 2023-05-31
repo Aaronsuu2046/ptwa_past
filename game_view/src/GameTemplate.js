@@ -191,13 +191,19 @@ export class ConnectionGame extends GameTemplate {
     }
 
     drawView() {
-        const getDotPos = (event, parentName) => {
-            const dot = $(event.target).closest(`.${parentName}`).find('.dot');
+        let clickTarget = null;
+        const getDotPos = (e, parentName) => {
+            let dot = $(e.target).closest(`.${parentName}`).find('.dot');
+            if (dot.length === 2) {
+                if (parentName === constant.gameHTML.QUESTION_AREA) {
+                    dot = $(dot[1]);
+                }
+            }
             const recordType = parentName === constant.gameHTML.QUESTION_AREA ? constant.recordItim.QUESTION : constant.recordItim.ANSWER;
             const recordData = this.creatRecord(recordType, dot);
             this.recordObj.appendToRecord(recordType, recordData);
-            if (event.type === 'touchstart') {
-                mouseMoveListener(event);
+            if (e.type === 'touchstart') {
+                mouseMoveListener(e);
             }
             const offset = dot.offset();
             const width = dot.width();
@@ -206,9 +212,11 @@ export class ConnectionGame extends GameTemplate {
             const y = (offset.top + height / 2);
             return { x, y };
         }
-        const mouseDownListener = (event) => {
-            event.preventDefault();
-            const pos = getDotPos(event, constant.gameHTML.QUESTION_AREA);
+        const mouseDownListener = (e) => {
+            e.preventDefault();
+            clickTarget = $(e.target).closest(`.${constant.gameHTML.QUESTION_AREA}`);
+            const pos = getDotPos(e, constant.gameHTML.QUESTION_AREA);
+            this.lineCoordinateString = `${pos.x},${pos.y}`;
             if ($(this.line).hasClass('wrongLine')){
                 $(this.line).removeClass('wrongLine');
             }
@@ -219,23 +227,30 @@ export class ConnectionGame extends GameTemplate {
             this.isDrawing = true;
         }
         
-        const mouseMoveListener = (event) => {
-            event.preventDefault();
+        const mouseMoveListener = (e) => {
+            e.preventDefault();
             if (!this.isDrawing) return;
-            const { offsetX, offsetY } = event.touches ? event.touches[0] : event;
+            const { offsetX, offsetY } = e.touches ? e.touches[0] : e;
             this.line.setAttribute("x2", offsetX);
             this.line.setAttribute("y2", offsetY + 5);
         }
     
-        const mouseupListener = (event) => {
+        const mouseupListener = (e) => {
             if (!this.isDrawing) return;
             this.isDrawing = false;
-            const pos = getDotPos(event, constant.gameHTML.ANSWER_AREA);
+            if (clickTarget.is($(e.target).closest(`.${constant.gameHTML.ANSWER_AREA}`))) {
+                return false;
+            }
+            const pos = getDotPos(e, constant.gameHTML.ANSWER_AREA);
+            this.lineCoordinateString += `,${this.line.getAttribute('x1')},${this.line.getAttribute('y1')}`;
+            if (this.lineCoordinates[this.lineCoordinateString]) {
+                this.recordObj.removeLast(constant.recordItim.QUESTION);
+                this.recordObj.removeLast(constant.recordItim.ANSWER);
+                return false;
+            }
             this.line.setAttribute("x2", pos.x);
             this.line.setAttribute("y2", pos.y);
-            const lastQuestion = this.recordObj.getLastRecord(constant.recordItim.QUESTION);
-            const lastAnswer = this.recordObj.getLastRecord(constant.recordItim.ANSWER);
-            this.checkAnswer(lastQuestion, lastAnswer);
+            this.checkAnswer(this.lastQuestion, this.lastAnswer);
         };
         this.gameArea.on("mousedown", (e) => {
             if (checkQuestionArea(e)){
@@ -266,9 +281,14 @@ export class ConnectionGame extends GameTemplate {
         this.line = $(svgModules.getNewLine()).addClass('line')[0];
         this.drawingArea.html($(this.line));
         this.recordObj.initRecord();
+        this.lineCoordinates = {};
+        this.lineCoordinateString = '';
+        this.lastQuestion = '';
+        this.lastAnswer = '';
     }
 
     correctAnswer(){
+        this.lineCoordinates[this.lineCoordinateString] = true;
         $('.line:last').addClass('correctLine');
         this.line = $(svgModules.getNewLine()).addClass('line')[0];
         this.drawingArea.append($(this.line));
@@ -280,9 +300,7 @@ export class ConnectionGame extends GameTemplate {
     }
 
     getGameResult(){
-        const correctRecords = this.recordObj.getRecord(constant.recordItim.ANSWER).filter((_, i) => this.recordObj.getRecord(constant.recordItim.RESULT)[i] === 'O');
-        const correctRecordSet = new Set(correctRecords);
-        if (correctRecordSet.size >= this.correctLimit) {
+        if ($('.correctLine').length >= this.correctLimit) {
             this.gameState = constant.GAME_WIN;
         }
     }
@@ -414,6 +432,9 @@ class GameRecord {
     
     appendToRecord(recordType, value) {
         this.record[recordType].push(value);
+    }
+    removeLast(recordType, value) {
+        this.record[recordType].pop();
     }
 
     loadRecord() {

@@ -33,7 +33,14 @@ export class Game extends ConnectionGame {
 
     creatRecord(recordType, dot){
         const value = dot.data('value');
-        return `${value}`;
+        if (recordType === constant.recordItim.QUESTION) {
+            this.lastQuestion = value;
+        }
+        else {
+            this.lastAnswer = value;
+        }
+        const prefix = dot.closest('.leftArea').length ? '時鐘' : '電子鐘';
+        return `${prefix} ${value}`;
     }
 
     createQuestions() {
