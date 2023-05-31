@@ -217,9 +217,6 @@ export class ConnectionGame extends GameTemplate {
             clickTarget = $(e.target).closest(`.${constant.gameHTML.QUESTION_AREA}`);
             const pos = getDotPos(e, constant.gameHTML.QUESTION_AREA);
             this.lineCoordinateString = `${pos.x},${pos.y}`;
-            if (this.lineCoordinates[this.lineCoordinateString]) {
-                return false;
-            }
             if ($(this.line).hasClass('wrongLine')){
                 $(this.line).removeClass('wrongLine');
             }
@@ -245,10 +242,14 @@ export class ConnectionGame extends GameTemplate {
                 return false;
             }
             const pos = getDotPos(e, constant.gameHTML.ANSWER_AREA);
+            this.lineCoordinateString += `,${this.line.getAttribute('x1')},${this.line.getAttribute('y1')}`;
+            if (this.lineCoordinates[this.lineCoordinateString]) {
+                this.recordObj.removeLast(constant.recordItim.QUESTION);
+                this.recordObj.removeLast(constant.recordItim.ANSWER);
+                return false;
+            }
             this.line.setAttribute("x2", pos.x);
             this.line.setAttribute("y2", pos.y);
-            this.lineCoordinateString += `,${this.line.getAttribute('x1')},${this.line.getAttribute('y1')}`;
-            this.lineCoordinates[this.lineCoordinateString] = true;
             this.checkAnswer(this.lastQuestion, this.lastAnswer);
         };
         this.gameArea.on("mousedown", (e) => {
@@ -287,6 +288,7 @@ export class ConnectionGame extends GameTemplate {
     }
 
     correctAnswer(){
+        this.lineCoordinates[this.lineCoordinateString] = true;
         $('.line:last').addClass('correctLine');
         this.line = $(svgModules.getNewLine()).addClass('line')[0];
         this.drawingArea.append($(this.line));
@@ -430,6 +432,9 @@ class GameRecord {
     
     appendToRecord(recordType, value) {
         this.record[recordType].push(value);
+    }
+    removeLast(recordType, value) {
+        this.record[recordType].pop();
     }
 
     loadRecord() {
