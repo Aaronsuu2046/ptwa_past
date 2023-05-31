@@ -12,6 +12,7 @@ export class Game extends ConnectionGame {
     constructor(gameData){
         super(gameData);
         this.topicExplain = Array(this.levelLimit).fill('數一數，把積木連讀音連定位板吧！');
+        this.pronunciation = ['一', '兩', '三', '四', '五', '六', '七', '八', '九', '十']
     
         this.leftArea = $('.gameArea .leftArea');
         this.centerArea = $('.gameArea .centerArea');
@@ -65,10 +66,10 @@ export class Game extends ConnectionGame {
             this.createImg(this.leftArea.find('.contentArea').eq(i), "hundred", hundred);
             this.createImg(this.leftArea.find('.contentArea').eq(i), "ten", ten);
             this.createImg(this.leftArea.find('.contentArea').eq(i), "ones", ones);
-            thousand === 0 ? this.centerArea.find('.thousand').eq(i).css('display', 'none') :this.centerArea.find('.thousand .number').eq(i).text(thousand);
-            hundred === 0 ? this.centerArea.find('.hundred').eq(i).css('display', 'none') :this.centerArea.find('.hundred .number').eq(i).text(hundred);
-            ten === 0 ? this.centerArea.find('.ten').eq(i).css('display', 'none') :this.centerArea.find('.ten .number').eq(i).text(ten);
-            ones === 0 ? this.centerArea.find('.ones').eq(i).css('display', 'none') :this.centerArea.find('.ones .number').eq(i).text(ones);
+            thousand === 0 ? this.centerArea.find('.thousand').eq(i).css('display', 'none') :this.centerArea.find('.thousand .number').eq(i).text(this.pronunciation[thousand-1]);
+            hundred === 0 ? this.centerArea.find('.hundred').eq(i).css('display', 'none') :this.centerArea.find('.hundred .number').eq(i).text(this.pronunciation[hundred-1]);
+            ten === 0 ? this.centerArea.find('.ten').eq(i).css('display', 'none') :this.centerArea.find('.ten .number').eq(i).text(this.pronunciation[ten-1]);
+            ones === 0 ? this.centerArea.find('.ones').eq(i).css('display', 'none') :this.centerArea.find('.ones .number').eq(i).text(this.pronunciation[ones-1]);
             thousand === 0 ? this.rightArea.find('.thousand').eq(i).css('display', 'none') :this.rightArea.find('.thousand .number').eq(i).text(thousand);
             hundred === 0 ? this.rightArea.find('.hundred').eq(i).css('display', 'none') :this.rightArea.find('.hundred .number').eq(i).text(hundred);
             ten === 0 ? this.rightArea.find('.ten').eq(i).css('display', 'none') :this.rightArea.find('.ten .number').eq(i).text(ten);
