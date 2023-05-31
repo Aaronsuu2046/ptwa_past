@@ -12,7 +12,10 @@ export class Game extends ConnectionGame {
     constructor(gameData){
         super(gameData);
         this.topicExplain = Array(this.levelLimit).fill('數一數，把積木連讀音連定位板吧！');
-        this.pronunciation = ['一', '兩', '三', '四', '五', '六', '七', '八', '九', '十']
+        this.thousandPronunciation = ['一', '兩', '三', '四', '五', '六', '七', '八', '九']
+        this.hundredPronunciation = ['零', '一百', '兩百', '三百', '四百', '五百', '六百', '七百', '八百', '九百']
+        this.tenPronunciation = ['零', '一十', '二十', '三十', '四十', '五十', '六十', '七十', '八十', '九十']
+        this.oncePronunciation = ['一', '二', '三', '四', '五', '六', '七', '八', '九']
     
         this.leftArea = $('.gameArea .leftArea');
         this.centerArea = $('.gameArea .centerArea');
@@ -57,23 +60,23 @@ export class Game extends ConnectionGame {
         const level = this.level - 1;
         const $gameArea = $('.gameArea');
         for (let i = 0; i < 4; i++) {
-            const thousand = helpModules.randomNumber(0, this.gameData[level].thousand[i]);
-            const hundred = helpModules.randomNumber(0, this.gameData[level].hundred[i]);
-            const ten = helpModules.randomNumber(0, this.gameData[level].ten[i]);
-            const ones = helpModules.randomNumber(0, this.gameData[level].ones[i]);
+            const thousand = helpModules.randomNumber(0, (this.gameData[level].thousand[i]+1));
+            const hundred = helpModules.randomNumber(0, (this.gameData[level].hundred[i]+1));
+            const ten = helpModules.randomNumber(0, (this.gameData[level].ten[i]+1));
+            const ones = helpModules.randomNumber(0, (this.gameData[level].ones[i]+1));
             // console.log(area);
             this.createImg(this.leftArea.find('.contentArea').eq(i), "thousand", thousand);
             this.createImg(this.leftArea.find('.contentArea').eq(i), "hundred", hundred);
             this.createImg(this.leftArea.find('.contentArea').eq(i), "ten", ten);
             this.createImg(this.leftArea.find('.contentArea').eq(i), "ones", ones);
-            thousand === 0 ? this.centerArea.find('.thousand').eq(i).css('display', 'none') :this.centerArea.find('.thousand .number').eq(i).text(this.pronunciation[thousand-1]);
-            hundred === 0 ? this.centerArea.find('.hundred').eq(i).css('display', 'none') :this.centerArea.find('.hundred .number').eq(i).text(this.pronunciation[hundred-1]);
-            ten === 0 ? this.centerArea.find('.ten').eq(i).css('display', 'none') :this.centerArea.find('.ten .number').eq(i).text(this.pronunciation[ten-1]);
-            ones === 0 ? this.centerArea.find('.ones').eq(i).css('display', 'none') :this.centerArea.find('.ones .number').eq(i).text(this.pronunciation[ones-1]);
+            ones === 0 ? this.centerArea.find('.ones').eq(i).css('display', 'none') :this.centerArea.find('.ones').eq(i).text(this.oncePronunciation[ones-1]);
+            hundred+ten === 0 ? this.centerArea.find('.ten').eq(i).css('display', 'none') : this.centerArea.find('.ten').eq(i).text(this.tenPronunciation[ten]);
+            thousand+hundred === 0 ? this.centerArea.find('.hundred').eq(i).css('display', 'none') : this.centerArea.find('.hundred').eq(i).text(this.hundredPronunciation[hundred]);
+            thousand === 0 ? this.centerArea.find('.thousand').eq(i).css('display', 'none') : this.centerArea.find('.thousand').eq(i).text(this.thousandPronunciation[thousand-1]);
             thousand === 0 ? this.rightArea.find('.thousand').eq(i).css('display', 'none') :this.rightArea.find('.thousand .number').eq(i).text(thousand);
-            hundred === 0 ? this.rightArea.find('.hundred').eq(i).css('display', 'none') :this.rightArea.find('.hundred .number').eq(i).text(hundred);
-            ten === 0 ? this.rightArea.find('.ten').eq(i).css('display', 'none') :this.rightArea.find('.ten .number').eq(i).text(ten);
-            ones === 0 ? this.rightArea.find('.ones').eq(i).css('display', 'none') :this.rightArea.find('.ones .number').eq(i).text(ones);
+            thousand+hundred === 0 ? this.rightArea.find('.hundred').eq(i).css('display', 'none') :this.rightArea.find('.hundred .number').eq(i).text(hundred);
+            thousand+hundred+ten === 0 ? this.rightArea.find('.ten').eq(i).css('display', 'none') :this.rightArea.find('.ten .number').eq(i).text(ten);
+            this.rightArea.find('.ones .number').eq(i).text(ones);
             const data = parseInt(`${thousand}${hundred}${ten}${ones}`);
             if (i<3){
                 this.leftArea.find('.questionArea').eq(i).find('.dot').data({'value': `${data}`});

@@ -42,9 +42,6 @@
     margin-left: 2%;
     max-width: 240px;
 }
-.centerArea {
-    /* margin: 0% 10%; */
-}
 .rightArea {
     margin-right: 2%;
 }
@@ -59,7 +56,6 @@
 /* Content Area */
 .contentArea {
     display: flex;
-    align-items: end;
 }
 
 .contentArea img {
@@ -74,33 +70,35 @@
     flex: 3;
     display: inline-block;
 }
-
 /* Center Area */
 /* units */
-.centerArea .contentArea > * {
-    display: flex;
-    flex: 2;
-}
-/* Number and Chinese */
-.centerArea .contentArea > * > *{
+.centerArea .contentArea h2 {
     text-align: center;
-    flex: 5;
+    display: flex;
+    writing-mode: horizontal-tb;
+}
+.centerArea .contentArea .thousand::after {
+    content: "千";
 }
 /* Right Area */
 /* units */
+.rightArea .contentArea {
+    border: 2px solid black;
+}
 .rightArea .contentArea > * {
     display: flex;
     flex-direction: column;
     flex: 2;
-    border: 2px solid black;
+    border-right: 2px solid black;
     min-width: 30px;
+}
+.rightArea .contentArea :last-child {
+    border: none;
 }
 /* Chinese and Number */
 .rightArea .contentArea > * > *{
     text-align: center;
-    width: 100%;
 }
-
 .rightArea .contentArea > * > .chinese{
     display: flex;
     flex-direction: column;
@@ -112,9 +110,11 @@
 }
 
 /* Dot */
-.centerArea .dot {
-    margin: 0% 1%;
+.leftArea .dot {
+    margin-left: 0.1em;
+}.centerArea .dot {
+    margin: 0.1em;
 }
 .rightArea .dot {
-    margin-right: 5%;
+    margin-right: 0.1em;
 }
