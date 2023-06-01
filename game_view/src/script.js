@@ -18,6 +18,8 @@ async function init() {
     $('.context').html(getRule(gameData));
     updateOptions(gameData);
 
+    changeTitle();
+
     setupEventListeners(gameData, levelsArea, optionsArea);
     setupAnimation();
     setupGameColor(constant.GAME_COLOR[gameGrade]);
@@ -64,6 +66,13 @@ function updateOptions(gameData) {
     $('.optionsBtn button').filter((index, element) => {
         return !options.includes($(element).attr('id'));
     }).remove();
+}
+
+function changeTitle() {
+    const title = localStorage.getItem('title');
+    if (title) {
+        $('title').text(title);
+    }
 }
 
 function setupEventListeners(gameData, levelsArea, optionsArea) {

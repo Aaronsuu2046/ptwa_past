@@ -2,8 +2,9 @@ const allGameIframe = document.querySelectorAll('iframe');
 
 const link = document.getElementById('fractional_connection');
 
-$('.game_view').on('click', function() {
+$('.game_view').on('click', function(e) {
     const id = $(this).attr('id');
+    localStorage.setItem('title', `三上數學：${$(`#${id}`).text()}`);
     const url = '../../../game_view/?id=' + id;
     window.location.href = url;
 });
