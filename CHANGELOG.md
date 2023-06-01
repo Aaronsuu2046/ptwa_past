@@ -3,9 +3,16 @@
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### 2023.06.01
+##### [2.3.6] - Educational Games
+**Changed**
+- 時鐘遊戲更版，增加難易度順序，並修正時針位置
+- 連線遊戲支援平板遊玩
+
 ##### [2.3.5] - Educational Games
 **Changed**
 - GameTemplate => GameFramework
+- 時鐘遊戲更版，增加難易度順序，並修正時針位置
+- 連線遊戲支援平板遊玩
 
 ##### [2.3.4] - Educational Games
 **Added**

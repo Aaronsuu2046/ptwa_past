@@ -31,7 +31,7 @@ export class ConnectionGame extends GameFramework {
             const recordData = this.creatRecord(recordType, dot);
             this.recordObj.appendToRecord(recordType, recordData);
             if (e.type === 'touchstart') {
-                mouseMoveListener(e);
+                pointerMoveListener(e);
             }
             const offset = dot.offset();
             const width = dot.width();
@@ -40,7 +40,7 @@ export class ConnectionGame extends GameFramework {
             const y = (offset.top + height / 2);
             return { x, y };
         }
-        const mouseDownListener = (e) => {
+        const pointerDownListener = (e) => {
             e.preventDefault();
             clickTarget = $(e.target).closest(`.${constant.gameHTML.QUESTION_AREA}`);
             const pos = getDotPos(e, constant.gameHTML.QUESTION_AREA);
@@ -55,7 +55,7 @@ export class ConnectionGame extends GameFramework {
             this.isDrawing = true;
         }
         
-        const mouseMoveListener = (e) => {
+        const pointerMoveListener = (e) => {
             e.preventDefault();
             if (!this.isDrawing) return;
             const { offsetX, offsetY } = e.touches ? e.touches[0] : e;
@@ -63,7 +63,7 @@ export class ConnectionGame extends GameFramework {
             this.line.setAttribute("y2", offsetY + 5);
         }
     
-        const mouseupListener = (e) => {
+        const pointerUpListener = (e) => {
             if (!this.isDrawing) return;
             this.isDrawing = false;
             if (clickTarget.is($(e.target).closest(`.${constant.gameHTML.ANSWER_AREA}`))) {
@@ -80,15 +80,15 @@ export class ConnectionGame extends GameFramework {
             this.line.setAttribute("y2", pos.y);
             this.checkAnswer(this.lastQuestion, this.lastAnswer);
         };
-        this.gameArea.on("mousedown", (e) => {
+        this.gameArea.on("pointerdown", (e) => {
             if (checkQuestionArea(e)){
-                mouseDownListener(e);
+                pointerDownListener(e);
             }
         });
-        this.drawingArea.on("mousemove", mouseMoveListener);
-        this.gameArea.on("mouseup", (e) => {
+        this.drawingArea.on("pointermove", pointerMoveListener);
+        this.gameArea.on("pointerup", (e) => {
             if (checkAnswerArea(e)){
-                mouseupListener(e);
+                pointerUpListener(e);
             }
         });
         const checkQuestionArea = (e) => {
