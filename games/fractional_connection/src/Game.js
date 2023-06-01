@@ -5,7 +5,7 @@ import {
 } from "../../../game_view/src/module.js"
 import {
     ConnectionGame
-} from "../../../game_view/src/GameTemplate.js"
+} from "../../../game_view/src/templates/GameTemplate.js"
 
 
 export class Game extends ConnectionGame {
@@ -15,7 +15,7 @@ export class Game extends ConnectionGame {
     }
 
     getCorrectLimit(){
-        return this.gameData[this.level-1].top.length;
+        return 4;
     }
 
     startGame(level) {
@@ -43,18 +43,18 @@ export class Game extends ConnectionGame {
     createQuestions() {
         const level = this.level - 1;
         const $gameArea = $('.gameArea');
-        $gameArea.find('.scalls').each((index, value) => {
+        let top = helpModules.getRandomNumberArr(1, this.gameData[level].bottom, 1, 4);
+        $gameArea.find('.scalls').each((i, value) => {
             let $value = $(value);
-            let bottom = this.gameData[level].bottom[index];
-            let top = this.gameData[level].top[index];
+            let bottom = this.gameData[level].bottom;
             const dot = $value.parent('.topicArea').siblings('.dot');
-            dot.data({'top': top, 'bottom': bottom});
-            $value.siblings('.water').css({ "height": `${top/bottom*100}%` });
+            dot.data({'top': top[i], 'bottom': bottom});
+            $value.siblings('.water').css({ "height": `${top[i]/bottom*100}%` });
             $value.html('<li></li>'.repeat(bottom + 1));
             const fraction = $gameArea.find('.fraction');
-            fraction.siblings('.dot').eq(index).data({'top': top, 'bottom': bottom});
-            fraction.find('.top').eq(index).html(`<h1>${top}</h1>`);
-            fraction.find('.bottom').eq(index).html(`<h1>${bottom}</h1>`);
+            fraction.siblings('.dot').eq(i).data({'top': top[i], 'bottom': bottom});
+            fraction.find('.top').eq(i).html(`<h1>${top[i]}</h1>`);
+            fraction.find('.bottom').eq(i).html(`<h1>${bottom}</h1>`);
         });
     }
       

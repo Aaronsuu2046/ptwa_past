@@ -5,7 +5,7 @@ import {
 } from "../../../game_view/src/module.js"
 import {
     ConnectionGame
-} from "../../../game_view/src/GameTemplate.js"
+} from "../../../game_view/src/templates/GameTemplate.js"
 
 
 export class Game extends ConnectionGame {
