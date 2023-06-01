@@ -71,7 +71,7 @@ export class Game extends ConnectionGame {
 
     getNumerics(level, i) {
         return UNIT.map(numeric => {
-            const value = helpModules.randomNumber(0, (this.gameData[level][numeric][i] + 1));
+            const value = helpModules.randomNumber(helpModules.randomNumber(0,2), (this.gameData[level][numeric][i] + 1));
             return {
                 'value': value,
                 'pronunciation': PRONUNCIATION_MAP[numeric][value]

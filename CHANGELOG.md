@@ -2,6 +2,14 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+### 2023.06.01
+##### [2.3.4] - Educational Games
+**Added**
+- Less Than 10K Connection Game
+- **Changed**
+- 更新遊戲視窗寬 +100px 高 +50px
+- 減少遊戲寬高 % 設定
+  
 ### 2023.05.26
 ##### [2.3.3] - Educational Games
 - **Fixed**
