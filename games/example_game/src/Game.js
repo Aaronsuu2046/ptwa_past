@@ -5,11 +5,11 @@ import {
     , helpModules
 } from "../../../game_view/src/module.js"
 import {
-    GameTemplate
-} from "../../../game_view/src/GameTemplate.js"
+    GameFramework
+} from "../../../game_view/src/GameFramework.js"
 
 // Export your game
-export class Game extends GameTemplate {
+export class Game extends GameFramework {
     constructor(gameData){
         super(gameData);
         // Initialise game object
