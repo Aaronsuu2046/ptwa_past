@@ -5,7 +5,7 @@ import {
 } from "../../../game_view/src/module.js"
 import {
     ConnectionGame
-} from "../../../game_view/src/GameTemplate.js"
+} from "../../../game_view/src/templates/GameTemplate.js"
 
 
 export class Game extends ConnectionGame {
@@ -18,7 +18,7 @@ export class Game extends ConnectionGame {
     }
 
     getCorrectLimit(){
-        return this.gameData[this.level-1].hour.length;
+        return 4;
     }
 
     startGame(level) {
@@ -33,14 +33,23 @@ export class Game extends ConnectionGame {
 
     creatRecord(recordType, dot){
         const value = dot.data('value');
-        return `${value}`;
+        if (recordType === constant.recordItim.QUESTION) {
+            this.lastQuestion = value;
+        }
+        else {
+            this.lastAnswer = value;
+        }
+        const prefix = dot.closest('.leftArea').length ? '時鐘' : '電子鐘';
+        return `${prefix} ${value}`;
     }
 
     createQuestions() {
         const level = this.level - 1;
+        const hourIndex = helpModules.shuffle(Array.from({length: this.correctLimit}, (_, index) => index));
+        const minuteIndex = helpModules.shuffle(Array.from({length: this.correctLimit}, (_, index) => index));
         for (let i = 0; i < this.correctLimit; i++) {
-            let hour = helpModules.randomNumber(1, this.gameData[level].hour[i]);
-            let minute = helpModules.randomNumber(1, this.gameData[level].minute[i]);
+            let hour = this.gameData[level].hour[hourIndex[i]];
+            let minute = this.gameData[level].minute[minuteIndex[i]];
             this.setTime(hour, minute, this.leftArea.find('.contentArea').eq(i));
             hour = hour < 10 ? `0${hour}` : hour;
             minute = minute < 10 ? `0${minute}` : minute;
@@ -53,7 +62,7 @@ export class Game extends ConnectionGame {
 
     setTime(hour, minute, targetElement) {
         // 計算指針的角度
-        const hoursDegree = (hour / 12) * 360;
+        const hoursDegree = ((hour + minute / 60) / 12) * 360;
         const minutesDegree = (minute / 60) * 360;
       
         // 旋轉指針

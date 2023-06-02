@@ -1,7 +1,7 @@
 import * as constant from "./constant.js"
 
 const helpModules = {
-    getRandomNumberArr(start, end, tolerance, times = 1) {
+    getRandomNumberArr(start, end, tolerance = 1, times = 1) {
         let result = new Set();
         const range = Math.ceil((end - start) / tolerance);
         while (result.size < times) {

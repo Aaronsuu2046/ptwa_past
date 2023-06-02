@@ -1,33 +1,20 @@
-$(document).ready(function() {
-    $('.link-block').on('click', function() {
-        let targetMenu = $(this).data('target');
-        $('.collapse').not(targetMenu).collapse('hide');
-    });
+const BASE_IMG_URL = 'assets/images/grade_btn/';
+const OTHER_IMAGES = ['mand', 'math', 'tech'];
+
+$('.link-block').on('click', function() {
+    let targetMenu = $(this).data('target');
+    $('.collapse').not(targetMenu).collapse('hide');
 });
 
-function changeImage() {
-    var image = document.getElementById("myImage");
-    if (image.src.match("assets/images/grade_btn/mand.png")) {
-      image.src = "assets/images/grade_btn/mand_after.png";
-    } else {
-      image.src = "assets/images/grade_btn/mand.png";
-    }
+function changeImage(id) {
+    const $image = $(`#${id}`);
+    const imgSrc = $image.attr('src');
+    const newSrc = imgSrc.includes('_after') ? `${BASE_IMG_URL}${id}.png` : `${BASE_IMG_URL}${id}_after.png`;
+    
+    $image.attr('src', newSrc);
+    resetOriginImage(OTHER_IMAGES.filter(image => image !== id));
 }
 
-function changeImage2() {
-    var image = document.getElementById("myImage2");
-    if (image.src.match("assets/images/grade_btn/math.png")) {
-      image.src = "assets/images/grade_btn/math_after.png";
-    } else {
-      image.src = "assets/images/grade_btn/math.png";
-    }
-}
-
-function changeImage3() {
-    var image = document.getElementById("myImage3");
-    if (image.src.match("assets/images/grade_btn/tech.png")) {
-      image.src = "assets/images/grade_btn/tech_after.png";
-    } else {
-      image.src = "assets/images/grade_btn/tech.png";
-    }
+function resetOriginImage(ids) {
+    ids.forEach(id => $(`#${id}`).attr('src', `${BASE_IMG_URL}${id}.png`));
 }

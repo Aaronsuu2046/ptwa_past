@@ -2,6 +2,35 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+### 2023.06.01
+##### [2.3.6] - Educational Games
+**Changed**
+- 時鐘遊戲更版，增加難易度順序，並修正時針位置
+- 連線遊戲支援平板遊玩
+- 更新網站標題
+
+##### [2.3.5] - Educational Games
+**Changed**
+- GameTemplate => GameFramework
+- 時鐘遊戲更版，增加難易度順序，並修正時針位置
+- 連線遊戲支援平板遊玩
+
+##### [2.3.4] - Educational Games
+**Added**
+- Less Than 10K Connection Game
+**Changed**
+- 更新遊戲視窗寬 +100px 高 +50px
+- 減少遊戲寬高 % 設定
+  
+### 2023.05.26
+##### [2.3.3] - Educational Games
+- **Fixed**
+- 修復首頁圖片更換 Bug
+- 修復新框架下一關按鈕 Bug
+- **Changed**
+- 新增時鐘樣式
+- 新增遊戲視窗跟隨年級換色
+  
 ### 2023.05.25
 ##### [2.3.1] - Educational Games
 **Added**

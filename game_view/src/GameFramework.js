@@ -1,8 +1,8 @@
 import * as constant from "./constant.js"
-import {gameModules, svgModules} from "./module.js"
+import {gameModules} from "./module.js"
 
 
-export class GameTemplate {
+export class GameFramework {
     constructor(gameData){
         this.levelLimit = gameData.length;
         this.topicExplain = new Array(this.levelLimit).fill('遊戲目標');
@@ -174,121 +174,6 @@ export class GameTemplate {
 }
 
   
-export class ConnectionGame extends GameTemplate {
-    constructor(gameData){
-        super(gameData);
-        this.gameArea = $('.gameArea');
-        this.drawingArea = $('.drawingArea');
-        this.correctLimit = this.getCorrectLimit();
-        this.svgRect = this.drawingArea.length > 0 ? this.drawingArea[0].getBoundingClientRect() : null;
-        this.isDrawing = false;
-        this.line = $('.line:last')[0];
-        this.drawView();
-    }
-
-    getCorrectLimit(){
-        throw new Error('please return getCorrectLimit');
-    }
-
-    drawView() {
-        const getDotPos = (event, parentName) => {
-            const dot = $(event.target).closest(`.${parentName}`).find('.dot');
-            const recordType = parentName === constant.gameHTML.QUESTION_AREA ? constant.recordItim.QUESTION : constant.recordItim.ANSWER;
-            const recordData = this.creatRecord(recordType, dot);
-            this.recordObj.appendToRecord(recordType, recordData);
-            if (event.type === 'touchstart') {
-                mouseMoveListener(event);
-            }
-            const offset = dot.offset();
-            const width = dot.width();
-            const height = dot.height();
-            const x = (offset.left + width / 2);
-            const y = (offset.top + height / 2);
-            return { x, y };
-        }
-        const mouseDownListener = (event) => {
-            event.preventDefault();
-            const pos = getDotPos(event, constant.gameHTML.QUESTION_AREA);
-            if ($(this.line).hasClass('wrongLine')){
-                $(this.line).removeClass('wrongLine');
-            }
-            this.line.setAttribute("x1", pos.x);
-            this.line.setAttribute("y1", pos.y);
-            this.line.setAttribute("x2", pos.x);
-            this.line.setAttribute("y2", pos.y);
-            this.isDrawing = true;
-        }
-        
-        const mouseMoveListener = (event) => {
-            event.preventDefault();
-            if (!this.isDrawing) return;
-            const { offsetX, offsetY } = event.touches ? event.touches[0] : event;
-            this.line.setAttribute("x2", offsetX);
-            this.line.setAttribute("y2", offsetY + 5);
-        }
-    
-        const mouseupListener = (event) => {
-            if (!this.isDrawing) return;
-            this.isDrawing = false;
-            const pos = getDotPos(event, constant.gameHTML.ANSWER_AREA);
-            this.line.setAttribute("x2", pos.x);
-            this.line.setAttribute("y2", pos.y);
-            const lastQuestion = this.recordObj.getLastRecord(constant.recordItim.QUESTION);
-            const lastAnswer = this.recordObj.getLastRecord(constant.recordItim.ANSWER);
-            this.checkAnswer(lastQuestion, lastAnswer);
-        };
-        this.gameArea.on("mousedown", (e) => {
-            if (checkQuestionArea(e)){
-                mouseDownListener(e);
-            }
-        });
-        this.drawingArea.on("mousemove", mouseMoveListener);
-        this.gameArea.on("mouseup", (e) => {
-            if (checkAnswerArea(e)){
-                mouseupListener(e);
-            }
-        });
-        const checkQuestionArea = (e) => {
-            return $(e.target).closest(`.${constant.gameHTML.QUESTION_AREA}`).length > 0;
-        };
-
-        const checkAnswerArea = (e) => {
-            return $(e.target).closest(`.${constant.gameHTML.ANSWER_AREA}`).length > 0;
-        };
-    };
-
-    creatRecord(recordType, dot){
-        throw new Error('please return creatRecord');
-    }
-
-    startGame(level) {
-        super.startGame(level);
-        this.line = $(svgModules.getNewLine()).addClass('line')[0];
-        this.drawingArea.html($(this.line));
-        this.recordObj.initRecord();
-    }
-
-    correctAnswer(){
-        $('.line:last').addClass('correctLine');
-        this.line = $(svgModules.getNewLine()).addClass('line')[0];
-        this.drawingArea.append($(this.line));
-    }
-
-    wrongAnswer(){
-        this.setLives(this.lives-1);
-        $('.line:last').addClass('wrongLine');
-    }
-
-    getGameResult(){
-        const correctRecords = this.recordObj.getRecord(constant.recordItim.ANSWER).filter((_, i) => this.recordObj.getRecord(constant.recordItim.RESULT)[i] === 'O');
-        const correctRecordSet = new Set(correctRecords);
-        if (correctRecordSet.size >= this.correctLimit) {
-            this.gameState = constant.GAME_WIN;
-        }
-    }
-}
-
-
 class ElementGenerator {
     generateAudio() {
         const audioHTML = `
@@ -414,6 +299,9 @@ class GameRecord {
     
     appendToRecord(recordType, value) {
         this.record[recordType].push(value);
+    }
+    removeLast(recordType, value) {
+        this.record[recordType].pop();
     }
 
     loadRecord() {
