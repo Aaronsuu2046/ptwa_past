@@ -1,5 +1,5 @@
 export {Game}
-import { circleClickEstablish, pearClickEstablish } from './function.js';
+import { circleClickEstablish, pearClickEstablish, checkAnswerValue} from './function.js';
 
 
 // state
@@ -163,6 +163,10 @@ class Game {
         if (this.gameState !== GAME_ALIVE){
             return
         }
+
+        checkAnswerValue();
+        // console.log(this.clickAmount[0], this.clickAmount[1]);
+
         if(this.level <= 3){
             this.record.q.push('(' + this.questionLeft[this.level] + '/11):(' + this.questionRight[this.level] + '/11)');
         }
