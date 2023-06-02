@@ -12,7 +12,34 @@ export class Game extends ConnectionGame {
     constructor(gameData){
         super(gameData);
         this.topicExplain = Array(this.levelLimit).fill('時鐘上指針的刻度是幾點幾分呢？');
-    
+
+        this.questionsArr = [
+            {
+                "hour": helpModules.shuffle(Array.from({length: 11}, (_, i) => i + 1).filter(n => n % 3 !== 0))
+                , "minute": helpModules.shuffle(Array.from({length: 60/15+1}, (_, i) => i*15))
+            } 
+            , {
+                "hour": helpModules.getRandomNumberArr(0, 12, 1, 12)
+                , "minute": helpModules.shuffle(Array.from({length: 60/10+1}, (_, i) => i*10))
+            }
+            , {
+                "hour": helpModules.getRandomNumberArr(0, 12, 1, 12)
+                , "minute": helpModules.shuffle(Array.from({length: 50/10+1}, (_, i) => i * 10).map(n => n + 5))
+            }
+            , {
+                "hour": helpModules.getRandomNumberArr(0, 12, 1, 12)
+                , "minute": helpModules.shuffle(Array.from({length: 60/5+1}, (_, i) => i * 5))
+            }
+            , {
+                "hour": helpModules.shuffle(Array.from({length: 12}, (_, i) => i+13))
+                , "minute": helpModules.shuffle(Array.from({length: 60+1}, (_, i) => i))
+            }
+            , {
+                "hour": helpModules.getRandomNumberArr(0, 25, 1, 25)
+                , "minute": helpModules.shuffle(Array.from({length: 60+1}, (_, i) => i))
+            }
+        ]
+
         this.leftArea = $('.gameArea .leftArea');
         this.rightArea = $('.gameArea .rightArea');
     }
@@ -45,13 +72,13 @@ export class Game extends ConnectionGame {
 
     createQuestions() {
         const level = this.level - 1;
-        const hourIndex = helpModules.shuffle(Array.from({length: this.correctLimit}, (_, index) => index));
-        const minuteIndex = helpModules.shuffle(Array.from({length: this.correctLimit}, (_, index) => index));
+        const hourIndex = helpModules.shuffle(Array.from({length: this.questionsArr[level].hour.length}, (_, index) => index));
+        const minuteIndex = helpModules.shuffle(Array.from({length: this.questionsArr[level].minute.length}, (_, index) => index));
         for (let i = 0; i < this.correctLimit; i++) {
-            let hour = this.gameData[level].hour[hourIndex[i]];
-            let minute = this.gameData[level].minute[minuteIndex[i]];
+            let hour = this.questionsArr[level].hour[hourIndex[i]];
+            let minute = this.questionsArr[level].minute[minuteIndex[i]];
             this.setTime(hour, minute, this.leftArea.find('.contentArea').eq(i));
-            hour = hour < 10 ? `0${hour}` : hour;
+            hour = hour < 10 ? `0${hour}` : hour === 24 ? "00" : hour;
             minute = minute < 10 ? `0${minute}` : minute;
             this.rightArea.find('.contentArea').eq(i).find('.hour').text(hour);
             this.rightArea.find('.contentArea').eq(i).find('.minute').text(minute);
