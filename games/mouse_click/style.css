@@ -1,1 +1,41 @@
 @import url(../../game_view/css/game_style.css);
+
+.countDown::before {
+    content: "剩餘時間：";
+}
+.score::before {
+    content: "分數：";
+}
+.gameInfo {
+    position: absolute;
+    top: 80px;
+    left: 10px;
+}
+.gameInfo * {
+    margin: 0;
+}
+.level {
+    position: absolute;
+    padding: 80px 30px;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+.level img {
+    display: none;
+    position: absolute;
+}
+.level * {
+    display: none;
+}
+
+
+#level-1 {
+    cursor: url("assets/target.png"), crosshair;
+}
+#level-2 {
+    cursor: url("assets/farmera.png"), pointer;
+    background-image: url("./assets/house.png");
+    background-size: 100% 100%;
+    padding: 300px 120px 100px 120px;
+}
