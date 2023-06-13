@@ -6,7 +6,7 @@
         , "semester": "last"
         , "unit": 9
         , "game_level": 5
-        , "game_rule": ["根據題目選擇對應的答案", "正確即可過關", "點擊💾可下載遊戲紀錄", "錯誤三次可點擊提示"]
+        , "game_rule": ["根據題目連線對應的答案", "正確即可過關", "點擊💾可下載遊戲紀錄", "錯誤三次可點擊提示"]
         , "game_option": ["lastBtn", "startBtn", "nextBtn", "hintBtn", "recordBtn"]
     }
     , {
@@ -16,7 +16,7 @@
         , "semester": "next"
         , "unit": 4
         , "game_level": 6
-        , "game_rule": ["根據題目選擇對應的答案", "正確即可過關", "點擊💾可下載遊戲紀錄", "錯誤兩次可點擊提示"]
+        , "game_rule": ["根據題目連線對應的答案", "正確即可過關", "點擊💾可下載遊戲紀錄", "錯誤兩次可點擊提示"]
         , "game_option": ["lastBtn", "startBtn", "nextBtn", "hintBtn", "recordBtn"]
     }
     , {
@@ -26,7 +26,7 @@
         , "semester": "last"
         , "unit": 1
         , "game_level": 5
-        , "game_rule": ["根據題目選擇對應的答案", "正確即可過關", "點擊💾可下載遊戲紀錄", "錯誤兩次可點擊提示"]
+        , "game_rule": ["根據題目連線對應的答案", "正確即可過關", "點擊💾可下載遊戲紀錄", "錯誤三次可點擊提示"]
         , "game_option": ["lastBtn", "startBtn", "nextBtn", "hintBtn", "recordBtn"]
     }
     , {
@@ -36,7 +36,7 @@
         , "semester": "all"
         , "unit": 0
         , "game_level": 5
-        , "game_rule": ["根據題目選擇對應的答案", "正確即可過關", "點擊💾可下載遊戲紀錄", "錯誤兩次可點擊提示"]
-        , "game_option": ["lastBtn", "startBtn", "nextBtn", "hintBtn", "recordBtn"]
+        , "game_rule": ["根據題目用滑鼠點擊遊戲", "獲得更高的分數", "點擊💾可下載遊戲紀錄"]
+        , "game_option": ["lastBtn", "startBtn", "nextBtn", "recordBtn"]
     }
 ] 

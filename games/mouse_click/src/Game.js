@@ -17,10 +17,36 @@ export class Game extends GameFramework {
         this.updateIntervalIds = [];
         this.time = 30;
         this.score = 0;
+        let lastClickTime = 0;
         $('.level img').click((e) => {
+            const currentTime = new Date().getTime();
+            const clickInterval = currentTime - lastClickTime;
+            if (clickInterval < 300) {
+                console.log('Double click!');
+            }
             $(e.target).hide();
             this.updateScore(10);
         });
+        $('.gameArea').on("mousemove", (e) => {
+            let $cursor = $(".cursor");
+            
+            let x = this.level === 2 ? e.pageX : e.pageX - $cursor.width() / 2;
+            let y = e.pageY - $cursor.height() / 2;
+
+            if (this.level === 1) {
+                $cursor.find("img").attr("src", "./assets/target.png");
+            } else if (this.level === 2) {
+                $cursor.find("img").attr("src", "./assets/farmera.png");
+            } else {
+                $cursor.hide();
+                return;
+            }
+            
+            $cursor.css("transform", `translate(${x}px, ${y}px)`);
+            $cursor.show();
+        });
+          
+          
     }
 
     startGame(level) {
@@ -30,11 +56,16 @@ export class Game extends GameFramework {
         for (let i = 0; i < this.updateIntervalIds.length; i++) {
             clearInterval(this.updateIntervalIds[i]);
         }
+        this.updateScore(-this.score);
         this.hideAllImages();
         this.createGameView();
         this.updateTime(this.gameData[level-1].time);
     }
 
+    resetGame(level) {
+        super.resetGame(level);
+        $(`.level`).hide();
+    }
     // The following methods must be overridden
     getGameResult(){
         // juddging
@@ -97,14 +128,15 @@ export class Game extends GameFramework {
     }
     
     getRandomPosition() {
-        const parentWidth = $('.level').width();
-        const parentHeight = $('.level').height();
+        const $level = $(`#level-${this.level}`);
+        const parentWidth = $level.outerWidth();
+        const parentHeight = $level.outerHeight();
         const imageWidth = $('.level img').width();
         const imageHeight = $('.level img').height();
     
         const maxX = parentWidth - imageWidth;
         const maxY = parentHeight - imageHeight;
-    
+
         const randomX = Math.floor(Math.random() * maxX);
         const randomY = Math.floor(Math.random() * maxY);
     
