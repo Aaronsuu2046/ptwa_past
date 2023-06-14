@@ -2,6 +2,15 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+### 2023.06.14
+##### [2.20.0] - Educational Games
+**Added**
+- 新增滑鼠點擊遊戲 1、2 關卡
+- 版號說明
+  
+**Fixed**
+- 時鐘遊戲修正 60 分鐘錯誤
+  
 ### 2023.06.01
 ##### [2.3.6] - Educational Games
 **Changed**
@@ -18,16 +27,18 @@ The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0
 ##### [2.3.4] - Educational Games
 **Added**
 - Less Than 10K Connection Game
+  
 **Changed**
 - 更新遊戲視窗寬 +100px 高 +50px
 - 減少遊戲寬高 % 設定
   
 ### 2023.05.26
 ##### [2.3.3] - Educational Games
-- **Fixed**
+**Fixed**
 - 修復首頁圖片更換 Bug
 - 修復新框架下一關按鈕 Bug
-- **Changed**
+
+**Changed**
 - 新增時鐘樣式
 - 新增遊戲視窗跟隨年級換色
   
@@ -35,20 +46,23 @@ The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0
 ##### [2.3.1] - Educational Games
 **Added**
 - Clock Connection Game
-- **Fixed**
+
+**Fixed**
 - Fix Game View selection game bug
 
 ### 2023.05.24
 ##### [2.3.0] - Educational Games
 **Added**
 - Connection Game Template
-- **Changed**
+
+**Changed**
 - Clean Game View JS Code
 
 ### 2023.05.23
 ##### [2.0.0] - Educational Games
 **Added**
 - 分數連連看（Fraction Connection Game）
+
 **Changed**
 - Game View（Replace Game Template）
 
@@ -56,6 +70,7 @@ The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0
 ##### [1.0.0]Educational Games
 **Added**
 - 理解並運用適當的時間單位（Time Sense Game）
+
 **Changed**
 - Changed jquery for offline support
 
@@ -69,6 +84,7 @@ The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0
 **Added**
 - 新增數字 0~10 找找在哪裡（PTWA Num Game）
 - 新增分數填色比大小（Fractional Coloring Board Size）
+
 **Changed**
 - 修復下載 csv 檔案無法正確轉譯中文問題
 
@@ -87,6 +103,7 @@ The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0
 ##### [v0.0.0] - Educational Games
 **Changed**
 - 整理遊戲專案架構
+
 **Added**
 - 新增時間單位換算（Time Unit）遊戲
   
