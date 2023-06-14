@@ -24,6 +24,7 @@ export class Handler {
     }
 
     changeLevel(options) {
+        // TODO only start game can change game level
         if (this.game.gameState === constant.GAME_ALIVE) return;
         this.changeActiveLevel();
         this.game.changeLevel(options);

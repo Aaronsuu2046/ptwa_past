@@ -82,6 +82,7 @@ function setupEventListeners(gameData, levelsArea, optionsArea) {
     $(window).on('message', handleGameMessage);
 
     function handleGameMessage(e) {
+        const gameRule = $('.gameRule');
         const message = e.originalEvent.data;
 
         if (message.type === constant.GAME_WIN) {
@@ -99,10 +100,11 @@ function setupEventListeners(gameData, levelsArea, optionsArea) {
         const btnHandler = new Handler(game, levelsArea);
         function handleOptionsButtonClick(e) {
             const act = $(this).attr('id');
-            if (act === constant.optionsBtn.START_BTN) {
-                const gameRule = $('.gameRule');
-                gameRule.css({"display": 'none'});
-                $('#' + act).text("重新開始");
+            if (gameRule.is(':visible')) {
+                if (act === constant.optionsBtn.START_BTN || act === constant.optionsBtn.LAST_BTN ||act === constant.optionsBtn.NEXT_BTN) {
+                    gameRule.hide();
+                    $(`#${constant.optionsBtn.START_BTN}`).text("重新開始");
+                }
             }
             btnHandler.handleRequest(act);
         };
@@ -111,6 +113,12 @@ function setupEventListeners(gameData, levelsArea, optionsArea) {
             const level = parseInt($(this).attr('id'));
             if (!level) {
                 return false;
+            }
+            // TODO Refactor
+            console.log(gameRule)
+            if (gameRule.is(':visible')) {
+                gameRule.hide();
+                $(`#${constant.optionsBtn.START_BTN}`).text("重新開始");
             }
             btnHandler.changeLevel({level: level})
             // levelsArea.children().eq(game.level - 1).removeClass('active');
