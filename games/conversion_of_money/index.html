@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import game sytle -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- Use jQuery -->
+    <script src="../../jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+    <!-- If your game have hint -->
+    <div class="overlay">
+        <div class="hintContainer">
+            <h1 >提示：</h1>
+            <!-- Define hint content -->
+        </div>
+    </div>
+    <div class="gameArea">
+        <!-- Define Game content -->
+        <div class="topArea"></div>
+        <div class="bottomArea">
+            <button class="lastAnswer">&lt;</button>
+            <div class="answerContainer">
+                <div class="answerArea">
+                    <h1>測試答案：西西<h1>
+                    <h1 class="answerInput">（）</h1>
+                    <h1>哈哈</h1>
+                    <h1 class="answerInput">（）</h1>
+                </div>
+                <div class="combinationLock">test</div>
+            </div>
+            <button class="nextAnswer">&gt;</button>
+        </div>
+    </div>
+    <!-- Import your game -->
+    <script src="./src/Game.js" type="module"></script>
+</body>
+</html>
