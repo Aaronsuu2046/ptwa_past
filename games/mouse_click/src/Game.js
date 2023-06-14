@@ -15,7 +15,8 @@ export class Game extends GameFramework {
         // Initialise game object
         this.topicExplain = this.gameData.map(item => item.topic);
         this.updateIntervalIds = [];
-        this.time = 30;
+        this.timeLimit = this.gameData[this.level-1].time;
+        this.timeCount = this.timeLimit;
         this.score = 0;
         let lastClickTime = 0;
         $('.level img').click((e) => {
@@ -46,8 +47,6 @@ export class Game extends GameFramework {
             $cursor.css("transform", `translate(${x}px, ${y}px)`);
             $cursor.show();
         });
-          
-          
     }
 
     startGame(level) {
@@ -60,7 +59,8 @@ export class Game extends GameFramework {
         this.updateScore(-this.score);
         this.hideAllImages();
         this.createGameView();
-        this.updateTime(this.gameData[level-1].time);
+        this.timeLimit = this.gameData[level-1].time;
+        this.updateTime(this.timeLimit);
     }
 
     resetGame(level) {
@@ -74,7 +74,7 @@ export class Game extends GameFramework {
     }
     correctAnswer(){
         // action
-        this.recordObj.appendToRecord(constant.recordItim.QUESTION, this.time);
+        this.recordObj.appendToRecord(constant.recordItim.QUESTION, this.timeLimit);
         this.recordObj.appendToRecord(constant.recordItim.ANSWER, this.score);
     }
     wrongAnswer(){
@@ -103,7 +103,7 @@ export class Game extends GameFramework {
     
     showRandomImage() {
         const hiddenImages = $(`#level-${this.level} img:hidden`);
-        if (hiddenImages.length === 0 || this.time <= 0) {
+        if (hiddenImages.length === 0 || this.timeCount <= 0) {
           return;
         }
     
@@ -152,15 +152,16 @@ export class Game extends GameFramework {
     }
 
     updateTime(time) {
-        this.time = time;
+        this.timeCount = time;
+        $('.countDown').text(this.timeCount);
         const timeUpdateID = setInterval(() => {
-            if (this.time <= 0) {
+            if (this.timeCount <= 0) {
                 this.checkAnswer();
                 clearInterval(timeUpdateID);
                 return
             }
-            this.time -= 1;
-            $('.countDown').text(this.time);
+            this.timeCount -= 1;
+            $('.countDown').text(this.timeCount);
         }, 1000);
         this.updateIntervalIds.push(timeUpdateID);
     }
