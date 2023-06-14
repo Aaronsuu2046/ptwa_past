@@ -63,9 +63,6 @@ export class Game extends GameFramework {
         if (!super.startGame(level)) return false;
         // create game content
         $(`#level-${level}`).toggle();
-        for (let i = 0; i < this.updateIntervalIds.length; i++) {
-            clearInterval(this.updateIntervalIds[i]);
-        }
         this.updateScore(-this.score);
         this.hideAllImages();
         this.createGameView();
@@ -86,6 +83,10 @@ export class Game extends GameFramework {
         // action
         this.recordObj.appendToRecord(constant.recordItim.QUESTION, this.timeLimit);
         this.recordObj.appendToRecord(constant.recordItim.ANSWER, this.score);
+        
+        for (let i = 0; i < this.updateIntervalIds.length; i++) {
+            clearInterval(this.updateIntervalIds[i]);
+        }
     }
     wrongAnswer(){
         // action
@@ -101,13 +102,13 @@ export class Game extends GameFramework {
     }
     createGameView() {
         const cdTime = this.getRandomDisplayTime(2000, 5000);
+        let audioPlayer = this.balloonApperSound;
         const gameUpdateID = setInterval(() => {
-            if (this.level === 1){
-                this.balloonApperSound.play();
+            if (this.level === 2){
+                audioPlayer = this.chickApperSound;
             }
-            else if (this.level === 2){
-                this.chickApperSound.play();
-            }
+            audioPlayer.pause();
+            audioPlayer.play();
             this.showRandomImage();
         }, cdTime);
         this.updateIntervalIds.push(gameUpdateID);
