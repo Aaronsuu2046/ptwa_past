@@ -21,9 +21,10 @@ export class Game extends GameFramework {
         $('.level img').click((e) => {
             const currentTime = new Date().getTime();
             const clickInterval = currentTime - lastClickTime;
-            if (clickInterval < 300) {
-                console.log('Double click!');
-            }
+            lastClickTime = currentTime;
+            if (this.gameData[this.level-1].times === 2 && clickInterval > 300) {
+                return
+            }   
             $(e.target).hide();
             this.updateScore(10);
         });
@@ -107,7 +108,9 @@ export class Game extends GameFramework {
         }
     
         const randomImage = this.getRandomElement(hiddenImages);
-        this.updateImagePosition(randomImage);
+        if (this.gameData[this.level-1].times !== 2) {
+            this.updateImagePosition(randomImage);
+        }
         $(randomImage).fadeIn(500);
     
         setTimeout(() => {

@@ -35,7 +35,7 @@
         , "game_grade": 1
         , "semester": "all"
         , "unit": 0
-        , "game_level": 5
+        , "game_level": 2
         , "game_rule": ["根據題目用滑鼠點擊遊戲", "獲得更高的分數", "點擊💾可下載遊戲紀錄"]
         , "game_option": ["lastBtn", "startBtn", "nextBtn", "recordBtn"]
     }

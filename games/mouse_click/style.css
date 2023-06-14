@@ -22,14 +22,10 @@
     margin: 80px 30px;
     box-sizing: border-box;
 }
-.level img {
+.randomImgae img {
     display: none;
     position: absolute;
 }
-.level * {
-    display: none;
-}
-
 
 #level-1 {
     cursor: crosshair;
@@ -50,7 +46,10 @@
     background-image: url("./assets/house.png");
     background-size: cover;
     z-index: -1;
-  }
+}
+#level-3 {
+    display: none;
+}
 
 .cursor {
     position: absolute;
