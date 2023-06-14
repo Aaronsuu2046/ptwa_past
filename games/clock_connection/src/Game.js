@@ -24,11 +24,11 @@ export class Game extends ConnectionGame {
             }
             , {
                 "hour": helpModules.getRandomNumberArr(0, 12, 1, 12)
-                , "minute": helpModules.shuffle(Array.from({length: 60/10}, (_, i) => i * 10).map(n => n + 5))
+                , "minute": helpModules.shuffle(Array.from({length: 60/5}, (_, i) => i * 5))
             }
             , {
                 "hour": helpModules.getRandomNumberArr(0, 12, 1, 12)
-                , "minute": helpModules.shuffle(Array.from({length: 60/5}, (_, i) => i * 5))
+                , "minute": helpModules.shuffle(Array.from({length: 60}, (_, i) => i))
             }
             , {
                 "hour": helpModules.shuffle(Array.from({length: 12}, (_, i) => i+13))

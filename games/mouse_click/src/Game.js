@@ -18,6 +18,10 @@ export class Game extends GameFramework {
         this.timeLimit = this.gameData[this.level-1].time;
         this.timeCount = this.timeLimit;
         this.score = 0;
+        this.balloonPopSound = $('#balloonPop')[0];
+        this.balloonApperSound = $('#balloonApper')[0];
+        this.chickApperSound = $('#chickApper')[0];
+        this.chickCatchSound = $('#chickCatch')[0];
         let lastClickTime = 0;
         $('.level img').click((e) => {
             const currentTime = new Date().getTime();
@@ -26,6 +30,12 @@ export class Game extends GameFramework {
             if (this.gameData[this.level-1].times === 2 && clickInterval > 300) {
                 return
             }   
+            if (this.level === 1){
+                this.balloonPopSound.play();
+            }
+            else if (this.level === 2){
+                this.chickCatchSound.play();
+            }
             $(e.target).hide();
             this.updateScore(10);
         });
@@ -90,8 +100,14 @@ export class Game extends GameFramework {
         $('.level img').hide();
     }
     createGameView() {
-        const cdTime = this.getRandomDisplayTime(1000, 1500);
+        const cdTime = this.getRandomDisplayTime(2000, 5000);
         const gameUpdateID = setInterval(() => {
+            if (this.level === 1){
+                this.balloonApperSound.play();
+            }
+            else if (this.level === 2){
+                this.chickApperSound.play();
+            }
             this.showRandomImage();
         }, cdTime);
         this.updateIntervalIds.push(gameUpdateID);
@@ -117,7 +133,7 @@ export class Game extends GameFramework {
           $(randomImage).fadeOut(500, () => {
             this.showRandomImage();
           });
-        }, this.getRandomDisplayTime(3000, 5000));
+        }, this.getRandomDisplayTime(4000, 8000));
 
     }
     
