@@ -28,17 +28,21 @@ export class GameFramework {
         this.explain = $('.explain');
     }
     startGame(level) {
-        if (this.gameState === constant.GAME_ALIVE) return;
+        if (this.gameState === constant.GAME_ALIVE) return false;
         if (this.gameState === constant.GAME_WIN) this.resetGame(level);
         this.gameState =  constant.GAME_ALIVE;
         this.getExplain();
         this.lives = (this.gameData[level - 1].lives) ? this.gameData[level - 1].lives : 0;
         this.setLives(this.lives);
+        return true;
     }
     
     checkAnswer(question, answer) {
         const result = question === answer ? constant.BINGO : constant.DADA;
         this.updateGameResult(result);
+        if (question !== undefined && answer !== undefined) {
+            gameModules.showResultView(result);
+        }
         this.getGameResult();
         if (this.gameState === constant.GAME_WIN) this.getWin();
     }
@@ -51,7 +55,6 @@ export class GameFramework {
             this.winLevelSet.delete(this.level);
         }
         this.recordObj.appendToRecord(constant.recordItim.RESULT, result);
-        gameModules.showResultView(result);
     }
 
     getGameResult(){
@@ -72,23 +75,22 @@ export class GameFramework {
         throw new Error('please define wrongAnswer');
     }
 
-    changeLevel(level=1, options={}) {
-        const { isPrevious=false, isNext=false } = options;
+    changeLevel(options={}) {
+        const { level=0, isPrevious=false, isNext=false } = options;
         if (isPrevious){
-            level = level > 1 ? level - 1 : this.levelLimit;
+            this.level = this.level > 1 ? this.level - 1 : this.levelLimit;
         }
         else if (isNext){
-            level = level < this.levelLimit ? level + 1 : 1;
+            this.level = this.level < this.levelLimit ? this.level + 1 : 1;
         }
-        this.level = level;
-        this.resetGame(this.level);
+        if (level) this.level = level;
+        this.startGame(this.level);
     }
     
     resetGame(level){
-        this.gameState = constant.GAME_FILE;
+        if (this.gameState === constant.GAME_ALIVE) return false;
         this.hideFirework();
         $('.overlay').css('display', 'none');
-        this.startGame(level);
     }
 
     toggleHint(){

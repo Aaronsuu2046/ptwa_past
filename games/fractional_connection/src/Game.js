@@ -19,7 +19,7 @@ export class Game extends ConnectionGame {
     }
 
     startGame(level) {
-        super.startGame(level);
+        if (!super.startGame(level)) return false;
         this.createQuestions();
         this.createHint();
         helpModules.reorder(

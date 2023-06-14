@@ -93,21 +93,8 @@ function setupEventListeners(gameData, levelsArea, optionsArea) {
         const gameWindow = $('#' + gameName)[0].contentWindow;
         const game = gameWindow.getGame();
 
-        levelsArea.on('click', 'button', handleLevelButtonClick);
         optionsArea.on('click', 'button', handleOptionsButtonClick);
-
-        function handleLevelButtonClick(e) {
-            const level = parseInt($(this).attr('id'));
-            if (!level) {
-                return false;
-            }
-            levelsArea.children().eq(game.level - 1).removeClass('active');
-            game.winLevelSet.forEach((value) => 
-                levelsArea.children().eq(value - 1).addClass('win')
-            );
-            $(this).addClass('active');
-            game.changeLevel(level);
-        };
+        levelsArea.on('click', 'button', handleLevelButtonClick);
 
         const btnHandler = new Handler(game, levelsArea);
         function handleOptionsButtonClick(e) {
@@ -118,6 +105,20 @@ function setupEventListeners(gameData, levelsArea, optionsArea) {
                 $('#' + act).text("重新開始");
             }
             btnHandler.handleRequest(act);
+        };
+
+        function handleLevelButtonClick(e) {
+            const level = parseInt($(this).attr('id'));
+            if (!level) {
+                return false;
+            }
+            btnHandler.changeLevel({level: level})
+            // levelsArea.children().eq(game.level - 1).removeClass('active');
+            // game.winLevelSet.forEach((value) => 
+            //     levelsArea.children().eq(value - 1).addClass('win')
+            // );
+            // $(this).addClass('active');
+            // game.changeLevel(level);
         };
     };
 

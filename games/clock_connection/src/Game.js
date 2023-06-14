@@ -16,30 +16,30 @@ export class Game extends ConnectionGame {
         this.questionsArr = [
             {
                 "hour": helpModules.shuffle(Array.from({length: 11}, (_, i) => i + 1).filter(n => n % 3 !== 0))
-                , "minute": helpModules.shuffle(Array.from({length: 60/15+1}, (_, i) => i*15))
+                , "minute": helpModules.shuffle(Array.from({length: 60/15}, (_, i) => i*15))
             } 
             , {
                 "hour": helpModules.getRandomNumberArr(0, 12, 1, 12)
-                , "minute": helpModules.shuffle(Array.from({length: 60/10+1}, (_, i) => i*10))
+                , "minute": helpModules.shuffle(Array.from({length: 60/10}, (_, i) => i*10))
             }
             , {
                 "hour": helpModules.getRandomNumberArr(0, 12, 1, 12)
-                , "minute": helpModules.shuffle(Array.from({length: 50/10+1}, (_, i) => i * 10).map(n => n + 5))
+                , "minute": helpModules.shuffle(Array.from({length: 60/10}, (_, i) => i * 10).map(n => n + 5))
             }
             , {
                 "hour": helpModules.getRandomNumberArr(0, 12, 1, 12)
-                , "minute": helpModules.shuffle(Array.from({length: 60/5+1}, (_, i) => i * 5))
+                , "minute": helpModules.shuffle(Array.from({length: 60/5}, (_, i) => i * 5))
             }
             , {
                 "hour": helpModules.shuffle(Array.from({length: 12}, (_, i) => i+13))
-                , "minute": helpModules.shuffle(Array.from({length: 60+1}, (_, i) => i))
+                , "minute": helpModules.shuffle(Array.from({length: 60}, (_, i) => i))
             }
             , {
                 "hour": helpModules.getRandomNumberArr(0, 25, 1, 25)
-                , "minute": helpModules.shuffle(Array.from({length: 60+1}, (_, i) => i))
+                , "minute": helpModules.shuffle(Array.from({length: 60}, (_, i) => i))
             }
         ]
-
+        
         this.leftArea = $('.gameArea .leftArea');
         this.rightArea = $('.gameArea .rightArea');
     }
@@ -49,7 +49,7 @@ export class Game extends ConnectionGame {
     }
 
     startGame(level) {
-        super.startGame(level);
+        if (!super.startGame(level)) return false;
         this.createQuestions();
         this.createHint();
         helpModules.reorder(
