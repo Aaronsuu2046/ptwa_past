@@ -22,7 +22,7 @@ async function init() {
 
     setupEventListeners(gameData, levelsArea, optionsArea);
     setupAnimation();
-    setupGameColor(constant.GAME_COLOR[gameGrade]);
+    setupGameColor(constant.GAME_COLOR[gameGrade-1]);
 }
 
 function getGameID() {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,27 +10,41 @@
     <!-- Use jQuery -->
     <script src="../../jquery/dist/jquery.min.js"></script>
 </head>
+
 <body>
     <!-- If your game have hint -->
     <div class="overlay">
         <div class="hintContainer">
-            <h1 >提示：</h1>
+            <h1>提示：</h1>
             <!-- Define hint content -->
         </div>
     </div>
     <div class="gameArea">
         <!-- Define Game content -->
-        <div class="topArea"></div>
+        <svg class="topArea"></svg>
         <div class="bottomArea">
             <button class="lastAnswer">&lt;</button>
             <div class="answerContainer">
                 <div class="answerArea">
                     <h1>測試答案：西西<h1>
-                    <h1 class="answerInput">（）</h1>
-                    <h1>哈哈</h1>
-                    <h1 class="answerInput">（）</h1>
+                            <h1 class="answerInput"></h1>
+                            <h1>哈哈</h1>
+                            <h1 class="answerInput"></h1>
                 </div>
-                <div class="combinationLock">test</div>
+                <div class="combinationLock">
+                    <div class="combinationLockContainer">
+                        <div>
+                            <input type="number" id="digit1" min="0" max="9" value="2" />
+                        </div>
+                        <div>
+                            <input type="number" id="digit2" min="0" max="9" value="3" />
+                        </div>
+                        <div>
+                            <input type="number" id="digit3" min="0" max="9" value="4" />
+                        </div>
+                    </div>
+                    <button>輸入</button>
+                </div>
             </div>
             <button class="nextAnswer">&gt;</button>
         </div>
@@ -37,4 +52,5 @@
     <!-- Import your game -->
     <script src="./src/Game.js" type="module"></script>
 </body>
+
 </html>

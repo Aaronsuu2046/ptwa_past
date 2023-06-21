@@ -13,6 +13,11 @@ export class Game extends GameFramework {
     constructor(gameData){
         super(gameData);
         // Initialise game object
+        this.answerLimit = this.gameData[this.level-1].length;
+        this.currentAnswer = null;
+        this.combinationLock = $('.combinationLock')
+
+        this.checkEvent();
     }
 
     startGame(level) {
@@ -23,15 +28,73 @@ export class Game extends GameFramework {
     // The following methods must be overridden
     getGameResult(){
         // juddging
-        throw new Error('please define getGameResult');
+        const incorrectElements = $('.answerInput').filter((i, answer) => {
+            return $(answer).data('is_right') === true;
+        });
+          
+        if (incorrectElements.length >= this.answerLimit) {
+            this.gameState = constant.GAME_WIN;
+            // throw new Error('please define getGameResult');
+        }
     }
     correctAnswer(){
         // action
-        throw new Error('please define correctAnswer');
+        this.currentAnswer.data({"is_right": true})
+        // throw new Error('please define correctAnswer');
     }
     wrongAnswer(){
         // action
-        throw new Error('please define wrongAnswer');
+        this.currentAnswer.data({"is_right": false})
+        // throw new Error('please define wrongAnswer');
+    }
+
+    checkEvent() {
+        const answerInput = $('.answerInput');
+
+        answerInput.each((i,  answer) => {
+            $(answer).on('click', () => {
+                this.currentAnswer = $(answer);
+                this.combinationLock.toggle();
+                if (this.combinationLock.is(':visible')) {
+                    this.combinationLock.css('display', 'flex');
+                }
+            });
+        });
+        
+        const handleNumberInput = (e) => {
+            e.preventDefault();
+            const input = e.target;
+            const step = parseFloat(input.step) || 1;
+            const value = parseFloat(input.value) || 0;
+            const deltaY = e.originalEvent.deltaY || -e.originalEvent.wheelDelta;
+            if (deltaY < 0) {
+                input.value = Math.max(input.min, value - step);
+            } else {
+                input.value = Math.min(input.max, value + step);
+            }
+        }
+
+        const checkPassword = () => {
+            const correctAnswer = "999";
+            const inputs = $('input[type="number"]');
+            let inputsAnswer = "";
+            inputs.each((i, ele) => {
+                inputsAnswer += $(ele).val();
+            })
+    
+            this.currentAnswer.text(inputsAnswer);
+            this.combinationLock.toggle();
+
+            this.checkAnswer(correctAnswer, inputsAnswer);
+        }
+
+        const inputs = $("input[type='number']");
+        inputs.each(function() {
+            $(this).on("wheel mousewheel", handleNumberInput);
+        });
+        
+        $('.combinationLock button').on('pointerdown', checkPassword);
+
     }
 }
 
