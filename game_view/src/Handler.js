@@ -9,7 +9,7 @@ export class Handler {
 
     initializeHandlers() {
         return {
-            [constant.optionsBtn.LAST_BTN]: this.changeLevel.bind(this, { isPrevious: true }),
+            [constant.optionsBtn.LAST_BTN]: this.changeLevel.bind(this,{ isPrevious: true }),
             [constant.optionsBtn.START_BTN]: this.startGame.bind(this),
             [constant.optionsBtn.NEXT_BTN]: this.changeLevel.bind(this, { isNext: true }),
             [constant.optionsBtn.HINT_BTN]: this.game.toggleHint.bind(this.game),
@@ -23,9 +23,11 @@ export class Handler {
         if (handler) handler();
     }
 
-    changeLevel(option) {
+    changeLevel(options) {
+        // TODO only start game can change game level
+        if (this.game.gameState === constant.GAME_ALIVE) return;
         this.changeActiveLevel();
-        this.game.changeLevel(this.game.level, option);
+        this.game.changeLevel(options);
         this.updateButtonAndLevelStyle();
     }
 

@@ -105,7 +105,7 @@ export class ConnectionGame extends GameFramework {
     }
 
     startGame(level) {
-        super.startGame(level);
+        if (!super.startGame(level)) return false;
         this.line = $(svgModules.getNewLine()).addClass('line')[0];
         this.drawingArea.html($(this.line));
         this.recordObj.initRecord();
@@ -113,6 +113,7 @@ export class ConnectionGame extends GameFramework {
         this.lineCoordinateString = '';
         this.lastQuestion = '';
         this.lastAnswer = '';
+        return true;
     }
 
     correctAnswer(){

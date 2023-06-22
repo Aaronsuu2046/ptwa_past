@@ -5,7 +5,7 @@ const link = document.getElementById('fractional_connection');
 $('.game_view').on('click', function(e) {
     const id = $(this).attr('id');
     localStorage.setItem('title', `三上數學：${$(`#${id}`).text()}`);
-    const url = '../../../game_view/?id=' + id;
+    const url = `../../../game_view/?unit=math&id=${id}`;
     window.location.href = url;
 });
 
