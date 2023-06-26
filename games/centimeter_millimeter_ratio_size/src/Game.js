@@ -18,6 +18,10 @@ export class Game extends GameFramework {
     startGame(level) {
         super.startGame(level);
         // create game content
+        if (!super.startGame(level)) return false;
+        this.createQuestions();
+        this.createHint();
+        
     }
 
     // The following methods must be overridden
