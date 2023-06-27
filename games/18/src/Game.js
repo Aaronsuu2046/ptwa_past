@@ -14,8 +14,7 @@ export class Game extends CombinationLockTemplate {
     constructor(gameData){
         super(gameData);
         // Initialise game object
-        this.topicExplain = Array(this.levelLimit).fill("對的選 1，錯的選 0");
-        $( ".topic img" ).draggable();
+        this.topicExplain = Array(this.levelLimit).fill("估估看有多大，對的選 1，錯的選 0");
     }
 
     startGame(level) {

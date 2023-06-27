@@ -63,7 +63,7 @@ export class GameFramework {
             this.winLevelSet.delete(this.level);
         }
         else {
-            throw new Error('please define this.result');
+            throw new Error('please define this.result === constant.BINGO || constant.DADA');
         }
         this.recordObj.appendToRecord(constant.recordItim.RESULT, this.result);
     }

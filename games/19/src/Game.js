@@ -14,20 +14,13 @@ export class Game extends CombinationLockTemplate {
     constructor(gameData){
         super(gameData);
         // Initialise game object
-        this.topicExplain = Array(this.levelLimit).fill("每格一平方公分，這些圖形面積是幾平方公分呢？");
+        this.topicExplain = Array(this.levelLimit).fill("多少公斤等於多少公克呢？");
     }
 
     startGame(level) {
         super.startGame(level);
         // create game content
         this.answerData = this.gameData[level-1].answer;
-        this.generatorTopicArea();
-    }
-
-    generatorTopicArea() {
-        //future
-        this.topArea.children().hide();
-        this.topArea.children().eq(this.level - 1).show();
     }
 
     correctAnswer(){
@@ -46,7 +39,7 @@ export class Game extends CombinationLockTemplate {
 export default Game;
 
 // Read game_config.json file
-const gameData = await gameModules.getJson('../../games/17/game_config.json');
+const gameData = await gameModules.getJson('../../games/19/game_config.json');
 // Create game Instance, Must input gameData
 const gameInstance = new Game(gameData);
 // Post game to game_view
@@ -55,4 +48,4 @@ window.getGame = function() {
 };
 
 // type must === game filename
-parent.postMessage({ type: '17' }, '*');
+parent.postMessage({ type: '19' }, '*');

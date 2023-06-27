@@ -1,0 +1,10 @@
+@import url(../../game_view/css/combination_lock.css);
+
+/* For Develop */
+* {
+    /* border: solid 2px black; */
+}
+
+.topArea {
+    height: 400px;
+}
