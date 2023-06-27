@@ -13,7 +13,7 @@ export class CombinationLockTemplate extends GameFramework {
         super.startGame(level);
         // create game content
         this.bottomArea = new BottomAreaGenerator(this.gameData[this.level-1])
-        this.answerLimit = this.gameData[this.level-1].length;
+        this.answerLimit = this.gameData[this.level-1].answer.length;
         this.currentAnswer = [];
         this.combinationLock = $('.combinationLock')
         this.topArea = $('.topArea')
@@ -178,9 +178,9 @@ class BottomAreaGenerator {
             const value = parseFloat(input.value) || 0;
             const deltaY = e.originalEvent.deltaY || -e.originalEvent.wheelDelta;
             if (deltaY < 0) {
-                input.value = Math.max(input.min, value - step);
-            } else {
                 input.value = Math.min(input.max, value + step);
+            } else {
+                input.value = Math.max(input.min, value - step);
             }
         }
 
