@@ -10,6 +10,7 @@ export class GameFramework {
         this.gameData = gameData;
         this.recordObj = new GameRecord();
         this.gameState = constant.GAME_FILE;
+        this.result = null;
         this.level = 1;
         this.createElements();
         $('.closeHintBtn').on('click', this.toggleHint);
@@ -37,24 +38,34 @@ export class GameFramework {
         return true;
     }
     
-    checkAnswer(question, answer) {
-        const result = question === answer ? constant.BINGO : constant.DADA;
-        this.updateGameResult(result);
-        if (question !== undefined && answer !== undefined) {
-            gameModules.showResultView(result);
-        }
+    checkAnswer(question=null, answer=null) {
+        this.compareAnswer(question, answer);
+        this.updateGameResult();
         this.getGameResult();
         if (this.gameState === constant.GAME_WIN) this.getWin();
     }
 
-    updateGameResult(result) {
-        if (result === constant.BINGO) {
+    compareAnswer(question, answer) {
+        if (question && answer) {
+            this.result = question === answer ? constant.BINGO : constant.DADA;
+            gameModules.showResultView(this.result);
+        }
+        else {
+            throw new Error('please define compareAnswer');
+        }
+    }
+
+    updateGameResult() {
+        if (this.result === constant.BINGO) {
             this.correctAnswer();
-        } else {
+        } else if (this.result === constant.DADA) {
             this.wrongAnswer();
             this.winLevelSet.delete(this.level);
         }
-        this.recordObj.appendToRecord(constant.recordItim.RESULT, result);
+        else {
+            throw new Error('please define this.result');
+        }
+        this.recordObj.appendToRecord(constant.recordItim.RESULT, this.result);
     }
 
     getGameResult(){
