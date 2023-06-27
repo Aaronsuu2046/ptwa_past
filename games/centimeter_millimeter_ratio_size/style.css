@@ -1,61 +1,6 @@
-@import url(../../game_view/css/game_style.css);
+@import url(../../game_view/css/size_comparison.css);
 
 .Question{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    transform: translateY(-5px);
-    font-size: 40px;
-    margin: 0px;
-    height: 108px;
-}
-
-
-.questionDisplay{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-}
-
-.answerDisplay{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    height: fit-content;
-    
-}
-
-.answerDisplay *{
-    cursor: pointer;
-    height: 80px;
-    width: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 100px;
-    margin: 0px;
-    padding: 0px;
-    transform: translate(0px, 0px);
-}
-
-.compare{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 100px;
-    border: 3px solid rgb(2,187,220);
-    border-radius: 10px;
-}
-
-.compare h1{
-    margin: 0px;
-    padding: 0px;
-    font-weight: bold;
-    font-size: 100px;
-    box-sizing: border-box;
-    transform: translateY(-8px);
+    font-size: 30px;
+    width: 160px;
 }

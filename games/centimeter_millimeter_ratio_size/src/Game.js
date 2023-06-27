@@ -5,11 +5,11 @@ import {
     , helpModules
 } from "../../../game_view/src/module.js"
 import {
-    GameFramework
-} from "../../../game_view/src/GameFramework.js"
+    SizeComparison
+} from "../../../game_view/src/templates/SizeComparisonTemplate.js"
 
 // Export your game
-export class Game extends GameFramework {
+export class Game extends SizeComparison {
     constructor(gameData){
         super(gameData);
         // Initialise game object
@@ -18,24 +18,6 @@ export class Game extends GameFramework {
     startGame(level) {
         super.startGame(level);
         // create game content
-        if (!super.startGame(level)) return false;
-        this.createQuestions();
-        this.createHint();
-        
-    }
-
-    // The following methods must be overridden
-    getGameResult(){
-        // juddging
-        throw new Error('please define getGameResult');
-    }
-    correctAnswer(){
-        // action
-        throw new Error('please define correctAnswer');
-    }
-    wrongAnswer(){
-        // action
-        throw new Error('please define wrongAnswer');
     }
 }
 
