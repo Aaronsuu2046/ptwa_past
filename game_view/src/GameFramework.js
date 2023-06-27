@@ -63,14 +63,14 @@ export class GameFramework {
             this.winLevelSet.delete(this.level);
         }
         else {
-            throw new Error('please define this.result');
+            throw new Error('please define this.result === constant.BINGO || constant.DADA');
         }
         this.recordObj.appendToRecord(constant.recordItim.RESULT, this.result);
     }
 
     getGameResult(){
         // juddging
-        throw new Error('please define getGameResult');
+        throw new Error('please define getGameResult, if win then this.gameState = constant.GAME_WIN;');
     }
 
     getWin(){

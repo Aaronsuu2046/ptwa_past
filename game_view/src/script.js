@@ -115,7 +115,6 @@ function setupEventListeners(gameData, levelsArea, optionsArea) {
                 return false;
             }
             // TODO Refactor
-            console.log(gameRule)
             if (gameRule.is(':visible')) {
                 gameRule.hide();
                 $(`#${constant.optionsBtn.START_BTN}`).text("重新開始");

@@ -28,7 +28,6 @@ export class Game extends CombinationLockTemplate {
         this.topArea.empty();
     
         this.answerData.forEach((num, index) => {
-            console.log(Number(num), index);
             for(let i = 0; i < Number(num) && index < this.answerData.length-1; i++){
                 const img = $('<img>', {
                     src: `./assets/images/${index}.png`

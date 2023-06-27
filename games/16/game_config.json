@@ -1,0 +1,27 @@
+[
+    { 
+        "question": ["這個圖形是（&1）平方公分"]
+        , "answer": [6]
+        , "inputLength": 1
+        }
+    , { 
+        "question": ["這個圖形是（&1）平方公分"]   
+        , "answer": [6]
+        , "inputLength": 1
+    }
+    , { 
+        "question": ["這個圖形是（&1）平方公分"]
+        , "answer": [7]
+        , "inputLength": 1
+    }
+    , { 
+        "question": ["這個圖形是（&1）平方公分"]
+        , "answer": [6]
+        , "inputLength": 1
+    }
+    , { 
+        "question": ["這個圖形是（&1）平方公分"]
+        , "answer": [6]
+        , "inputLength": 1
+    }
+]
