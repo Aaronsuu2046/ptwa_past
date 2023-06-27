@@ -70,7 +70,7 @@ export class GameFramework {
 
     getGameResult(){
         // juddging
-        throw new Error('please define getGameResult');
+        throw new Error('please define getGameResult, if win then this.gameState = constant.GAME_WIN;');
     }
 
     getWin(){
