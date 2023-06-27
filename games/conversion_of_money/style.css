@@ -74,10 +74,3 @@
     border-radius: 5px;
     margin-left: 10px;
 }
-
-.answerInput::before {
-    content: "（";
-}
-.answerInput::after {
-    content: "）";
-}

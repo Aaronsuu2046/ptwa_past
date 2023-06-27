@@ -5,19 +5,15 @@ import {
     , helpModules
 } from "../../../game_view/src/module.js"
 import {
-    GameFramework
-} from "../../../game_view/src/GameFramework.js"
+    CombinationLockTemplate
+} from "../../../game_view/src/templates/CombinationLockTemplate.js"
+
 
 // Export your game
-export class Game extends GameFramework {
+export class Game extends CombinationLockTemplate {
     constructor(gameData){
         super(gameData);
         // Initialise game object
-        this.answerLimit = this.gameData[this.level-1].length;
-        this.currentAnswer = null;
-        this.combinationLock = $('.combinationLock')
-
-        this.checkEvent();
     }
 
     startGame(level) {
@@ -25,77 +21,19 @@ export class Game extends GameFramework {
         // create game content
     }
 
-    // The following methods must be overridden
-    getGameResult(){
-        // juddging
-        const incorrectElements = $('.answerInput').filter((i, answer) => {
-            return $(answer).data('is_right') === true;
-        });
-          
-        if (incorrectElements.length >= this.answerLimit) {
-            this.gameState = constant.GAME_WIN;
-            // throw new Error('please define getGameResult');
-        }
-    }
     correctAnswer(){
         // action
-        this.currentAnswer.data({"is_right": true})
-        // throw new Error('please define correctAnswer');
+        const level = this.level-1;
+        this.recordObj.appendToRecord(constant.recordItim.QUESTION, this.gameData[level].answer.map(Number).join('-'));
+        this.recordObj.appendToRecord(constant.recordItim.ANSWER, this.currentAnswer.map(Number).join('-'));
     }
     wrongAnswer(){
         // action
-        this.currentAnswer.data({"is_right": false})
-        // throw new Error('please define wrongAnswer');
+        const level = this.level-1;
+        this.recordObj.appendToRecord(constant.recordItim.QUESTION, this.gameData[level].answer.map(Number).join('-'));
+        this.recordObj.appendToRecord(constant.recordItim.ANSWER, this.currentAnswer.map(Number).join('-'));
     }
 
-    checkEvent() {
-        const answerInput = $('.answerInput');
-
-        answerInput.each((i,  answer) => {
-            $(answer).on('click', () => {
-                this.currentAnswer = $(answer);
-                this.combinationLock.toggle();
-                if (this.combinationLock.is(':visible')) {
-                    this.combinationLock.css('display', 'flex');
-                }
-            });
-        });
-        
-        const handleNumberInput = (e) => {
-            e.preventDefault();
-            const input = e.target;
-            const step = parseFloat(input.step) || 1;
-            const value = parseFloat(input.value) || 0;
-            const deltaY = e.originalEvent.deltaY || -e.originalEvent.wheelDelta;
-            if (deltaY < 0) {
-                input.value = Math.max(input.min, value - step);
-            } else {
-                input.value = Math.min(input.max, value + step);
-            }
-        }
-
-        const checkPassword = () => {
-            const correctAnswer = "999";
-            const inputs = $('input[type="number"]');
-            let inputsAnswer = "";
-            inputs.each((i, ele) => {
-                inputsAnswer += $(ele).val();
-            })
-    
-            this.currentAnswer.text(inputsAnswer);
-            this.combinationLock.toggle();
-
-            this.checkAnswer(correctAnswer, inputsAnswer);
-        }
-
-        const inputs = $("input[type='number']");
-        inputs.each(function() {
-            $(this).on("wheel mousewheel", handleNumberInput);
-        });
-        
-        $('.combinationLock button').on('pointerdown', checkPassword);
-
-    }
 }
 
 export default Game;
