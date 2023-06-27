@@ -22,14 +22,15 @@ export class SizeComparison extends GameFramework {
             $('body').on('mouseup', (temp) => {
                 let endPositionX = temp.clientX, endPositionY = temp.clientY;
 
-                $('body').off();
-
                 //Reset DraggingItem
                 $(DraggingItem.target).css('transform', 'translate(0px, 0px)');
 
+                let targetElement = document.elementFromPoint(endPositionX, endPositionY);
+
+                $('body').off();
+
                 //Placement Judgment
-                if((parseInt(endPositionX) >= 400 && parseInt(endPositionX) <= 500) 
-                && (parseInt(endPositionY) <= 222 && parseInt(endPositionY) >= 117)){
+                if($(targetElement).hasClass("compareDetect")){
                     this.SetSymbol($(DraggingItem.target));
                 }
             })
@@ -131,8 +132,8 @@ class gameAreaGenerator {
                 <p class="Question">NaN</p>
             </div>
 
-            <div class="compare">
-                <h1></h1>
+            <div class="compare compareDetect">
+                <h1 class="compareDetect"></h1>
             </div>
 
             <div class="secondValueContainer">
