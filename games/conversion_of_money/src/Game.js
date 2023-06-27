@@ -14,23 +14,41 @@ export class Game extends CombinationLockTemplate {
     constructor(gameData){
         super(gameData);
         // Initialise game object
+        this.topicExplain = Array(this.levelLimit).fill("點數錢幣，進行換算，並填入答案");
     }
 
     startGame(level) {
         super.startGame(level);
         // create game content
+        this.answerData = this.gameData[level-1].answer;
+        this.generatorTopicArea();
+    }
+
+    generatorTopicArea() {
+        this.topArea.empty();
+    
+        this.answerData.forEach((num, index) => {
+            console.log(Number(num), index);
+            for(let i = 0; i < Number(num) && index < this.answerData.length-1; i++){
+                const img = $('<img>', {
+                    src: `./assets/images/${index}.png`
+                });
+            const div = $('<div>').append(img);
+            
+            // 將 div 添加到 this.topArea
+            this.topArea.append(div);
+            }
+        });
     }
 
     correctAnswer(){
         // action
-        const level = this.level-1;
-        this.recordObj.appendToRecord(constant.recordItim.QUESTION, this.gameData[level].answer.map(Number).join('-'));
+        this.recordObj.appendToRecord(constant.recordItim.QUESTION, this.answerData.map(Number).join('-'));
         this.recordObj.appendToRecord(constant.recordItim.ANSWER, this.currentAnswer.map(Number).join('-'));
     }
     wrongAnswer(){
         // action
-        const level = this.level-1;
-        this.recordObj.appendToRecord(constant.recordItim.QUESTION, this.gameData[level].answer.map(Number).join('-'));
+        this.recordObj.appendToRecord(constant.recordItim.QUESTION, this.answerData.map(Number).join('-'));
         this.recordObj.appendToRecord(constant.recordItim.ANSWER, this.currentAnswer.map(Number).join('-'));
     }
 

@@ -7,10 +7,16 @@ export class CombinationLockTemplate extends GameFramework {
     constructor(gameData){
         super(gameData);
         // Initialise game object
+    }
+
+    startGame(level) {
+        super.startGame(level);
+        // create game content
         this.bottomArea = new BottomAreaGenerator(this.gameData[this.level-1])
         this.answerLimit = this.gameData[this.level-1].length;
         this.currentAnswer = [];
         this.combinationLock = $('.combinationLock')
+        this.topArea = $('.topArea')
     }
 
     compareAnswer() {
@@ -61,6 +67,7 @@ class BottomAreaGenerator {
         this.correctQuestion = 1;
         this.inputLength = gameData.inputLength;
         this.currentAnswer = null;
+        $('.bottomArea').remove();
         const bottomAreaHTML = `
         <div class="bottomArea">
             <button class="lastAnswer">&lt;</button>
