@@ -40,6 +40,7 @@
         , "game_option": ["lastBtn", "startBtn", "nextBtn", "recordBtn"]
     }
     , {
+<<<<<<< HEAD
         "game_name": "centimeter_millimeter_ratio_size"
         , "game_kind": "math"
         , "game_grade": 3
@@ -48,5 +49,15 @@
         , "game_level": 5
         , "game_rule": ["根據題目拖移正確符號進入答案框內", "正確即可過關", "點擊💾可下載遊戲紀錄", "困惑時可點擊提示"]
         , "game_option": ["lastBtn", "startBtn", "nextBtn", "hintBtn", "recordBtn"]
+=======
+        "game_name": "conversion_of_money"
+        , "game_kind": "math"
+        , "game_grade": 3
+        , "semester": "last"
+        , "unit": 1
+        , "game_level": 5
+        , "game_rule": ["根據題目填入答案", "全部填寫完畢後點擊送出答案", "正確即可通關", "點擊💾可下載遊戲紀錄"]
+        , "game_option": ["lastBtn", "startBtn", "nextBtn", "recordBtn", "submitBtn"]
+>>>>>>> 9fdbf7c28d619185ba93bbb817a671c1319a0a28
     }
 ] 

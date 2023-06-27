@@ -1,0 +1,15 @@
+@import url(../../game_view/css/combination_lock.css);
+
+/* For Develop */
+* {
+    /* border: solid 2px black; */
+}
+
+.topArea {
+    flex-wrap: wrap;
+}
+
+.topArea img {
+    max-width: 100%;
+    height: auto;
+}
