@@ -14,7 +14,7 @@ export class Game extends CombinationLockTemplate {
     constructor(gameData){
         super(gameData);
         // Initialise game object
-        this.topicExplain = Array(this.levelLimit).fill("拖動圖形比對方格圖，答案是幾平方公分呢？");
+        this.topicExplain = Array(this.levelLimit).fill("每格一平方公分，這些圖形面積是幾平方公分呢？");
         $( ".topic img" ).draggable();
     }
 
