@@ -30,16 +30,6 @@
         , "game_option": ["lastBtn", "startBtn", "nextBtn", "hintBtn", "recordBtn"]
     }
     , {
-        "game_name": "centimeter_millimeter_ratio_size"
-        , "game_kind": "math"
-        , "game_grade": 3
-        , "semester": "last"
-        , "unit": 0
-        , "game_level": 5
-        , "game_rule": ["根據題目拖移正確符號進入答案框內", "正確即可過關", "點擊💾可下載遊戲紀錄", "困惑時可點擊提示"]
-        , "game_option": ["lastBtn", "startBtn", "nextBtn", "hintBtn", "recordBtn"]
-    }
-    , {
         "game_name": "mouse_click"
         , "game_kind": "technology"
         , "game_grade": 1
@@ -48,5 +38,15 @@
         , "game_level": 2
         , "game_rule": ["根據題目用滑鼠點擊遊戲", "獲得更高的分數", "點擊💾可下載遊戲紀錄"]
         , "game_option": ["lastBtn", "startBtn", "nextBtn", "recordBtn"]
+    }
+    , {
+        "game_name": "centimeter_millimeter_ratio_size"
+        , "game_kind": "math"
+        , "game_grade": 3
+        , "semester": "last"
+        , "unit": 0
+        , "game_level": 5
+        , "game_rule": ["根據題目拖移正確符號進入答案框內", "正確即可過關", "點擊💾可下載遊戲紀錄", "困惑時可點擊提示"]
+        , "game_option": ["lastBtn", "startBtn", "nextBtn", "hintBtn", "recordBtn"]
     }
 ] 

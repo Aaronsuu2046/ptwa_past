@@ -42,7 +42,7 @@ export class Game extends GameFramework {
 export default Game;
 
 // Read game_config.json file
-const gameData = await gameModules.getJson('../../games/example_game/game_config.json');
+const gameData = await gameModules.getJson('../../games/centimeter_millimeter_ratio_size/game_config.json');
 // Create game Instance, Must input gameData
 const gameInstance = new Game(gameData);
 // Post game to game_view
@@ -51,4 +51,4 @@ window.getGame = function() {
 };
 
 // type must === game filename
-parent.postMessage({ type: 'example_game' }, '*');
+parent.postMessage({ type: 'centimeter_millimeter_ratio_size' }, '*');
