@@ -81,8 +81,8 @@ export class Game extends GameFramework {
     }
     correctAnswer(){
         // action
-        this.recordObj.appendToRecord(constant.recordItim.QUESTION, this.timeLimit);
-        this.recordObj.appendToRecord(constant.recordItim.ANSWER, this.score);
+        this.recordObj.appendToRecord(constant.recordItem.QUESTION, this.timeLimit);
+        this.recordObj.appendToRecord(constant.recordItem.ANSWER, this.score);
         
         for (let i = 0; i < this.updateIntervalIds.length; i++) {
             clearInterval(this.updateIntervalIds[i]);

@@ -76,8 +76,8 @@ export class SizeComparison extends GameFramework {
         AnswerRecord = AnswerRecord.replace(/\n/g, "");
         QuestionRecord = QuestionRecord.replace(/\n/g, "");
 
-        this.recordObj.appendToRecord(constant.recordItim.QUESTION, QuestionRecord);
-        this.recordObj.appendToRecord(constant.recordItim.ANSWER, AnswerRecord);
+        this.recordObj.appendToRecord(constant.recordItem.QUESTION, QuestionRecord);
+        this.recordObj.appendToRecord(constant.recordItem.ANSWER, AnswerRecord);
     }
 
     getGameResult(){

@@ -32,13 +32,13 @@ export class Game extends CombinationLockTemplate {
 
     correctAnswer(){
         // action
-        this.recordObj.appendToRecord(constant.recordItim.QUESTION, this.answerData);
-        this.recordObj.appendToRecord(constant.recordItim.ANSWER, this.currentAnswer);
+        this.recordObj.appendToRecord(constant.recordItem.QUESTION, this.answerData);
+        this.recordObj.appendToRecord(constant.recordItem.ANSWER, this.currentAnswer);
     }
     wrongAnswer(){
         // action
-        this.recordObj.appendToRecord(constant.recordItim.QUESTION, this.answerData);
-        this.recordObj.appendToRecord(constant.recordItim.ANSWER, this.currentAnswer);
+        this.recordObj.appendToRecord(constant.recordItem.QUESTION, this.answerData);
+        this.recordObj.appendToRecord(constant.recordItem.ANSWER, this.currentAnswer);
     }
 
 }
