@@ -13,7 +13,7 @@ export class Game extends SizeComparison {
     constructor(gameData){
         super(gameData);
         // Initialise game object
-        this.topicExplain = Array.from({ length: this.gameData.length }, (_, i) => `公升、毫升比大小（${i + 1}）`);
+        this.topicExplain = Array.from({ length: this.gameData.length }, (_, i) => `公斤、公克比大小（${i + 1}）`);
     }
 
     startGame(level) {
@@ -25,7 +25,7 @@ export class Game extends SizeComparison {
 export default Game;
 
 // Read game_config.json file
-const gameData = await gameModules.getJson('../../games/Liter_milliliter_board_size/game_config.json');
+const gameData = await gameModules.getJson('../../games/kg_grams_board_size/game_config.json');
 // Create game Instance, Must input gameData
 const gameInstance = new Game(gameData);
 // Post game to game_view
@@ -34,4 +34,4 @@ window.getGame = function() {
 };
 
 // type must === game filename
-parent.postMessage({ type: 'Liter_milliliter_board_size' }, '*');
+parent.postMessage({ type: 'kg_grams_board_size' }, '*');
