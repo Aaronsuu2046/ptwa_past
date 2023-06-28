@@ -13,6 +13,7 @@ export class Game extends SizeComparison {
     constructor(gameData){
         super(gameData);
         // Initialise game object
+        this.topicExplain = Array.from({ length: this.gameData.length }, (_, i) => `公分、毫米比大小（${i + 1}）`);
     }
 
     startGame(level) {
