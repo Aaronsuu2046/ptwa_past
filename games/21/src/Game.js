@@ -15,16 +15,25 @@ export class Game extends CombinationLockTemplate {
         super(gameData);
         // Initialise game object
         this.topicExplain = Array(this.levelLimit).fill("可以拖曳甜甜圈，來幫助回答問題喔！");
-        $( ".donuts-img img" ).draggable();
+        this.positions = [];
+        $('.donuts-img img').each((i,img) => {
+            const $img = $(img);
+    
+            this.positions.push({top: $img.position().top, left: $img.position().left});
+    
+            $img.draggable();
+        });
     }
 
     startGame(level) {
         super.startGame(level);
         // create game content
         this.answerData = this.gameData[level-1].answer;
-        $( ".donuts-img img" ).draggable("destroy");
-        $( ".donuts-img img" ).draggable();
+        $('.donuts-img img').each((i, img) => {
+            var $img = $(img);
 
+            $img.animate(this.positions[i], 0);
+        });
     }
 
     correctAnswer(){

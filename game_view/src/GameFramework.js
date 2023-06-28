@@ -40,6 +40,7 @@ export class GameFramework {
     
     checkAnswer(question=null, answer=null) {
         this.compareAnswer(question, answer);
+        gameModules.showResultView(this.result);
         this.updateGameResult();
         this.getGameResult();
         if (this.gameState === constant.GAME_WIN) this.getWin();
@@ -48,7 +49,6 @@ export class GameFramework {
     compareAnswer(question, answer) {
         if (question && answer) {
             this.result = question === answer ? constant.BINGO : constant.DADA;
-            gameModules.showResultView(this.result);
         }
         else {
             throw new Error('please define compareAnswer');

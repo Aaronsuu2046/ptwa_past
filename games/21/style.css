@@ -21,7 +21,7 @@
 }
 
 img {
-    max-width: 65px;
+    max-width: 70px;
     height: auto;
 }
 
@@ -35,9 +35,9 @@ img {
 }
 
 .box {
-    margin-left: 100px;
-    width: 500px;
-    height: 290px;
+    margin-left: 20px;
+    width: 550px;
+    height: 320px;
     background-image: url(assets/images/box.png);
     background-size: contain;
 }
