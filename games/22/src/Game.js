@@ -14,26 +14,16 @@ export class Game extends CombinationLockTemplate {
     constructor(gameData){
         super(gameData);
         // Initialise game object
-        this.topicExplain = Array(this.levelLimit).fill("可以拖曳甜甜圈，來幫助回答問題喔！");
-        this.positions = [];
-        $('.donuts-img img').each((i,img) => {
-            const $img = $(img);
-    
-            this.positions.push({top: $img.position().top, left: $img.position().left});
-    
-            $img.draggable();
-        });
+        this.topicExplain = Array(this.levelLimit).fill(" 1 個方塊代表 0.1，可點擊方塊幫助回答問題～");
+        $('.grid').on('pointerdown', (e) => {
+            $(e.target).toggleClass('orange-bg');
+        });        
     }
 
     startGame(level) {
         super.startGame(level);
         // create game content
         this.answerData = this.gameData[level-1].answer;
-        $('.donuts-img img').each((i, img) => {
-            var $img = $(img);
-
-            $img.animate(this.positions[i], 0);
-        });
     }
 
     correctAnswer(){
@@ -51,7 +41,7 @@ export class Game extends CombinationLockTemplate {
 export default Game;
 
 // Read game_config.json file
-const gameData = await gameModules.getJson('../../games/21/game_config.json');
+const gameData = await gameModules.getJson('../../games/22/game_config.json');
 // Create game Instance, Must input gameData
 const gameInstance = new Game(gameData);
 // Post game to game_view
@@ -60,4 +50,4 @@ window.getGame = function() {
 };
 
 // type must === game filename
-parent.postMessage({ type: '21' }, '*');
+parent.postMessage({ type: '22' }, '*');
