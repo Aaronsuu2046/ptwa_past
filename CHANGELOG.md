@@ -2,6 +2,13 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+### 2023.06.28
+##### [2.21.0] - Educational Games
+**Added**
+- 新增三年級公分、毫米比大小遊戲
+**Changed**
+- 更新 README badge 及其連結
+
 ### 2023.06.14
 ##### [2.20.0] - Educational Games
 **Added**
