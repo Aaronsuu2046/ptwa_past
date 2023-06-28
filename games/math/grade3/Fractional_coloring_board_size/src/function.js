@@ -1,4 +1,4 @@
-export { circleClickEstablish, pearClickEstablish}
+export { circleClickEstablish, pearClickEstablish, checkAnswerValue}
 import { game } from './Handler.js';
 
 function circleClickEstablish(){
@@ -9,14 +9,12 @@ function circleClickEstablish(){
                 if(Math.sqrt((e.clientX - 169) ** 2 + (e.clientY - 247) ** 2) <= 100){
                     $(e.target).css('fill', '#dc0073');
                     $(e.target).attr('class', 'colored');
-                    game.clickAmount[0]++;
                     }
                 }
             else{
                 if(Math.sqrt((e.clientX - 634) ** 2 + (e.clientY - 247) ** 2) <= 100){
                     $(e.target).css('fill', '#dc0073');
                     $(e.target).attr('class', 'colored');
-                    game.clickAmount[1]++;
                     }
                 }
             }
@@ -26,37 +24,38 @@ function circleClickEstablish(){
                     // console.log(Math.sqrt((e.clientX - 169) ** 2 + (e.clientY - 247) ** 2));
                     $(e.target).css('fill', '#8e8e9c');
                     $(e.target).attr('class', 'uncolored');
-                    game.clickAmount[0]--;
                 }
             }
             else{
                 if(Math.sqrt((e.clientX - 634) ** 2 + (e.clientY - 247) ** 2) <= 100){
                     $(e.target).css('fill', '#8e8e9c');
                     $(e.target).attr('class', 'uncolored');
-                    game.clickAmount[1]--;
                     }
                 }
-            }    
+            }
     })
 }
 
 function pearClickEstablish(){
     $('.pear img').on('click', (e) => {
         if($(e.target).attr('class') === 'uncolored'){
-            if((e.clientX >= 56 && e.clientX <= 281) && (e.clientY >= 160 && e.clientY <= 334))
-                game.clickAmount[0]++;
-            else
-                game.clickAmount[1]++;
             $(e.target).attr('src', 'src/fractionImg/pearColor.png');
             $(e.target).attr('class', 'colored');
         }
         else{
-            if((e.clientX >= 56 && e.clientX <= 281) && (e.clientY >= 160 && e.clientY <= 334))
-                game.clickAmount[0]--;
-            else
-                game.clickAmount[1]--;
             $(e.target).attr('src', 'src/fractionImg/pear.png');
             $(e.target).attr('class', 'uncolored');
         }
     })
+}
+
+function checkAnswerValue(){
+    if(game.level > 3){
+        game.clickAmount[0] = $('.firstImgContainer svg .colored').length;
+        game.clickAmount[1] = $('.secondImgContainer svg .colored').length;
+    }
+    else{
+        game.clickAmount[0] = $('.firstImgContainer .questionImg .colored').length;
+        game.clickAmount[1] = $('.secondImgContainer .questionImg .colored').length;
+    }
 }
