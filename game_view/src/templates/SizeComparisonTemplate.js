@@ -118,7 +118,6 @@ export class SizeComparison extends GameFramework {
 
     compareAnswer(){
         this.result = this.Answer === this.MyAnswer ? constant.BINGO : constant.DADA;
-        gameModules.showResultView(this.result);
     }
 
 }

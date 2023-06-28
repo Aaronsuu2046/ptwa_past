@@ -21,6 +21,8 @@ export class CombinationLockTemplate extends GameFramework {
 
     compareAnswer() {
         let currentAnswer = [];
+        this.result = constant.BINGO;
+
         $('.answerInput').each((i, answer) => {
             let textValue = isNaN(Number($(answer).text()))?$(answer).text():Number($(answer).text());
             let dataValue = isNaN(Number($(answer).attr('data-value')))?$(answer).attr('data-value'):Number($(answer).attr('data-value'));
@@ -29,10 +31,11 @@ export class CombinationLockTemplate extends GameFramework {
             if (textValue === dataValue) {
                 result = true;
             }
+            else {
+                this.result = constant.DADA;
+            }
             currentAnswer.push(textValue);
             $(answer).attr('data-isRight', result);
-            this.result = result ? constant.BINGO : constant.DADA;
-            gameModules.showResultView(this.result);
         });
         this.currentAnswer = currentAnswer;
     }
@@ -62,8 +65,8 @@ export class CombinationLockTemplate extends GameFramework {
 
 class BottomAreaGenerator {
     constructor(gameData) {
-        this.gameQuestion = gameData.question;
-        this.gameAnswer = gameData.answer;
+        this.gameQuestion = [...gameData.question];
+        this.gameAnswer = [...gameData.answer];
         this.correctQuestion = 1;
         this.inputLength = gameData.inputLength;
         this.currentAnswer = null;
@@ -98,8 +101,8 @@ class BottomAreaGenerator {
                 let dataCount = Number(parts[i][0]);
                 dataCount = isNaN(dataCount) ? 0 : dataCount;
                 if(dataCount){
-                    let dataValue = this.gameAnswer[index];
-    
+                    let dataValue = this.gameAnswer.splice(0, 1)[0];
+
                     dataValue = dataValue || '';
     
                     let newH1 = $('<h1>', {class: 'answerInput', text: '　'});
@@ -151,7 +154,6 @@ class BottomAreaGenerator {
         this.showQuestion();
     }
     showQuestion() {
-        
         $('.answerArea > *').hide();
 
         $('.answerArea > *').eq(this.correctQuestion-1).show();
