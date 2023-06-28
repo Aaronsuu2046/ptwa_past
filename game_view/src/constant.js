@@ -24,7 +24,7 @@ export const optionsBtn = {
 }
 
 // record
-export const recordItim = {
+export const recordItem = {
     "QUESTION": "question"
     ,"ANSWER": "answer"
     ,"RESULT": "result"

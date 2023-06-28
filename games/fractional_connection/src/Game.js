@@ -30,7 +30,7 @@ export class Game extends ConnectionGame {
     // TODO force flow
     creatRecord(recordType, dot){
         const value = `${dot.data('top')}/${dot.data('bottom')}`
-        if (recordType === constant.recordItim.QUESTION) {
+        if (recordType === constant.recordItem.QUESTION) {
             this.lastQuestion = value;
         }
         else {

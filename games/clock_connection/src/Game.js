@@ -60,7 +60,7 @@ export class Game extends ConnectionGame {
 
     creatRecord(recordType, dot){
         const value = dot.data('value');
-        if (recordType === constant.recordItim.QUESTION) {
+        if (recordType === constant.recordItem.QUESTION) {
             this.lastQuestion = value;
         }
         else {

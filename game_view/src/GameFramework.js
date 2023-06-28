@@ -65,7 +65,7 @@ export class GameFramework {
         else {
             throw new Error('please define this.result === constant.BINGO || constant.DADA');
         }
-        this.recordObj.appendToRecord(constant.recordItim.RESULT, this.result);
+        this.recordObj.appendToRecord(constant.recordItem.RESULT, this.result);
     }
 
     getGameResult(){
@@ -297,9 +297,9 @@ class GameRecord {
 
     initRecord(){
         this.record = {
-            [constant.recordItim.QUESTION]: [],
-            [constant.recordItim.ANSWER]: [],
-            [constant.recordItim.RESULT]: []
+            [constant.recordItem.QUESTION]: [],
+            [constant.recordItem.ANSWER]: [],
+            [constant.recordItem.RESULT]: []
         };
     }
   
@@ -323,10 +323,10 @@ class GameRecord {
         let csvContent = "Times,Question,Answer,Result\n"; // Add CSV headers
     
         let count = 0;
-        const questionArr = this.getRecord(constant.recordItim.QUESTION);
-        const answerArr = this.getRecord(constant.recordItim.ANSWER);
-        const resultArr = this.getRecord(constant.recordItim.RESULT);
-        for (let i = 0; i < this.getRecord(constant.recordItim.ANSWER).length; i++) {
+        const questionArr = this.getRecord(constant.recordItem.QUESTION);
+        const answerArr = this.getRecord(constant.recordItem.ANSWER);
+        const resultArr = this.getRecord(constant.recordItem.RESULT);
+        for (let i = 0; i < this.getRecord(constant.recordItem.ANSWER).length; i++) {
             csvContent += `${i + 1},${questionArr[i]},${answerArr[i]},${resultArr[i]}\n`;
             if (resultArr[i] === constant.BINGO) count++;
         }

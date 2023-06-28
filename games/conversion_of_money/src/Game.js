@@ -42,13 +42,13 @@ export class Game extends CombinationLockTemplate {
 
     correctAnswer(){
         // action
-        this.recordObj.appendToRecord(constant.recordItim.QUESTION, this.answerData.map(Number).join('-'));
-        this.recordObj.appendToRecord(constant.recordItim.ANSWER, this.currentAnswer.map(Number).join('-'));
+        this.recordObj.appendToRecord(constant.recordItem.QUESTION, this.answerData.map(Number).join('-'));
+        this.recordObj.appendToRecord(constant.recordItem.ANSWER, this.currentAnswer.map(Number).join('-'));
     }
     wrongAnswer(){
         // action
-        this.recordObj.appendToRecord(constant.recordItim.QUESTION, this.answerData.map(Number).join('-'));
-        this.recordObj.appendToRecord(constant.recordItim.ANSWER, this.currentAnswer.map(Number).join('-'));
+        this.recordObj.appendToRecord(constant.recordItem.QUESTION, this.answerData.map(Number).join('-'));
+        this.recordObj.appendToRecord(constant.recordItem.ANSWER, this.currentAnswer.map(Number).join('-'));
     }
 
 }

@@ -27,7 +27,7 @@ export class ConnectionGame extends GameFramework {
                     dot = $(dot[1]);
                 }
             }
-            const recordType = parentName === constant.gameHTML.QUESTION_AREA ? constant.recordItim.QUESTION : constant.recordItim.ANSWER;
+            const recordType = parentName === constant.gameHTML.QUESTION_AREA ? constant.recordItem.QUESTION : constant.recordItem.ANSWER;
             const recordData = this.creatRecord(recordType, dot);
             this.recordObj.appendToRecord(recordType, recordData);
             if (e.type === 'touchstart') {
@@ -72,8 +72,8 @@ export class ConnectionGame extends GameFramework {
             const pos = getDotPos(e, constant.gameHTML.ANSWER_AREA);
             this.lineCoordinateString += `,${this.line.getAttribute('x1')},${this.line.getAttribute('y1')}`;
             if (this.lineCoordinates[this.lineCoordinateString]) {
-                this.recordObj.removeLast(constant.recordItim.QUESTION);
-                this.recordObj.removeLast(constant.recordItim.ANSWER);
+                this.recordObj.removeLast(constant.recordItem.QUESTION);
+                this.recordObj.removeLast(constant.recordItem.ANSWER);
                 return false;
             }
             this.line.setAttribute("x2", pos.x);
