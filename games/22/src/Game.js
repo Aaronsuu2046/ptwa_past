@@ -16,6 +16,7 @@ export class Game extends CombinationLockTemplate {
         // Initialise game object
         this.topicExplain = Array(this.levelLimit).fill(" 1 個方塊代表 0.1，可點擊方塊幫助回答問題～");
         $('.grid').on('pointerdown', (e) => {
+            if (e.target.className === "grid") return
             $(e.target).toggleClass('orange-bg');
         });        
     }

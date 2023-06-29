@@ -15,6 +15,7 @@
 
 .topArea {
     margin-top: 70px;
+    height: 100%;
 }
 
 .bottomArea {
@@ -39,6 +40,7 @@
 .answerArea * {
     display: inline-block;
 }
+
 .lastAnswer {
 }
 .nextAnswer {
