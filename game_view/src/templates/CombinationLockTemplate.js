@@ -7,16 +7,30 @@ export class CombinationLockTemplate extends GameFramework {
     constructor(gameData){
         super(gameData);
         // Initialise game object
+        this.bottomArea = new Proxy(new BottomAreaGenerator(), {
+            set: (target, property, value) => {
+                // Check if the changed property is 'correntQuestion'
+                if (property === 'correntQuestion') {
+                    this.changeTopic(value);
+                }
+                target[property] = value;
+                return true;
+            }
+        });
     }
 
     startGame(level) {
+        this.bottomArea.initialize(this.gameData[this.level-1]);
         super.startGame(level);
         // create game content
-        this.bottomArea = new BottomAreaGenerator(this.gameData[this.level-1])
         this.answerLimit = this.gameData[this.level-1].answer.length;
         this.currentAnswer = [];
         this.combinationLock = $('.combinationLock')
         this.topArea = $('.topArea')
+    }
+    
+    changeTopic(correntQuesionIndex) {
+        // If need that can overwrite this function
     }
 
     compareAnswer() {
@@ -60,17 +74,10 @@ export class CombinationLockTemplate extends GameFramework {
         // action
         throw new Error('please define wrongAnswer');
     }
-
 }
 
 class BottomAreaGenerator {
-    constructor(gameData) {
-        this.gameQuestion = [...gameData.question];
-        this.gameAnswer = [...gameData.answer];
-        this.correctQuestion = 1;
-        this.inputLength = gameData.inputLength;
-        this.currentAnswer = null;
-        $('.bottomArea').remove();
+    constructor() {
         const bottomAreaHTML = `
         <div class="bottomArea">
             <button class="lastAnswer">&lt;</button>
@@ -87,11 +94,20 @@ class BottomAreaGenerator {
         </div>
         `;
         $('.gameArea').append(bottomAreaHTML);
+    }
+    
+    initialize(gameData) {
+        $('.answerArea *').remove();
+        this.gameQuestion = [...gameData.question];
+        this.gameAnswer = [...gameData.answer];
+        this.inputLength = gameData.inputLength;
+        this.correntQuestion = 1;
+        this.currentAnswer = null;
         this.generateAnswerArea().generateCombinationLock();
         this.showQuestion();
         this.handleEvent();
-        return this;
     }
+
     generateAnswerArea() {
         this.gameQuestion.forEach((str, index) => {
             let answerAreaHTML = '';
@@ -146,17 +162,18 @@ class BottomAreaGenerator {
     changeQuestion(options={}) {
         const {isPrevious=false, isNext=false } = options;
         if (isPrevious){
-            this.correctQuestion = this.correctQuestion > 1 ? this.correctQuestion - 1 : $('.answerArea').children().length;
+            this.correntQuestion = this.correntQuestion > 1 ? this.correntQuestion - 1 : $('.answerArea').children().length;
         }
         else if (isNext){
-            this.correctQuestion = this.correctQuestion < $('.answerArea').children().length ? this.correctQuestion + 1 : 1;
+            this.correntQuestion = this.correntQuestion < $('.answerArea').children().length ? this.correntQuestion + 1 : 1;
         }
         this.showQuestion();
     }
+    
     showQuestion() {
         $('.answerArea > *').hide();
 
-        $('.answerArea > *').eq(this.correctQuestion-1).show();
+        $('.answerArea > *').eq(this.correntQuestion-1).show();
     }
 
     handleEvent() {
@@ -204,10 +221,10 @@ class BottomAreaGenerator {
         
         $('.combinationLock button').on('pointerdown', checkPassword);
         $('.lastAnswer').on('pointerdown', () => {
-            this.changeQuestion({question: this.correctQuestion,isPrevious: true});
+            this.changeQuestion({question: this.correntQuestion,isPrevious: true});
         });
         $('.nextAnswer').on('pointerdown', () => {
-            this.changeQuestion({question: this.correctQuestion,isNext: true});
+            this.changeQuestion({question: this.correntQuestion,isNext: true});
         });
     }
 }

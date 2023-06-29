@@ -14,26 +14,34 @@ export class Game extends CombinationLockTemplate {
     constructor(gameData){
         super(gameData);
         // Initialise game object
-        this.topicExplain = Array(this.levelLimit).fill("每格一平方公分，這些圖形面積是幾平方公分呢？");
+        this.topicExplain = Array(this.levelLimit).fill("拖動畫面上的尺，量量看長度幫助回答問題吧！");
+        this.ruler = $('.ruler');
+        this.positions = {top: this.ruler.position().top, left: this.ruler.position().left};
+        this.ruler.draggable();
+        this.topic = $('.topArea .topic').children().eq(this.level - 1);
     }
 
     startGame(level) {
         super.startGame(level);
         // create game content
+        this.topic = $('.topArea .topic').children().eq(this.level - 1);
         this.answerData = this.gameData[level-1].answer;
         this.generatorTopicArea();
+        this.ruler.animate(this.positions, 0);
     }
 
     generatorTopicArea() {
         //future
-        this.topArea.children().hide();
-        this.topArea.children().eq(this.level - 1).show();
+        this.topArea.find('.topic').children().hide();
+        this.topic.show();
     }
 
-    changeTopic(correntQuesionIndex) {
-
+    changeTopic(correntQuestionIndex) {
+        const imgWidthMm = this.gameData[this.level-1].imgSize[correntQuestionIndex-1];
+        const imgWidthPercent = (imgWidthMm / 150) * (100-6); // 6 is distance
+        this.topic.css("width", imgWidthPercent + "%");
     }
-
+    
     correctAnswer(){
         // action
         this.recordObj.appendToRecord(constant.recordItem.QUESTION, this.answerData.join('-'));
@@ -44,13 +52,12 @@ export class Game extends CombinationLockTemplate {
         this.recordObj.appendToRecord(constant.recordItem.QUESTION, this.answerData.join('-'));
         this.recordObj.appendToRecord(constant.recordItem.ANSWER, this.currentAnswer.join('-'));
     }
-
 }
 
 export default Game;
 
 // Read game_config.json file
-const gameData = await gameModules.getJson('../../games/17/game_config.json');
+const gameData = await gameModules.getJson('../../games/23/game_config.json');
 // Create game Instance, Must input gameData
 const gameInstance = new Game(gameData);
 // Post game to game_view
@@ -59,4 +66,4 @@ window.getGame = function() {
 };
 
 // type must === game filename
-parent.postMessage({ type: '17' }, '*');
+parent.postMessage({ type: '23' }, '*');
