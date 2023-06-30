@@ -12,6 +12,7 @@ export class CombinationLockTemplate extends GameFramework {
                 // Check if the changed property is 'correntQuestion'
                 if (property === 'correntQuestion') {
                     this.changeTopic(value);
+                    $('.questionIndex').text(`${value}/${gameData[this.level-1].question.length}`)
                 }
                 target[property] = value;
                 return true;
@@ -49,9 +50,13 @@ export class CombinationLockTemplate extends GameFramework {
     
             if (textValue === dataValue) {
                 result = true;
+                $(answer).removeClass('redWord');                
+                $(answer).addClass('greenWord');
             }
             else {
                 this.result = constant.DADA;
+                $(answer).removeClass('greenWord');
+                $(answer).addClass('redWord');
             }
             currentAnswer.push(textValue);
             $(answer).attr('data-isRight', result);
@@ -95,6 +100,7 @@ class BottomAreaGenerator {
                     <button>輸入</button>
                 </div>
             </div>
+            <h3 class="questionIndex"></h3>
             <button class="nextAnswer">&gt;</button>
         </div>
         `;

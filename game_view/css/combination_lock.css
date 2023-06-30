@@ -29,6 +29,8 @@
     border-radius: 50%;
     font-size: 100px;
     cursor: pointer;
+    line-height: 50%;
+    background-color: white;
 }
 .answerContainer {
     flex: 1;
@@ -42,9 +44,8 @@
     display: inline-block;
 }
 
-.lastAnswer {
-}
-.nextAnswer {
+.questionIndex {
+    margin: 0;
 }
 
 /* Combination Lock */

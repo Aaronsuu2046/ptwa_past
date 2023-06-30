@@ -87,10 +87,17 @@ body {
     font-size: 500px;
 }
 
-.result #bingo {
+#bingo {
     color: green;
 }
-.result #dada {
+#dada {
+    color: red;
+}
+
+.greenWord {
+    color: green;
+}
+.redWord {
     color: red;
 }
 
