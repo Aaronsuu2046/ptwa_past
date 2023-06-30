@@ -26,8 +26,8 @@ export class Game extends CombinationLockTemplate {
 
     generatorTopicArea() {
         //future
-        this.topArea.children().hide();
-        this.topArea.children().eq(this.level - 1).show();
+        $('.topic').hide();
+        $('.topic').eq(this.level - 1).show();
     }
 
     changeTopic(correntQuesionIndex) {

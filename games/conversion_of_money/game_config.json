@@ -10,6 +10,7 @@
         , "answer": 
             ["0001", "0003", "0006", "0001", "1361"]
         , "inputLength": 4
+        , "isDraw": "true"
         }
     , { 
         "question":
@@ -22,6 +23,7 @@
         , "answer": 
             [1, 5, 2, 5, 1525]
         , "inputLength": 4
+        , "isDraw": "true"
     }
     , { 
         "question": 
@@ -34,6 +36,7 @@
         , "answer":
             [1, 8, 3, 9, 1839]
         , "inputLength": 4
+        , "isDraw": "true"
     }
     , { 
         "question":
@@ -46,6 +49,7 @@
         , "answer":
             [2, 1, 8, 4, 2184]
         , "inputLength": 4
+        , "isDraw": "true"
     }
     , { 
         "question":
@@ -58,5 +62,6 @@
         , "answer":
             [3, 7, 6, 3, 3763]
         , "inputLength": 4
+        , "isDraw": "true"
     }
 ]

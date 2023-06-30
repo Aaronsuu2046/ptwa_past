@@ -17,8 +17,9 @@ export class CombinationLockTemplate extends GameFramework {
                 return true;
             }
         });
+        this.drawingGenerator = new DrawingGenerator();
     }
-
+    
     startGame(level) {
         this.bottomArea.initialize(this.gameData[this.level-1]);
         super.startGame(level);
@@ -27,6 +28,10 @@ export class CombinationLockTemplate extends GameFramework {
         this.currentAnswer = [];
         this.combinationLock = $('.combinationLock')
         this.topArea = $('.topArea')
+        this.drawingGenerator.remove();
+        if (this.gameData[this.level-1].isDraw === 'true') {
+            this.drawingGenerator = new DrawingGenerator();
+        }
     }
     
     changeTopic(correntQuesionIndex) {
@@ -226,5 +231,72 @@ class BottomAreaGenerator {
         $('.nextAnswer').on('pointerdown', () => {
             this.changeQuestion({question: this.correntQuestion,isNext: true});
         });
+    }
+}
+
+class DrawingGenerator {
+    constructor() {
+        const drawingTool = `
+            <div class="cursor cursor-eraser"></div>
+            <div class="drawingTool">
+                <button id="pencil" class="icon clicked-bg">畫筆</button>
+                <button id="eraser" class="icon">橡皮擦</button>
+            </div>
+        `
+        $('.gameArea').prepend(drawingTool);
+        $('.topArea').prepend(`<canvas id="drawArea"></canvas>`);
+        $('.cursor-eraser').hide();
+
+        this.canvas = document.getElementById('drawArea');
+        this.context = this.canvas.getContext('2d');
+        this.canvas.width = this.canvas.offsetWidth;
+        this.canvas.height = this.canvas.offsetHeight;
+    
+        this.context.strokeStyle = "#000000";
+        this.context.lineWidth = 5;
+    
+        this.drawing = false;
+        let offset = $('#drawArea').offset();
+
+        $('#drawArea').mousedown((e) => {
+        this.drawing = true;
+            this.context.beginPath();
+            this.context.moveTo(e.pageX - offset.left, e.pageY - offset.top);
+        }).mousemove((e) => {
+            if (this.drawing) {
+                this.context.lineTo(e.pageX - offset.left, e.pageY - offset.top);
+                this.context.stroke();
+                $('.cursor').css({
+                    left:  e.pageX-10,
+                    top:   e.pageY-10
+                });
+            }
+        }).mouseup(() => {
+            this.drawing = false;
+        }).mouseleave(() => {
+            this.drawing = false;
+        });
+    
+        $('.drawingTool').click((e) => {
+            if (e.target.id === 'pencil') {
+                this.context.globalCompositeOperation = "source-over";
+                this.context.lineWidth = 5;
+                $('#eraser').removeClass('clicked-bg');
+                $('.cursor-eraser').hide();
+            }
+            else if (e.target.id === 'eraser') {
+                this.context.globalCompositeOperation = "destination-out";
+                this.context.lineWidth = 20;
+                $('#pencil').removeClass('clicked-bg');
+                $('.cursor-eraser').show();
+            }
+            else return
+            $(`#${e.target.id}`).toggleClass('clicked-bg');
+        });
+    }
+
+    remove() {
+        $('.drawingTool').remove();
+        $('#drawArea').remove();
     }
 }

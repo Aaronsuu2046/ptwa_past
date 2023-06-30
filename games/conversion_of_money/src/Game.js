@@ -15,8 +15,10 @@ export class Game extends CombinationLockTemplate {
         super(gameData);
         // Initialise game object
         this.topicExplain = Array(this.levelLimit).fill("點數錢幣，進行換算，並填入答案");
+        this.banknote = $('.banknote');
+        this.coin = $('.coin');
     }
-
+    
     startGame(level) {
         super.startGame(level);
         // create game content
@@ -25,7 +27,8 @@ export class Game extends CombinationLockTemplate {
     }
 
     generatorTopicArea() {
-        this.topArea.empty();
+        this.banknote.empty();
+        this.coin.empty();
     
         this.answerData.forEach((num, index) => {
             for(let i = 0; i < Number(num) && index < this.answerData.length-1; i++){
@@ -35,7 +38,12 @@ export class Game extends CombinationLockTemplate {
             const div = $('<div>').append(img);
             
             // 將 div 添加到 this.topArea
-            this.topArea.append(div);
+            if (index < 2) {
+                this.banknote.append(div);
+            }
+            else {
+                this.coin.append(div);
+            }
             }
         });
     }
