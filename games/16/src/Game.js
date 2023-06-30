@@ -16,18 +16,23 @@ export class Game extends CombinationLockTemplate {
         // Initialise game object
         this.topicExplain = Array(this.levelLimit).fill("拖動圖形比對方格圖，答案是幾平方公分呢？");
         $( ".topic img" ).draggable();
+        this.topic = $('.topic').children().eq(this.level - 1);
     }
 
     startGame(level) {
         super.startGame(level);
         // create game content
         this.answerData = this.gameData[level-1].answer;
+        this.topic = this.topArea.find('.topic').children().eq(this.level - 1);
         this.generatorTopicArea();
     }
 
     generatorTopicArea() {
-        this.topArea.find('.topic').children().hide();
-        this.topArea.find('.topic').children().eq(this.level - 1).show();
+        $('.topic').children().hide();
+        this.topic.show();
+        const width = this.gameData[this.level-1].width;
+        const height = this.gameData[this.level-1].height;
+        this.topic.css({'width': `${40*width}px`, 'height': `${40*height}px`});
     }
 
     correctAnswer(){
