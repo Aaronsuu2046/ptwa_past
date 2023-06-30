@@ -14,7 +14,7 @@ export class Game extends CombinationLockTemplate {
     constructor(gameData){
         super(gameData);
         // Initialise game object
-        this.topicExplain = Array(this.levelLimit).fill("比對畫面上的尺，量量看長度幫助回答問題吧！");
+        this.topicExplain = Array(this.levelLimit).fill("拖曳物品用尺量量看長度幫助回答問題吧！");
         this.positions = [];
         this.topic = $(`.topic :nth-child(${this.level})`);
         $('.topic img').each((i,img) => {

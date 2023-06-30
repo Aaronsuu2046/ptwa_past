@@ -14,29 +14,35 @@ export class Game extends CombinationLockTemplate {
     constructor(gameData){
         super(gameData);
         // Initialise game object
-        this.topicExplain = Array(this.levelLimit).fill("拖動畫面上的尺，量量看長度幫助回答問題吧！");
-        this.ruler = $('.ruler');
-        this.positions = {top: this.ruler.position().top, left: this.ruler.position().left};
-        this.ruler.draggable();
-        this.topic = $('.topArea .topic').children().eq(this.level - 1);
+        this.topicExplain = Array(this.levelLimit).fill("拖曳物品用尺量量看長度幫助回答問題吧！");
+        this.positions = [];
+        this.topic = $(`.topic :nth-child(${this.level})`);
+        $('.topic img').each((i,img) => {
+            const $img = $(img);
+            this.positions.push({top: $img.position().top, left: $img.position().left});
+            $img.draggable();
+        });
     }
 
     startGame(level) {
         super.startGame(level);
         // create game content
-        this.topic = $('.topArea .topic').children().eq(this.level - 1);
         this.answerData = this.gameData[level-1].answer;
+        $('.topic img').each((i, img) => {
+            var $img = $(img);
+
+            $img.animate(this.positions[i], 0);
+        });
+        this.topic = $(`.topic :nth-child(${this.level})`);
         this.generatorTopicArea();
-        this.ruler.animate(this.positions, 0);
     }
 
     generatorTopicArea() {
-        //future
-        this.topArea.find('.topic').children().hide();
+        $('.topic').children().hide();
         this.topic.show();
         this.changeTopic(1);
     }
-
+    
     changeTopic(correntQuestionIndex) {
         const imgWidthMm = this.gameData[this.level-1].imgSize[correntQuestionIndex-1];
         const imgWidthPercent = (imgWidthMm / 150) * (100-6.5); // 6.5 is distance

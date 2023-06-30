@@ -3,6 +3,18 @@
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### 2023.06.28
+##### [2.27.0] - Educational Games
+**Added**
+- 認識平方公分
+- 面積估估看
+- 公斤和公克的換算
+- 認識小數
+- 認識公分和毫米
+- 公分、毫米換算
+**Changed**
+- 更新密碼鎖模板，增加畫筆功能
+
+### 2023.06.28
 ##### [2.21.0] - Educational Games
 **Added**
 - 新增三年級公分、毫米比大小遊戲

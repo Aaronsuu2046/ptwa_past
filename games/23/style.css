@@ -9,6 +9,10 @@
     width: 100%;
 }
 
+.topic img{
+    position: absolute;
+}
+
 .ruler {
     position: absolute;
     margin-top: 30%;

@@ -50,7 +50,7 @@ View [CHANGELOG.md](./CHANGELOG.md)
 - Tag: [0.x.0] x Update ==> Game Count
 - Tag: [0.0.x] x Update ==> Fixed, Added, Changed, Removed
 
-#### [2.21.0] - Educational Games
+#### [2.27.0] - Educational Games
 #### [Grade 1 last Math Games](http://ptwa-npo.github.io/games/math/grade1/index.html)：
 1. 數一數
 2. 手勢、數字 1~ 10 連連看
@@ -71,9 +71,15 @@ View [CHANGELOG.md](./CHANGELOG.md)
 15. [數字鐘 vs 時鐘](http://ptwa-npo.github.io/game_view/?unit=math&id=12)
 16. [認識 10,000 以內的數](http://ptwa-npo.github.io/game_view/?unit=math&id=13)
 17. [公分、毫米比大小](http://ptwa-npo.github.io/game_view/?unit=math&id=20)
+18. [認識平方公分](http://ptwa-npo.github.io/game_view/?unit=math&id=16)
+19. [面積估估看](http://ptwa-npo.github.io/game_view/?unit=math&id=18)
+20. [公斤和公克的換算](http://ptwa-npo.github.io/game_view/?unit=math&id=19)
+21. [認識小數](http://ptwa-npo.github.io/game_view/?unit=math&id=22)
+22. [認識公分和毫米](http://ptwa-npo.github.io/game_view/?unit=math&id=23)
+23. [公分、毫米換算](http://ptwa-npo.github.io/game_view/?unit=math&id=24)
 
 #### [Grade 1 Technology Games](http://ptwa-npo.github.io/games/technology/grade1/index.html)：
-18. 操控滑鼠
-19. 認識注音鍵盤
-20. 認識英文鍵盤
-21. [滑鼠點擊](http://ptwa-npo.github.io/game_view/?unit=technology&id=14)
+24. 操控滑鼠
+25. 認識注音鍵盤
+26. 認識英文鍵盤
+27. [滑鼠點擊](http://ptwa-npo.github.io/game_view/?unit=technology&id=14)
