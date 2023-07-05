@@ -117,7 +117,7 @@ class BottomAreaGenerator {
         this.inputLength = gameData.inputLength;
         this.correntQuestion = 1;
         this.currentAnswer = null;
-        this.generateAnswerArea().generateCombinationLock();
+        this.generateAnswerArea();
         this.showQuestion();
         this.handleEvent();
     }
@@ -157,11 +157,11 @@ class BottomAreaGenerator {
         return this;
     }
     
-    generateCombinationLock() {
+    generateCombinationLock(count) {
         const combinationLockContainer = $('.combinationLockContainer');
         combinationLockContainer.empty();
         
-        for (let i = 1; i <= this.inputLength; i++) {
+        for (let i = 0; i < count; i++) {
             const inputHTML = `
                 <div>
                     <input type="number" id="digit${i}" min="0" max="9" value="0" />
@@ -197,6 +197,7 @@ class BottomAreaGenerator {
         answerInput.each((i,  answer) => {
             $(answer).on('click', () => {
                 this.currentAnswer = $(answer);
+                this.generateCombinationLock(Number(this.currentAnswer.attr('data-count')))
                 combinationLock.toggle();
                 if (combinationLock.is(':visible')) {
                     combinationLock.css('display', 'flex');
