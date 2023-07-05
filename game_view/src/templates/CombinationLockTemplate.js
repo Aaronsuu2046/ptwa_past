@@ -90,7 +90,6 @@ class BottomAreaGenerator {
     constructor() {
         const bottomAreaHTML = `
         <div class="bottomArea">
-            <button class="lastAnswer">&lt;</button>
             <div class="answerContainer">
                 <div class="answerArea">
                 </div>
@@ -101,13 +100,17 @@ class BottomAreaGenerator {
                 </div>
             </div>
             <h3 class="questionIndex"></h3>
-            <button class="nextAnswer">&gt;</button>
         </div>
         `;
         $('.gameArea').append(bottomAreaHTML);
     }
     
     initialize(gameData) {
+        if (gameData.question.length > 1) {
+            $('.lastAnswer, .nextAnswer').remove();
+            $('.bottomArea').prepend(`<button class="lastAnswer">&lt;</button>`);
+            $('.bottomArea').append(`<button class="nextAnswer">&gt;</button>`);
+        }
         $('.answerArea *').remove();
         this.gameQuestion = [...gameData.question];
         this.gameAnswer = [...gameData.answer];
