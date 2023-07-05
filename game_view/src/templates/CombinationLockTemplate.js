@@ -276,22 +276,25 @@ class DrawingGenerator {
         this.drawing = false;
         let offset = $('#drawArea').offset();
 
-        $('#drawArea').mousedown((e) => {
-        this.drawing = true;
+        $('#drawArea').on('pointerdown touchstart', (e) => {
+            e.preventDefault();
+            this.drawing = true;
             this.context.beginPath();
-            this.context.moveTo(e.pageX - offset.left, e.pageY - offset.top);
-        }).mousemove((e) => {
+            const {pageX, pageY} = e.touches ? e.touches[0] : e;
+            this.context.moveTo(pageX - offset.left, pageY - offset.top);
+        }).on('pointermove', (e) => {
             if (this.drawing) {
-                this.context.lineTo(e.pageX - offset.left, e.pageY - offset.top);
+                const {pageX, pageY} = e.touches ? e.touches[0] : e;
+                this.context.lineTo(pageX - offset.left, pageY - offset.top);
                 this.context.stroke();
                 $('.cursor').css({
-                    left:  e.pageX-10,
-                    top:   e.pageY-10
+                    left:  pageX-10,
+                    top:   pageY-10
                 });
             }
-        }).mouseup(() => {
+        }).on('pointerup', () => {
             this.drawing = false;
-        }).mouseleave(() => {
+        }).on('pointerleave', () => {
             this.drawing = false;
         });
     
