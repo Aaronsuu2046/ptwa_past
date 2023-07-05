@@ -103,6 +103,7 @@ class BottomAreaGenerator {
         </div>
         `;
         $('.gameArea').append(bottomAreaHTML);
+        this.combinationLock = $('.combinationLock');
     }
     
     initialize(gameData) {
@@ -117,7 +118,7 @@ class BottomAreaGenerator {
         this.inputLength = gameData.inputLength;
         this.correntQuestion = 1;
         this.currentAnswer = null;
-        this.generateAnswerArea();
+        this.generateAnswerArea().generateCombinationLock(this.inputLength);
         this.showQuestion();
         this.handleEvent();
     }
@@ -158,8 +159,8 @@ class BottomAreaGenerator {
     }
     
     generateCombinationLock(count) {
-        const combinationLockContainer = $('.combinationLockContainer');
-        combinationLockContainer.empty();
+        this.combinationLockContainer = $('.combinationLockContainer');
+        this.combinationLockContainer.empty();
         
         for (let i = 0; i < count; i++) {
             const inputHTML = `
@@ -167,13 +168,14 @@ class BottomAreaGenerator {
                     <input type="number" id="digit${i}" min="0" max="9" value="0" />
                 </div>
             `;
-            combinationLockContainer.append(inputHTML);
+            this.combinationLockContainer.append(inputHTML);
         }
         
         return this;
     }
     
     changeQuestion(options={}) {
+        this.combinationLock.hide();
         const {isPrevious=false, isNext=false } = options;
         if (isPrevious){
             this.correntQuestion = this.correntQuestion > 1 ? this.correntQuestion - 1 : $('.answerArea').children().length;
@@ -192,15 +194,21 @@ class BottomAreaGenerator {
 
     handleEvent() {
         const answerInput = $('.answerInput');
-        const combinationLock = $('.combinationLock');
 
         answerInput.each((i,  answer) => {
             $(answer).on('click', () => {
                 this.currentAnswer = $(answer);
-                this.generateCombinationLock(Number(this.currentAnswer.attr('data-count')))
-                combinationLock.toggle();
-                if (combinationLock.is(':visible')) {
-                    combinationLock.css('display', 'flex');
+                const count = Number(this.currentAnswer.attr('data-count'));
+                this.combinationLock.find('input').each((index, input) => {
+                    if (index < count) {
+                      $(input).show();
+                    } else {
+                      $(input).hide();
+                    }
+                });
+                this.combinationLock.toggle();
+                if (this.combinationLock.is(':visible')) {
+                    this.combinationLock.css('display', 'flex');
                 }
             });
         });
@@ -226,7 +234,7 @@ class BottomAreaGenerator {
             })
     
             this.currentAnswer.text(isNaN(Number(inputsAnswer))?inputsAnswer:Number(inputsAnswer));
-            combinationLock.toggle();
+            this.combinationLock.toggle();
         }
 
         const inputs = $("input[type='number']");
