@@ -12,7 +12,6 @@ export class CombinationLockTemplate extends GameFramework {
                 // Check if the changed property is 'correntQuestion'
                 if (property === 'correntQuestion') {
                     this.changeTopic(value);
-                    $('.questionIndex').text(`${value}/${gameData[this.level-1].question.length}`)
                 }
                 target[property] = value;
                 return true;
@@ -22,6 +21,7 @@ export class CombinationLockTemplate extends GameFramework {
     }
     
     startGame(level) {
+        if (!super.startGame(level)) return false;
         this.bottomArea.initialize(this.gameData[this.level-1]);
         super.startGame(level);
         // create game content
@@ -100,18 +100,12 @@ class BottomAreaGenerator {
     }
     
     initialize(gameData) {
-        if (gameData.question.length > 1) {
-            $('.lastAnswer, .nextAnswer').remove();
-            $('.bottomArea').prepend(`<button class="lastAnswer">&lt;</button>`);
-            $('.bottomArea').append(`<button class="nextAnswer">&gt;</button>`);
-        }
         $('.answerArea *').remove();
         this.gameQuestion = [...gameData.question];
         this.gameAnswer = [...gameData.answer];
         this.correntQuestion = 1;
         this.currentAnswer = null;
         this.generateAnswerArea();
-        this.showQuestion();
         this.handleEvent();
     }
 
@@ -148,29 +142,11 @@ class BottomAreaGenerator {
                 answerAreaHTML += '<h1>' + parts[i] + '</h1>';
             }
             $('.answerArea').append(`<div id="q${index}"> ${answerAreaHTML}</div>`);
-            $(`#q${index}`).hide()
         });
     
         return this;
     }
     
-    changeQuestion(options={}) {
-        const {isPrevious=false, isNext=false } = options;
-        if (isPrevious){
-            this.correntQuestion = this.correntQuestion > 1 ? this.correntQuestion - 1 : $('.answerArea').children().length;
-        }
-        else if (isNext){
-            this.correntQuestion = this.correntQuestion < $('.answerArea').children().length ? this.correntQuestion + 1 : 1;
-        }
-        this.showQuestion();
-    }
-    
-    showQuestion() {
-        $('.answerArea > *').hide();
-
-        $('.answerArea > *').eq(this.correntQuestion-1).show();
-    }
-
     handleEvent() {
         const handleNumberInput = (e) => {
             e.preventDefault();
@@ -206,19 +182,18 @@ class BottomAreaGenerator {
             incrementButton.on('click', increment);
             decrementButton.on('click', decrement);
         });
-        
-        $('.lastAnswer').on('pointerdown', () => {
-            this.changeQuestion({question: this.correntQuestion,isPrevious: true});
-        });
-        $('.nextAnswer').on('pointerdown', () => {
-            this.changeQuestion({question: this.correntQuestion,isNext: true});
-        });
-
     }
 }
 
 class DrawingGenerator {
     constructor() {
+        this.setupHTML();
+        this.initializeAttributes();
+        this.resizeCanvas();
+        this.bindEventHandlers();
+    }
+
+    setupHTML() {
         const drawingTool = `
             <div class="cursor cursor-eraser"></div>
             <div class="drawingTool">
@@ -229,32 +204,49 @@ class DrawingGenerator {
         $('.gameArea').prepend(drawingTool);
         $('.topArea').prepend(`<canvas id="drawArea"></canvas>`);
         $('.cursor-eraser').hide();
+    }
 
-        this.canvas = document.getElementById('drawArea');
-        this.context = this.canvas.getContext('2d');
-        this.canvas.width = this.canvas.offsetWidth;
-        this.canvas.height = this.canvas.offsetHeight;
-    
+    initializeAttributes() {
+        this.topArea = document.querySelector('.topArea');
+        this.drawArea = document.getElementById('drawArea');
+        this.context = this.drawArea.getContext('2d');
+        this.updateCanvasSize();
         this.context.strokeStyle = "#000000";
         this.context.lineWidth = 5;
-    
         this.drawing = false;
-        let offset = $('#drawArea').offset();
+    }
 
+    updateCanvasSize() {
+        this.drawArea.style.width = this.topArea.offsetWidth + 'px';
+        this.drawArea.style.height = this.topArea.offsetHeight + 'px';
+        this.drawArea.width = this.topArea.offsetWidth;
+        this.drawArea.height = this.topArea.offsetHeight;
+    }
+        
+    getAdjustedCoordinates(e) {
+        this.offset = this.drawArea.getBoundingClientRect();
+        const marginTop = parseInt(window.getComputedStyle(this.topArea).getPropertyValue('margin-top'));
+        const {pageX, pageY} = e.touches ? e.touches[0] : e;
+        const drawX = pageX - this.offset.left - this.topArea.offsetLeft;
+        const drawY = pageY - this.offset.top - this.topArea.offsetTop + marginTop;
+        return { drawX, drawY };
+    }
+
+    bindEventHandlers() {
         $('#drawArea').on('pointerdown touchstart', (e) => {
             e.preventDefault();
             this.drawing = true;
             this.context.beginPath();
-            const {pageX, pageY} = e.touches ? e.touches[0] : e;
-            this.context.moveTo(pageX - offset.left, pageY - offset.top);
+            const { drawX, drawY } = this.getAdjustedCoordinates(e);
+            this.context.moveTo(drawX, drawY);
         }).on('pointermove', (e) => {
             if (this.drawing) {
-                const {pageX, pageY} = e.touches ? e.touches[0] : e;
-                this.context.lineTo(pageX - offset.left, pageY - offset.top);
+                const { drawX, drawY } = this.getAdjustedCoordinates(e);
+                this.context.lineTo(drawX, drawY);
                 this.context.stroke();
                 $('.cursor').css({
-                    left:  pageX-10,
-                    top:   pageY-10
+                    left:  drawX-10,
+                    top:   drawY-10+70
                 });
             }
         }).on('pointerup', () => {
@@ -265,23 +257,34 @@ class DrawingGenerator {
     
         $('.drawingTool').click((e) => {
             if (e.target.id === 'pencil') {
-                this.context.globalCompositeOperation = "source-over";
-                this.context.lineWidth = 5;
-                $('#eraser').removeClass('clicked-bg');
-                $('.cursor-eraser').hide();
+                this.switchTool("source-over", 5, 'eraser', false);
             }
             else if (e.target.id === 'eraser') {
-                this.context.globalCompositeOperation = "destination-out";
-                this.context.lineWidth = 20;
-                $('#pencil').removeClass('clicked-bg');
-                $('.cursor-eraser').show();
+                this.switchTool("destination-out", 20, 'pencil', true);
             }
             else return
             $(`#${e.target.id}`).toggleClass('clicked-bg');
         });
     }
 
+    switchTool(operation, lineWidth, otherTool, eraserVisible) {
+        this.context.globalCompositeOperation = operation;
+        this.context.lineWidth = lineWidth;
+        $(`#${otherTool}`).removeClass('clicked-bg');
+        $('.cursor-eraser').toggle(eraserVisible);
+    }
+
+    resizeCanvas() {
+        const adjustDrawAreaSize = () => {
+            this.updateCanvasSize();
+            this.context.lineWidth = 5;
+        }
+        const resizeObserver = new ResizeObserver(adjustDrawAreaSize);
+        resizeObserver.observe(this.topArea);
+    }
+
     remove() {
+        $('.cursor').remove();
         $('.drawingTool').remove();
         $('#drawArea').remove();
     }

@@ -16,36 +16,31 @@
 .topArea {
     position: relative;
     margin-top: 70px;
-    height: 100%;
+    resize: both;
 }
 
 .bottomArea {
     align-items: end;
+    overflow: auto;
 }
 
-.bottomArea > button {
-    flex: 0 0 100px;
-    height: 100px;
-    border-radius: 50%;
-    font-size: 100px;
-    cursor: pointer;
-    line-height: 50%;
-    background-color: white;
-}
 .answerContainer {
-    flex: 1;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: end;
     align-items: center;
 }
-.answerArea * {
-    display: inline-block;
+.answerArea {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
 }
 
-.questionIndex {
-    margin: 0;
+.answerArea * {
+    display: inline-block;
 }
 
 /* Combination Lock */
