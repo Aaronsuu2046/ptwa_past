@@ -49,34 +49,22 @@
 }
 
 /* Combination Lock */
-.combinationLock {
-    display: none;
-    align-items: center;
-}
-
-.combinationLockContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: solid 1px black;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.combinationLockContainer input[type="number"] {
-    width: 60px;
+input[type="number"] {
+    width: 30px;
     padding: 0px 0px;
-    font-size: 70px;
+    font-size: 50px;
     border: none;
     text-align: center;
     outline: none;
+    background-color: rgba(0,0,0,0);
 }
 
-.combinationLock button {
-    font-size: xx-large;
-    border-radius: 5px;
-    margin-left: 10px;
-    cursor: pointer;
+.decrementButton, .incrementButton {
+    font-size: 50px;
+    border-style: none;
+    margin: 0;
+    padding: 0;
+    color: #bbb;
 }
 
 /* Drawing！ */

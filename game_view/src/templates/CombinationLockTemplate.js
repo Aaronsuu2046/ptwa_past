@@ -27,7 +27,6 @@ export class CombinationLockTemplate extends GameFramework {
         // create game content
         this.answerLimit = this.gameData[this.level-1].answer.length;
         this.currentAnswer = [];
-        this.combinationLock = $('.combinationLock')
         this.topArea = $('.topArea')
         this.drawingGenerator.remove();
         if (this.gameData[this.level-1].isDraw === 'true') {
@@ -44,10 +43,10 @@ export class CombinationLockTemplate extends GameFramework {
         this.result = constant.BINGO;
 
         $('.answerInput').each((i, answer) => {
-            let textValue = isNaN(Number($(answer).text()))?$(answer).text():Number($(answer).text());
+            let textValue = isNaN(Number($(answer).val()))?$(answer).val():Number($(answer).val());
             let dataValue = isNaN(Number($(answer).attr('data-value')))?$(answer).attr('data-value'):Number($(answer).attr('data-value'));
             let result = false;
-    
+
             if (textValue === dataValue) {
                 result = true;
                 $(answer).removeClass('redWord');                
@@ -93,17 +92,11 @@ class BottomAreaGenerator {
             <div class="answerContainer">
                 <div class="answerArea">
                 </div>
-                <div class="combinationLock">
-                    <div class="combinationLockContainer">
-                    </div>
-                    <button>輸入</button>
-                </div>
             </div>
             <h3 class="questionIndex"></h3>
         </div>
         `;
         $('.gameArea').append(bottomAreaHTML);
-        this.combinationLock = $('.combinationLock');
     }
     
     initialize(gameData) {
@@ -115,10 +108,9 @@ class BottomAreaGenerator {
         $('.answerArea *').remove();
         this.gameQuestion = [...gameData.question];
         this.gameAnswer = [...gameData.answer];
-        this.inputLength = gameData.inputLength;
         this.correntQuestion = 1;
         this.currentAnswer = null;
-        this.generateAnswerArea().generateCombinationLock(this.inputLength);
+        this.generateAnswerArea();
         this.showQuestion();
         this.handleEvent();
     }
@@ -132,20 +124,24 @@ class BottomAreaGenerator {
                 let dataCount = Number(parts[i][0]);
                 dataCount = isNaN(dataCount) ? 0 : dataCount;
                 if(dataCount){
-                    let dataValue = this.gameAnswer.splice(0, 1)[0];
-
-                    dataValue = dataValue || '';
-    
-                    let newH1 = $('<h1>', {class: 'answerInput', text: '　'});
-    
-                    newH1.attr({
-                        'data-count': dataCount,
-                        'data-value': dataValue,
-                        'data-isRight': false
-                    });
-    
-                    answerAreaHTML += newH1.prop('outerHTML');
                     
+                    for (let j = 0; j < dataCount; j++) {
+                        let dataValue = this.gameAnswer.splice(0, 1)[0];
+                        dataValue = dataValue || '';
+                        const newH1 = $('<input>', {class: 'answerInput', text: '0', type:'number', min: "0", max: "9", value: "0", id: `digit${j}`});
+                        newH1.attr({
+                            'data-value': dataValue,
+                            'data-isRight': false
+                        });
+                        answerAreaHTML += `
+                            <div class="combinationLock">
+                                <button class="decrementButton">-</button>
+                                ${newH1.prop('outerHTML')}
+                                <button class="incrementButton">+</button>
+                            </div>
+                        `;
+                    }
+    
                     parts[i] = parts[i].substring(1);
                 }
 
@@ -158,24 +154,7 @@ class BottomAreaGenerator {
         return this;
     }
     
-    generateCombinationLock(count) {
-        this.combinationLockContainer = $('.combinationLockContainer');
-        this.combinationLockContainer.empty();
-        
-        for (let i = 0; i < count; i++) {
-            const inputHTML = `
-                <div>
-                    <input type="number" id="digit${i}" min="0" max="9" value="0" />
-                </div>
-            `;
-            this.combinationLockContainer.append(inputHTML);
-        }
-        
-        return this;
-    }
-    
     changeQuestion(options={}) {
-        this.combinationLock.hide();
         const {isPrevious=false, isNext=false } = options;
         if (isPrevious){
             this.correntQuestion = this.correntQuestion > 1 ? this.correntQuestion - 1 : $('.answerArea').children().length;
@@ -193,26 +172,6 @@ class BottomAreaGenerator {
     }
 
     handleEvent() {
-        const answerInput = $('.answerInput');
-
-        answerInput.each((i,  answer) => {
-            $(answer).on('click', () => {
-                this.currentAnswer = $(answer);
-                const count = Number(this.currentAnswer.attr('data-count'));
-                this.combinationLock.find('input').each((index, input) => {
-                    if (index < count) {
-                      $(input).show();
-                    } else {
-                      $(input).hide();
-                    }
-                });
-                this.combinationLock.toggle();
-                if (this.combinationLock.is(':visible')) {
-                    this.combinationLock.css('display', 'flex');
-                }
-            });
-        });
-        
         const handleNumberInput = (e) => {
             e.preventDefault();
             const input = e.target;
@@ -226,29 +185,35 @@ class BottomAreaGenerator {
             }
         }
 
-        const checkPassword = () => {
-            const inputs = $('input[type="number"]');
-            let inputsAnswer = "";
-            inputs.each((i, ele) => {
-                inputsAnswer += $(ele).val();
-            })
-    
-            this.currentAnswer.text(isNaN(Number(inputsAnswer))?inputsAnswer:Number(inputsAnswer));
-            this.combinationLock.toggle();
-        }
-
-        const inputs = $("input[type='number']");
-        inputs.each(function() {
-            $(this).on("wheel mousewheel", handleNumberInput);
+        const combinationLocks = $(".combinationLock");
+        combinationLocks.each((i, combinationLock) => {
+            const $combinationLock = $(combinationLock);
+            const $input = $combinationLock.find('input');
+            $input.on("wheel mousewheel", handleNumberInput);
+            const incrementButton = $combinationLock.find(".incrementButton");
+            const decrementButton = $combinationLock.find(".decrementButton");
+            
+            const increment = function() {
+                const value = +$input.val();
+                $input.val(parseInt(Math.min(value + 1, 9)));
+            };
+            
+            const decrement = function() {
+                const value = +$input.val();
+                $input.val(parseInt(Math.max(value-1, 0)));
+            };
+            
+            incrementButton.on('click', increment);
+            decrementButton.on('click', decrement);
         });
         
-        $('.combinationLock button').on('pointerdown', checkPassword);
         $('.lastAnswer').on('pointerdown', () => {
             this.changeQuestion({question: this.correntQuestion,isPrevious: true});
         });
         $('.nextAnswer').on('pointerdown', () => {
             this.changeQuestion({question: this.correntQuestion,isNext: true});
         });
+
     }
 }
 
