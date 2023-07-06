@@ -20,7 +20,7 @@ export class Game extends CombinationLockTemplate {
     }
     
     startGame(level) {
-        super.startGame(level);
+        if (!super.startGame(level)) return false;
         // create game content
         this.answerData = this.gameData[level-1].answer;
         this.questionData = this.gameData[level-1].question;

@@ -22,16 +22,23 @@ export class CombinationLockTemplate extends GameFramework {
     
     startGame(level) {
         if (!super.startGame(level)) return false;
-        this.bottomArea.initialize(this.gameData[this.level-1]);
-        super.startGame(level);
+        const levelIndex = level -1;
+        this.bottomArea.initialize(this.gameData[levelIndex]);
+        super.startGame(levelIndex);
         // create game content
-        this.answerLimit = this.gameData[this.level-1].answer.length;
+        this.answerLimit = this.gameData[levelIndex].answer.length;
+        if (this.gameData[levelIndex].isRandom) {
+            this.answerLimit = this.gameData[levelIndex].answer[this.bottomArea.correntQuestion].length;
+        } else {
+            this.answerLimit = this.gameData[levelIndex].answer.length;
+        }
         this.currentAnswer = [];
         this.topArea = $('.topArea')
         this.drawingGenerator.remove();
-        if (this.gameData[this.level-1].isDraw === 'true') {
+        if (this.gameData[levelIndex].isDraw === 'true') {
             this.drawingGenerator = new DrawingGenerator();
         }
+        return true;
     }
     
     changeTopic(correntQuesionIndex) {
@@ -101,9 +108,17 @@ class BottomAreaGenerator {
     
     initialize(gameData) {
         $('.answerArea *').remove();
-        this.gameQuestion = [...gameData.question];
-        this.gameAnswer = [...gameData.answer];
-        this.correntQuestion = 1;
+
+        if (gameData.isRandom) {
+            const index = Math.floor(Math.random() * gameData.question.length);
+            this.gameQuestion = [...gameData.question[index]];
+            this.gameAnswer = [...gameData.answer[index]];
+            this.correntQuestion = index;
+          } else {
+            this.gameQuestion = [...gameData.question];
+            this.gameAnswer = [...gameData.answer];
+            this.correntQuestion = 1;
+          }
         this.currentAnswer = null;
         this.generateAnswerArea();
         this.handleEvent();
