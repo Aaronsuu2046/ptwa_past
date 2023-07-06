@@ -24,4 +24,4 @@ jobs:
           script: |
             cd ${{ secrets.TARGET_DIR }}
             sudo git pull
-            sudo pm2 restart prod_run
+            sudo pm2 restart ptwa_npo_prod_run
