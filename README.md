@@ -50,7 +50,7 @@ View [CHANGELOG.md](./CHANGELOG.md)
 - Tag: [0.x.0] x Update ==> Game Count
 - Tag: [0.0.x] x Update ==> Fixed, Added, Changed, Removed
 
-#### [2.27.0] - Educational Games
+#### [2.27.1] - Educational Games
 #### [Grade 1 last Math Games](http://ptwa-npo.github.io/games/math/grade1/index.html)：
 1. 數一數
 2. 手勢、數字 1~ 10 連連看
