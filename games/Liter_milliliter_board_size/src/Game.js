@@ -15,11 +15,6 @@ export class Game extends SizeComparison {
         // Initialise game object
         this.topicExplain = Array.from({ length: this.gameData.length }, (_, i) => `公升、毫升比大小（${i + 1}）`);
     }
-
-    startGame(level) {
-        super.startGame(level);
-        // create game content
-    }
 }
 
 export default Game;

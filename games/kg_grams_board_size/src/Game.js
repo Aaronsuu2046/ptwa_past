@@ -13,12 +13,7 @@ export class Game extends SizeComparison {
     constructor(gameData){
         super(gameData);
         // Initialise game object
-        this.topicExplain = Array.from({ length: this.gameData.length }, (_, i) => `公斤、公克比大小（${i + 1}）`);
-    }
-
-    startGame(level) {
-        super.startGame(level);
-        // create game content
+        this.topicExplain = Array.from({ length: this.gameData.length }, (_, i) => `公克、公斤比大小（${i + 1}）`);
     }
 }
 
