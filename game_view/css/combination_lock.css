@@ -54,6 +54,18 @@ input[type="number"] {
     background-color: rgba(0,0,0,0);
 }
 
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield; 
+    appearance: textfield;
+}
+
+/* WebKit（Chrome Safari）*/
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 .decrementButton, .incrementButton {
     font-size: 50px;
     border-style: none;
