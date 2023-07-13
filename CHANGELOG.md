@@ -2,6 +2,15 @@
 
 The format is modified from [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+### 2023.07.13
+##### [3.30.0] - Educational Games
+**Added**
+- 新增錢的換算
+- 新增幾分之幾
+- 新增切割拼湊算面積
+**Changed**
+- 認識小數和公斤和公克換算，題目更換成隨機題庫
+
 ### 2023.07.06
 ##### [2.27.0] - Educational Games
 **Added**
